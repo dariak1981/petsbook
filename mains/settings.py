@@ -29,7 +29,7 @@ SECRET_KEY = '9&)_r+f^3rgyn-57zx6xz%)a5xe(oj#7+x55&qo=*xnnq@$q19'
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS='*'
+ALLOWED_HOSTS=['*']
 
 
 # Application definition
@@ -63,7 +63,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
+LOGIN_REDIRECT_URL = '/users/profile'
+LOGIN_URL = 'login'
 ROOT_URLCONF = 'mains.urls'
 
 
@@ -161,6 +162,8 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+
 
 
 try:
