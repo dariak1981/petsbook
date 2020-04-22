@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_SSL_REDIRECT = False
 ROOT_URLCONF = 'mains.urls'
 
 
@@ -155,11 +156,6 @@ MESSAGE_TAGS = {
 LOGIN_REDIRECT_URL = '/users/profile'
 LOGIN_URL = 'login'
 
-CSRF_COOKIE_NAME = 'tokenname_csrftoken'
-CSRF_COOKIE_SECURE = False
-CSRF_HEADER_NAME = CSRF_COOKIE_NAME
-SESSION_COOKIE_NAME = 'tokenname_sessionid'
-SESSION_COOKIE_SECURE = False
 
 try:
     from .local_settings import *
