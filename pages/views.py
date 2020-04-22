@@ -11,7 +11,7 @@ def home(request):
   ages = Age.objects.all()
   breeds = Breeds.objects.all()
   services = Services.objects.all()
-  welcometext = WelcomeText.objects.first()
+  welcometext = WelcomeText.objects.all()
 
   context = {
     'listings': listings,
@@ -27,7 +27,7 @@ def home(request):
   return render(request, 'pages/home.html', context)
 
 def terms(request):
-    terms = Terms.objects.first()
+    terms = Terms.objects.all()
 
     context = {
       'terms': terms
