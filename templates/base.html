@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <meta property="og:site_name" content="PetsBook-online">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ listing.title }}" />
+    <meta property="og:description" content="{{ listing.description }}" />
+    <meta property="og:image" itemprop="image"  content="{{ listing.photo_main.url }}" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- LightBox -->
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>PetsBook {% block title %}{% endblock %}</title>
+  </head>
+
+<!-- Top Bar -->
+{% include 'partials/_topbar.html' %}
+<body>
+
+<!-- {% if messages %}
+  {% for message in messages %}
+   <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+   </div>
+  {% endfor %}
+{% endif %} -->
+  <!-- Main Content -->
+{% block content %} {% endblock %}
+<!-- Footer -->
+{% include 'partials/_footer.html' %}
+
+
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<!-- for tooltips and popups -->
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/lightbox.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/GaugeMeter.js' %}"></script>
+<script src="{% static 'js/selectFilter.min.js' %}"></script>
+
+    <script>
+      // Get the current year for the copyright
+      $("#year").text(new Date().getFullYear());
+    </script>
+  </body>
+</html>

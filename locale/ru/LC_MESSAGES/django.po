@@ -1,0 +1,911 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-22 13:56+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\blog\models.py:17 .\blog\models.py:45
+msgid "author"
+msgstr "автор"
+
+#: .\blog\models.py:18 .\listings\models.py:78
+msgid "title"
+msgstr "заголовок"
+
+#: .\blog\models.py:20 .\blog\models.py:47 .\listings\models.py:76
+#: .\listings\models.py:91 .\users\models.py:76
+msgid "created"
+msgstr "дата создания"
+
+#: .\blog\models.py:22
+msgid "theme"
+msgstr "ветка"
+
+#: .\blog\models.py:23
+msgid "content"
+msgstr "текст"
+
+#: .\blog\models.py:24 .\users\models.py:26
+msgid "photo"
+msgstr "фотография"
+
+#: .\blog\models.py:46
+msgid "message"
+msgstr "сообщение"
+
+#: .\listings\models.py:77
+msgid "contacts"
+msgstr "контакты"
+
+#: .\listings\models.py:79
+msgid "category"
+msgstr "категория"
+
+#: .\listings\models.py:80
+msgid "type"
+msgstr "раздел"
+
+#: .\listings\models.py:81
+msgid "city"
+msgstr "город"
+
+#: .\listings\models.py:82
+msgid "district"
+msgstr "район"
+
+#: .\listings\models.py:83
+msgid "price"
+msgstr "цена"
+
+#: .\listings\models.py:84
+msgid "breed"
+msgstr "порода"
+
+#: .\listings\models.py:85
+msgid "breeds"
+msgstr "порода"
+
+#: .\listings\models.py:86
+msgid "age"
+msgstr "возраст"
+
+#: .\listings\models.py:87
+msgid "gender"
+msgstr "пол"
+
+#: .\listings\models.py:88
+msgid "conditions"
+msgstr "условия"
+
+#: .\listings\models.py:89
+msgid "health"
+msgstr "здоровье"
+
+#: .\listings\models.py:90
+msgid "description"
+msgstr "подробности"
+
+#: .\listings\models.py:95
+msgid "main photo"
+msgstr "основное фото"
+
+#: .\listings\models.py:96
+msgid "photo_1"
+msgstr "фото 1"
+
+#: .\listings\models.py:97
+msgid "photo_2"
+msgstr "фото 2"
+
+#: .\listings\models.py:98
+msgid "photo_3"
+msgstr "фото 3"
+
+#: .\listings\models.py:99
+msgid "photo_4"
+msgstr "фото 4"
+
+#: .\listings\models.py:100
+msgid "owner"
+msgstr "владелец"
+
+#: .\templates\accounts\login.html:4
+msgid "Account Login"
+msgstr "Вход в Личный кабинет"
+
+#: .\templates\accounts\login.html:16 .\templates\partials\_topbar.html:122
+msgid "Login"
+msgstr "Вход"
+
+#: .\templates\accounts\login.html:27
+msgid "Enter"
+msgstr "Войти"
+
+#: .\templates\accounts\login.html:30
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: .\templates\accounts\logout.html:4 .\templates\partials\_topbar.html:98
+msgid "Logout"
+msgstr "Выход"
+
+#: .\templates\accounts\logout.html:13
+msgid "You have been logged out"
+msgstr "Вы вышли из своего аккаунта"
+
+#: .\templates\accounts\password_reset.html:4
+#: .\templates\accounts\password_reset_complete.html:4
+#: .\templates\accounts\password_reset_confirm.html:4
+#: .\templates\accounts\password_reset_done.html:4
+#: .\templates\users\profile.html:19
+msgid "Password Reset"
+msgstr "Сменить пароль"
+
+#: .\templates\accounts\password_reset.html:16
+#: .\templates\accounts\password_reset_confirm.html:16
+msgid "Reset Password"
+msgstr "Изменить пароль"
+
+#: .\templates\accounts\password_reset.html:25
+msgid "Request Password Reset"
+msgstr "Отправить запрос"
+
+#: .\templates\accounts\password_reset_complete.html:14
+msgid "Your password has been set"
+msgstr "Ваш пароль изменен"
+
+#: .\templates\accounts\password_reset_confirm.html:27
+msgid "Save"
+msgstr "Сохранить"
+
+#: .\templates\accounts\password_reset_done.html:16
+msgid "An email has been sent with instructions to reset your password"
+msgstr "На ваш почтовый ящик отправлена ссылка для смены пароля"
+
+#: .\templates\auth\user_confirm_delete.html:5
+#: .\templates\blog\message_confirm_delete.html:5
+#: .\templates\blog\post_confirm_delete.html:5
+msgid "Confirm action"
+msgstr "Подтверждение действия"
+
+#: .\templates\auth\user_confirm_delete.html:19
+#: .\templates\users\profile.html:24
+msgid "Delete Account"
+msgstr "Удалить аккаунт"
+
+#: .\templates\auth\user_confirm_delete.html:25
+msgid "Are you sure you want to delete the account?"
+msgstr "Подтвердите действие"
+
+#: .\templates\auth\user_confirm_delete.html:29
+#: .\templates\blog\message_confirm_delete.html:29
+#: .\templates\blog\post_confirm_delete.html:30
+msgid "Yes, Delete"
+msgstr "Да, удалить"
+
+#: .\templates\auth\user_confirm_delete.html:30
+#: .\templates\blog\message_confirm_delete.html:30
+#: .\templates\blog\post_confirm_delete.html:31
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\templates\blog\message_confirm_delete.html:18
+msgid "Delete Reply"
+msgstr "Удаление сообщения"
+
+#: .\templates\blog\message_confirm_delete.html:24
+msgid "Are you sure you want to delete the message?"
+msgstr "Подтвердите действие"
+
+#: .\templates\blog\message_form.html:5
+msgid "Message"
+msgstr "Cообщение"
+
+#: .\templates\blog\message_form.html:19
+msgid "Post Reply"
+msgstr "Ответ"
+
+#: .\templates\blog\message_form.html:28
+#: .\templates\blog\search_results.html:89 .\templates\blog\user_posts.html:159
+msgid "Submit"
+msgstr "Сохранить"
+
+#: .\templates\blog\post_confirm_delete.html:19
+msgid "Delete Post"
+msgstr "Удаление публикации"
+
+#: .\templates\blog\post_confirm_delete.html:25
+msgid "Are you sure you want to delete the post"
+msgstr "Уверены, что нужно удалить пост"
+
+#: .\templates\blog\post_create.html:5 .\templates\blog\post_create.html:28
+#: .\templates\blog\post_edit.html:5 .\templates\blog\post_edit.html:81
+#: .\templates\blog\post_form.html:5 .\templates\blog\post_form.html:60
+msgid "Post"
+msgstr "Опубликовать"
+
+#: .\templates\blog\post_create.html:19 .\templates\blog\post_edit.html:18
+#: .\templates\blog\post_form.html:18
+msgid "Blog Post"
+msgstr "Пост"
+
+#: .\templates\blog\post_detail.html:67 .\templates\blog\post_detail.html:160
+#: .\templates\users\profile.html:133
+msgid "Update"
+msgstr "Изменить"
+
+#: .\templates\blog\post_detail.html:68 .\templates\blog\post_detail.html:161
+#: .\templates\users\posts.html:29 .\templates\users\responsible.html:24
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\blog\post_detail.html:156
+msgid "Replied"
+msgstr "Отправлено"
+
+#: .\templates\blog\post_detail.html:175
+msgid "Reply"
+msgstr "Ответить"
+
+#: .\templates\blog\post_edit.html:26 .\templates\blog\post_form.html:26
+#: .\templates\blog\post_list.html:140 .\templates\blog\post_list.html:141
+#: .\templates\blog\search_results.html:72 .\templates\blog\user_posts.html:141
+#: .\templates\blog\user_posts.html:142 .\templates\users\editlisting.html:31
+#: .\templates\users\index.html:76 .\templates\users\newlisting.html:33
+msgid "Title"
+msgstr "Заголовок"
+
+#: .\templates\blog\post_edit.html:27 .\templates\blog\post_form.html:27
+#: .\templates\users\newlisting.html:34
+msgid "Short description"
+msgstr "Краткое описание"
+
+#: .\templates\blog\post_edit.html:33 .\templates\listings\search.html:30
+#: .\templates\listings\search.html:32 .\templates\pages\home.html:46
+#: .\templates\pages\home.html:48 .\templates\users\archived.html:46
+#: .\templates\users\editcontact.html:64 .\templates\users\editlisting.html:57
+#: .\templates\users\index.html:78 .\templates\users\newlisting.html:59
+#: .\templates\users\posts.html:120 .\templates\users\responsible.html:159
+msgid "Category"
+msgstr "Категория"
+
+#: .\templates\blog\post_edit.html:51 .\templates\blog\post_form.html:49
+#: .\templates\blog\post_list.html:136 .\templates\blog\search_results.html:68
+#: .\templates\blog\user_posts.html:137
+msgid "Content"
+msgstr "Содержание"
+
+#: .\templates\blog\post_form.html:34 .\templates\blog\post_list.html:146
+#: .\templates\blog\search_results.html:77 .\templates\blog\user_posts.html:147
+msgid "Threads"
+msgstr "Разделы"
+
+#: .\templates\blog\post_list.html:5
+msgid "Blog Home"
+msgstr "Блог - Главная страница"
+
+#: .\templates\blog\post_list.html:95 .\templates\blog\user_posts.html:96
+msgid "First"
+msgstr "Первая"
+
+#: .\templates\blog\post_list.html:96 .\templates\blog\user_posts.html:97
+msgid "Previous"
+msgstr "Предыдущая"
+
+#: .\templates\blog\post_list.html:111 .\templates\blog\user_posts.html:112
+msgid "Next"
+msgstr "Следующая"
+
+#: .\templates\blog\post_list.html:112 .\templates\blog\user_posts.html:113
+msgid "Last"
+msgstr "Последняя"
+
+#: .\templates\blog\post_list.html:130 .\templates\blog\user_posts.html:131
+msgid "Search & Filter"
+msgstr "Поиск в блоге"
+
+#: .\templates\blog\post_list.html:135 .\templates\blog\user_posts.html:136
+#: .\templates\listings\search.html:19 .\templates\pages\home.html:35
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: .\templates\blog\post_list.html:158
+msgid "Select"
+msgstr "Искать"
+
+#: .\templates\blog\post_list.html:166 .\templates\blog\search_results.html:97
+#: .\templates\blog\user_posts.html:167
+msgid "Featured Posts"
+msgstr "Актуальные записи"
+
+#: .\templates\blog\post_list.html:192 .\templates\blog\search_results.html:123
+#: .\templates\blog\user_posts.html:193
+msgid "No Featured Posts Available"
+msgstr "Раздел для актуальных публикаций"
+
+#: .\templates\blog\search_results.html:5
+msgid "Blog Search Results"
+msgstr "Результаты поиска в Блоге"
+
+#: .\templates\blog\search_results.html:63
+msgid "Search Posts"
+msgstr "Поиск записей"
+
+#: .\templates\blog\user_posts.html:5
+msgid "Posts author"
+msgstr "Публикации автора"
+
+#: .\templates\blog\user_posts.html:24
+msgid "Posts by"
+msgstr "Публикации"
+
+#: .\templates\listings\listing.html:29 .\templates\listings\listings.html:30
+#: .\templates\listings\search.html:121 .\templates\partials\_topbar.html:28
+msgid "Home"
+msgstr "Главная"
+
+#: .\templates\listings\listing.html:32
+#: .\templates\partials\_accountnavbar.html:25
+msgid "Listings"
+msgstr "Объявления"
+
+#: .\templates\listings\listing.html:58
+msgid "By"
+msgstr "Автор"
+
+#: .\templates\listings\listing.html:88
+msgid "Asking Price"
+msgstr "Цена"
+
+#: .\templates\listings\listing.html:90
+msgid "Free of Charge"
+msgstr "Бесплатно"
+
+#: .\templates\listings\listing.html:96 .\templates\listings\search.html:74
+#: .\templates\pages\home.html:90 .\templates\users\editlisting.html:86
+#: .\templates\users\newlisting.html:87
+msgid "Breed"
+msgstr "Порода"
+
+#: .\templates\listings\listing.html:106 .\templates\listings\search.html:88
+#: .\templates\listings\search.html:90 .\templates\pages\home.html:104
+#: .\templates\pages\home.html:106 .\templates\users\archived.html:49
+#: .\templates\users\editcontact.html:67 .\templates\users\editlisting.html:102
+#: .\templates\users\newlisting.html:103 .\templates\users\posts.html:141
+#: .\templates\users\responsible.html:179
+msgid "Age"
+msgstr "Возраст"
+
+#: .\templates\listings\listing.html:115 .\templates\users\editlisting.html:116
+#: .\templates\users\newlisting.html:117
+msgid "Gender"
+msgstr "Пол"
+
+#: .\templates\listings\listing.html:124 .\templates\users\archived.html:47
+#: .\templates\users\editcontact.html:65
+msgid "Current location"
+msgstr "Условия"
+
+#: .\templates\listings\listing.html:133 .\templates\users\editlisting.html:151
+#: .\templates\users\newlisting.html:152
+msgid "Health"
+msgstr "Здоровье"
+
+#: .\templates\listings\listings.html:5
+msgid "Browse Featured Listings"
+msgstr "Просмотр объявлений о помощи"
+
+#: .\templates\listings\listings.html:12 .\templates\partials\_topbar.html:37
+msgid "Featured Listings"
+msgstr "Избранные Объявления"
+
+#: .\templates\listings\listings.html:13
+msgid ""
+"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!"
+msgstr ""
+"Список актуальных объявлений в категории Потерялся, Нужна помощь и Ищу дом"
+
+#: .\templates\listings\listings.html:32
+msgid "Featured"
+msgstr "Избранные"
+
+#: .\templates\listings\listings.html:107 .\templates\listings\search.html:200
+#: .\templates\pages\home.html:210
+msgid "For free"
+msgstr "Бесплатно"
+
+#: .\templates\listings\listings.html:127 .\templates\pages\home.html:230
+#: .\templates\users\posts.html:203
+msgid "No Listings Available"
+msgstr "Публикаций нет"
+
+#: .\templates\listings\search.html:5 .\templates\listings\search.html:127
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: .\templates\listings\search.html:20 .\templates\pages\home.html:36
+msgid "Keyword"
+msgstr "Ключевое слово"
+
+#: .\templates\listings\search.html:24 .\templates\listings\search.html:25
+#: .\templates\pages\home.html:40 .\templates\pages\home.html:41
+#: .\templates\users\editlisting.html:44 .\templates\users\newlisting.html:46
+msgid "City"
+msgstr "Город"
+
+#: .\templates\listings\search.html:45 .\templates\pages\home.html:61
+#: .\templates\users\editlisting.html:130 .\templates\users\newlisting.html:131
+msgid "Price"
+msgstr "Цена"
+
+#: .\templates\listings\search.html:60 .\templates\pages\home.html:76
+#: .\templates\users\editcontact.html:125 .\templates\users\editlisting.html:72
+#: .\templates\users\index.html:79 .\templates\users\newlisting.html:73
+#: .\templates\users\posts.html:131 .\templates\users\responsible.html:169
+msgid "Type"
+msgstr "Раздел"
+
+#: .\templates\listings\search.html:62 .\templates\pages\home.html:78
+msgid "Types"
+msgstr "Раздел"
+
+#: .\templates\listings\search.html:76 .\templates\pages\home.html:92
+msgid "choose Section for filtering"
+msgstr "выберите Раздел для фильтра"
+
+#: .\templates\listings\search.html:104 .\templates\pages\home.html:122
+msgid "Search"
+msgstr "Поиск"
+
+#: .\templates\listings\search.html:123
+msgid "Search ads"
+msgstr "Поиск объявлений"
+
+#: .\templates\listings\search.html:220
+msgid "Not Found"
+msgstr "Не найдено"
+
+#: .\templates\pages\home.html:5
+msgid "Home page"
+msgstr "Главная страница"
+
+#: .\templates\pages\home.html:136
+msgid "Latest Listings"
+msgstr "Последние Объявления"
+
+#: .\templates\pages\terms.html:4 .\templates\partials\_footer.html:14
+msgid "Terms & Conditions"
+msgstr "Условия и Конфиденциальность"
+
+#: .\templates\partials\_accountnavbar.html:16 .\templates\users\index.html:6
+msgid "Dashboard"
+msgstr "Информация"
+
+#: .\templates\partials\_accountnavbar.html:34 .\templates\users\index.html:46
+#: .\templates\users\responsible.html:105
+msgid "Contacts"
+msgstr "Контакты"
+
+#: .\templates\partials\_accountnavbar.html:43
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\templates\partials\_forumnavbar.html:24
+msgid "New Post"
+msgstr "Добавить Пост"
+
+#: .\templates\partials\_topbar.html:47
+msgid "Blog"
+msgstr "Блог"
+
+#: .\templates\partials\_topbar.html:57
+msgid "Account"
+msgstr "Личный кабинет"
+
+#: .\templates\partials\_topbar.html:92
+msgid "Welcome"
+msgstr "Добро пожаловать,"
+
+#: .\templates\partials\_topbar.html:111 .\templates\users\register.html:16
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\templates\users\archived.html:5
+#, fuzzy
+#| msgid "Add to Archive"
+msgid "Add To Archive"
+msgstr "Добавить в Архив"
+
+#: .\templates\users\archived.html:18
+msgid "Add to Archive"
+msgstr "Добавить в Архив"
+
+#: .\templates\users\archived.html:39 .\templates\users\editcontact.html:53
+msgid "Created"
+msgstr "Дата публикации"
+
+#: .\templates\users\archived.html:48 .\templates\users\editcontact.html:66
+msgid "Brief description"
+msgstr "Описание"
+
+#: .\templates\users\archived.html:71 .\templates\users\editcontact.html:182
+#: .\templates\users\editlisting.html:173 .\templates\users\newcontact.html:84
+#: .\templates\users\newlisting.html:174 .\templates\users\register.html:60
+msgid "Submit form"
+msgstr "Сохранить"
+
+#: .\templates\users\editcontact.html:5 .\templates\users\editcontact.html:17
+msgid "Edit Contact"
+msgstr "Редактировать контакт"
+
+#: .\templates\users\editcontact.html:95
+msgid "Attach"
+msgstr "Привязать"
+
+#: .\templates\users\editcontact.html:96
+msgid "related post or"
+msgstr "объявление или"
+
+#: .\templates\users\editcontact.html:98
+msgid "Remove"
+msgstr "Открепить"
+
+#: .\templates\users\editcontact.html:99
+msgid "from contact (optional)"
+msgstr "от контакта"
+
+#: .\templates\users\editcontact.html:105
+msgid "No Lisings In Archive"
+msgstr "В Архиве записей нет"
+
+#: .\templates\users\editcontact.html:140 .\templates\users\newcontact.html:44
+msgid "Contact's Group"
+msgstr "Группа контакта"
+
+#: .\templates\users\editcontact.html:152 .\templates\users\newcontact.html:54
+msgid "Name"
+msgstr "Имя"
+
+#: .\templates\users\editcontact.html:159 .\templates\users\newcontact.html:61
+#: .\templates\users\responsible.html:103
+msgid "Address"
+msgstr "Адрес"
+
+#: .\templates\users\editcontact.html:164 .\templates\users\newcontact.html:66
+#: .\templates\users\profile.html:113
+msgid "Phone"
+msgstr "Номер для связи"
+
+#: .\templates\users\editcontact.html:169 .\templates\users\newcontact.html:71
+#: .\templates\users\profile.html:118
+msgid "Links"
+msgstr "Ссылки"
+
+#: .\templates\users\editcontact.html:176 .\templates\users\newcontact.html:78
+msgid "Comments"
+msgstr "Комментарии"
+
+#: .\templates\users\editlisting.html:5 .\templates\users\editlisting.html:18
+msgid "Edit Listing"
+msgstr "Редактировать объявление"
+
+#: .\templates\users\editlisting.html:39 .\templates\users\newlisting.html:41
+msgid "Contact Details"
+msgstr "Контакты для связи"
+
+#: .\templates\users\editlisting.html:49 .\templates\users\newlisting.html:51
+msgid "District"
+msgstr "Район"
+
+#: .\templates\users\editlisting.html:137 .\templates\users\newlisting.html:138
+#: .\templates\users\posts.html:126 .\templates\users\responsible.html:164
+msgid "Living conditions"
+msgstr "Условия содержания"
+
+#: .\templates\users\editlisting.html:167 .\templates\users\newlisting.html:168
+msgid "Description"
+msgstr "Подробности"
+
+#: .\templates\users\index.html:21
+msgid "Active"
+msgstr "Активные"
+
+#: .\templates\users\index.html:26
+msgid "Hidden"
+msgstr "Скрытые"
+
+#: .\templates\users\index.html:31 .\templates\users\posts.html:182
+msgid "Archived"
+msgstr "В Архиве"
+
+#: .\templates\users\index.html:36
+msgid "Posts"
+msgstr "Посты"
+
+#: .\templates\users\index.html:41
+msgid "Replies"
+msgstr "Ответы"
+
+#: .\templates\users\index.html:51
+msgid "External"
+msgstr "Внешние"
+
+#: .\templates\users\index.html:69
+msgid "Latest Published Ads"
+msgstr "Последние объявления"
+
+#: .\templates\users\index.html:77
+msgid "Date"
+msgstr "Дата"
+
+#: .\templates\users\index.html:80
+msgid "Location"
+msgstr "Условия"
+
+#: .\templates\users\index.html:120
+msgid "No Listings Are Published"
+msgstr "Пусто"
+
+#: .\templates\users\index.html:137
+msgid "Joined"
+msgstr "Регистрация"
+
+#: .\templates\users\index.html:163
+msgid "Ad Total"
+msgstr "Объявление"
+
+#: .\templates\users\index.html:165
+msgid "Ads Total"
+msgstr "Объявлений"
+
+#: .\templates\users\index.html:177
+msgid "Last Ad Pending Time"
+msgstr "Последнее объявление опубликовано"
+
+#: .\templates\users\index.html:184
+msgid "No Ads to follow"
+msgstr "Данных нет"
+
+#: .\templates\users\newcontact.html:5
+msgid "New Contact"
+msgstr "Новый контакт"
+
+#: .\templates\users\newcontact.html:17
+msgid "Add New Contact"
+msgstr "Добавить контакт"
+
+#: .\templates\users\newcontact.html:29
+msgid "Contact's Type"
+msgstr "Тип владельца"
+
+#: .\templates\users\newlisting.html:5 .\templates\users\newlisting.html:17
+msgid "New Listing"
+msgstr "Новое объявление"
+
+#: .\templates\users\posts.html:5
+msgid "My Ads"
+msgstr "Мои объявления"
+
+#: .\templates\users\posts.html:24
+msgid "Add New"
+msgstr "Добавить"
+
+#: .\templates\users\posts.html:34 .\templates\users\responsible.html:29
+msgid "Sort"
+msgstr "Сортировать"
+
+#: .\templates\users\posts.html:37
+msgid "By Status"
+msgstr "Статус"
+
+#: .\templates\users\posts.html:39
+msgid "By Publish Date"
+msgstr "Дата создания"
+
+#: .\templates\users\posts.html:45
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: .\templates\users\posts.html:50
+msgid "Hide"
+msgstr "Скрыть"
+
+#: .\templates\users\posts.html:55
+msgid "Restore"
+msgstr "Восстановить"
+
+#: .\templates\users\posts.html:62 .\templates\users\posts.html:67
+#: .\templates\users\responsible.html:44 .\templates\users\responsible.html:49
+msgid "Save List"
+msgstr "Скачать"
+
+#: .\templates\users\posts.html:114 .\templates\users\responsible.html:156
+msgid "Date posted"
+msgstr "Дата создания"
+
+#: .\templates\users\posts.html:116 .\templates\users\responsible.html:157
+msgid "Date closed"
+msgstr "Дата закрытия"
+
+#: .\templates\users\posts.html:180
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\templates\users\posts.html:184
+msgid "Archive"
+msgstr "В Архив"
+
+#: .\templates\users\profile.html:4
+msgid "My Profile"
+msgstr "Мой профиль"
+
+#: .\templates\users\profile.html:43
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: .\templates\users\profile.html:44
+msgid ""
+"Note that some of this information may be visible to the website visitors"
+msgstr ""
+"Имя, фамилия отображаются в публикации, дополнительная информация доступна "
+"посетителям блога"
+
+#: .\templates\users\profile.html:54 .\users\forms.py:10 .\users\forms.py:26
+msgid "Username"
+msgstr "Пользователь"
+
+#: .\templates\users\profile.html:59
+msgid "Email"
+msgstr "Почта"
+
+#: .\templates\users\profile.html:64
+msgid "First Name"
+msgstr "Имя"
+
+#: .\templates\users\profile.html:69
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: .\templates\users\profile.html:86
+msgid "Users Group"
+msgstr "Группа пользователей"
+
+#: .\templates\users\profile.html:100
+msgid "Public Email"
+msgstr "Доступная почта"
+
+#: .\templates\users\profile.html:105
+msgid "Business name"
+msgstr "Организация"
+
+#: .\templates\users\profile.html:125
+msgid "Details"
+msgstr "Подробнее"
+
+#: .\templates\users\profile.html:151
+msgid "Image & Blog View"
+msgstr "Фото и профиль в Блоге"
+
+#: .\templates\users\register.html:4
+msgid "Register Account"
+msgstr "Регистрация профиля"
+
+#: .\templates\users\register.html:51
+msgid "Agree to"
+msgstr "Принять"
+
+#: .\templates\users\register.html:51
+msgid "terms and conditions"
+msgstr "условия использования сайта"
+
+#: .\templates\users\responsible.html:4
+msgid "My Contacts"
+msgstr "Мои контакты"
+
+#: .\templates\users\responsible.html:19
+msgid "New"
+msgstr "Новый"
+
+#: .\templates\users\responsible.html:32
+msgid "By Group"
+msgstr "Группа"
+
+#: .\templates\users\responsible.html:34
+msgid "By Type"
+msgstr "Тип владельца"
+
+#: .\templates\users\responsible.html:36
+msgid "By Date"
+msgstr "Дата"
+
+#: .\templates\users\responsible.html:96
+msgid "Type of owner"
+msgstr "Тип владельца"
+
+#: .\templates\users\responsible.html:108
+msgid "Date created"
+msgstr "Дата создания"
+
+#: .\templates\users\responsible.html:108
+msgid "Related ads"
+msgstr "Связанные объявления"
+
+#: .\templates\users\responsible.html:201
+msgid "No Contacts Available"
+msgstr "Контактов нет"
+
+#: .\users\forms.py:12 .\users\forms.py:28
+msgid "First name"
+msgstr "Имя"
+
+#: .\users\forms.py:13 .\users\forms.py:29
+msgid "Last name"
+msgstr "Фамилия"
+
+#: .\users\forms.py:21
+msgid "Something that doesnt look awful"
+msgstr "Что-нибудь симпатичное"
+
+#: .\users\forms.py:22
+msgid "Something else"
+msgstr "Не менее 8 знаков"
+
+#: .\users\models.py:20
+msgid "users_group"
+msgstr "группа пользователей"
+
+#: .\users\models.py:21
+msgid "public email"
+msgstr "общая почта"
+
+#: .\users\models.py:22
+msgid "organization name"
+msgstr "Организация"
+
+#: .\users\models.py:23 .\users\models.py:73
+msgid "phone"
+msgstr "номер для связи"
+
+#: .\users\models.py:24 .\users\models.py:74
+msgid "links"
+msgstr "ссылки"
+
+#: .\users\models.py:25
+msgid "details"
+msgstr "подробнее"
+
+#: .\users\models.py:69
+msgid "owner type"
+msgstr "тип владельца"
+
+#: .\users\models.py:70
+msgid "group"
+msgstr "группа контакта"
+
+#: .\users\models.py:71
+msgid "name"
+msgstr "имя"
+
+#: .\users\models.py:72
+msgid "address"
+msgstr "адрес"
+
+#: .\users\models.py:75
+msgid "comments"
+msgstr "комментарии"

@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "My Ads" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+
+
+
+
+    <!-- Actions -->
+    <section id="actions" class="py-4 bg-custom-secondary-light">
+      <!-- <form action="{% url 'posts' %}" method="post"> -->
+       <div class="container">
+          <div class="container-fluid px-0">
+            <div class="row">
+
+              <div class="col action-buttons">
+                <a href="{% url 'newlisting' %}" class="btn btn-primary custom-btn btn-block shadow" name="addnew">
+                  <i class="fas fa-plus-circle"></i> <span class="hidden-phone">{% trans "Add New" %}</span></a>
+              </div>
+
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="delete">
+                    <i class="fas fa-trash-alt"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+                </div>
+
+                <div class="col action-buttons">
+                  <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
+                  <div class="dropdown-menu">
+                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus">
+                      {% trans "By Status" %}</button>
+                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate">
+                      {% trans "By Publish Date" %}</button>
+                  </div>
+                </div>
+
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="publish">
+                    <i class="fas fa-bell"></i> <span class="hidden-phone">{% trans "Publish" %}</span></button>
+                </div>
+
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="hide">
+                    <i class="fas fa-eye-slash"></i> <span class="hidden-phone">{% trans "Hide" %}</span></button>
+                </div>
+
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="restore">
+                    <i class="fas fa-trash-restore"></i> <span class="hidden-phone">{% trans "Restore" %}</span></button>
+                </div>
+
+                {% get_current_language as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE == 'en' %}
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export">
+                    <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
+                </div>
+                {% elif LANGUAGE_CODE == 'ru' %}
+                <div class="col action-buttons">
+                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
+                    <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
+                </div>
+                {% endif %}
+
+
+
+
+
+            </div>
+          </div>
+
+      </div>
+     <!-- </form> -->
+    </section>
+
+
+    <!-- Posts -->
+    <section id="contents">
+      <div class="container">
+        <form action="{% url 'posts' %}" method="POST" id="activeposts">
+        	{% csrf_token %}
+        <div class="row py-4">
+          <div class="col-12 mb-4">
+            <div class="card bg-custom-primary-light shadow">
+              <div class="card-body">
+                  {% if listings %}
+                        <div class="accordion" id="accordionExample">
+                          <div class="card">
+                            {% for listing in listings %}
+                            <div class="card-header shadow-sm">
+                             <div class="row">
+                               <div class="col-md-1 text-center my-auto">
+                                 <div class="custom-control custom-radio">
+                                   <input type="radio" class="custom-control-input" id="customRadio{{ listing.id }}" name="instance" value="{{ listing.id }}" >
+                                   <label for="customRadio{{ listing.id }}" class="custom-control-label"></label>
+                                 </div>
+                               </div>
+
+                               <div class="col-md-4">
+                                 <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
+                                   <strong>
+                                     {{ listing.title }}
+                                   </strong>
+                                 </button>
+                               </div>
+
+                               <div class="col-md-6">
+                                 <i class="fas fa-clock"></i> {% trans "Date posted" %}: {{ listing.created.date }}
+                                 {% if listing.adstatus_id_id == 3 %}
+                                 / {% trans "Date closed" %}: {{ listing.archived.date }}
+                                 {% else %}
+                                 {% endif %}
+                                 <p>
+                                   <i class="fas fa-paw"></i> {% trans "Category" %}:
+                                   {% get_current_language as LANGUAGE_CODE %}
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
+
+
+                                   / {% trans "Living conditions" %}:
+
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
+
+                                   <br> {% trans "Type" %}:
+
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
+
+
+                                   /
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
+
+                                   / {% trans "Age" %}:
+
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
+
+                                 </p>
+                                </div>
+                                <div class="col-md-1 text-center my-auto">
+                                  {% if listing.adstatus_id_id == 3  %}
+                                   <i class="fas fa-star"></i>
+
+                                  {% elif listing.adstatus_id_id == 2 %}
+                                   <i class="fas fa-bell"></i>
+
+                                  {% else %}
+                                   <i class="fas fa-eye-slash"></i>
+                                  {% endif %}
+                                </div>
+                             </div>
+
+                             <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+                               <div class="card-body">
+                                 <div class="row">
+                                   <div class="col-lg-3 text-left">
+
+                                     {% if listing.photo_main %}
+                                     <div class="card mx-3 shadow">
+                                       <div class="card-body p-1">
+                                          <img src="{{ listing.photo_main.url }}" alt="" class="img-post">
+                                       </div>
+                                     </div>
+                                     {% else %}
+                                     <div class="card shadow">
+                                       <div class="card-body p-1">
+                                          <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-post">
+                                       </div>
+                                     </div>
+                                     {% endif %}
+                                     <div class="mt-1 mb-3 text-center">
+                                       <a href="{% url 'editlisting' listing.id %}" class="mr-2"><i class="fas fa-edit"></i> {% trans "Edit" %}</a><br>
+                                       {% if listing.adstatus_id_id == 3  %}
+                                        <i class="fas fa-star"></i> {% trans "Archived" %}
+                                       {% else %}
+                                        <a href="{% url 'archived' listing.id %}"><i class="fas fa-star"></i> {% trans "Archive" %}</a>
+                                       {% endif %}
+
+                                     </div>
+
+                                    </div>
+                                    <div class="col-lg-9 mr-auto" id="description" name="description">
+                                     <p>{{ listing.description | safe | linebreaks }}</p>
+                                    </div>
+                                 </div>
+                               </div>
+                             </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                  {% else %}
+                    <div class="col-md-12">
+                      <div class="text-white text-center">
+                        <p>{% trans "No Listings Available" %}</p>
+                      </div>
+                    </div>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+       </form>
+
+       <div class="row">
+         <div class="col-12 mb-4">
+             {% if listings.has_other_pages %}
+             <!-- <p>No Listings Available</p>
+           </div>  -->
+                 <ul class="pagination">
+                   {% if listings.has_previous %}
+                     <li class="page-item">
+                       <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
+                     </li>
+                   {% else %}
+                   <li class="page-item disabled">
+                     <a class="page-link">&laquo;</a>
+                   </li>
+                   {% endif %}
+                   {% for i in listings.paginator.page_range %}
+                     {% if listings.number == i %}
+                     <li class="page-item active">
+                       <a class="page-link">{{i}}</a>
+                     </li>
+                     {% else %}
+                     <li class="page-item">
+                       <a href="?page={{i}}" class="page-link">{{i}}</a>
+                     </li>
+                     {% endif %}
+                   {% endfor %}
+                   {% if listings.has_next %}
+                     <li class="page-item">
+                       <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
+                     </li>
+                   {% else %}
+                   <li class="page-item disabled">
+                     <a class="page-link">&raquo;</a>
+                   </li>
+                   {% endif %}
+                 </ul>
+               {% endif %}
+           </div>
+         </div>
+
+      </div>
+    </section>
+
+
+
+
+{% endblock %}

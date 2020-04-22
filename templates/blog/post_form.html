@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Post" %} {% endblock %}
+{% block content %}
+
+
+
+  <!-- TOPICS -->
+  <section id="showcase-logout">
+    <div class="container pb-4">
+      <div class="row py-4">
+        <div class="col-md-8 mx-auto">
+          <div class="card-enter shadow">
+            <div class="card-header bg-custom-secondary-light-opaque text-white px-4">
+
+              <h3 class="custom-h3"><i class="far fa-edit"></i> &nbsp {% trans "Blog Post" %}</h3>
+            </div>
+            <div class="card-body bg-custom-secondary-light-opaque text-white px-4">
+              <form action="{% url 'createnewpost' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                    <label for="title">{% trans "Title" %}</label>
+                    <input type="text" class="form-control shadow-sm" id="title" placeholder="{% trans "Short description" %}" name="title" maxlength="100" required>
+                  </div>
+                </div>
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                    <select name="theme" class="form-control shadow-sm" id="first" required>
+                      <option selected disabled value>{% trans "Threads" %}</option>
+                      {% for theme in threads %}
+                      {% get_current_language as LANGUAGE_CODE %}
+                          <option value="{{ theme.id }}">
+                            {% if LANGUAGE_CODE == 'en' %}{{ theme.title }}
+                            {% elif LANGUAGE_CODE == 'ru' %}{{ theme.title_ru }}{% endif %}
+                          </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                      <label for="description">{% trans "Content" %}</label>
+                      <textarea class="form-control shadow-sm" style="min-height: 450px;" id="content" name="content" maxlength="10000" required></textarea>
+                  </div>
+                </div>
+
+
+                   <label>
+                       <input type="file" name="photo" value="photo">
+                   </label>
+
+              <div class="col-md-4 mx-auto">
+                 <button class="btn btn-secondary custom-btn btn-block shadow my-2" type="submit">{% trans "Post" %}</button>
+              </div>
+
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

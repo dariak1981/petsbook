@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {{ object.title }} {% endblock %}
+{% block content %}
+
+
+  <!-- TOPICS -->
+<section id="contents">
+ <div class="container">
+  <div class="row py-4">
+    <div class="col-md-10 mx-auto">
+      <div class="card mb-sm-4 bg-custom-primary-light shadow">
+        <div class="card-body">
+          <div class="card p-3">
+
+              <div class="media mt-3">
+                {% if object.author.userprofile.photo %}
+                <a href="{% url 'user-posts' object.author.username %}">
+                  <img class="img-forum mr-3" src="{{ object.author.userprofile.photo.url }}">
+                </a>
+                {% else %}
+                <a href="{% url 'user-posts' object.author.username %}">
+                  <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                </a>
+                {% endif %}
+                <div class="media-body">
+                  <div class="article-metadata">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex">
+                        <h4><a class="pop" data-toggle="popover" data-content="
+                          {% if object.author.userprofile.usertype %}
+                          
+                          {% get_current_language as LANGUAGE_CODE %}
+                          {% if LANGUAGE_CODE == 'en' %}{{ post.author.userprofile.usertype.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.userprofile.usertype.title_ru }}{% endif %}
+
+                           ~
+                          {% else%}
+                          Visitor
+                          {% endif %}
+                          {% if object.author.userprofile.business %}
+                          {{ object.author.userprofile.business }}
+                          {% endif %}
+                          {% if object.author.userprofile.publicmail %}
+                          <br>{{ object.author.userprofile.publicmail }};
+                          {% endif %}
+                          {% if object.author.userprofile.phone %}
+                          {{ object.author.userprofile.phone }}
+                          {% endif %}
+                          {% if object.author.userprofile.links %}
+                          <br>{{ object.author.userprofile.links }}
+                          {% endif %}
+                          {% if object.author.userprofile.description %}
+                          <br><br>{{ object.author.userprofile.description }}
+                          {% endif %}
+
+                          ">{{ object.author }}</a></h4>
+                        <!-- <a href="#" class="mr-2">{{ object.author }}</a> -->
+                        <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
+                        <small class="text-muted">{{ object.created.date }}</small> &nbsp;&nbsp;
+                        <i class="fas fa-comments"></i>&nbsp;{{ object.message_set.all.count }}
+                      </div>
+                    {% if object.author == user %}
+                    <div class="text-right">
+                      <a class="btn btn-secondary btn-sm my-1" href="{% url 'post-update' object.id %}">{% trans "Update" %}</a>
+                      <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id %}">{% trans "Delete" %}</a>
+                    </div>
+                    {% endif %}
+                  </div>
+                  <hr class="mt-2 my-1">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="col-12 px-lg-3 px-0">
+                  <h2 class="article-title mb-4">&nbsp;&nbsp;&nbsp;{{ object.title }}</h2>
+                </div>
+
+
+                  {% if object.photo %}
+                  <div class="col-12 px-lg-3 px-0 mb-5">
+                      <div class="card shadow">
+                        <div class="card-body p-1">
+                            <img src="{{ object.photo.url }}" class="img-post-detail">
+                        </div>
+                      </div>
+                  </div>
+                  {% else %}
+                  {% endif %}
+
+
+                <div class="col-12 px-lg-3 px-0">
+                  <p class="article-content">{{ object.content | safe | linebreaks }}</p>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPLIES -->
+    <div class="row py-4">
+      <div class="col-md-10 mx-auto">
+        <div class="card mb-sm-4 bg-custom-primary-light shadow">
+          <div class="card-body">
+            <div class="card p-3">
+
+                  {% for message in object.message_set.all %}
+                  <div class="media mt-3">
+                    {% if message.author.userprofile.photo %}
+                       <img class="img-forum mr-3" src="{{ message.author.userprofile.photo.url }}">
+                    {% else %}
+                       <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                    {% endif %}
+                  <div class="media-body">
+                    <div class="row">
+
+                    </div>
+                    <div class="article-metadata">
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex">
+
+
+                          <h4><a class="pop" data-toggle="popover" data-content="
+                            {% if message.author.userprofile.usertype %}
+                            {{ message.author.userprofile.usertype }} ~
+                            {% else%}
+                            Visitor
+                            {% endif %}
+                            {% if message.author.userprofile.business %}
+                            {{ message.author.userprofile.business }}
+                            {% endif %}
+                            {% if message.author.userprofile.publicmail %}
+                            <br>{{ message.author.userprofile.publicmail }};
+                            {% endif %}
+                            {% if message.author.userprofile.phone %}
+                            {{ message.author.userprofile.phone }}
+                            {% endif %}
+                            {% if message.author.userprofile.links %}
+                            <br>{{ message.author.userprofile.links }}
+                            {% endif %}
+                            {% if message.author.userprofile.description %}
+                            <br><br>{{ message.author.userprofile.description }}
+                            {% endif %}
+
+                            ">{{ message.author }}</a></h4>
+
+                          <!-- <a href="#" class="mr-2">{{ post.author }}</a> -->
+                          <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
+                          <small class="text-muted">{% trans "Replied" %}: {{ message.created }}</small>
+                        </div>
+                        {% if message.author == user %}
+                        <div class="text-right">
+                          <a class="btn btn-secondary btn-sm my-1" href="{% url 'message-update' message.id %}">{% trans "Update" %}</a>
+                          <a class="btn btn-danger btn-sm my-1" href="{% url 'message-delete' message.id %}">{% trans "Delete" %}</a>
+                        </div>
+                        {% endif %}
+                      </div>
+
+                      <hr class="mt-2 my-1">
+                    </div>
+                    <p class="article-content">{{ message.message | safe | linebreaks }}</p>
+                  </div>
+                  </div>
+                  {% endfor %}
+
+
+                  <div class="col-md-2 mx-auto mt-4">
+                    <a class="btn btn-secondary btn-sm d-block my-1" href="{% url 'message-create' object.id %}">{% trans "Reply" %}</a>
+                  </div>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+</section>
+
+
+
+
+
+{% endblock %}

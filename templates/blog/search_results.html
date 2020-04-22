@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Blog Search Results" %} {% endblock %}
+{% block content %}
+
+<!-- Forum Navbar -->
+{% include 'partials/_forumnavbar.html' %}
+
+
+
+
+  <!-- TOPICS -->
+<section id="contents">
+ <div class="container">
+  <div class="row py-4">
+    <div class="col-md-8">
+      <div class="card mb-sm-4 bg-custom-primary-light shadow">
+        <div class="card-body">
+          <div class="card p-3">
+            <!-- <div class="card-header">
+              <h4>All Posts</h4>
+            </div> -->
+
+
+
+            {% if allposts %}
+            {% for post in allposts %}
+              <div class="media mt-3">
+                <img class="rounded-circle article-img mr-3" src="{{ post.author.userprofile.photo.url }}" alt="">
+                <div class="media-body">
+                  <div class="article-metadata">
+                    <a href="#" class="mr-2">{{ post.author }}</a>
+                    <small class="text-muted">{{ post.created.date }}</small>, &nbsp;
+                    <i class="fas fa-comments"></i> {{ post.message_set.all.count }}
+                    <hr class="mt-2 my-1">
+                  </div>
+                  <h2><a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a></h2>
+                  <p class="article-content">{{ post.content | truncatechars:500 }}</p>
+                </div>
+              </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-md-12 p-4 text-center">
+              <i class="far fa-folder-open fa-3x"></i>
+            </div>
+            {% endif %}
+
+
+
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card mb-sm-4 bg-custom-primary-light shadow">
+        <div class="card-body">
+          <div class="card p-3">
+
+            <div class="col-md-12 mb-4 text-center">
+              <h3>{% trans "Search Posts" %}</h3>
+            </div>
+
+            <form method="get" action="{% url 'search' %}">
+            <div class="col-md-12 p-2 my-2">
+              <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Content" %}" value="{{ values.keywords }}">
+            </div>
+
+            <div class="col-md-12 p-2 my-2">
+              <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Title" %}" value="{{ values.keywords }}">
+            </div>
+
+            <div class="col-md-12 p-2 my-2">
+              <select name="type" class="form-control shadow-sm" id="first">
+                <option selected="true" disabled="disabled">{% trans "Threads" %}</option>
+                {% for theme in searchthreads %}
+                {% get_current_language as LANGUAGE_CODE %}
+                    <option value="{{ theme.id }}">
+                      {% if LANGUAGE_CODE == 'en' %}{{ theme.title }}
+                      {% elif LANGUAGE_CODE == 'ru' %}{{ theme.title_ru }}{% endif %}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-6 mx-auto">
+              <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-4" type="submit">{% trans "Submit" %}</button>
+            </div>
+           </form>
+
+          </div>
+
+          <div class="card p-3 mt-4">
+            <div class="col-md-12 mb-4 text-center">
+              <h3>{% trans "Featured Posts" %}</h3>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card mb-3 shadow-sm">
+                {% if featuredthreads %}
+
+              <ul class="list-group-flush list-unstyled">
+                {% for thread in featuredthreads %}
+                <li class="list-group-item d-flex justify-content-between align-items-end" style="color: #606160;">
+                  <div class="mr-auto">
+                    <a href="{{ thread.thread_id }}">{{ thread.title }}</a>
+                  </div>
+                  <div>
+                   <i class="fas fa-comments"></i>
+                  </div>
+                  <div>
+                    <span class="px-1"> {{ thread.message_set.all.count }}</span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <li
+              class="list-group-item d-flex justify-content-between align-items-end"
+              >
+              <p>{% trans "No Featured Posts Available" %}</p>
+            </li>
+            {% endif %}
+              </div>
+            </div>
+
+
+
+          </div>
+       </div>
+    </div>
+
+
+
+   </div>
+  </div>
+</section>
+
+
+
+
+{% endblock %}

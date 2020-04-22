@@ -1,0 +1,28 @@
+{% load i18n %}
+<!-- SubMenu / Search -->
+<header id="actions" class="py-4 bg-custom-secondary-light shadow">
+  <div class="container">
+    <div class="row">
+        <div class="col-8 d-none d-lg-block align-content-stretch text-white topic-themes text-center">
+          <div class="d-flex justify-content-around">
+            <i class="fas fa-cat fa shadow"></i>
+            <i class="fas fa-dog fa shadow"></i>
+            <i class="fas fa-drumstick-bite fa shadow"></i>
+            <i class="fas fa-fish fa shadow"></i>
+            <i class="fas fa-dove fa shadow"></i>
+            <i class="fas fa-syringe fa shadow"></i>
+            <i class="fas fa-skull-crossbones fa shadow"></i>
+            <i class="fas fa-ambulance fa shadow"></i>
+            <i class="fas fa-hands-helping fa shadow"></i>
+            <i class="fas fa-spider fa shadow"></i>
+            <i class="fas fa-home fa shadow"></i>
+            <i class="fas fa-volleyball-ball fa shadow"></i>
+          </div>
+      </div>
+      <div class="col-sm-4 col-6 mt-1 mx-auto">
+          <a href="{% url 'createnewpost' %}" class="btn btn-primary custom-btn btn-block shadow">
+          <i class="fas fa-plus-circle"></i>&nbsp; {% trans "New Post" %}</a>
+      </div>
+    </div>
+  </div>
+</header>

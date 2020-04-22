@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Confirm action" %} {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+  <!-- TOPICS -->
+  <section id="showcase-logout">
+    <div class="container pb-4">
+      <div class="row py-4">
+        <div class="col-md-8 mx-auto">
+          <div class="card-enter shadow">
+            <div class="card-header bg-custom-secondary-light-opaque text-white px-4">
+
+              <h3 class="custom-h3"><i class="far fa-trash-alt"></i> &nbsp {% trans "Delete Post" %}</h3>
+            </div>
+            <div class="card-body bg-custom-secondary-light-opaque text-white px-4">
+              <form method="POST">
+                {% csrf_token %}
+               <div class="col text-center">
+                 <h2>{% trans "Are you sure you want to delete the post" %} {{ object.title }}?</h2>
+
+               </div>
+               <div class="col">
+                <div class="p-3 mx-auto">
+                  <button class="btn btn-outline-danger custom-btn btn-block shadow my-2" type="submit">{% trans "Yes, Delete" %}</button>
+                  <a class="btn btn-outline-secondary custom-btn btn-block shadow my-2" href="{% url 'post-detail' object.id %}">{% trans "Cancel" %}</a>
+                </div>
+               </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

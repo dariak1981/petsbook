@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "New Listing" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+
+<!-- Posts -->
+<section id="contents">
+  <div class="container">
+    <div class="row py-4">
+      <div class="col-sm-10 col-12 mb-4 mx-auto">
+        <h3 class="text-center text-white mb-3">{% trans "New Listing" %}</h3>
+        <div class="card bg-custom-primary-light p-4 shadow">
+          <form action="{% url 'newlisting' %}" enctype="multipart/form-data" method="POST">
+           {% csrf_token %}
+            <!-- HIDDEN INPUT FOR USER ID -->
+            <!-- {{ form.user.value }} -->
+            <!-- <input type="hidden" name="adstatus_id" value="{{ editlisting.adstatus_id_id }}" id="adstatus_id"> -->
+
+            <div class="row">
+
+              <div class="col-lg-9 col-12 mb-4">
+                <div class="card">
+                  <div class="card-body">
+
+                        <div class="row my-lg-4">
+                          <div class="col-12 my-lg-0 my-3">
+                            <label for="title">{% trans "Title" %}</label>
+                            <input type="text" class="form-control shadow-sm" id="title" placeholder="{% trans "Short description" %}" name="title" maxlength="100" required>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label for="user_contact">{% trans "Contact Details" %}</label>
+                            <input type="text" class="form-control shadow-sm" id="user_contact" value="{{ user.email }}" name="user_contact" maxlength="30" required>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label for="city">{% trans "City" %}</label>
+                            <input type="text" class="form-control shadow-sm" id="city" name="city" maxlength="20" required>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label for="district">{% trans "District" %}</label>
+                            <input type="text" class="form-control shadow-sm" id="district" name="district" maxlength="25" required>
+                          </div>
+
+                        </div>
+
+                        <div class="row my-lg-4">
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label>{% trans "Category" %}</label>
+                            <select name="category" class="form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for category in categories %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option value="{{ category.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ category.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ category.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label for="type">{% trans "Type" %}</label>
+                            <select data-target="secondList" class="firstList selectFilter form-control shadow-sm" name="type" required>
+                              <option disabled selected value>--------</option>
+                              {% for type in types %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option  data-ref="{{ type.id }}" value="{{ type.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ type.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ type.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label>{% trans "Breed" %}</label>
+                            <select name="breed" class="secondList selectFilter form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for breed in breeds %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option data-belong="{{ breed.type_id_id }}"  value="{{ breed.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ breed.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ breed.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row my-lg-4">
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label>{% trans "Age" %}</label>
+                            <select name="age" class="form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for age in ages %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option value="{{ age.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ age.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ age.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label>{% trans "Gender" %}</label>
+                            <select name="gender" class="form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for gender in genders %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option value="{{ gender.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ gender.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ gender.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                            <label for="price">{% trans "Price" %}</label>
+                            <input type="number" class="form-control shadow-sm" id="price" name="price" max="500000" required>
+                          </div>
+                        </div>
+
+                        <div class="row my-lg-4">
+                          <div class="col-lg-6 col-12 my-lg-0 my-3">
+                            <label>{% trans "Living conditions" %}</label>
+                            <select name="condition" class="form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for condition in conditions %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option value="{{ condition.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ condition.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ condition.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+
+                          <div class="col-lg-6 col-12 my-lg-0 my-3">
+                            <label>{% trans "Health" %}</label>
+                            <select name="health" class="form-control shadow-sm" required>
+                              <option disabled selected value>--------</option>
+                              {% for health in healths %}
+                              {% get_current_language as LANGUAGE_CODE %}
+                                  <option value="{{ health.id }}">
+                                    {% if LANGUAGE_CODE == 'en' %}{{ health.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ health.title_ru }}{% endif %}
+                                  </option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12  my-lg-0 my-3">
+                              <label for="description">{% trans "Description" %}</label>
+                              <textarea class="form-control shadow-sm" style="min-height: 350px;" id="description" name="description" maxlength="2500" required></textarea>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4 mb-3 mx-auto" style="margin-top:60px;">
+                          <button class="btn btn-primary custom-btn btn-block shadow my-2" name="submit" value="Submit">{% trans "Submit form" %}</button>
+                        </div>
+
+                  </div>
+                </div>
+              </div>
+             <!-- END OF COL-10 -->
+             <!-- MAIN PHOTO -->
+             <div class="col-lg-3 col-12 mx-auto image-fields">
+               <div class="">
+                 <div class="card shadow">
+                   <div class="card-body p-1">
+                      <img src="" id="image-field-0" class="img-new-post">
+                  </div>
+                </div>
+                       <label>
+                         <div onchange="previewImage(event)" style="margin-top:-25px;">
+                           <input type="file" name="photo_main" value="photo_main">
+                         </div>
+                       </label>
+                  </div>
+
+                  <div class="">
+                    <div class="card shadow">
+                      <div class="card-body p-1">
+                         <img src="" id="image-field-1" class="img-new-post">
+                     </div>
+                   </div>
+                          <label>
+                            <div onchange="previewImage1(event)" style="margin-top:-25px;">
+                              <input type="file" name="photo_1" value="photo_1">
+                            </div>
+                          </label>
+                     </div>
+
+                     <div class="">
+                       <div class="card shadow">
+                         <div class="card-body p-1">
+                            <img src="" id="image-field-2" class="img-new-post">
+                        </div>
+                      </div>
+                             <label>
+                               <div onchange="previewImage2(event)" style="margin-top:-25px;">
+                                 <input type="file" name="photo_2" value="photo_2">
+                               </div>
+                             </label>
+                        </div>
+
+                        <div class="">
+                          <div class="card shadow">
+                            <div class="card-body p-1">
+                               <img src="" id="image-field-3" class="img-new-post">
+                           </div>
+                         </div>
+                                <label>
+                                  <div onchange="previewImage3(event)" style="margin-top:-25px;">
+                                    <input type="file" name="photo_3" value="photo_3">
+                                  </div>
+                                </label>
+                           </div>
+
+
+                           <div class="">
+                             <div class="card shadow">
+                               <div class="card-body p-1">
+                                  <img src="" id="image-field-4" class="img-new-post">
+                              </div>
+                            </div>
+                                   <label>
+                                     <div onchange="previewImage4(event)" style="margin-top:-25px;">
+                                       <input type="file" name="photo_4" value="photo_4">
+                                     </div>
+                                   </label>
+                              </div>
+
+
+
+              </div>
+            </form>
+            <!-- END OF MAIN ROW -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+{% endblock %}

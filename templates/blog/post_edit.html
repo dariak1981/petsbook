@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Post" %} {% endblock %}
+{% block content %}
+
+
+
+  <!-- TOPICS -->
+  <section id="showcase-logout">
+    <div class="container pb-4">
+      <div class="row py-4">
+        <div class="col-md-8 mx-auto">
+          <div class="card-enter shadow">
+            <div class="card-header bg-custom-secondary-light-opaque text-white px-4">
+
+              <h3 class="custom-h3"><i class="far fa-edit"></i> &nbsp {% trans "Blog Post" %}</h3>
+            </div>
+            <div class="card-body bg-custom-secondary-light-opaque text-white px-4">
+              <form action="{% url 'post-update' editpost.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                    <label for="title">{% trans "Title" %}</label>
+                    <input type="text" class="form-control shadow-sm" id="title" placeholder="{% trans "Short description" %}" name="title" maxlength="100" value = "{{ editpost.title }}" required>
+                  </div>
+                </div>
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                    <label>{% trans "Category" %}</label>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <select name="theme" class="form-control shadow-sm" required>
+                      {% for theme in threads %}
+                          <option value="{{ theme.id }}"
+                            {% if theme.id == editpost.theme.id %} selected {% else %}{% endif %}>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'en' %}{{ theme.title }}
+                            {% elif LANGUAGE_CODE == 'ru' %}{{ theme.title_ru }}{% endif %}
+                          </option>
+                          {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row my-4">
+                  <div class="col-md-12">
+                      <label for="description">{% trans "Content" %}</label>
+                      <textarea class="form-control shadow-sm" style="min-height: 450px;" id="content" name="content" maxlength="10000" required>{{ editpost.content }}</textarea>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-12 mx-auto image-fields">
+                  <div class="">
+                    <div class="card shadow">
+                      <div class="card-body p-1">
+                        {% if editpost.photo %}
+                          <img src="{{ editpost.photo.url }}" id="image-field-0" class="img-new-post">
+                     </div>
+                   </div>
+                   <div class="text-white text-center mr-4">
+                     <i class="fas fa-cut mr-1"></i>
+                     <input id="image-clear_id" name="image-clear" type="checkbox" /> <label for="picture-clear_id">Clear</label><br />
+                     </div>
+                     {% else %}
+                         <img src="" id="image-field-0" class="img-new-post">
+                     </div>
+                   </div>
+                          {% endif %}
+                          <label>
+                              <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
+                          </label>
+                     </div>
+
+             <div class="row mt-4">
+               <div class="col-md-12 mx-auto">
+                  <button class="btn btn-secondary custom-btn btn-block shadow my-2" type="submit">{% trans "Post" %}</button>
+               </div>
+             </div>
+
+
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+
+
+
+{% endblock %}

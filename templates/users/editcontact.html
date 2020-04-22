@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Edit Contact" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+<!-- Posts -->
+<section id="contents">
+  <div class="container">
+    <div class="row py-4">
+      <div class="col-lg-10 col-12 mb-4 mx-auto">
+
+        <h3 class="text-center text-white mb-3">{% trans "Edit Contact" %}</h3>
+        <div class="card bg-custom-primary-light p-4 shadow">
+          <div class="card-header pb-0">
+            <form id = "contactinfo" action="{% url 'editcontact' editcontact.id %}" method="post">
+              {% csrf_token %}
+               <div class="row mb-4">
+
+      <!--Carousel Wrapper-->
+       <div id="multi-item-example" class="carousel slide p-3" data-ride="carousel">
+         <!--Slides-->
+         <div class="carousel-inner" role="listbox">
+           <!--First slide-->
+           {% if archived %}
+            {% for listing in archived %}
+            {% if forloop.first %}
+           <div class="carousel-item active">
+             {% else %}
+           <div class="carousel-item">
+             {% endif %}
+
+              <div class="row" style="min-height:200px;">
+                 <div class="col-md-3">
+                  {% if listing.photo_main %}
+                  <div class="card shadow">
+                    <div class="card-body p-1">
+                       <img src="{{ listing.photo_main.url }}" alt="" class="img-archive-post">
+                    </div>
+                  </div>
+                  {% else %}
+                  <div class="card shadow">
+                    <div class="card-body p-1">
+                       <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-archive-post">
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="text-white mt-2">
+                    <i class="fas fa-clock"></i> {% trans "Created" %}: {{ listing.created.date }}
+                  </div>
+                  <div class="custom-control custom-checkbox text-center">
+                    <input type="checkbox" class="custom-control-input" id="customCheckbox{{ listing.id }}" name="instance" value="{{ listing.id }}" >
+                    <label for="customCheckbox{{ listing.id }}" class="custom-control-label"></label>
+                  </div>
+                 </div>
+
+                 <div class="col-md-9 mr-auto text-white" id="description" name="description">
+                   <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong>
+                     <br>
+                     {% trans "Category" %}: {{ listing.category_id }};
+                     {% trans "Current location" %}: {{ listing.conditions_id }}
+                     / {% trans "Brief description" %}: {{ listing.types_id }},
+                     {{ listing.breeds }}, {% trans "Age" %}: {{ listing.age_id }}
+                   </p>
+                  <p>{{ listing.description | truncatechars:330}}</p>
+
+                 </div>
+                </div>
+               </div>
+               {% endfor %}
+               <!--/.First slide-->
+
+              {% else %}
+              <div class="text-white text-center">
+              </div>
+
+             {% endif %}
+            </form>
+          </div>
+          <!--/.Slides-->
+         </div>
+       <!--/.Carousel Wrapper-->
+      </div>
+    </div>
+  <!--Controls-->
+  {% if archived %}
+  <div class="d-flex justify-content-between">
+    <a class="control-angles" href="#multi-item-example" data-slide="prev"><i class="fas fa-angle-left fa-2x pr-4 my-3"></i></a>
+    <h3 class="text-center text-white my-3">
+      <button form="contactinfo" type="submit" class="btn btn-primary custom-btn mx-3 shadow" name="attach" id="attach">
+      <i class="fas fa-link"></i> {% trans "Attach" %}</button>
+       {% trans "related post or" %}
+      <button form="contactinfo" type="submit" class="btn btn-primary custom-btn mx-3 shadow" name="detach" id="attach">
+      <i class="fas fa-unlink"></i> {% trans "Remove" %}</button>
+       {% trans "from contact (optional)" %}
+     </h3>
+    <a class="control-angles" href="#multi-item-example" data-slide="next"><i class="fas fa-angle-right fa-2x pl-4 my-3"></i></a>
+  </div>
+  {% else %}
+  <div class="mt-4 text-white text-center">
+    <h4>{% trans "No Lisings In Archive" %}</h4>
+  </div>
+
+ {% endif %}
+  <!-- <div class="controls-bottom">
+
+  </div> -->
+  <!--/.Controls-->
+            <div class="text-center my-4">
+              <!-- Alerts -->
+              {% include 'partials/_alerts.html' %}
+             </div>
+              <form action="{% url 'editcontact' editcontact.id %}" method="POST" id="contactinfo">
+               {% csrf_token %}
+
+               <div class="card">
+                 <div class="card-body">
+                   <div class="row my-lg-4">
+
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="type">{% trans "Type" %}</label>
+                       {% get_current_language as LANGUAGE_CODE %}
+                       <select name="type" class="form-control shadow-sm" required>
+                         {% for type in types %}
+                             <option value="{{ type.id }}"
+                               {% if type.id == editcontact.type_id.id %} selected {% else %}{% endif %}>
+                               {% if LANGUAGE_CODE == 'en' %}{{ type.title }}
+                               {% elif LANGUAGE_CODE == 'ru' %}{{ type.title_ru }}{% endif %}
+                             </option>
+                             {% endfor %}
+                       </select>
+                     </div>
+
+
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="group">{% trans "Contact's Group" %}</label>
+                       <select name="group" class="form-control shadow-sm" required>
+                         {% for group in groups %}
+                             <option value="{{ group.id }}"
+                               {% if group.id == editcontact.group_id.id %} selected {% else %}{% endif %}>
+                               {{ group.title }}
+                             </option>
+                             {% endfor %}
+                       </select>
+                     </div>
+
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="name">{% trans "Name" %}</label>
+                       <input type="text" class="form-control shadow-sm" id="name" name="name" maxlength="150" value="{{ editcontact.name }}" required>
+                     </div>
+                   </div>
+
+                   <div class="row my-lg-4">
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="address">{% trans "Address" %}</label>
+                       <input type="text" class="form-control shadow-sm" id="address" name="address" maxlength="100" value="{{ editcontact.address }}" required>
+                     </div>
+
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="phone">{% trans "Phone" %}</label>
+                       <input type="text" class="form-control shadow-sm" id="phone" name="phone" maxlength="20" value="{{ editcontact.phone }}" required>
+                     </div>
+
+                     <div class="col-lg-4 my-lg-0 my-3">
+                       <label for="links">{% trans "Links" %}</label>
+                       <input type="text" class="form-control shadow-sm" id="links" name="links" maxlength="250" value="{{ editcontact.links }}" required>
+                     </div>
+                   </div>
+
+                   <div class="row my-lg-4">
+                     <div class="col-12 my-lg-0 my-4">
+                       <label for="comments">{% trans "Comments" %}</label>
+                       <textarea class="form-control shadow-sm" style="min-height: 350px;" id="comments" name="comments" maxlength="1500" value="{{ editcontact.comments }}" required>{{ editcontact.comments }}</textarea>
+                     </div>
+                   </div>
+
+                   <div class="col-md-4 my-3 mx-auto">
+                     <button class="btn btn-primary custom-btn btn-block shadow my-2" type="submit" value="submit">{% trans "Submit form" %}</button>
+                   </div>
+                 </div>
+               </div>
+
+
+
+                <!-- ROW ENDING -->
+               </form>
+              </div>
+            </div>
+          </div>
+      </section>
+
+
+
+
+{% endblock %}

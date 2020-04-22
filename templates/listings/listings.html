@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Browse Featured Listings" %} {% endblock %}
+{% block content %}
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{% trans "Featured Listings" %}</h1>
+          <p class="lead">{% trans "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!" %}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+
+
+
+  <!-- Listings -->
+<section id="listings" class="pt-4 pb-5">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}">
+            <i class="fas fa-home"></i> {% trans "Home" %}</a>
+        </li>
+        <li class="breadcrumb-item active"> {% trans "Featured" %}</li>
+      </ol>
+    </nav>
+  <hr>
+  <div class="row">
+    {% if listings %}
+      {% for listing in listings %}
+      <!-- Listing  -->
+        <div class="col-md-6 col-lg-3 my-sm-4 my-5">
+          <div class="card listing-preview shadow">
+            {% if listing.photo_main %}
+             <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+            {% else %}
+             <img class="card-img-top" src="{% static 'img/avatar-animal.png' %}" alt="">
+            {% endif %}
+            <div class="img-highlight"></div>
+            <div class="text-center" id="parent">
+              <a href="{% url 'listing' listing.id %}"><i class="fas fa-search-plus fa-2x p-2 ml-4 view-details text-white shadow"></i></a>
+              <div class="icon-highlight"></div>
+            </div>
+            <div class="card-img-overlay">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% if listing.category_id_id == 1 %}
+
+              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-1-homeless">{{ listing.category_id.title }}</span></h2>
+              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-1-homeless">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+
+
+              {% elif listing.category_id_id == 2 %}
+
+              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-2-lost">{{ listing.category_id.title }}</span></h2>
+              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-2-lost">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+
+              {% elif listing.category_id_id == 3 %}
+
+              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-3-forsale">{{ listing.category_id.title }}</span></h2>
+              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-3-forsale">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+
+              {% else %}
+
+              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title }}</span></h2>
+              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+
+              {% endif %}
+            </div>
+            <div class="card-body pt-2" id="card-body-listings">
+
+              <div class="listing-heading">
+
+                  <i class="fas fa-map-marker"></i> {{ listing.city }}
+                  <p class="topic-titles px-3"><small>{{ listing.district }}</small></p>
+              </div>
+              <hr>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start px-0 pt-0">
+                  <div class="">
+                    {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-paw"></i> {{ listing.types_id.title }}
+                        {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-paw"></i> {{ listing.types_id.title_ru }}{% endif %}
+                  </div>
+                  <div class="">
+                    {% get_current_language as LANGUAGE_CODE %}
+                        {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-crown"></i> {{ listing.breeds.title | truncatechars:12}}
+                        {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-crown"></i> {{ listing.breeds.title_ru | truncatechars:12}}{% endif %}
+                  </div>
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+                  <div class="">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-venus-mars"></i> {{ listing.gender_id.title }}
+                    {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-venus-mars"></i> {{ listing.gender_id.title_ru }}{% endif %}
+                  </div>
+                  <div class="">
+                    {% if listing.price == 0 %}
+                    <i class="fas fa-money-bill-wave"></i> {% trans "For free" %}
+                    {% else %}
+                    <i class="fas fa-money-bill-wave"></i> {{ listing.price | intcomma }}
+                    {% endif %}
+                  </div>
+
+                </li>
+               </ul>
+
+              <div class="row pt-2">
+                <div class="col">
+                  <i class="fas fa-clock"></i> {{ listing.created | naturaltime }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+    {% else %}
+      <div class="col-md-12 text-center">
+        <p>{% trans "No Listings Available" %}</p>
+      </div>
+    {% endif %}
+
+  </div>
+
+
+<div class="row">
+  <div class="col-12 mb-4">
+      {% if listings.has_other_pages %}
+      <!-- <p>No Listings Available</p>
+    </div>  -->
+          <ul class="pagination">
+            {% if listings.has_previous %}
+              <li class="page-item">
+                <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
+              </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+            {% for i in listings.paginator.page_range %}
+              {% if listings.number == i %}
+              <li class="page-item active">
+                <a class="page-link">{{i}}</a>
+              </li>
+              {% else %}
+              <li class="page-item">
+                <a href="?page={{i}}" class="page-link">{{i}}</a>
+              </li>
+              {% endif %}
+            {% endfor %}
+            {% if listings.has_next %}
+              <li class="page-item">
+                <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
+              </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+          </ul>
+        {% endif %}
+    </div>
+  </div>
+
+ </div>
+</section>
+
+{% endblock %}

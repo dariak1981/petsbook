@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load tags %}
+  <!-- FOOTER -->
+  <footer
+  {% if '/' == request.path or 'listings' in request.path %}
+  id="main-footer-pages" class="p-2 shadow">
+  {% else %}
+  id="main-footer-light" class="p-2">
+  {% endif %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 mt-2 text-center">
+          <div class="footer-item">
+            <a href="{% url 'terms' %}"><h4 class="mt-2 mb-0" style="color:#fffcab">{% trans "Terms & Conditions" %}</h4></a>
+          </div>
+          <div class="footer-item custom-grey-text">
+            {% show_description %}
+           </div>
+         </div>
+      </div>
+    </div>
+  </footer>

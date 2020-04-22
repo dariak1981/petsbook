@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} | {% trans "Terms & Conditions" %} {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <section id="showcase-logout">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 mx-auto scroll mb-4">
+         <div class="card my-4" id="listings">
+           <div class="card-body p-5">
+            <h1>
+
+              {% get_current_language as LANGUAGE_CODE %}
+              {% if LANGUAGE_CODE == 'en' %}{{ terms.title }}
+              {% elif LANGUAGE_CODE == 'ru' %}{{ terms.title_ru }}{% endif %}
+
+            </h1>
+            <p>
+
+              {% if LANGUAGE_CODE == 'en' %}{{ terms.content | safe | linebreaks }}
+              {% elif LANGUAGE_CODE == 'ru' %}{{ terms.content_ru | safe | linebreaks }}{% endif %}
+
+            </p>
+           </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Add To Archive" %} {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+
+    <!-- Posts -->
+    <section id="contents">
+      <div class="container">
+        <div class="row py-4">
+          <div class="col-sm-10 col-12 mb-4 mx-auto">
+            <h3 class="text-center text-white mb-3">{% trans "Add to Archive" %}</h3>
+            <div class="card bg-custom-primary-light p-4 shadow">
+              <div class="card-header">
+                <div class="row my-3">
+                  <div class="col-lg-3">
+
+                    {% if archived.photo_main %}
+                    <div class="card shadow">
+
+                      <div class="card-body p-1">
+                         <img src="{{ archived.photo_main.url }}" alt="" class="img-archive-post">
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="card shadow">
+                      <div class="card-body p-1">
+                         <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-archive-post">
+                      </div>
+                    </div>
+                    {% endif %}
+                    <div class="text-white mt-2">
+                      <i class="fas fa-clock"></i> {% trans "Created" %}:<br>&nbsp;&nbsp;&nbsp; {{ archived.created.date }}
+                    </div>
+                   </div>
+
+                   <div class="col-lg-9 mr-auto text-white" id="description" name="description">
+                     <p><strong><i class="fas fa-paw"></i> {{ archived.title }}</strong>
+                       <br>
+                       {% trans "Category" %}: {{ archived.category_id }};
+                       {% trans "Current location" %}: {{ archived.conditions_id }}
+                       / {% trans "Brief description" %}: {{ archived.types_id }},
+                       {{ archived.breed }}, {% trans "Age" %}: {{ archived.age_id }}
+                     </p>
+                    <p>{{ archived.description | truncatechars:310}}</p>
+
+                   </div>
+                </div>
+              </div>
+
+                  <form action="{% url 'archived' archived.id %}" enctype="multipart/form-data" method="POST" id="contactinfo">
+                    {% csrf_token %}
+
+
+                       <div class="card">
+                         <div class="card-body">
+                           <div class="row">
+                             <div class="col-md-4 my-3 mx-auto">
+                                {{ form.owner | as_crispy_field }}
+                             </div>
+                            </div>
+
+                          <div class="row">
+                           <div class="col-md-4 my-3 mx-auto">
+                             <button class="btn btn-primary custom-btn btn-block shadow my-2" type="submit" value="submit">{% trans "Submit form" %}</button>
+                           </div>
+                         </div>
+
+                       </div>
+                      </div>
+
+
+
+                     <!-- ROW ENDING -->
+                   </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+{% endblock %}

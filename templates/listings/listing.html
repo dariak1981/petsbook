@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {{ listing.title }} {% endblock %}
+{% block content %}
+
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{ listing.title }}</h1>
+          <p class="lead"><i class="fas fa-map-marker"></i> {{ listing.city }}, {{ listing.district }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+ <!-- Listing -->
+<section id="listings" class="py-4">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}"> <i class="fas fa-home"></i> {% trans "Home" %}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'listings' %}">{% trans "Listings" %}</a>
+        </li>
+        <li class="breadcrumb-item active">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
+          {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
+           ~
+          {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
+          {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
+        </li>
+      </ol>
+    </nav>
+    <hr>
+      <div class="row mb-2 mt-5">
+      <div class="col-lg-8 col-12">
+        <div class="card h-100 bg-custom-primary">
+          <div class="card-body pb-0">
+            {% if listing.photo_main %}
+             <img src="{{ listing.photo_main.url }}" alt="" class="img-main img-fluid mb-3 shadow">
+            {% else %}
+             <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-main img-fluid mb-3 shadow">
+            {% endif %}
+
+
+          <div class="row">
+            <div class="col-lg-8 col-12 text-white mr-auto">
+              <p><strong>{% trans "By" %}:</strong> {{ listing.user.first_name }} {{ listing.user.last_name }}, {{ listing.created | date }} &nbsp; {{ listing.user_contact }}</p>
+            </div>
+            <div class="col-lg-4 col-12 mb-4 text-center social">
+             <!-- {{ share_string }} -->
+              <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri }}" target="_blank"
+            ><i class="fab fa-twitter fa-lg"></i
+            ></a>
+            <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
+              ><i class="fab fa-facebook fa-lg"></i
+            ></a>
+            <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
+              ><i class="fab fa-vk fa-lg"></i
+            ></a>
+            <a href="https://web.whatsapp.com/send?text={{ request.build_absolute_uri }}" data-action="share/whatsapp/share" target="_blank">
+            <i class="fab fa-whatsapp fa-lg"></i></a>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-4 col-12 d-flex flex-column justify-content-between">
+        <!-- <div class="card">
+          <div class="card-body"> -->
+          <div class="listing-list mt-4">
+            <ul class="list-group list-group-flush mt-auto">
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-money-bill-wave"></i> {% trans "Asking Price" %}:
+                {% if listing.price == 0 %}
+                <span class="float-right">{% trans "Free of Charge" %}</span>
+                {% else %}
+                <span class="float-right">{{ listing.price | intcomma }}</span>
+                {% endif %}
+              </li>
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-crown"></i> {% trans "Breed" %}:
+                <span class="float-right">
+
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
+                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
+
+                </span>
+              </li>
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-hourglass-half"></i> {% trans "Age" %}:
+                <span class="float-right">
+
+                  {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
+                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
+
+                </span>
+              </li>
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-venus-mars"></i> {% trans "Gender" %}:
+                <span class="float-right">
+
+                  {% if LANGUAGE_CODE == 'en' %}{{ listing.gender_id.title }}
+                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.gender_id.title_ru }}{% endif %}
+
+                </span>
+              </li>
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-home"></i> {% trans "Current location" %}:
+                <span class="float-right">
+
+                  {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
+                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
+
+                </span>
+              </li>
+              <li class="list-group-item custom-secondary-text-listing">
+                <i class="fas fa-calendar"></i> {% trans "Health" %}:
+                <span class="float-right">
+
+                  {% if LANGUAGE_CODE == 'en' %}{{ listing.health_id.title }}
+                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.health_id.title_ru }}{% endif %}
+
+                </span>
+              </li>
+             </ul>
+          </div>
+
+
+
+        <!-- Thumbnails -->
+        <div class="">
+          <div class="row">
+            {% if listing.photo_1 %}
+            <div class="col-md-6 mt-4">
+              <div class="card">
+                <div class="card-body p-1">
+                  <a href="{{ listing.photo_1.url }}" data-lightbox="home-images" class="img-listing-thumbnails">
+                    <img src="{{ listing.photo_1.url }}" class="img-fluid img-listing-thumbnails">
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if listing.photo_2 %}
+            <div class="col-md-6 mt-4">
+              <div class="card">
+                <div class="card-body p-1">
+                  <a href="{{ listing.photo_2.url }}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_2.url }}" class="img-fluid img-listing-thumbnails">
+                  </a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if listing.photo_3 %}
+            <div class="col-md-6 mt-4">
+              <div class="card">
+                <div class="card-body p-1">
+                  <a href="{{ listing.photo_3.url }}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_3.url }}" class="img-fluid img-listing-thumbnails">
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if listing.photo_4 %}
+            <div class="col-md-6 mt-4">
+              <div class="card">
+                <div class="card-body p-1">
+                  <a href="{{ listing.photo_4.url }}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_4.url }}" class="img-fluid img-listing-thumbnails">
+                  </a>
+                </div>
+              </div>
+            </div>
+           {% endif %}
+          </div>
+        </div>
+
+     </div>
+    </div>
+
+     <div class="row mb-5">
+      <div class="col-md-8">
+        <div class="card my-4 bg-custom-light shadow">
+          <div class="card-body">
+          <p>{{ listing.description | safe | linebreaks }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+          <div class="card my-4 shadow">
+            {% if featuredthreads %}
+
+          <ul class="list-group-flush list-unstyled">
+            {% for thread in featuredthreads %}
+            <li class="list-group-item d-flex justify-content-between align-items-end" style="color: #606160;">
+              <div class="mr-auto">
+                <a href="{% url 'post-detail' thread.id %}">{{ thread.title }}</a>
+              </div>
+              <div>
+               <i class="fas fa-comments"></i>
+              </div>
+              <div>
+                <span class="px-1"> {{ thread.message_set.all.count }}</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <li
+          class="list-group-item d-flex justify-content-between align-items-end"
+          >
+          <p>No Featured Threads Available</p>
+        </li>
+        {% endif %}
+          </div>
+
+      </div>
+
+     </div>
+   <!-- Container ending -->
+  </div>
+</section>
+
+<section id="services" class="py-5 text-white">
+  <div class="container">
+    <div class="d-none d-lg-block ">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-handshake fa-2x"></i>
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-satellite-dish fa-2x"></i>
+          <hr>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-object-ungroup fa-2x"></i>
+          <hr>
+        </div>
+     </div>
+    </div>
+
+      <div class="row">
+        {% for service in services %}
+        <div class="col-lg-4 col-12 pt-4 text-center">
+              <h3>
+
+                {% get_current_language as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE == 'en' %}{{ service.title }}
+                {% elif LANGUAGE_CODE == 'ru' %}{{ service.title_ru }}{% endif %}
+
+              </h3>
+              <p>
+
+                {% get_current_language as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE == 'en' %}{{ service.content }}
+                {% elif LANGUAGE_CODE == 'ru' %}{{ service.content_ru }}{% endif %}
+
+              </p>
+            <hr>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+</section>
+
+
+{% endblock %}

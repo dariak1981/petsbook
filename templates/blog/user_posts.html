@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Posts author" %} {% endblock %}
+{% block content %}
+
+<!-- Forum Navbar -->
+{% include 'partials/_forumnavbar.html' %}
+
+
+
+
+  <!-- TOPICS -->
+<section id="contents">
+ <div class="container">
+  <div class="row py-4">
+    <div class="col-lg-8">
+      <div class="card mb-sm-4 bg-custom-primary-light shadow">
+        <div class="card-body">
+          <div class="card">
+
+
+            <h3 class="mb-3 p-3">{% trans "Posts by" %} {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
+            {% if allposts %}
+            {% for post in allposts %}
+              <div class="media m-0 pt-4 px-3">
+                {% if post.author.userprofile.photo %}
+                <a href="{% url 'user-posts' post.author.username %}">
+                  <img class="img-forum mr-3" src="{{ post.author.userprofile.photo.url }}">
+                </a>
+                {% else %}
+                <a href="{% url 'user-posts' post.author.username %}">
+                  <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                </a>
+                {% endif %}
+                <div class="media-body">
+                  <div class="d-flex">
+
+
+                    <h4><a class="pop" data-toggle="popover" data-content="
+                      {% if post.author.userprofile.usertype %}
+
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% if LANGUAGE_CODE == 'en' %}{{ post.author.userprofile.usertype.title }}
+                      {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.userprofile.usertype.title_ru }}{% endif %}
+
+                       ~
+                      {% else%}
+                      Visitor
+                      {% endif %}
+                      {% if post.author.userprofile.business %}
+                      {{ post.author.userprofile.business }}
+                      {% endif %}
+                      {% if post.author.userprofile.publicmail %}
+                      <br>{{ post.author.userprofile.publicmail }};
+                      {% endif %}
+                      {% if post.author.userprofile.phone %}
+                      {{ post.author.userprofile.phone }}
+                      {% endif %}
+                      {% if post.author.userprofile.links %}
+                      <br>{{ post.author.userprofile.links }}
+                      {% endif %}
+                      {% if post.author.userprofile.description %}
+                      <br><br>{{ post.author.userprofile.description }}
+                      {% endif %}
+
+                      ">{{ post.author }}</a></h4>
+
+                    <!-- <a href="#" class="mr-2">{{ post.author }}</a> -->
+                    <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
+                    <small class="text-muted">{{ post.created.date }}</small> &nbsp;&nbsp;
+                    <i class="fas fa-comments"></i>&nbsp;{{ post.message_set.all.count }}
+                  </div>
+                  <hr class="mt-2">
+
+                </div>
+              </div>
+              <div class="col-12 px-5 mb-4" style="margin-top:-15px;">
+                <h2><a href="{% url 'post-detail' post.id %}" class="article-title">&nbsp;&nbsp;&nbsp;&nbsp;{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content | truncatechars:500 }}</p>
+              </div>
+
+            {% endfor %}
+            {% else %}
+            <div class="col-md-12 p-4 text-center">
+              <i class="far fa-folder-open fa-3x"></i>
+            </div>
+            {% endif %}
+
+
+
+            {% if is_paginated %}
+             <ul class="mt-4 mb-2 pl-0 text-center">
+               {% if page_obj.has_previous %}
+                 <a class="btn btn-outline-info mb-4" href="?page=1">{% trans "First" %}</a>
+                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+
+               {% endif %}
+
+               {% for num in page_obj.paginator.page_range %}
+                 {% if page_obj.number == num %}
+
+                   <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                   <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                 {% endif %}
+
+               {% endfor %}
+
+               {% if page_obj.has_next %}
+                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">{% trans "Last" %}</a>
+               {% endif %}
+             </ul>
+
+
+            {% endif %}
+
+       </div>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card mb-sm-4 bg-custom-primary-light shadow">
+        <div class="card-body">
+          <div class="card p-3">
+
+            <div class="col-md-12 mb-4 text-center">
+              <h3>{% trans "Search & Filter" %}</h3>
+            </div>
+
+            <form method="get" action="{% url 'search' %}">
+            <div class="col-md-12 p-2 my-2">
+              <label class="sr-only">{% trans "Keywords" %}</label>
+              <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Content" %}" value="{{ values.keywords }}">
+            </div>
+
+            <div class="col-md-12 p-2 my-2">
+              <label class="sr-only">{% trans "Title" %}</label>
+              <input type="text" name="title" class="form-control shadow-sm" placeholder="{% trans "Title" %}" value="{{ values.title }}">
+            </div>
+
+            <div class="col-md-12 p-2 my-2">
+              <select name="theme" class="form-control shadow-sm" id="first">
+                <option selected="true" disabled="disabled">{% trans "Threads" %}</option>
+                {% for theme in searchthreads %}
+                {% get_current_language as LANGUAGE_CODE %}
+                    <option value="{{ theme.id }}">
+                      {% if LANGUAGE_CODE == 'en' %}{{ theme.title }}
+                      {% elif LANGUAGE_CODE == 'ru' %}{{ theme.title_ru }}{% endif %}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-6 mx-auto">
+              <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-4" type="submit">{% trans "Submit" %}</button>
+            </div>
+           </form>
+
+          </div>
+
+          <div class="card p-3 mt-4">
+            <div class="col-md-12 mb-4 text-center">
+              <h3>{% trans "Featured Posts" %}</h3>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card mb-3 shadow">
+                {% if featuredthreads %}
+
+              <ul class="list-group-flush list-unstyled">
+                {% for thread in featuredthreads %}
+                <li class="list-group-item d-flex justify-content-between align-items-end" style="color: #606160;">
+                  <div class="mr-auto">
+                    <a href="{% url 'post-detail' thread.id %}">{{ thread.title }}</a>
+                  </div>
+                  <div>
+                   <i class="fas fa-comments"></i>
+                  </div>
+                  <div>
+                    <span class="px-1"> {{ thread.message_set.all.count }}</span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <li
+              class="list-group-item d-flex justify-content-between align-items-end"
+              >
+              <p>{% trans "No Featured Posts Available" %}</p>
+            </li>
+            {% endif %}
+              </div>
+            </div>
+
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+</section>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,221 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Post, Themes, Message
+from django.urls import reverse
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+
+# def blogposts(request):
+#     postviews = Post.objects.all()
+#     featuredthreads = Post.objects.all().filter(is_featured=True)
+#
+#
+#     context = {
+#     'featuredthreads': featuredthreads,
+#     'postviews': postviews,
+#     }
+#
+#     return render(request, 'blog.html')
+#
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'allposts'
+    ordering = ['-created']
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+
+
+        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        context['searchthreads'] = Themes.objects.all()
+        return context
+
+
+class FilterPostListView(ListView):
+    model = Post
+    ordering = ['-created']
+
+
+    def get_context_data(self, **kwargs):
+        context = super(FilterPostListView, self).get_context_data(**kwargs)
+        filter_set = Post.objects.all()
+        if self.request.GET.get('keywords'):
+            keywords = self.request.GET.get('keywords') or None
+            if keywords:
+                filter_set = filter_set.filter(content__icontains=keywords)
+
+        if self.request.GET.get('title'):
+            title = self.request.GET.get('title') or None
+            if title:
+                filter_set = filter_set.filter(title__icontains=title)
+
+        if self.request.GET.get('theme'):
+            theme = self.request.GET.get('theme')
+            if theme:
+                filter_set = filter_set.filter(theme_id=theme)
+
+        context['allposts'] = filter_set
+        context['searchthreads'] = Themes.objects.all()
+        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        context['values']:request.GET
+        return context
+
+
+
+class PostDetailView(DetailView):
+    model = Post
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'theme', 'content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+@login_required
+def createnewpost(request):
+    threads = Themes.objects.all()
+    posts = Post.objects.all()
+
+    context = {
+    'threads': threads,
+    'posts': posts,
+    }
+
+    if request.method == "POST":
+        author = request.user
+        title = request.POST['title']
+        theme = Themes.objects.get(id=request.POST['theme'])
+        content = request.POST['content']
+        photo = request.FILES.get('photo')
+
+        newpost = Post(
+        author=author, title=title, theme=theme, content=content, photo=photo)
+        newpost.id
+        newpost.save()
+
+        # return redirect(reverse('blog', kwargs={'newpost':newpost.pk}))
+        return redirect('post-detail', newpost.id)
+
+
+    return render(request, 'blog/post_form.html', context)
+
+
+@login_required
+def updatepost(request, pk):
+    editpost = Post.objects.get(pk=pk)
+    threads = Themes.objects.all()
+
+    context = {
+    'threads': threads,
+    'editpost': editpost,
+    }
+
+    if request.method == "POST":
+        editpost.author = request.user
+        editpost.title = request.POST['title']
+        editpost.theme = Themes.objects.get(id=request.POST['theme'])
+        editpost.content = request.POST['content']
+        if 'image-clear' in request.POST:
+            editpost.photo = None
+        else:
+            if request.FILES.get('photo'):
+                editpost.photo = request.FILES.get('photo')
+            else:
+                editpost.photo = editpost.photo
+
+        editpost.save()
+
+        # return redirect(reverse('blog', kwargs={'newpost':newpost.pk}))
+        return redirect('post-detail', editpost.id)
+
+
+    return render(request, 'blog/post_edit.html', context)
+
+
+# class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = Post
+#     fields = ['title', 'theme', 'content']
+#
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
+#
+#     def test_func(self):
+#         post = self.get_object()
+#         if self.request.user == post.author:
+#             return True
+#         return False
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/blog/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class MessageCreateView(LoginRequiredMixin, CreateView):
+    model = Message
+    fields = ['message']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post_id = self.kwargs['post_id']
+        return super().form_valid(form)
+
+class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Message
+    fields = ['message']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Message
+
+    def get_success_url(self):
+        post = self.object.post
+        return reverse('post-detail', kwargs={'pk': post.id})
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_posts.html'
+    context_object_name = 'allposts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-created')
+
+    def get_context_data(self, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        context['searchthreads'] = Themes.objects.all()
+        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        return context
