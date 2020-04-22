@@ -166,12 +166,7 @@ MESSAGE_TAGS = {
 LOGIN_REDIRECT_URL = '/users/profile'
 LOGIN_URL = 'login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'infopetfaceapp@gmail.com'
-EMAIL_HOST_PASSWORD = '_8Sv5cq8tNkhd3SR'
+
 
 CSRF_COOKIE_NAME = 'tokenname_csrftoken'
 CSRF_COOKIE_SECURE = False
