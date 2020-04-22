@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'crispy_forms',
+    'sslserver',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
