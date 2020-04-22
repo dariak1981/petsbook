@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
