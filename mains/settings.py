@@ -160,7 +160,3 @@ try:
     from .local_settings import *
 except ImportError:
     pass
-
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
