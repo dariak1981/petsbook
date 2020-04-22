@@ -92,16 +92,6 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pdatabase',
-        'USER': 'postgres',
-        'PASSWORD': '888777max',
-        'HOST': 'localhost'
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -166,13 +156,6 @@ MESSAGE_TAGS = {
 LOGIN_REDIRECT_URL = '/users/profile'
 LOGIN_URL = 'login'
 
-
-
-CSRF_COOKIE_NAME = 'tokenname_csrftoken'
-CSRF_COOKIE_SECURE = False
-CSRF_HEADER_NAME = CSRF_COOKIE_NAME
-SESSION_COOKIE_NAME = 'tokenname_sessionid'
-SESSION_COOKIE_SECURE = False
 
 try:
     from .local_settings import *
