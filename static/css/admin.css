@@ -1,0 +1,51 @@
+#header {
+  height: 50px;
+  background: #36384c;
+  color: #fff;
+}
+
+#branding h1 {
+  color: #fff;
+}
+
+div.breadcrumbs {
+  background: #613a43;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+div.breadcrumbs a {
+  color: #fff;
+}
+
+div.breadcrumbs a:visited {
+  color: #fff;
+}
+
+.module h2, .module caption, .inline-group h2 {
+  background: #e8d8be;
+  color: #333;
+}
+
+a:link,
+a:visited {
+  color: #36384c;
+}
+
+.module table {
+  background: #faf9f7;
+}
+
+#content-related .module {
+  background: #faf9f7;
+}
+
+a.section:link, a.section:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+.button, input[type=submit], input[type=button], submit-row input, a.button {
+  background: #36384c;
+  color: #fff;
+}
