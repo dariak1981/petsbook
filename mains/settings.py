@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-SECURE_SSL_REDIRECT = False
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -163,7 +162,15 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-
+CORS_REPLACE_HTTPS_REFERER      = False
+HOST_SCHEME                     = "http://"
+SECURE_PROXY_SSL_HEADER         = None
+SECURE_SSL_REDIRECT             = False
+SESSION_COOKIE_SECURE           = False
+CSRF_COOKIE_SECURE              = False
+SECURE_HSTS_SECONDS             = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+SECURE_FRAME_DENY               = False
 
 
 try:
