@@ -6,6 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
     <!-- Bootstrap -->
@@ -43,6 +44,9 @@
 <script src="{% static 'js/GaugeMeter.js' %}"></script>
 <script src="{% static 'js/selectFilter.min.js' %}"></script>
 
-
+    <script>
+      // Get the current year for the copyright
+      $("#year").text(new Date().getFullYear());
+    </script>
   </body>
 </html>
