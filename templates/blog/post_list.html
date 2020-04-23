@@ -170,17 +170,11 @@
               <div class="card mb-3 shadow-sm">
                 {% if featuredthreads %}
 
-              <ul class="list-group-flush list-unstyled">
+              <ul class="list-group-flush px-0">
                 {% for thread in featuredthreads %}
-                <li class="list-group-item d-flex justify-content-between align-items-end" style="color: #606160;">
-                  <div class="mr-auto">
-                    <a href="{% url 'post-detail' thread.id %}">{{ thread.title }}</a>
-                  </div>
+                <li class="list-group-item" style="color: #606160;">
                   <div>
-                   <i class="fas fa-comments"></i>
-                  </div>
-                  <div>
-                    <span class="px-1"> {{ thread.message_set.all.count }}</span>
+                    <a href="{% url 'post-detail' thread.id %}">{{ thread.title | truncatechars:60 }}</a>
                   </div>
                 </li>
                 {% endfor %}

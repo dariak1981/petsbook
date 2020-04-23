@@ -96,12 +96,14 @@ DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'pdatabase',
-         'USER': 'dbadmin',
-         'PASSWORD': 'abc123!',
+         'USER': 'postgres',
+         'PASSWORD': '888777max',
          'HOST': 'localhost'
      }
  }
 
+# dbadmin
+# abc123!
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
