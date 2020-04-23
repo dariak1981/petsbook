@@ -90,15 +90,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mains.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'pdatabase',
-         'USER': 'dbadmin',
-         'PASSWORD': 'abc123!',
+         'USER': 'postgres',
+         'PASSWORD': '888777max',
          'HOST': 'localhost'
      }
  }
