@@ -66,14 +66,17 @@
 
     <div class="col-lg-4 col-12 text-center mb-lg-0 mb-4 social">
      <!-- {{ share_string }} -->
-      <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri }}" target="_blank"
-    ><i class="fab fa-twitter fa-lg"></i></a>
+
+     <a href="https://twitter.com/share?url={{ request.build_absolute_uri }}&text=<TITLE>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter">
+      <i class="fab fa-twitter fa-lg"></i></a>
     <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
       ><i class="fab fa-facebook fa-lg"></i></a>
-    <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
-      ><i class="fab fa-vk fa-lg"></i></a>
-    <a href="whatsapp://send?text={{ listing.photo_main.url }}, {{ listing.title }} / {{ request.build_absolute_uri }}" data-action="share/whatsapp/share" target="_blank">
-    <i class="fab fa-whatsapp fa-lg"></i></a>
+    <div class="sharethis-inline-share-buttons"><i class="fab fa-vk fa-lg"></i></div>
+
+    <a href="whatsapp://send?text={{ request.build_absolute_uri }}" data-action="share/whatsapp/share" onClick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on whatsapp">
+    <i class="fab fa-whatsapp fa-lg"></i>
+    </a>
+
     </div>
   </div>
       <div class="row mb-2">
