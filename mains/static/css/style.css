@@ -657,6 +657,10 @@ label {
 
 @media (max-width: 992px) {
 
+  #listing-heading {
+  font-size:3rem;
+  }
+
 
   #no-more-tables table,
   #no-more-tables thead,
@@ -715,6 +719,10 @@ label {
       margin-top: 65%;
   }
 
+  #listing-heading {
+  font-size:2.8rem;
+  }
+
 
   body:after{
     content: '';
@@ -754,7 +762,9 @@ label {
     font-size:0.7rem;
   }
 
-
+  #listing-heading {
+  font-size:2.3rem;
+  }
 
   #showcase-logout {
     min-height: 680px;
@@ -791,5 +801,9 @@ label {
 
   .header-sticky {
     font-size:0.64rem;
+  }
+
+  #listing-heading {
+  font-size:2rem;
   }
 }

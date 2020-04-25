@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
     <title>PetsBook {% block title %}{% endblock %}</title>
-    <meta property="og:title" content="{{ listing.title }}/>
+    <meta property="og:title" content="{{ listing.title }}"/>
     <meta property="og:locale" content=
     {% get_current_language as LANGUAGE_CODE %}
     {% if LANGUAGE_CODE == 'en' %}"en_GB"

@@ -97,8 +97,8 @@ DATABASES = {
          'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'pdatabase',
          'USER': 'dbadmin',
-         'PASSWORD': 'abc123!',
-         'HOST': 'localhost'
+         'PASSWORD': '888777max',
+         'HOST': 'abc123!'
      }
  }
 

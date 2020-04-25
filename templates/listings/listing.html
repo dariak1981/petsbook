@@ -6,11 +6,13 @@
 {% block content %}
 
 
-  <section id="showcase-inner" class="py-5 text-white">
+  <section id="showcase-inner" class="py-sm-5 py-4 text-white">
     <div class="container">
       <div class="row text-center">
+        <div class="col-12 px-sm-2 px-4 text-center" style="overflow:hidden">
+          <h1 class="display-4" id="listing-heading">{{ listing.title }}</h1>
+        </div>
         <div class="col-md-12">
-          <h1 class="display-4">{{ listing.title }}</h1>
           <p class="lead"><i class="fas fa-map-marker"></i> {{ listing.city }}, {{ listing.district }}</p>
         </div>
       </div>
