@@ -74,12 +74,14 @@
 
 
                   {% if object.photo %}
-                  <div class="col-12 px-lg-3 px-0 mb-5">
-                      <div class="card shadow">
-                        <div class="card-body p-1">
-                            <img src="{{ object.photo.url }}" class="img-post-detail">
+                  <div class="col-12 px-lg-3 px-0 mb-4">
+                    <div class="card shadow" id="container-image">
+                      <div id="dummy-post">
+                        <div id="element-post">
+                            <img src="{{ object.photo.url }}" class="img-fluid">
+                          </div>
                         </div>
-                      </div>
+                       </div>
                   </div>
                   {% else %}
                   {% endif %}

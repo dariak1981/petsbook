@@ -9,7 +9,7 @@ def home(request):
   categories = Category.objects.all()
   types = Taps.objects.all()
   ages = Age.objects.all()
-  breeds = Breeds.objects.all()
+  breeds = Breeds.objects.order_by('type_id')
   services = Services.objects.all()
   welcometext = WelcomeText.objects.first()
 

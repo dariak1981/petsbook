@@ -42,49 +42,61 @@
       </ol>
     </nav>
     <hr>
-      <div class="row mb-2 mt-5">
+
+    <div class="row mb-lg-0 mb-1">
+    <div class="col-lg-8 col-12 text-dark">
+      <p><strong>{% trans "By" %}:</strong> {{ listing.user.first_name }} {{ listing.user.last_name }}, {{ listing.created | date }} &nbsp; {{ listing.user_contact }}</p>
+    </div>
+
+    <div class="col-lg-4 col-12 text-center mb-lg-0 mb-4 social">
+     <!-- {{ share_string }} -->
+      <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri }}" target="_blank"
+    ><i class="fab fa-twitter fa-lg"></i></a>
+    <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
+      ><i class="fab fa-facebook fa-lg"></i></a>
+    <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
+      ><i class="fab fa-vk fa-lg"></i></a>
+    <a href="http://web.whatsapp.com/send?text={{ request.build_absolute_uri }}" data-action="share/whatsapp/share" target="_blank">
+    <i class="fab fa-whatsapp fa-lg"></i></a>
+    </div>
+  </div>
+      <div class="row mb-2">
       <div class="col-lg-8 col-12">
-        <div class="card h-100 bg-custom-primary">
-          <div class="card-body pb-0">
-            {% if listing.photo_main %}
-             <img src="{{ listing.photo_main.url }}" alt="" class="img-main img-fluid mb-3 shadow">
-            {% else %}
-             <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-main img-fluid mb-3 shadow">
-            {% endif %}
 
 
-          <div class="row">
-            <div class="col-lg-8 col-12 text-white mr-auto">
-              <p><strong>{% trans "By" %}:</strong> {{ listing.user.first_name }} {{ listing.user.last_name }}, {{ listing.created | date }} &nbsp; {{ listing.user_contact }}</p>
-            </div>
-            <div class="col-lg-4 col-12 mb-4 text-center social">
-             <!-- {{ share_string }} -->
-              <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri }}" target="_blank"
-            ><i class="fab fa-twitter fa-lg"></i
-            ></a>
-            <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
-              ><i class="fab fa-facebook fa-lg"></i
-            ></a>
-            <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
-              ><i class="fab fa-vk fa-lg"></i
-            ></a>
-            <a href="http://web.whatsapp.com/send?text={{ request.build_absolute_uri }}" data-action="share/whatsapp/share" target="_blank">
-            <i class="fab fa-whatsapp fa-lg"></i></a>
-            </div>
-          </div>
+        {% if listing.photo_main %}
+        <div class="card shadow" id="container-image">
+          <div id="dummy">
+            <div id="element-main-img">
+             <img src="{{ listing.photo_main.url }}" class="img-fluid">
+           </div>
+         </div>
         </div>
-
+        {% else %}
+        <div class="card shadow" id="container-image">
+          <div id="dummy">
+            <div id="element-main-img">
+             <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+           </div>
+         </div>
         </div>
+        {% endif %}
 
-      </div>
+
+
+
+         </div>
+
 
 
       <div class="col-lg-4 col-12 d-flex flex-column justify-content-between">
+
+
         <!-- <div class="card">
           <div class="card-body"> -->
-          <div class="listing-list mt-4">
-            <ul class="list-group list-group-flush mt-auto">
-              <li class="list-group-item custom-secondary-text-listing">
+          <div class="listing-list">
+            <ul class="list-group list-group-flush pt-1 mt-lg-0 mt-4">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-money-bill-wave"></i> {% trans "Asking Price" %}:
                 {% if listing.price == 0 %}
                 <span class="float-right">{% trans "Free of Charge" %}</span>
@@ -92,7 +104,7 @@
                 <span class="float-right">{{ listing.price | intcomma }}</span>
                 {% endif %}
               </li>
-              <li class="list-group-item custom-secondary-text-listing">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-crown"></i> {% trans "Breed" %}:
                 <span class="float-right">
 
@@ -102,7 +114,7 @@
 
                 </span>
               </li>
-              <li class="list-group-item custom-secondary-text-listing">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-hourglass-half"></i> {% trans "Age" %}:
                 <span class="float-right">
 
@@ -111,7 +123,7 @@
 
                 </span>
               </li>
-              <li class="list-group-item custom-secondary-text-listing">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-venus-mars"></i> {% trans "Gender" %}:
                 <span class="float-right">
 
@@ -120,7 +132,7 @@
 
                 </span>
               </li>
-              <li class="list-group-item custom-secondary-text-listing">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-home"></i> {% trans "Current location" %}:
                 <span class="float-right">
 
@@ -129,7 +141,7 @@
 
                 </span>
               </li>
-              <li class="list-group-item custom-secondary-text-listing">
+              <li class="list-group-item py-2 custom-secondary-text-listing">
                 <i class="fas fa-calendar"></i> {% trans "Health" %}:
                 <span class="float-right">
 
@@ -148,47 +160,55 @@
           <div class="row">
             {% if listing.photo_1 %}
             <div class="col-md-6 mt-4">
-              <div class="card">
-                <div class="card-body p-1">
+              <div class="card shadow" id="container-image">
+                <div id="dummy">
+                  <div id="element-thumb-img">
                   <a href="{{ listing.photo_1.url }}" data-lightbox="home-images" class="img-listing-thumbnails">
-                    <img src="{{ listing.photo_1.url }}" class="img-fluid img-listing-thumbnails">
+                    <img src="{{ listing.photo_1.url }}" class="img-fluid">
                   </a>
-                </div>
+                 </div>
+               </div>
               </div>
             </div>
             {% endif %}
             {% if listing.photo_2 %}
             <div class="col-md-6 mt-4">
-              <div class="card">
-                <div class="card-body p-1">
+              <div class="card shadow" id="container-image">
+                <div id="dummy">
+                  <div id="element-thumb-img">
                   <a href="{{ listing.photo_2.url }}" data-lightbox="home-images">
-                    <img src="{{ listing.photo_2.url }}" class="img-fluid img-listing-thumbnails">
+                    <img src="{{ listing.photo_2.url }}" class="img-fluid">
                   </a>
                 </div>
               </div>
+             </div>
             </div>
           {% endif %}
 
           {% if listing.photo_3 %}
             <div class="col-md-6 mt-4">
-              <div class="card">
-                <div class="card-body p-1">
+              <div class="card shadow" id="container-image">
+                <div id="dummy">
+                  <div id="element-thumb-img">
                   <a href="{{ listing.photo_3.url }}" data-lightbox="home-images">
-                    <img src="{{ listing.photo_3.url }}" class="img-fluid img-listing-thumbnails">
+                    <img src="{{ listing.photo_3.url }}" class="img-fluid">
                   </a>
                 </div>
               </div>
+             </div>
             </div>
             {% endif %}
             {% if listing.photo_4 %}
             <div class="col-md-6 mt-4">
-              <div class="card">
-                <div class="card-body p-1">
+              <div class="card shadow" id="container-image">
+                <div id="dummy">
+                  <div id="element-thumb-img">
                   <a href="{{ listing.photo_4.url }}" data-lightbox="home-images">
-                    <img src="{{ listing.photo_4.url }}" class="img-fluid img-listing-thumbnails">
+                    <img src="{{ listing.photo_4.url }}" class="img-fluid">
                   </a>
                 </div>
               </div>
+             </div>
             </div>
            {% endif %}
           </div>
@@ -208,8 +228,10 @@
 
       <div class="col-lg-4 col-12">
           <div class="card my-4 shadow">
+            <div class="card-header">
+              <h4>{% trans "Featured in Blog" %}</h4>
+            </div>
             {% if featuredthreads %}
-
             <ul class="list-group-flush px-0">
               {% for thread in featuredthreads %}
               <li class="list-group-item" style="color: #606160;">
@@ -254,7 +276,7 @@
 
       <div class="row">
         {% for service in services %}
-        <div class="col-lg-4 col-10 mx-auto pt-4 text-center">
+        <div class="col-lg-4 col-10 mx-auto pt-3 text-center">
               <h3>
 
                 {% get_current_language as LANGUAGE_CODE %}

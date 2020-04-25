@@ -56,25 +56,31 @@
               <div class="row">
                 <div class="col-lg-4 col-12 mx-auto image-fields">
                   <div class="">
-                    <div class="card bg-custom-transparent shadow">
-                      <div class="card-body p-1">
-                        {% if editpost.photo %}
-                          <img src="{{ editpost.photo.url }}" id="image-field-0" class="img-edit-post">
+                    {% if editpost.photo %}
+                    <div class="card shadow" id="container-image">
+                      <div id="dummy">
+                        <div id="element">
+                          <img src="{{ editpost.photo.url }}" id="image-field-0" class="img-fluid">
+                        </div>
                      </div>
                    </div>
                    <div class="text-white text-center mr-4">
                      <i class="fas fa-cut mr-1"></i>
                      <input id="image-clear_id" name="image-clear" type="checkbox" /> <label for="picture-clear_id">Clear</label><br />
-                     </div>
-                     {% else %}
-                         <img src="" id="image-field-0" class="img-edit-post">
-                     </div>
                    </div>
-                          {% endif %}
-                          <label>
-                              <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
-                          </label>
-                     </div>
+                  {% else %}
+                  <div class="card shadow" id="container-image">
+                    <div id="dummy">
+                      <div id="element">
+                         <img src="" id="image-field-0" class="img-fluid">
+                       </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <label>
+                      <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
+                  </label>
+                 </div>
 
              <div class="row mt-4">
                <div class="col-md-12 mx-auto">

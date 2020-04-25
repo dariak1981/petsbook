@@ -83,12 +83,13 @@
     <!-- Posts -->
     <section id="contents">
       <div class="container">
-        <form action="{% url 'posts' %}" method="POST" id="activeposts">
-        	{% csrf_token %}
-        <div class="row pt-4 pb-5">
+
+        <div class="row py-4 mb-5">
           <div class="col-12 mb-4">
             <div class="card bg-custom-primary-light shadow">
               <div class="card-body">
+                <form action="{% url 'posts' %}" method="POST" id="activeposts">
+                	{% csrf_token %}
                   {% if listings %}
                         <div class="accordion" id="accordionExample">
                           <div class="card">
@@ -161,20 +162,24 @@
                              <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
                                <div class="card-body">
                                  <div class="row">
-                                   <div class="col-lg-3 text-left">
+                                   <div class="col-lg-3 mt-4 text-left">
 
                                      {% if listing.photo_main %}
-                                     <div class="card mx-3 shadow">
-                                       <div class="card-body p-1">
-                                          <img src="{{ listing.photo_main.url }}" alt="" class="img-post">
-                                       </div>
+                                     <div class="card shadow" id="container-image">
+                                       <div id="dummy">
+                                         <div id="element">
+                                          <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                        </div>
                                      </div>
+                                   </div>
                                      {% else %}
-                                     <div class="card mx-3 shadow">
-                                       <div class="card-body p-1">
-                                          <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-post">
-                                       </div>
+                                     <div class="card shadow" id="container-image">
+                                       <div id="dummy">
+                                         <div id="element">
+                                          <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                                        </div>
                                      </div>
+                                   </div>
                                      {% endif %}
                                      <div class="my-3 text-center">
                                        <a href="{% url 'editlisting' listing.id %}" class="mr-2"><i class="fas fa-edit"></i> {% trans "Edit" %}</a><br>
@@ -187,7 +192,7 @@
                                      </div>
 
                                     </div>
-                                    <div class="col-lg-9 mr-auto" id="description" name="description">
+                                    <div class="col-lg-9 px-0" id="description" name="description">
                                      <p>{{ listing.description | safe | linebreaks }}</p>
                                     </div>
                                  </div>
@@ -204,51 +209,53 @@
                       </div>
                     </div>
                   {% endif %}
+                </form>
               </div>
+
+
+              <div class="ml-4">
+                {% if listings.has_other_pages %}
+                <!-- <p>No Listings Available</p>
+              </div>  -->
+                    <ul class="pagination">
+                      {% if listings.has_previous %}
+                        <li class="page-item">
+                          <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
+                        </li>
+                      {% else %}
+                      <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                      </li>
+                      {% endif %}
+                      {% for i in listings.paginator.page_range %}
+                        {% if listings.number == i %}
+                        <li class="page-item active">
+                          <a class="page-link">{{i}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                          <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        </li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if listings.has_next %}
+                        <li class="page-item">
+                          <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
+                        </li>
+                      {% else %}
+                      <li class="page-item disabled">
+                        <a class="page-link">&raquo;</a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+              </div>
+
             </div>
           </div>
         </div>
-       </form>
 
-       <div class="row">
-         <div class="col-12 mb-4">
-             {% if listings.has_other_pages %}
-             <!-- <p>No Listings Available</p>
-           </div>  -->
-                 <ul class="pagination">
-                   {% if listings.has_previous %}
-                     <li class="page-item">
-                       <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
-                     </li>
-                   {% else %}
-                   <li class="page-item disabled">
-                     <a class="page-link">&laquo;</a>
-                   </li>
-                   {% endif %}
-                   {% for i in listings.paginator.page_range %}
-                     {% if listings.number == i %}
-                     <li class="page-item active">
-                       <a class="page-link">{{i}}</a>
-                     </li>
-                     {% else %}
-                     <li class="page-item">
-                       <a href="?page={{i}}" class="page-link">{{i}}</a>
-                     </li>
-                     {% endif %}
-                   {% endfor %}
-                   {% if listings.has_next %}
-                     <li class="page-item">
-                       <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
-                     </li>
-                   {% else %}
-                   <li class="page-item disabled">
-                     <a class="page-link">&raquo;</a>
-                   </li>
-                   {% endif %}
-                 </ul>
-               {% endif %}
-           </div>
-         </div>
+
 
       </div>
     </section>

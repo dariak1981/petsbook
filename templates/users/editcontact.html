@@ -37,17 +37,21 @@
               <div class="row" style="min-height:250px;">
                  <div class="col-lg-3">
                   {% if listing.photo_main %}
-                  <div class="card bg-custom-transparent shadow">
-                    <div class="card-body p-1">
-                       <img src="{{ listing.photo_main.url }}" alt="" class="img-contact-post">
-                    </div>
+                  <div class="card shadow" id="container-image">
+                    <div id="dummy">
+                      <div id="element">
+                       <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                     </div>
                   </div>
+                </div>
                   {% else %}
-                  <div class="card shadow">
-                    <div class="card-body p-1">
-                       <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-contact-post">
-                    </div>
+                  <div class="card shadow" id="container-image">
+                    <div id="dummy">
+                      <div id="element">
+                       <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                     </div>
                   </div>
+                </div>
                   {% endif %}
                   <div class="text-white mt-2">
                     <i class="fas fa-clock"></i> {% trans "Created" %}: {{ listing.created.date }}

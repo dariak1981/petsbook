@@ -67,15 +67,16 @@
 <!-- Posts -->
 <section id="contents">
   <div class="container">
-    <form action="{% url 'contacts' %}" method="POST" id="activecontacts">
-      {% csrf_token %}
-    <div class="row pt-4 pb-5">
+
+    <div class="row py-4 mb-5">
       <div class="col-12 mb-4">
         <div class="card bg-custom-primary-light shadow">
-          <div class="card-body"
+          <div class="card-body">
               {% if contacts %}
                     <div class="accordion" id="accordionExample">
                       <div class="card">
+                        <form action="{% url 'contacts' %}" method="POST" id="activecontacts">
+                        {% csrf_token %}
 
                         {% for contact in contacts %}
                         <div class="card-header shadow-sm">
@@ -138,19 +139,21 @@
                            <div class="card-body">
                              {% for listing in contact.listing_set.all %}
                               <div class="row mb-3">
-                                <div class="col-lg-3 mt-2 px-4 text-left">
-                                 <div class="card mx-2 mb-4 shadow">
-                                   <div class="card-body p-1">
+                                <div class="col-lg-3 my-2 px-4 text-left">
+                                  <div class="card shadow" id="container-image">
+                                    <div id="dummy">
+                                      <div id="element">
                                      {% if listing.photo_main %}
-                                     <img src="{{ listing.photo_main.url }}" alt="" class="img-post">
+                                     <img src="{{ listing.photo_main.url }}" class="img-fluid">
                                      {% else %}
-                                     <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-post">
+                                     <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
                                      {% endif %}
                                    </div>
-                                 </div>
+                                </div>
+                              </div>
 
                                </div>
-                               <div class="col-lg-9 mr-auto" id="description" name="description">
+                               <div class="col-lg-9 px-0" id="description" name="description">
                                  <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                    <br>
                                    {% trans "Date posted" %}: {{ listing.created.date }}
@@ -193,6 +196,7 @@
 
                         </div>
                         {% endfor %}
+                        </form>
                       </div>
                     </div>
               {% else %}
@@ -202,14 +206,11 @@
                   </div>
                 </div>
               {% endif %}
+
           </div>
-        </div>
-      </div>
 
 
-   <!-- Paginator -->
-    <div class="row">
-      <div class="col-12 mb-4">
+        <div class="ml-4">
           {% if contacts.has_other_pages %}
           <!-- <p>No Listings Available</p>
         </div>  -->
@@ -247,10 +248,12 @@
             {% endif %}
         </div>
       </div>
+    </div>
+
+
 
 
     </div>
-   </form>
   </div>
 </section>
 

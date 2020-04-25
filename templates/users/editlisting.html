@@ -173,64 +173,82 @@
                  <!-- MAIN PHOTO -->
                  <div class="col-lg-3 col-12 mt-lg-0 mt-5 mx-auto image-fields">
                    <div class="">
-                     <div class="card bg-custom-transparent mx-2 shadow">
-                       <div class="card-body p-1">
-                         {% if editlisting.photo_main %}
-                           <img src="{{ editlisting.photo_main.url }}" id="image-field-0" class="img-new-post">
+                    {% if editlisting.photo_main %}
+                     <div class="card shadow" id="container-image">
+                       <div id="dummy">
+                         <div id="element">
+                           <img src="{{ editlisting.photo_main.url }}" id="image-field-0" class="img-fluid">
                       </div>
                     </div>
+                  </div>
                     <div class="text-white text-center mr-4">
                       <i class="fas fa-cut mr-1"></i>
                       <input id="image-clear_id" name="image-clear" type="checkbox" />
                     </div>
                       {% else %}
-                          <img src="" id="image-field-0" class="img-new-post">
-                      </div>
-                    </div>
-                           {% endif %}
-                           <label>
-                               <input id="selectedFile" type="file" name="photo_main" onchange="previewImage(event)">
-                           </label>
-                      </div>
+                      <div class="card shadow" id="container-image">
+                        <div id="dummy">
+                          <div id="element">
+                            <img src="" id="image-field-0" class="img-fluid">
+                       </div>
+                     </div>
+                   </div>
+                   {% endif %}
+                   <label>
+                       <input id="selectedFile" type="file" name="photo_main" onchange="previewImage(event)">
+                   </label>
+              </div>
 
 
 
                       <div class="">
-                        <div class="card bg-custom-transparent mx-2 shadow">
-                          <div class="card-body p-1">
-                            {% if editlisting.photo_1 %}
-                              <img src="{{ editlisting.photo_1.url }}" id="image-field-1" class="img-new-post">
-                           </div>
-                         </div>
+                      {% if editlisting.photo_1 %}
+                        <div class="card shadow" id="container-image">
+                          <div id="dummy">
+                            <div id="element">
+                              <img src="{{ editlisting.photo_1.url }}" id="image-field-1" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
                          <div class="text-white text-center mr-4">
                            <i class="fas fa-cut mr-1"></i>
                            <input id="image-clear_id" name="image-clear1" type="checkbox" />
                          </div>
                          {% else %}
-                             <img src="" id="image-field-1" class="img-new-post">
+                         <div class="card shadow" id="container-image">
+                           <div id="dummy">
+                             <div id="element">
+                               <img src="" id="image-field-1" class="img-fluid">
+                             </div>
+                           </div>
                          </div>
-                       </div>
-                              {% endif %}
-                              <label>
-                                  <input type="file" name="photo_1" onchange="previewImage1(event)">
-                              </label>
-                         </div>
+                        {% endif %}
+                        <label>
+                            <input type="file" name="photo_1" onchange="previewImage1(event)">
+                        </label>
+                        </div>
 
                          <div class="">
-                           <div class="card bg-custom-transparent mx-2 shadow">
-                             <div class="card-body p-1">
-                               {% if editlisting.photo_2 %}
-                                 <img src="{{ editlisting.photo_2.url }}" id="image-field-2" class="img-new-post">
-                              </div>
-                            </div>
+                          {% if editlisting.photo_2 %}
+                           <div class="card shadow" id="container-image">
+                             <div id="dummy">
+                               <div id="element">
+                                 <img src="{{ editlisting.photo_2.url }}" id="image-field-2" class="img-fluid">
+                               </div>
+                             </div>
+                           </div>
                             <div class="text-white text-center mr-4">
                               <i class="fas fa-cut mr-1"></i>
                               <input id="image-clear_id" name="image-clear2" type="checkbox" />
                             </div>
                               {% else %}
-                              <img src="" id="image-field-2" class="img-new-post">
-                            </div>
-                          </div>
+                              <div class="card shadow" id="container-image">
+                                <div id="dummy">
+                                  <div id="element">
+                                    <img src="" id="image-field-2" class="img-fluid">
+                                  </div>
+                                </div>
+                              </div>
                              {% endif %}
                              <label>
                                  <input type="file" name="photo_2" onchange="previewImage2(event)">
@@ -238,47 +256,58 @@
                             </div>
 
                             <div class="">
-                              <div class="card bg-custom-transparent mx-2 shadow">
-                                <div class="card-body p-1">
-                                  {% if editlisting.photo_3 %}
-                                    <img src="{{ editlisting.photo_3.url }}" id="image-field-3" class="img-new-post">
-                                 </div>
-                               </div>
+                              {% if editlisting.photo_3 %}
+                              <div class="card shadow" id="container-image">
+                                <div id="dummy">
+                                  <div id="element">
+                                    <img src="{{ editlisting.photo_3.url }}" id="image-field-3" class="img-fluid">
+                                  </div>
+                                </div>
+                              </div>
                                <div class="text-white text-center mr-4">
                                  <i class="fas fa-cut mr-1"></i>
                                  <input id="image-clear_id" name="image-clear3" type="checkbox" />
                                </div>
                                {% else %}
-                                   <img src="" id="image-field-3" class="img-new-post">
+                               <div class="card shadow" id="container-image">
+                                 <div id="dummy">
+                                   <div id="element">
+                                     <img src="" id="image-field-3" class="img-fluid">
+                                   </div>
+                                 </div>
                                </div>
-                             </div>
-                                    {% endif %}
-                                    <label>
-                                        <input type="file" name="photo_3" onchange="previewImage3(event)" >
-                                    </label>
-                               </div>
-
+                              {% endif %}
+                              <label>
+                                  <input type="file" name="photo_3" onchange="previewImage3(event)" >
+                              </label>
+                              </div>
 
                                <div class="">
-                                 <div class="card bg-custom-transparent mx-2 shadow">
-                                   <div class="card-body p-1">
-                                     {% if editlisting.photo_4 %}
-                                       <img src="{{ editlisting.photo_4.url }}" id="image-field-4" class="img-new-post">
-                                    </div>
-                                  </div>
+                                {% if editlisting.photo_4 %}
+                                 <div class="card shadow" id="container-image">
+                                   <div id="dummy">
+                                     <div id="element">
+                                       <img src="{{ editlisting.photo_4.url }}" id="image-field-4" class="img-fluid">
+                                     </div>
+                                   </div>
+                                 </div>
                                   <div class="text-white text-center mr-4">
                                     <i class="fas fa-cut mr-1"></i>
                                     <input id="image-clear_id" name="image-clear4" type="checkbox" />
                                   </div>
                                   {% else %}
-                                      <img src="" id="image-field-4" class="img-new-post">
+                                  <div class="card shadow" id="container-image">
+                                    <div id="dummy">
+                                      <div id="element">
+                                        <img src="" id="image-field-4" class="img-fluid">
+                                      </div>
+                                    </div>
                                   </div>
+                                 {% endif %}
+                                 <label>
+                                     <input type="file" name="photo_4" onchange="previewImage4(event)">
+                                 </label>
                                 </div>
-                                       {% endif %}
-                                       <label>
-                                           <input type="file" name="photo_4" onchange="previewImage4(event)">
-                                       </label>
-                                  </div>
                             </form>
 
                   </div>

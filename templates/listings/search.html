@@ -8,97 +8,106 @@
 
 
   <!-- Showcase-search -->
-<section id="showcase-inner" class="showcase-search text-white px-md-0 px-4 py-5">
-  <div class="container">
-      <div class="row text-center">
-        <div class="col-md-12 mx-sm-auto mx-5">
-          <form action="{% url 'searchlistings' %}">
-            <!-- Form Row 1 -->
-            <div class="form-row mb-md-2 mt-md-0 mt-5">
-              <div class="col-md-3 col-sm-12 mx-auto p-md-2 py-3">
-                <label class="sr-only">{% trans "Keywords" %}</label>
-                <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Keyword" %}" value="{{ values.keywords }}">
+  <section id="showcase">
+    <div class="container text-center">
+      <div class="home-search">
+
+        <div class="overlay m-sm-0 m-4 p-4 text-white shadow">
+
+          <div class="d-sm-none">
+           <i class="fas fa-paw"></i>
+          </div>
+
+
+          <div class="search">
+            <form action="{% url 'searchlistings' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row mb-md-2 mt-md-0">
+                <div class="col-md-3 col-sm-12 mx-auto p-md-2 py-3">
+                  <label class="sr-only">{% trans "Keywords" %}</label>
+                  <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Keyword" %}" value="{{ values.keywords }}">
+                </div>
+
+
+                <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
+                  <label class="sr-only">{% trans "Category" %}</label>
+                  <select name="category" class="form-control shadow-sm">
+                    <option selected="true" disabled="disabled">{% trans "Category" %}</option>
+                    {% for category in categories %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                        <option value="{{ category.id }}">
+                          {% if LANGUAGE_CODE == 'en' %}{{ category.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ category.title_ru }}{% endif %}
+                        </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
+                  <select name="price" class="form-control shadow-sm" id="type">
+                    <option selected="true" disabled="disabled">{% trans "Price" %}</option>
+                    {% for key, value in price_choices.items %}
+                      <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="col-md-3 col-sm-12 mx-auto p-md-2 py-3">
+                  <label class="sr-only">{% trans "City" %}</label>
+                  <input type="text" name="city" class="form-control shadow-sm" placeholder="{% trans "City" %}" value="{{ values.city }}">
+                </div>
+
+
+                <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
+                  <label for="type" class="sr-only">{% trans "Type" %}</label>
+                  <select data-target="secondList" class="firstList selectFilter form-control shadow-sm" name="type" id="first">
+                    <option disabled selected value>{% trans "Types" %}</option>
+                    {% for type in types %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                        <option  data-ref="{{ type.id }}" value="{{ type.id }}">
+                          {% if LANGUAGE_CODE == 'en' %}{{ type.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ type.title_ru }}{% endif %}
+                        </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
+                  <label class="sr-only">{% trans "Breed" %}</label>
+                  <select name="breed" class="secondList selectFilter form-control shadow-sm">
+                    <option disabled selected value>{% trans "Breeds" %}</option>
+                    {% for breed in breeds %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                        <option data-belong="{{ breed.type_id_id }}"  value="{{ breed.id }}">
+                          {% if LANGUAGE_CODE == 'en' %}{{ breed.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ breed.title_ru }}{% endif %}
+                        </option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="col-md-4 col-sm-12 mx-auto p-md-2 py-3">
+                  <label class="sr-only">{% trans "Age" %}</label>
+                  <select name="age" class="form-control shadow-sm">
+                    <option selected="true" disabled="disabled">{% trans "Age" %}</option>
+                    {% for age in ages %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                        <option value="{{ age.id }}">
+                          {% if LANGUAGE_CODE == 'en' %}{{ age.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ age.title_ru }}{% endif %}
+                        </option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
+              <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-md-4 mt-5" type="submit">{% trans "Search" %}</button>
+            </form>
 
-              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
-                <label class="sr-only">{% trans "City" %}</label>
-                <input type="text" name="city" class="form-control shadow-sm" placeholder="{% trans "City" %}" value="{{ values.city }}">
-              </div>
-
-
-              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
-                <label class="sr-only">{% trans "Category" %}</label>
-                <select name="category" class="form-control shadow-sm">
-                  <option selected="true" disabled="disabled">{% trans "Category" %}</option>
-                  {% for category in categories %}
-                  {% get_current_language as LANGUAGE_CODE %}
-                      <option value="{{ category.id }}">
-                        {% if LANGUAGE_CODE == 'en' %}{{ category.title }}
-                        {% elif LANGUAGE_CODE == 'ru' %}{{ category.title_ru }}{% endif %}
-                      </option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
-                <select name="price" class="form-control shadow-sm" id="type">
-                  <option selected="true" disabled="disabled">{% trans "Price" %}</option>
-                  {% for key, value in price_choices.items %}
-                    <option value="{{ key }}">{{ value }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-
-
-
-              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
-                <label for="type" class="sr-only">{% trans "Type" %}</label>
-                <select data-target="secondList" class="firstList selectFilter form-control shadow-sm" name="type" id="first">
-                  <option disabled selected value>{% trans "Types" %}</option>
-                  {% for type in types %}
-                  {% get_current_language as LANGUAGE_CODE %}
-                      <option  data-ref="{{ type.id }}" value="{{ type.id }}">
-                        {% if LANGUAGE_CODE == 'en' %}{{ type.title }}
-                        {% elif LANGUAGE_CODE == 'ru' %}{{ type.title_ru }}{% endif %}
-                      </option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
-                <label class="sr-only">{% trans "Breed" %}</label>
-                <select name="breed" class="secondList selectFilter form-control shadow-sm">
-                  <option disabled selected value>--{% trans "choose Section for filtering" %}--</option>
-                  {% for breed in breeds %}
-                  {% get_current_language as LANGUAGE_CODE %}
-                      <option data-belong="{{ breed.type_id_id }}"  value="{{ breed.id }}">
-                        {% if LANGUAGE_CODE == 'en' %}{{ breed.title }}
-                        {% elif LANGUAGE_CODE == 'ru' %}{{ breed.title_ru }}{% endif %}
-                      </option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
-                <label class="sr-only">{% trans "Age" %}</label>
-                <select name="age" class="form-control shadow-sm">
-                  <option selected="true" disabled="disabled">{% trans "Age" %}</option>
-                  {% for age in ages %}
-                  {% get_current_language as LANGUAGE_CODE %}
-                      <option value="{{ age.id }}">
-                        {% if LANGUAGE_CODE == 'en' %}{{ age.title }}
-                        {% elif LANGUAGE_CODE == 'ru' %}{{ age.title_ru }}{% endif %}
-                      </option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
+          </div>
         </div>
-
-        </div>
-  </div>
-</section>
+      </div>
+    </div>
+  </section>
 
 
 <!-- Listings -->
@@ -121,15 +130,27 @@
         <!-- Listing  -->
           <div class="col-xl-3 col-lg-4 col-md-6 my-4">
             <div class="card listing-preview mx-sm-0 mx-4 shadow">
+              <a href="{% url 'listing' listing.id %}">
               {% if listing.photo_main %}
-               <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+              <div id="container-image">
+                <div id="dummy">
+                  <div id="element-cards">
+                     <img src="{{ listing.photo_main.url }}" class="img-fluid cards">
+                   </div>
+                </div>
+              </div>
               {% else %}
-               <img class="card-img-top" src="{% static 'img/avatar-animal.png' %}" alt="">
+              <div id="container-image">
+                <div id="dummy">
+                  <div id="element-cards">
+                     <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid cards">
+                   </div>
+                </div>
+              </div>
               {% endif %}
-              <div class="img-highlight"></div>
+              </a>
               <div class="text-center" id="parent">
-                <a href="{% url 'listing' listing.id %}"><i class="fas fa-search-plus fa-2x p-2 ml-4 view-details text-white shadow"></i></a>
-                <div class="icon-highlight"></div>
+                <div class="img-highlight"></div>
               </div>
               <div class="card-img-overlay">
                 {% get_current_language as LANGUAGE_CODE %}
@@ -156,12 +177,13 @@
 
                 {% endif %}
               </div>
-              <div class="card-body pt-2" id="card-body-listings">
+              <div class="card-body pt-2">
 
-                <div class="listing-heading">
-
-                    <i class="fas fa-map-marker mt-sm-3 mt-4"></i> {{ listing.city }}
-                    <p class="topic-titles px-3 mb-2"><small>{{ listing.district }}</small></p>
+                <div class="listing-heading text-center mt-1">
+                  <i class="fas fa-map-marker"></i> {{ listing.city }}
+                </div>
+                <div class="text-center">
+                  <p class="topic-titles mb-3 px-0"><small>{{ listing.district }}</small></p>
                 </div>
                 <hr class="my-0">
                 <ul class="list-group list-group-flush">
@@ -197,7 +219,7 @@
                  </ul>
 
                 <div class="row pt-2">
-                  <div class="col">
+                  <div class="col text-center">
                     <i class="fas fa-clock"></i> {{ listing.created | naturaltime }}</div>
                 </div>
               </div>
@@ -257,48 +279,6 @@
    </div>
 </section>
 
-<section id="services" class="py-5 text-white">
-  <div class="container">
-    <div class="d-none d-lg-block ">
-      <div class="row text-center">
-        <div class="col-md-4">
-          <i class="fas fa-handshake fa-2x"></i>
-          <hr>
-        </div>
-        <div class="col-md-4">
-          <i class="fas fa-satellite-dish fa-2x"></i>
-          <hr>
-        </div>
-        <div class="col-md-4">
-          <i class="fas fa-object-ungroup fa-2x"></i>
-          <hr>
-        </div>
-     </div>
-    </div>
-
-      <div class="row">
-        {% for service in services %}
-        <div class="col-lg-4 col-10 mx-auto pt-4 text-center">
-              <h3>
-
-                {% get_current_language as LANGUAGE_CODE %}
-                {% if LANGUAGE_CODE == 'en' %}{{ service.title }}
-                {% elif LANGUAGE_CODE == 'ru' %}{{ service.title_ru }}{% endif %}
-
-              </h3>
-              <p>
-
-                {% get_current_language as LANGUAGE_CODE %}
-                {% if LANGUAGE_CODE == 'en' %}{{ service.content }}
-                {% elif LANGUAGE_CODE == 'ru' %}{{ service.content_ru }}{% endif %}
-
-              </p>
-            <hr>
-        </div>
-        {% endfor %}
-      </div>
-  </div>
-</section>
 
 
 {% endblock %}

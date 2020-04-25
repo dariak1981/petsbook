@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -14,7 +15,20 @@
     <!-- LightBox -->
     <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
     <title>PetsBook {% block title %}{% endblock %}</title>
+    <meta property="og:title" content="{{ listing.title }}/>
+    <meta property="og:locale" content=
+    {% get_current_language as LANGUAGE_CODE %}
+    {% if LANGUAGE_CODE == 'en' %}"en_GB"
+    {% elif LANGUAGE_CODE == 'ru' %}"ru_RU"{% endif %}/>
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:image" content="{{ listing.photo_main.url }}" />
+    <meta name="description" content="{{ listing.description }}">
+    <meta property="og:description" content="description of your website/webpage">
+    <meta property="og:image" content="{{ listing.photo_main.url }}">
+
   </head>
 
 <!-- Top Bar -->
