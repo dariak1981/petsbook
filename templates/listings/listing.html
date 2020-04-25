@@ -72,7 +72,9 @@
       ><i class="fab fa-facebook fa-lg"></i></a>
     <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
       ><i class="fab fa-vk fa-lg"></i></a>
-    <a href="whatsapp://send?text={{ listing.photo_main.url }}, {{ listing.title }} / {{ request.build_absolute_uri }}" data-action="share/whatsapp/share" target="_blank">
+    <a data-text="{{ listing.title }}"
+     href="whatsapp://send?text=http%3A%2F%2F167.172.247.101%2Flistings%2F{{ listing.id }}"
+     data-action="share/whatsapp/share" target="_blank">
     <i class="fab fa-whatsapp fa-lg"></i></a>
     </div>
   </div>
