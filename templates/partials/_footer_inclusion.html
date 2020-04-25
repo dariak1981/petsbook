@@ -1,22 +1,20 @@
 {% load i18n %}
 
-<div class="d-flex flex-row mt-1 mb-3 justify-content-center">
-  <div class="">
-    <div class="mx-2">
-      <i class="fas fa-copyright"></i>&nbsp;&nbsp; <small>{{ contents.sitename }} <span  id="year"></span></small>
-      <!-- <small>
-        {% get_current_language as LANGUAGE_CODE %}
-        {% if LANGUAGE_CODE == 'en' %}{{ contents.middletext }}
-        {% elif LANGUAGE_CODE == 'ru' %}{{ contents.middletext_ru }}{% endif %}
-      </small> -->
+    <div class="col-sm-6 col-12 mt-2 mx-auto">
+      <div class="">
+        <i class="fas fa-copyright"></i>&nbsp;&nbsp; <small>{{ contents.sitename }}&nbsp;&nbsp; <span  id="year"></span></small>
+        <small class="ml-2">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% if LANGUAGE_CODE == 'en' %}{{ contents.middletext }}
+          {% elif LANGUAGE_CODE == 'ru' %}{{ contents.middletext_ru }}{% endif %}
+        </small>
+      </div>
     </div>
-  </div>
 
-  <div class="mx-2">
-    <small>
-    <i class="fas fa-envelope-open-text"></i> &nbsp; {{ contents.email }} &nbsp;
-    <a href="https://portfolio.td-btre.com/"
-    target="_blank" class="custom-grey-text"><i class="fas fa-home"></i></a>
-    </small>
-  </div>
-</div>
+    <div class="col-sm-6 col-12 mx-auto mb-2">
+      <small>
+      <i class="fas fa-envelope-open-text"></i> &nbsp; {{ contents.email }} &nbsp;
+      <a href="https://portfolio.td-btre.com/"
+      target="_blank" class="custom-grey-text"><i class="fas fa-home"></i></a>
+      </small>
+    </div>

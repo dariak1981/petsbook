@@ -11,22 +11,22 @@
 <section id="showcase-inner" class="showcase-search text-white px-md-0 px-4 py-5">
   <div class="container">
       <div class="row text-center">
-        <div class="col-md-12">
+        <div class="col-md-12 mx-sm-auto mx-5">
           <form action="{% url 'searchlistings' %}">
             <!-- Form Row 1 -->
             <div class="form-row mb-md-2 mt-md-0 mt-5">
-              <div class="col-md-3 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-3 col-sm-12 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "Keywords" %}</label>
                 <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Keyword" %}" value="{{ values.keywords }}">
               </div>
 
-              <div class="col-md-3 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "City" %}</label>
                 <input type="text" name="city" class="form-control shadow-sm" placeholder="{% trans "City" %}" value="{{ values.city }}">
               </div>
 
 
-              <div class="col-md-3 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "Category" %}</label>
                 <select name="category" class="form-control shadow-sm">
                   <option selected="true" disabled="disabled">{% trans "Category" %}</option>
@@ -40,7 +40,7 @@
                 </select>
               </div>
 
-              <div class="col-md-3 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-3 col-6 mx-auto p-md-2 py-3">
                 <select name="price" class="form-control shadow-sm" id="type">
                   <option selected="true" disabled="disabled">{% trans "Price" %}</option>
                   {% for key, value in price_choices.items %}
@@ -52,11 +52,7 @@
 
 
 
-            </div>
-            <!-- Form Row 2 -->
-            <div class="form-row">
-
-              <div class="col-md-4 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
                 <label for="type" class="sr-only">{% trans "Type" %}</label>
                 <select data-target="secondList" class="firstList selectFilter form-control shadow-sm" name="type" id="first">
                   <option disabled selected value>{% trans "Types" %}</option>
@@ -70,7 +66,7 @@
                 </select>
               </div>
 
-              <div class="col-md-4 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "Breed" %}</label>
                 <select name="breed" class="secondList selectFilter form-control shadow-sm">
                   <option disabled selected value>--{% trans "choose Section for filtering" %}--</option>
@@ -84,7 +80,7 @@
                 </select>
               </div>
 
-              <div class="col-md-4 col-10 mx-auto p-md-2 p-3">
+              <div class="col-md-4 col-6 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "Age" %}</label>
                 <select name="age" class="form-control shadow-sm">
                   <option selected="true" disabled="disabled">{% trans "Age" %}</option>
@@ -97,13 +93,7 @@
                   {% endfor %}
                 </select>
               </div>
-
-
             </div>
-            <div class="col-12 px-md-0 px-4 mx-auto">
-              <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-md-4 mt-5" type="submit">{% trans "Search" %}</button>
-            </div>
-          </form>
         </div>
 
         </div>
@@ -129,8 +119,8 @@
       {% if listings %}
         {% for listing in listings %}
         <!-- Listing  -->
-          <div class="col-md-6 col-lg-3 my-sm-4 my-5">
-            <div class="card listing-preview shadow">
+          <div class="col-xl-3 col-lg-4 col-md-6 my-4">
+            <div class="card listing-preview mx-sm-0 mx-4 shadow">
               {% if listing.photo_main %}
                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
               {% else %}
@@ -170,12 +160,12 @@
 
                 <div class="listing-heading">
 
-                    <i class="fas fa-map-marker"></i> {{ listing.city }}
-                    <p class="topic-titles px-3"><small>{{ listing.district }}</small></p>
+                    <i class="fas fa-map-marker mt-sm-3 mt-4"></i> {{ listing.city }}
+                    <p class="topic-titles px-3 mb-2"><small>{{ listing.district }}</small></p>
                 </div>
-                <hr>
+                <hr class="my-0">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item d-flex justify-content-between align-items-start px-0 pt-0">
+                  <li class="list-group-item d-flex justify-content-between align-items-start p-2">
                     <div class="">
                       {% get_current_language as LANGUAGE_CODE %}
                           {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-paw"></i> {{ listing.types_id.title }}
@@ -189,7 +179,7 @@
                     </div>
 
                   </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+                  <li class="list-group-item d-flex justify-content-between align-items-start p-2">
                     <div class="">
                       {% get_current_language as LANGUAGE_CODE %}
                       {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-venus-mars"></i> {{ listing.gender_id.title }}
@@ -288,7 +278,7 @@
 
       <div class="row">
         {% for service in services %}
-        <div class="col-lg-4 col-12 pt-4 text-center">
+        <div class="col-lg-4 col-10 mx-auto pt-4 text-center">
               <h3>
 
                 {% get_current_language as LANGUAGE_CODE %}
@@ -309,5 +299,6 @@
       </div>
   </div>
 </section>
+
 
 {% endblock %}

@@ -141,99 +141,90 @@
 
           <!-- RIGHT CARDS -->
 
-          <div class="col-lg-4 col-12 mb-4 mt-sm-0 mt-4">
-
-            <div class="card text-center bg-custom-primary-light text-white mb-4">
-               <div class="card-header">
-                 <h4>{% trans "Image & Blog View" %}</h4>
-                 <p class="mb-0">~</p>
-              </div>
-            <div class="card-body mx-auto">
-
-
-                {% if edituser.photo %}
-                <div class="card bg-custom-transparent mb-0 mx-4 mt-4 shadow">
-                  <div class="card-body p-1">
-                   <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-profile">
+          <div class="col-lg-4 col-12">
+            <div class="card text-center bg-custom-primary-light text-white p-4  shadow">
+                <div class="card-header">
+                  <div class="col-lg-12 col-12">
+                    <h4>{% trans "Image & Blog View" %}</h4>
+                  </div>
+                  <div class="col-md-12">
+                    ~
                   </div>
                 </div>
-              <div class="text-white text-center mr-4">
-                <i class="fas fa-cut mr-1"></i>
-                <input id="image-clear_id" name="image-clear" type="checkbox" />
-              </div>
-                {% else %}
-                <div class="card bg-custom-transparent mb-0 mx-4 mt-4 shadow">
+                <div class="card user-card mb-0 mx-4 mt-4 shadow">
                   <div class="card-body p-1">
-                   <img src="{% static 'img/avatar-profile.png' %}" id="image-field-0" class="img-profile">
-                  </div>
-                </div>
-                {% endif %}
-                <label>
-                    <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
-                </label>
-                </form>
-
-              </div>
-            </div>
-
-
-            <div class="card text-center bg-custom-primary-light text-white mb-4">
-              <div class="card-body mx-auto py-4">
-                <div class="col-12 text-center">
-                  <div class="col-md-12 mb-2">
-                    <strong>~ {{ edituser.user }} ~</strong>
-                    {% if edituser.usertype %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
-                    {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
-                    {% endif %}
-                  </div>
-
-
-
-                 <div class="row">
-
-                  <div class="col-12 pl-4">
-                    <div class="mt-1 text-center">
-                      {% if edituser.business %}
-                       {{ edituser.business }}
-                      {% endif %}
-
-                      {% if edituser.publicmail %}
-                       <br> {{ edituser.publicmail }}
-                      {% endif %}
-
-                      {% if edituser.phone %}
-                       <br> {{ edituser.phone }}
-                      {% endif %}
+                    {% if edituser.photo %}
+                      <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-profile">
                     </div>
                   </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 py-0 text-center">
-                    {% if edituser.links %}
-                     <br> {{ edituser.links }}
+                  <div class="text-white text-center mr-4">
+                    <i class="fas fa-cut mr-1"></i>
+                    <input id="image-clear_id" name="image-clear" type="checkbox" />
+                  </div>
+                    {% else %}
+                      <img src="{% static 'img/avatar_profile.png' %}" id="image-field-0" class="img-profile">
+                    </div>
+                  </div>
                     {% endif %}
+                    <label>
+                        <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
+                    </label>
+                    </form>
+
+                    <div class="card  m-4 shadow">
+                      <div class="card-body text-center text-dark">
+
+                          <div class="col-md-12 mb-2">
+                            <strong>~ {{ edituser.user }} ~</strong>
+                            {% if edituser.usertype %}
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
+                            {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
+                            {% endif %}
+                          </div>
+
+
+
+                         <div class="row">
+
+                          <div class="col-12 pl-4">
+                            <div class="mt-1 text-center">
+                              {% if edituser.business %}
+                               {{ edituser.business }}
+                              {% endif %}
+
+                              {% if edituser.publicmail %}
+                               <br> {{ edituser.publicmail }}
+                              {% endif %}
+
+                              {% if edituser.phone %}
+                               <br> {{ edituser.phone }}
+                              {% endif %}
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 py-0 text-center">
+                            {% if edituser.links %}
+                             <br> {{ edituser.links }}
+                            {% endif %}
+                          </div>
+                        </div>
+
+                        {% if edituser.description %}
+                        <div class="row">
+                          <div class="col-md-12 mt-2 text-center">
+                            <hr class="mb-1">
+                            {{ edituser.description }}
+                          </div>
+                        </div>
+                        {% endif %}
+
                   </div>
                 </div>
-
-                {% if edituser.description %}
-                <div class="row">
-                  <div class="col-md-12 mt-2 text-center">
-                    <hr class="mb-1">
-                    {{ edituser.description }}
-                  </div>
-                </div>
-                {% endif %}
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-
+        </div>
     </section>
 
 

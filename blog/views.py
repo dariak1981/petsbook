@@ -40,11 +40,15 @@ class PostListView(ListView):
 class FilterPostListView(ListView):
     model = Post
     ordering = ['-created']
+    paginate_by = 5
 
 
     def get_context_data(self, **kwargs):
         context = super(FilterPostListView, self).get_context_data(**kwargs)
-        filter_set = Post.objects.all()
+        filter_set = Post.objects.all().order_by('-created')
+        page_size = self.get_paginate_by(filter_set)
+        context_object_name = self.get_context_object_name(filter_set)
+
         if self.request.GET.get('keywords'):
             keywords = self.request.GET.get('keywords') or None
             if keywords:
@@ -59,12 +63,32 @@ class FilterPostListView(ListView):
             theme = self.request.GET.get('theme')
             if theme:
                 filter_set = filter_set.filter(theme_id=theme)
+        if page_size:
+            paginator, page, filter_set, is_paginated = self.paginate_queryset(filter_set, page_size)
 
-        context['allposts'] = filter_set
-        context['searchthreads'] = Themes.objects.all()
-        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
-        context['values']:request.GET
-        return context
+            context['paginator'] = paginator
+            context['page_obj'] = page
+            context['is_paginated'] = is_paginated
+            context['allposts'] = filter_set
+            context['searchthreads'] = Themes.objects.all()
+            context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+            context['values']:request.GET
+            return context
+
+        else:
+            context['paginator'] = None
+            context['page_obj'] = None
+            context['is_paginated'] = False
+            context['allposts'] = filter_set
+            context['searchthreads'] = Themes.objects.all()
+            context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+            context['values']:request.GET
+            return context
+
+        if context_object_name is not None:
+            context[context_object_name] = filter_set
+        context.update(kwargs)
+        return super().get_context_data(**context)
 
 
 

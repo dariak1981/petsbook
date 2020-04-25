@@ -3,7 +3,7 @@ html {
   min-width: 100%;
 }
 
-
+/*
 body:after{
   content: '';
   background-image: url("../img/aerial.jpg");
@@ -16,6 +16,14 @@ body:after{
   right: 0;
   position: fixed;
   z-index: -1;
+} */
+
+body {
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
 }
 
 #main-footer-light {
@@ -23,10 +31,16 @@ body:after{
 }
 
 #main-footer-pages {
-  background: #06323c;
+  background: #163c4a;
+  box-shadow: inset 0px 0px 40px rgba(0,0,0,0.2);
 }
 
 #listings {
+  background: rgba(255, 255, 255, 0.9);
+  min-height:350px;
+}
+
+#listings-featured {
   background: rgba(255, 255, 255, 0.9);
   min-height:350px;
 }
@@ -90,19 +104,15 @@ color: #fff;
 
 }
 
-#showcase-inner {
-}
 
 #showcase {
-
-
   padding-top: 6rem;
   position: relative;
 }
 
 
 #showcase-logout {
-  min-height: 520px;
+  min-height: 487px;
   padding-top: 3rem;
   position: relative;
 }
@@ -226,9 +236,11 @@ color: #fff;
   pointer-events: none;
 }
 
+
 .card-img-top {
   width: 100%;
-  height: 18vw;
+  min-height:230px;
+  height: 16vw;
   object-fit: cover;
 }
 
@@ -251,13 +263,13 @@ color: #fff;
 
 .img-main {
   width: 100%;
-  height: 36vw;
+  height: 510px;
   object-fit: cover;
 }
 
 .img-listing-thumbnails {
   width: 100%;
-  height: 8vw;
+  height: 115px;
   object-fit: cover;
 }
 
@@ -275,15 +287,15 @@ color: #fff;
 
 
 .img-forum {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .img-forum-empty {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-style: solid;
   border-width: 3px;
   border-color: #25395b;
@@ -295,53 +307,57 @@ color: #fff;
 
 .img-new-post {
   width: 100%;
-  height: 9.5vw;
+  height: 130px;
   object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
+}
+
+
+.img-contact-post {
+  width: 100%;
+  height: 135px;
+  object-fit: cover;
 }
 
 .img-archive-post {
   width: 100%;
-  height: 9.5vw;
+  height: 140px;
   object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
 }
+
+.img-edit-post {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+}
+
+/* .bg-custom-primary-light {
+  background: rgba(54, 56, 76, 0.7);
+  border: none;
+}
+
+.bg-custom-secondary-light-opaque {
+  background: rgba(97, 58, 67, 0.7);
+  border-color: rgb(97, 58, 67);
+} */
 
 
 .img-post {
   width: 100%;
-  height: 9.5vw;
+  height: 145px;
   object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
 }
+
 
 .img-post-detail {
   width: 100%;
-  height: 25vw;
+  height: 320px;
   object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
 }
 
 
 .img-profile {
   width: 100%;
-  height: 20vw;
+  height: 210px;
   object-fit: cover;
 }
 
@@ -403,6 +419,7 @@ color: #fff;
 
 }
 
+
 .btn-secondary.custom-btn {
   background-color: #36384c;
   border-color: #36384c;
@@ -457,6 +474,10 @@ color: #fff;
 .bg-custom-secondary-light {
   background: #e8d8be;
   border-color: #e8d8be;
+}
+
+.bg-custom-transparent {
+  background: transparent;
 }
 
 .custom-primary-text {
@@ -629,12 +650,63 @@ label {
     box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 
-.carousel {
-  min-height:280px;
+/* .carousel { */
+  /* min-height:280px; */
+/* } */
+
+@media (max-width: 1200px) {
+
+
+  /* CARD LISTINGS */
+  .card-img-top {
+    height:250px;
+  }
+
+  .img-listing-thumbnails {
+    height: 95px;
+  }
+
+  .img-main {
+    height: 420px;
+  }
+
+  .img-profile {
+    height: 160px;
+  }
+
+  .img-post {
+    height: 110px;
+  }
+
+  .img-new-post {
+    height: 105px;
+  }
+
+  .img-contact-post {
+    height: 105px;
+  }
+
+  .img-edit-post {
+    height: 115px;
+  }
+
+  .img-archive-post {
+    height: 115px;
+  }
+
+  .img-post-detail {
+    height: 280px;
+  }
+
+
+
+
 }
 
 
+
 @media (max-width: 992px) {
+
 
   #no-more-tables table,
   #no-more-tables thead,
@@ -686,83 +758,93 @@ label {
   }
 
   .img-main {
-    width: 100%;
-    height: 55vw;
-    object-fit: cover;
+    height: 480px;
   }
 
   /* NEWLISTING */
     .img-new-post {
-      width: 100%;
       height: 45vw;
     }
 
     .img-post {
-      width: 100%;
       height: 40vw;
     }
 
     .img-archive-post {
-      width: 100%;
       height: 38vw;
     }
 
     /* LISTING THUMBNAILS */
     .img-listing-thumbnails {
-      width: 100%;
-      height: 26vw;
-      object-fit: cover;
+      height: 250px;
     }
 
-    /* PROFILE */
     .img-profile {
-      width: 100%;
-      height: 55vw;
+      height: 410px;
     }
 
     /* CARD LISTINGS */
     .card-img-top {
-      width: 100%;
-      height: 35vw;
+      height:280px;
     }
 
+    .img-post {
+      height: 430px;
+    }
+
+    .img-new-post {
+      height: 400px;
+    }
+
+    .img-contact-post {
+      height: 470px;
+    }
+
+    .img-edit-post {
+      height: 260px;
+    }
+
+    .img-archive-post {
+      height: 380px;
+    }
+
+    .img-post-detail {
+      height: 220px;
+    }
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
   /* LISTING THUMBNAILS */
 
   .img-listing-thumbnails {
-    width: 100%;
-    height: 65vw;
-    object-fit: cover;
+    height: 390px;
+  }
+
+  .img-main {
+    height: 350px;
   }
 
 
   .card-img-top {
-    width: 100%;
-    height: 65vw;
+    height:400px;
   }
 
   .img-new-post {
-    width: 100%;
     height: 55vw;
   }
 
 
   .img-thumbnail {
-    width: 100%;
     height: 70vw;
   }
 
   .img-archive-post {
-    width: 100%;
     height: 48vw;
   }
 
   .img-post-detail {
-    width: 100%;
     height: 40vw;
   }
 
@@ -791,5 +873,111 @@ label {
   .header-sticky {
     font-size:0.9rem;
   }
+
+  .img-profile {
+    height: 335px;
+  }
+
+  .img-post {
+    height: 280px;
+  }
+
+  .img-new-post {
+    height: 265px;
+  }
+
+  .img-contact-post {
+    height: 330px;
+  }
+
+  .img-edit-post {
+    height: 220px;
+  }
+
+  .img-archive-post {
+    height: 260px;
+  }
+
+  .img-post-detail {
+    height: 210px;
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  .header-sticky {
+    font-size:0.7rem;
+  }
+
+  .card-img-top {
+    height: 66vw;
+  }
+
+  .img-listing-thumbnails {
+    height: 310px;
+  }
+
+  .img-main {
+    height: 280px;
+  }
+
+  .img-profile {
+    height: 295px;
+  }
+
+  .img-post {
+    height: 230px;
+  }
+
+  .img-new-post {
+    height: 300px;
+  }
+
+  .img-contact-post {
+    height: 285px;
+  }
+
+  .img-edit-post {
+    height: 200px;
+  }
+
+  .img-archive-post {
+    height: 290px;
+  }
+
+  .img-post-detail {
+    height: 190px;
+  }
+
+  #showcase-logout {
+    min-height: 680px;
+  }
+
+}
+
+@media (min-height: 1023px) {
+
+  #showcase-logout {
+    min-height: 860px;
+  }
+
+}
+
+@media (min-height: 1364px) {
+
+  #showcase-logout {
+    min-height: 1200px;
+  }
+
+  #listings-featured {
+    min-height:972px;
+  }
+
+  #contents {
+    min-height: 1030px;
+  }
+
+
 
 }

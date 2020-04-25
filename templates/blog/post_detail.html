@@ -15,14 +15,14 @@
         <div class="card-body">
           <div class="card p-3">
 
-              <div class="media mt-3">
+              <div class="media m-0 pt-4 px-3">
                 {% if object.author.userprofile.photo %}
                 <a href="{% url 'user-posts' object.author.username %}">
-                  <img class="img-forum mr-3" src="{{ object.author.userprofile.photo.url }}">
+                  <img class="img-forum mx-4" src="{{ object.author.userprofile.photo.url }}">
                 </a>
                 {% else %}
                 <a href="{% url 'user-posts' object.author.username %}">
-                  <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                  <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
                 </a>
                 {% endif %}
                 <div class="media-body">
@@ -31,7 +31,7 @@
                       <div class="d-flex">
                         <h4><a class="pop" data-toggle="popover" data-content="
                           {% if object.author.userprofile.usertype %}
-                          
+
                           {% get_current_language as LANGUAGE_CODE %}
                           {% if LANGUAGE_CODE == 'en' %}{{ post.author.userprofile.usertype.title }}
                           {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.userprofile.usertype.title_ru }}{% endif %}
@@ -59,23 +59,17 @@
                           ">{{ object.author }}</a></h4>
                         <!-- <a href="#" class="mr-2">{{ object.author }}</a> -->
                         <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
-                        <small class="text-muted">{{ object.created.date }}</small> &nbsp;&nbsp;
+                        <small class="text-muted">{{ object.created | date:"SHORT_DATE_FORMAT" }}</small> &nbsp;&nbsp;
                         <i class="fas fa-comments"></i>&nbsp;{{ object.message_set.all.count }}
                       </div>
-                    {% if object.author == user %}
-                    <div class="text-right">
-                      <a class="btn btn-secondary btn-sm my-1" href="{% url 'post-update' object.id %}">{% trans "Update" %}</a>
-                      <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id %}">{% trans "Delete" %}</a>
-                    </div>
-                    {% endif %}
                   </div>
-                  <hr class="mt-2 my-1">
+                  <hr class="mt-2 mr-4">
                   </div>
                 </div>
               </div>
               <div class="col-12">
                 <div class="col-12 px-lg-3 px-0">
-                  <h2 class="article-title mb-4">&nbsp;&nbsp;&nbsp;{{ object.title }}</h2>
+                  <h2 class="article-title mb-4">{{ object.title }}</h2>
                 </div>
 
 
@@ -94,6 +88,12 @@
                 <div class="col-12 px-lg-3 px-0">
                   <p class="article-content">{{ object.content | safe | linebreaks }}</p>
                 </div>
+                {% if object.author == user %}
+                <div class="text-right">
+                  <a class="btn btn-secondary btn-sm my-1" href="{% url 'post-update' object.id %}">{% trans "Update" %}</a>
+                  <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id %}">{% trans "Delete" %}</a>
+                </div>
+                {% endif %}
 
               </div>
 
@@ -105,18 +105,18 @@
     </div>
 
     <!-- REPLIES -->
-    <div class="row py-4">
+    <div class="row pt-2 pb-4 mb-5">
       <div class="col-md-10 mx-auto">
         <div class="card mb-sm-4 bg-custom-primary-light shadow">
           <div class="card-body">
             <div class="card p-3">
 
                   {% for message in object.message_set.all %}
-                  <div class="media mt-3">
+                  <div class="media m-0 pt-4 px-3">
                     {% if message.author.userprofile.photo %}
-                       <img class="img-forum mr-3" src="{{ message.author.userprofile.photo.url }}">
+                       <img class="img-forum mx-4" src="{{ message.author.userprofile.photo.url }}">
                     {% else %}
-                       <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                       <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
                     {% endif %}
                   <div class="media-body">
                     <div class="row">
@@ -153,25 +153,28 @@
 
                           <!-- <a href="#" class="mr-2">{{ post.author }}</a> -->
                           <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
-                          <small class="text-muted">{% trans "Replied" %}: {{ message.created }}</small>
+                          <small class="text-muted">{{ message.created | date:"SHORT_DATE_FORMAT" }}</small>
                         </div>
-                        {% if message.author == user %}
-                        <div class="text-right">
-                          <a class="btn btn-secondary btn-sm my-1" href="{% url 'message-update' message.id %}">{% trans "Update" %}</a>
-                          <a class="btn btn-danger btn-sm my-1" href="{% url 'message-delete' message.id %}">{% trans "Delete" %}</a>
-                        </div>
-                        {% endif %}
                       </div>
 
-                      <hr class="mt-2 my-1">
+                      <hr class="mt-2 mb-1">
+                      {% if message.author == user %}
+                      <div class="mt-3 text-right">
+                        <a class="btn btn-secondary btn-sm" href="{% url 'message-update' message.id %}">{% trans "Update" %}</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'message-delete' message.id %}">{% trans "Delete" %}</a>
+                      </div>
+                      {% endif %}
                     </div>
-                    <p class="article-content">{{ message.message | safe | linebreaks }}</p>
+                   </div>
                   </div>
+                  <div class="col-12 px-sm-4 px-3" style="margin-top:-7px;">
+                    <p class="article-content pr-0">{{ message.message | safe | linebreaks }}</p>
                   </div>
+
                   {% endfor %}
 
 
-                  <div class="col-md-2 mx-auto mt-4">
+                  <div class="col-md-4 col-6 mx-auto mt-4">
                     <a class="btn btn-secondary btn-sm d-block my-1" href="{% url 'message-create' object.id %}">{% trans "Reply" %}</a>
                   </div>
 

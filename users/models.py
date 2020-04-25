@@ -17,7 +17,7 @@ class UserType(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    usertype = models.ForeignKey(UserType, on_delete=models.DO_NOTHING, verbose_name = _('users_group'), blank=True, null=True)
+    usertype = models.ForeignKey(UserType, on_delete=models.DO_NOTHING, verbose_name = _('users_group'), default='5')
     publicmail = models.CharField(max_length=100, blank=True, verbose_name = _('public email'),)
     business = models.CharField(max_length=250, blank=True, verbose_name = _('organization name'),)
     phone = models.CharField(max_length=20, blank=True, verbose_name = _('phone'),)

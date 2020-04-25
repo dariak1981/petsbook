@@ -106,8 +106,7 @@ def dashboard(request):
   archivedlistings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
   userposts = Post.objects.filter(author=request.user.id).count()
   usermessages = Message.objects.filter(author=request.user.id).count()
-  sitecontacts = Contact.objects.filter(user=request.user.id).exclude(type_id = '3').count()
-  externalcontacts = Contact.objects.filter(user=request.user.id).filter(type_id = '3').count()
+  sitecontacts = Contact.objects.filter(user=request.user.id).count()
   pendingtime = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:1]
   datejoined = User.objects.filter(id=request.user.id)
   alllistings = Listing.objects.filter(user_id=request.user.id).count()
@@ -120,7 +119,6 @@ def dashboard(request):
      'userposts': userposts,
      'usermessages': usermessages,
      'sitecontacts': sitecontacts,
-     'externalcontacts': externalcontacts,
      'pendingtime': pendingtime,
      'datejoined': datejoined,
      'alllistings': alllistings,

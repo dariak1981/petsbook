@@ -12,10 +12,10 @@
 <!-- Posts -->
 <section id="contents">
   <div class="container">
-    <div class="row py-4">
+    <div class="row pt-4 pb-5">
       <div class="col-lg-8 col-12 mb-4 mx-auto">
         <h3 class="text-center text-white mb-3">{% trans "Add New Contact" %}</h3>
-        <div class="card bg-custom-primary-light p-4 shadow">
+        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
 
 
               <form action="{% url 'newcontact' %}" method="POST" id="contactinfo">
@@ -25,7 +25,7 @@
                      <div class="card-body">
                        <div class="row my-lg-4">
 
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="type">{% trans "Contact's Type" %}</label>
                            {% get_current_language as LANGUAGE_CODE %}
                            <select name="type" class="form-control shadow-sm" required>
@@ -40,7 +40,7 @@
                          </div>
 
 
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="group">{% trans "Contact's Group" %}</label>
                            <select name="group" class="form-control shadow-sm" required>
                              <option disabled selected value>--------</option>
@@ -50,38 +50,36 @@
                            </select>
                          </div>
 
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="name">{% trans "Name" %}</label>
-                           <input type="text" class="form-control shadow-sm" id="name" name="name" maxlength="150" required>
+                           <input type="text" class="form-control shadow-sm" id="name" name="name" maxlength="30" required>
                          </div>
-                       </div>
 
-                       <div class="row my-lg-4">
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="address">{% trans "Address" %}</label>
                            <input type="text" class="form-control shadow-sm" id="address" name="address" maxlength="100" required>
                          </div>
 
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="phone">{% trans "Phone" %}</label>
                            <input type="text" class="form-control shadow-sm" id="phone" name="phone" maxlength="20" required>
                          </div>
 
-                         <div class="col-lg-4 my-lg-0 my-3">
+                         <div class="col-lg-4 col-md-6 my-3">
                            <label for="links">{% trans "Links" %}</label>
                            <input type="text" class="form-control shadow-sm" id="links" name="links" maxlength="250" required>
                          </div>
                        </div>
 
-                       <div class="row my-lg-4">
-                         <div class="col-12 my-lg-0 my-3">
+                       <div class="row mb-5">
+                         <div class="col-12 my-3 mx-auto">
                            <label for="comments">{% trans "Comments" %}</label>
                            <textarea class="form-control shadow-sm" style="min-height: 150px;" id="comments" name="comments" maxlength="2500" required></textarea>
                          </div>
                        </div>
 
-                       <div class="col-md-4 my-3 mx-auto">
-                         <button class="btn btn-primary custom-btn btn-block shadow my-2" type="submit" value="submit">{% trans "Submit form" %}</button>
+                       <div class="col-md-4 mb-3 mx-auto">
+                         <button class="btn btn-primary custom-btn btn-block shadow" type="submit" value="submit">{% trans "Submit form" %}</button>
                        </div>
                      </div>
                    </div>

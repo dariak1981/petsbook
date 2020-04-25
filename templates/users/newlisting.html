@@ -12,10 +12,10 @@
 <!-- Posts -->
 <section id="contents">
   <div class="container">
-    <div class="row py-4">
+    <div class="row pt-4 pb-5">
       <div class="col-sm-10 col-12 mb-4 mx-auto">
         <h3 class="text-center text-white mb-3">{% trans "New Listing" %}</h3>
-        <div class="card bg-custom-primary-light p-4 shadow">
+        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
           <form action="{% url 'newlisting' %}" enctype="multipart/form-data" method="POST">
            {% csrf_token %}
             <!-- HIDDEN INPUT FOR USER ID -->
@@ -24,12 +24,12 @@
 
             <div class="row">
 
-              <div class="col-lg-9 col-12 mb-4">
+              <div class="col-lg-9 col-12">
                 <div class="card">
                   <div class="card-body">
 
                         <div class="row my-lg-4">
-                          <div class="col-12 my-lg-0 my-3">
+                          <div class="col-12 my-3">
                             <label for="title">{% trans "Title" %}</label>
                             <input type="text" class="form-control shadow-sm" id="title" placeholder="{% trans "Short description" %}" name="title" maxlength="100" required>
                           </div>
@@ -37,25 +37,22 @@
 
 
                         <div class="row">
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label for="user_contact">{% trans "Contact Details" %}</label>
                             <input type="text" class="form-control shadow-sm" id="user_contact" value="{{ user.email }}" name="user_contact" maxlength="30" required>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label for="city">{% trans "City" %}</label>
                             <input type="text" class="form-control shadow-sm" id="city" name="city" maxlength="20" required>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label for="district">{% trans "District" %}</label>
                             <input type="text" class="form-control shadow-sm" id="district" name="district" maxlength="25" required>
                           </div>
 
-                        </div>
-
-                        <div class="row my-lg-4">
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label>{% trans "Category" %}</label>
                             <select name="category" class="form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -69,7 +66,7 @@
                             </select>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label for="type">{% trans "Type" %}</label>
                             <select data-target="secondList" class="firstList selectFilter form-control shadow-sm" name="type" required>
                               <option disabled selected value>--------</option>
@@ -83,7 +80,7 @@
                             </select>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label>{% trans "Breed" %}</label>
                             <select name="breed" class="secondList selectFilter form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -96,10 +93,8 @@
                               {% endfor %}
                             </select>
                           </div>
-                        </div>
 
-                        <div class="row my-lg-4">
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label>{% trans "Age" %}</label>
                             <select name="age" class="form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -113,7 +108,7 @@
                             </select>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label>{% trans "Gender" %}</label>
                             <select name="gender" class="form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -127,14 +122,12 @@
                             </select>
                           </div>
 
-                          <div class="col-lg-4 col-12 my-lg-0 my-3">
+                          <div class="col-lg-4 col-md-6 col-12 my-3">
                             <label for="price">{% trans "Price" %}</label>
                             <input type="number" class="form-control shadow-sm" id="price" name="price" max="500000" required>
                           </div>
-                        </div>
 
-                        <div class="row my-lg-4">
-                          <div class="col-lg-6 col-12 my-lg-0 my-3">
+                          <div class="col-md-6 col-12 my-3">
                             <label>{% trans "Living conditions" %}</label>
                             <select name="condition" class="form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -148,7 +141,7 @@
                             </select>
                           </div>
 
-                          <div class="col-lg-6 col-12 my-lg-0 my-3">
+                          <div class="col-lg-6 col-12 my-3">
                             <label>{% trans "Health" %}</label>
                             <select name="health" class="form-control shadow-sm" required>
                               <option disabled selected value>--------</option>
@@ -164,7 +157,7 @@
                         </div>
 
                         <div class="row">
-                          <div class="col-md-12  my-lg-0 my-3">
+                          <div class="col-md-12 my-3">
                               <label for="description">{% trans "Description" %}</label>
                               <textarea class="form-control shadow-sm" style="min-height: 350px;" id="description" name="description" maxlength="2500" required></textarea>
                           </div>
@@ -179,9 +172,9 @@
               </div>
              <!-- END OF COL-10 -->
              <!-- MAIN PHOTO -->
-             <div class="col-lg-3 col-12 mx-auto image-fields">
+             <div class="col-lg-3 col-12 mt-lg-0 mt-5 mx-auto image-fields">
                <div class="">
-                 <div class="card shadow">
+                 <div class="card bg-custom-transparent mx-2 shadow">
                    <div class="card-body p-1">
                       <img src="" id="image-field-0" class="img-new-post">
                   </div>
@@ -194,7 +187,7 @@
                   </div>
 
                   <div class="">
-                    <div class="card shadow">
+                    <div class="card bg-custom-transparent mx-2 shadow">
                       <div class="card-body p-1">
                          <img src="" id="image-field-1" class="img-new-post">
                      </div>
@@ -207,8 +200,8 @@
                      </div>
 
                      <div class="">
-                       <div class="card shadow">
-                         <div class="card-body p-1">
+                       <div class="card bg-custom-transparent mx-2 shadow">
+                         <div class="card-body new-image p-1">
                             <img src="" id="image-field-2" class="img-new-post">
                         </div>
                       </div>
@@ -220,7 +213,7 @@
                         </div>
 
                         <div class="">
-                          <div class="card shadow">
+                          <div class="card bg-custom-transparent mx-2 shadow">
                             <div class="card-body p-1">
                                <img src="" id="image-field-3" class="img-new-post">
                            </div>
@@ -234,7 +227,7 @@
 
 
                            <div class="">
-                             <div class="card shadow">
+                             <div class="card bg-custom-transparent mx-2 shadow">
                                <div class="card-body p-1">
                                   <img src="" id="image-field-4" class="img-new-post">
                               </div>

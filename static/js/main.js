@@ -101,6 +101,3 @@ const step = ts => {
 }
 // start the animation
 requestAnimationFrame(step)
-
-
-$("#year").text(new Date().getFullYear());

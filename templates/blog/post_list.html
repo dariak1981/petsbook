@@ -14,7 +14,7 @@
   <!-- TOPICS -->
 <section id="contents">
  <div class="container">
-  <div class="row py-4">
+  <div class="row py-4 mb-5">
     <div class="col-lg-8">
       <div class="card mb-sm-4 bg-custom-primary-light shadow">
         <div class="card-body">
@@ -27,11 +27,11 @@
               <div class="media m-0 pt-4 px-3">
                 {% if post.author.userprofile.photo %}
                 <a href="{% url 'user-posts' post.author.username %}">
-                  <img class="img-forum mr-3" src="{{ post.author.userprofile.photo.url }}">
+                  <img class="img-forum mx-4" src="{{ post.author.userprofile.photo.url }}">
                 </a>
                 {% else %}
                 <a href="{% url 'user-posts' post.author.username %}">
-                  <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
+                  <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
                 </a>
                 {% endif %}
                 <div class="media-body">
@@ -72,13 +72,13 @@
                     <small class="text-muted">{{ post.created.date }}</small> &nbsp;&nbsp;
                     <i class="fas fa-comments"></i>&nbsp;{{ post.message_set.all.count }}
                   </div>
-                  <hr class="mt-2">
+                  <hr class="mt-2 mr-4 mb-0">
 
                 </div>
               </div>
-              <div class="col-12 px-5 mb-4" style="margin-top:-15px;">
-                <h2><a href="{% url 'post-detail' post.id %}" class="article-title">&nbsp;&nbsp;&nbsp;&nbsp;{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content | truncatechars:500 }}</p>
+              <div class="col-12 px-sm-4 px-3 mb-4">
+                <h2><a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a></h2>
+                <p class="article-content">{{ post.content | truncatechars:350 }}</p>
               </div>
 
             {% endfor %}

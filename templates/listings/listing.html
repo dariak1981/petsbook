@@ -21,7 +21,7 @@
 
 
  <!-- Listing -->
-<section id="listings" class="py-4">
+<section id="listings" class="py-4 px-sm-0 px-4">
   <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -198,7 +198,7 @@
     </div>
 
      <div class="row mb-5">
-      <div class="col-md-8">
+      <div class="col-lg-8 col-12">
         <div class="card my-4 bg-custom-light shadow">
           <div class="card-body">
           <p>{{ listing.description | safe | linebreaks }}</p>
@@ -206,7 +206,7 @@
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-lg-4 col-12">
           <div class="card my-4 shadow">
             {% if featuredthreads %}
 
@@ -254,7 +254,7 @@
 
       <div class="row">
         {% for service in services %}
-        <div class="col-lg-4 col-12 pt-4 text-center">
+        <div class="col-lg-4 col-10 mx-auto pt-4 text-center">
               <h3>
 
                 {% get_current_language as LANGUAGE_CODE %}
@@ -275,6 +275,7 @@
       </div>
   </div>
 </section>
+
 
 
 {% endblock %}

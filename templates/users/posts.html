@@ -85,7 +85,7 @@
       <div class="container">
         <form action="{% url 'posts' %}" method="POST" id="activeposts">
         	{% csrf_token %}
-        <div class="row py-4">
+        <div class="row pt-4 pb-5">
           <div class="col-12 mb-4">
             <div class="card bg-custom-primary-light shadow">
               <div class="card-body">
@@ -170,13 +170,13 @@
                                        </div>
                                      </div>
                                      {% else %}
-                                     <div class="card shadow">
+                                     <div class="card mx-3 shadow">
                                        <div class="card-body p-1">
                                           <img src="{% static 'img/avatar-animal.png' %}" alt="" class="img-post">
                                        </div>
                                      </div>
                                      {% endif %}
-                                     <div class="mt-1 mb-3 text-center">
+                                     <div class="my-3 text-center">
                                        <a href="{% url 'editlisting' listing.id %}" class="mr-2"><i class="fas fa-edit"></i> {% trans "Edit" %}</a><br>
                                        {% if listing.adstatus_id_id == 3  %}
                                         <i class="fas fa-star"></i> {% trans "Archived" %}

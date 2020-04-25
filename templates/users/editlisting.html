@@ -13,21 +13,21 @@
     <!-- Posts -->
     <section id="contents">
       <div class="container">
-        <div class="row py-4">
+        <div class="row pt-4 pb-5">
           <div class="col-sm-10 col-12 mb-4 mx-auto">
             <h3 class="text-center text-white mb-3">{% trans "Edit Listing" %}</h3>
-            <div class="card bg-custom-primary-light p-4 shadow">
+            <div class="card bg-custom-primary-light p-4 mb-4 shadow">
               <form action="{% url 'editlisting' editlisting.id %}" method="post" enctype="multipart/form-data">
                {% csrf_token %}
                 <!-- HIDDEN INPUT  -->
                 <div class="row">
 
-                  <div class="col-lg-9 col-12 mb-4">
+                  <div class="col-lg-9 col-12">
                     <div class="card">
                       <div class="card-body">
 
                             <div class="row my-lg-4">
-                              <div class="col-12 my-lg-0 my-3">
+                              <div class="col-12 my-3">
                                 <label for="title">{% trans "Title" %}</label>
                                 <input type="text" class="form-control shadow-sm" id="title" value="{{ editlisting.title }}" name="title" maxlength="100" required>
                               </div>
@@ -35,25 +35,22 @@
 
 
                             <div class="row">
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label for="user_contact">{% trans "Contact Details" %}</label>
                                 <input type="text" class="form-control shadow-sm" id="user_contact" value="{{ editlisting.user_contact }}" name="user_contact" maxlength="30" required>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label for="city">{% trans "City" %}</label>
                                 <input type="text" class="form-control shadow-sm" id="city" name="city" maxlength="20" value="{{ editlisting.city }}" required>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label for="district">{% trans "District" %}</label>
                                 <input type="text" class="form-control shadow-sm" id="district" name="district" maxlength="25" value="{{ editlisting.district }}" required>
                               </div>
 
-                            </div>
-
-                            <div class="row my-lg-4">
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label>{% trans "Category" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="category" class="form-control shadow-sm" required>
@@ -68,7 +65,7 @@
                                 </select>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label for="type">{% trans "Type" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select data-target="secondList" name="type" class="firstList selectFilter form-control shadow-sm" required>
@@ -82,7 +79,7 @@
                                 </select>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label>{% trans "Breed" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="breed" class="secondList selectFilter form-control shadow-sm" required>
@@ -95,10 +92,8 @@
                                   {% endfor %}
                                 </select>
                               </div>
-                            </div>
 
-                            <div class="row my-lg-4">
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label>{% trans "Age" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="age" class="form-control shadow-sm" required>
@@ -112,7 +107,7 @@
                                 </select>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label>{% trans "Gender" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="gender" class="form-control shadow-sm" required>
@@ -126,14 +121,12 @@
                                 </select>
                               </div>
 
-                              <div class="col-lg-4 col-12 my-lg-0 my-3">
+                              <div class="col-lg-4 col-md-6 col-12 my-3">
                                 <label for="price">{% trans "Price" %}</label>
                                 <input type="number" class="form-control shadow-sm" id="price" value="{{ editlisting.price }}" name="price" max="500000" required>
                               </div>
-                            </div>
 
-                            <div class="row my-lg-4">
-                              <div class="col-lg-6 col-12 my-lg-0 my-3">
+                              <div class="col-md-6 col-12 my-3">
                                 <label>{% trans "Living conditions" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="condition" class="form-control shadow-sm" required>
@@ -147,7 +140,7 @@
                                 </select>
                               </div>
 
-                              <div class="col-lg-6 col-12 my-lg-0 my-3">
+                              <div class="col-lg-6 col-12 my-3">
                                 <label>{% trans "Health" %}</label>
                                 {% get_current_language as LANGUAGE_CODE %}
                                 <select name="health" class="form-control shadow-sm" required>
@@ -163,7 +156,7 @@
                             </div>
 
                             <div class="row">
-                              <div class="col-md-12  my-lg-0 my-3">
+                              <div class="col-md-12 my-3">
                                   <label for="description">{% trans "Description" %}</label>
                                   <textarea class="form-control shadow-sm" style="min-height: 350px;" id="description" name="description" maxlength="2500" value="{{ editlisting.description }}" required>{{ editlisting.description }}</textarea>
                               </div>
@@ -178,9 +171,9 @@
                   </div>
                  <!-- END OF COL-10 -->
                  <!-- MAIN PHOTO -->
-                 <div class="col-lg-3 col-12 mx-auto image-fields">
+                 <div class="col-lg-3 col-12 mt-lg-0 mt-5 mx-auto image-fields">
                    <div class="">
-                     <div class="card shadow">
+                     <div class="card bg-custom-transparent mx-2 shadow">
                        <div class="card-body p-1">
                          {% if editlisting.photo_main %}
                            <img src="{{ editlisting.photo_main.url }}" id="image-field-0" class="img-new-post">
@@ -203,7 +196,7 @@
 
 
                       <div class="">
-                        <div class="card shadow">
+                        <div class="card bg-custom-transparent mx-2 shadow">
                           <div class="card-body p-1">
                             {% if editlisting.photo_1 %}
                               <img src="{{ editlisting.photo_1.url }}" id="image-field-1" class="img-new-post">
@@ -224,7 +217,7 @@
                          </div>
 
                          <div class="">
-                           <div class="card shadow">
+                           <div class="card bg-custom-transparent mx-2 shadow">
                              <div class="card-body p-1">
                                {% if editlisting.photo_2 %}
                                  <img src="{{ editlisting.photo_2.url }}" id="image-field-2" class="img-new-post">
@@ -245,7 +238,7 @@
                             </div>
 
                             <div class="">
-                              <div class="card shadow">
+                              <div class="card bg-custom-transparent mx-2 shadow">
                                 <div class="card-body p-1">
                                   {% if editlisting.photo_3 %}
                                     <img src="{{ editlisting.photo_3.url }}" id="image-field-3" class="img-new-post">
@@ -267,7 +260,7 @@
 
 
                                <div class="">
-                                 <div class="card shadow">
+                                 <div class="card bg-custom-transparent mx-2 shadow">
                                    <div class="card-body p-1">
                                      {% if editlisting.photo_4 %}
                                        <img src="{{ editlisting.photo_4.url }}" id="image-field-4" class="img-new-post">
