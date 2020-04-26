@@ -14,7 +14,6 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta name="og:description" content="{{ listing.description }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
@@ -32,6 +31,7 @@
 <!-- Top Bar -->
 {% include 'partials/_topbar.html' %}
 <body>
+  <div class="fixed-crossbrowser-background"></div>
 
 <!-- {% if messages %}
   {% for message in messages %}
