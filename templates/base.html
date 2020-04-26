@@ -10,7 +10,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta property="og:site_name" content="PetsBook Online">
     <meta property="og:title" content="{{ listing.title }}"/>
-    <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" /> -->
+    <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" />
     <meta property="og:image" itemprop="image" content="{% static 'http://{{ request.get_host }}{{ listing.photo_main.url }}' %}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
