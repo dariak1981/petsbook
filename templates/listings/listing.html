@@ -7,16 +7,11 @@
 
 <head>
   <meta property="og:title" content="{{ listing.title }}"/>
-  <meta property="og:locale" content=
-  {% get_current_language as LANGUAGE_CODE %}
-  {% if LANGUAGE_CODE == 'en' %}"en_GB"
-  {% elif LANGUAGE_CODE == 'ru' %}"ru_RU"{% endif %}/>
+  <meta property="og:image" content="{{ listing.photo_main.url }}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta property="og:image" content="{{ listing.photo_main.url }}" />
   <meta name="description" content="{{ listing.description }}">
   <meta property="og:description" content="description of your website/webpage">
-  <meta property="og:image" content="{{ listing.photo_main.url }}">
   <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
 </head>
 
@@ -71,8 +66,7 @@
     ><i class="fab fa-twitter fa-lg"></i></a>
     <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
       ><i class="fab fa-facebook fa-lg"></i></a>
-      <a href="javascript:{document.write(VK.Share.button({url: '{{ request.build_absolute_uri }}',
-      title: '{{ listing.title }}', image: '{{ listing.photo_main.url }}', noparse: true}));}"><i class="fab fa-vk fa-lg"></i></a>
+    <a href="javascript:{document.getElementById('vk_share_button').innerHTML = VK.Share.button('{{ request.build_absolute_uri }}', {type: 'link'});}" id="vk_share_button"><i class="fab fa-vk fa-lg"></i></a>
     <!-- <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
       ><i class="fab fa-vk fa-lg"></i></a> -->
     <a data-text="{{ listing.title }}"
