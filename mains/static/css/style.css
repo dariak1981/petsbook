@@ -1,4 +1,4 @@
-html, body {
+html {
   min-height: 100%;
   min-width: 100%;
 }
@@ -9,7 +9,6 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  background-position: right 0 top -125px;
   z-index: -10;
 }
 
