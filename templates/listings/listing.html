@@ -7,7 +7,7 @@
 
 <head>
   <meta property="og:title" content="{{ listing.title }}"/>
-  <meta property="og:image" content="{{ MEDIA_URL }}{{ listing.photo_main.url }}" />
+  <meta property="og:image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
   <meta name="og:description" content="{{ listing.description }}">
@@ -71,14 +71,11 @@
 
      <span class="vk">
      <script type="text/javascript"><!--
-       document.write(VK.Share.button({url: '{{ request.build_absolute_uri }}', title: '{{ listing.title }}', image: "{{ listing.photo_main.url }}", noparse: false},
+       document.write(VK.Share.button({url: '{{ request.build_absolute_uri }}', title: '{{ listing.title }}',
+       image: 'http://{{ request.get_host }}{{ listing.photo_main.url }}', noparse: false},
        {type:  "custom", text:  '<i class="fab fa-vk fa-lg"></i>' }));
      --></script>
      </span>
-
-    <!-- <a href="http://vk.com/share.php?url={{ request.build_absolute_uri }}" target="_blank" title="{{ listing.title }}"
-      ><i class="fab fa-vk fa-lg"></i></a> -->
-
     <a data-text="{{ listing.title }}"
      href="whatsapp://send?text=http%3A%2F%2F167.172.247.101%2Flistings%2F{{ listing.id }}"
      data-action="share/whatsapp/share" target="_blank">
