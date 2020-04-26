@@ -1,42 +1,54 @@
-body,
-html {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
-    top: 0;
-    left: 0;
-    min-height: 100%;
-}
-
-.fixed-crossbrowser-background {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-repeat: no-repeat;
-    /* background-size: cover; */
-    background-position: center center;
-    background-image: url("../img/aerial.jpg");
-    opacity: 1;
-    z-index: -1;
-    margin:0;
-    padding:0;
+html, body {
+  min-height: 100%;
+  min-width: 100%;
 }
 
 
 
-/* body {
+/* body:after{
+  content: '';
   background-image: url("../img/aerial.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: right 0 top -135px;
-  /* z-index: -10; */
-  /* background-attachment: fixed; */
-  /* height:100vh; */
-/* } */
+  opacity: 1;
+  top: -135px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;
+  overflow:auto;
+} */
+
+
+
+body {
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /* background-position: center center; */
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow:auto;
+}
+
+/* media */
+/* body {
+  content: '';
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: inherit;
+  background-attachment: scroll;
+  background-position: top left;
+  top: -135px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow:auto;
+} */
+
 
 
 #main-footer-light {
@@ -665,7 +677,23 @@ label {
   /* min-height:280px; */
 /* } */
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
+  body {
+    background-size: inherit;
+    background-attachment: scroll;
+    background-position: top left;
+    overflow:auto;
+  }
+
+  #services {
+    background-image: url("../img/aerial.jpg");
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-attachment: scroll;
+    background-position: top right;
+    overflow:auto;
+  }
+
 
 
 }
