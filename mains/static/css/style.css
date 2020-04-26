@@ -17,7 +17,7 @@ html {
     top: 0;
     left: 0;
     background-repeat: no-repeat;
-    background-size: cover;
+    /* background-size: cover; */
     background-position: center center;
     background-image: url("../img/aerial.jpg");
     opacity: 1;
