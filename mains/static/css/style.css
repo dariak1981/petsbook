@@ -4,46 +4,16 @@ html {
 }
 
 
- body {
+body {
   background-image: url("../img/aerial.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-position: right 0 top -135px;
   z-index: -10;
+  background-attachment: fixed;
 }
 
 
-
-/* body::after{
-  content: '';
-  background-image: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 1;
-  top: -135px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: fixed;
-  z-index: -10;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  margin: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: 0;
-} */
-
-
-/* body {
-  background-image: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center center;
-} */
 
 #main-footer-light {
   background-color: rgba(54, 56, 76, 0.7);
