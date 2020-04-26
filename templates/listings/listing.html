@@ -5,14 +5,19 @@
 {% block title %} | {{ listing.title }} {% endblock %}
 {% block content %}
 
-<head>
-  <meta property="og:title" content="{{ listing.title }}"/>
-  <meta property="og:image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta name="og:description" content="{{ listing.description }}">
-  <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
-</head>
+<meta property="og:site_name" content="San Roque 2014 Pollos">
+<meta property="og:title" content="{{ listing.title }}"/>
+<meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" /> -->
+<meta property="og:image" itemprop="image" content="{% static 'http://{{ request.get_host }}{{ listing.photo_main.url }}' %}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+<meta name="og:description" content="{{ listing.description }}">
+<script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+
+
+
+
+
 
 
   <section id="showcase-inner" class="py-sm-5 py-4 text-white">
@@ -61,13 +66,11 @@
 
     <div class="col-lg-4 col-12 text-center mb-lg-0 mb-4 social">
      <!-- {{ share_string }} -->
-      <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri }}" target="_blank"
+      <a href="http://twitter.com/intent/tweet/?url={{ request.build_absolute_uri | urlencode }}" target="_blank"
     ><i class="fab fa-twitter fa-lg"></i></a>
+
     <a href="http://www.facebook.com/sharer.php?u={{ request.build_absolute_uri }}" target="_blank"
       ><i class="fab fa-facebook fa-lg"></i></a>
-    <!-- <a href="javascript:{document.getElementById('vk_share_button').innerHTML = VK.Share.button('{{ request.build_absolute_uri }}', {type: 'link'});}" id="vk_share_button"><i class="fab fa-vk fa-lg"></i></a> -->
-    <!-- <a href="javascript:{document.write(VK.Share.button({url: '{{ request.build_absolute_uri }}', title: '{{ listing.title }}',
-     image: '{{ listing.photo_main.url }}', noparse: true}));}" id="vk_share_button"><i class="fab fa-vk fa-lg"></i></a> -->
 
      <span class="vk">
      <script type="text/javascript"><!--
@@ -76,12 +79,11 @@
        {type:  "custom", text:  '<i class="fab fa-vk fa-lg"></i>' }));
      --></script>
      </span>
-    <a data-text="{{ listing.title }}"
-     href="whatsapp://send?text=http%3A%2F%2F167.172.247.101%2Flistings%2F{{ listing.id }}"
-     data-action="share/whatsapp/share" target="_blank">
-    <i class="fab fa-whatsapp fa-lg"></i></a>
+
+     <a href='whatsapp://send?text={{ request.build_absolute_uri | urlencode }}' data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp fa-lg"></i></a>
     </div>
   </div>
+
       <div class="row mb-2">
       <div class="col-lg-8 col-12">
 
@@ -241,22 +243,21 @@
 
      <div class="row mb-5">
       <div class="col-lg-8 col-12">
-        <div class="card my-4 bg-custom-light shadow">
-          <div class="card-body">
-          <p>{{ listing.description | safe | linebreaks }}</p>
+        <!-- <div class="card my-4 bg-custom-light shadow"> -->
+          <div>
+           <p>{{ listing.description | safe | linebreaks }}</p>
           </div>
         </div>
-      </div>
 
       <div class="col-lg-4 col-12">
-          <div class="card my-4 shadow">
+          <div class="card my-4  bg-custom-transparent-light shadow-sm">
             <div class="card-header">
-              <h4>{% trans "Featured in Blog" %}</h4>
+              <h4 class="custom-secondary-text-listing"><strong>{% trans "Featured in Blog" %}</strong></h4>
             </div>
             {% if featuredthreads %}
             <ul class="list-group-flush px-0">
               {% for thread in featuredthreads %}
-              <li class="list-group-item" style="color: #606160;">
+              <li class="list-group-item bg-custom-transparent">
                 <div>
                   <a href="{% url 'post-detail' thread.id %}">{{ thread.title | truncatechars:60 }}</a>
                 </div>
