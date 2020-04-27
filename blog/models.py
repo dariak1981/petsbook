@@ -43,7 +43,7 @@ class Post(models.Model):
 class Message(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = _('author'),)
-    message = models.TextField(max_length=2500, blank=False, verbose_name = _('message'),)
+    message = models.TextField(max_length=1500, blank=False, verbose_name = _('message'),)
     created = models.DateTimeField(default=timezone.now, verbose_name = _('created'),)
     def __int__(self):
         return self.message

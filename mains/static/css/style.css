@@ -679,10 +679,15 @@ label {
 
 @media (max-width: 1024px) {
   body {
-    background-size: inherit;
-    background-attachment: scroll;
-    background-position: top left;
-    overflow:auto;
+    background-image: url("../img/aerial.jpg");
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover; 
+    -o-background-size: cover;
+    background-size: cover;
   }
 
   #services {

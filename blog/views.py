@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Themes, Message
 from django.urls import reverse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -94,6 +94,25 @@ class FilterPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+            context = super(PostDetailView, self).get_context_data(**kwargs)
+            messages = Message.objects.filter(post=self.kwargs.get('pk'))
+            paginator = Paginator(messages, self.paginate_by)
+
+            page = self.request.GET.get('page')
+
+            try:
+                replies = paginator.page(page)
+            except PageNotAnInteger:
+                replies = paginator.page(1)
+            except EmptyPage:
+                replies = paginator.page(paginator.num_pages)
+
+            context['messages'] = replies
+            return context
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -226,6 +245,18 @@ class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+# def viewpost(request, pk):
+#     viewpost = Post.objects.get(pk=pk)
+#     messages = Message.objects.fileter(post=pk)
+#
+#     context = {
+#     'viewpost': viewpost,
+#     'messages': messages,
+#     }
+
+
+
 
 
 class UserPostListView(ListView):
