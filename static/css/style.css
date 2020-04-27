@@ -1,21 +1,20 @@
-html {
+html, body {
   min-height: 100%;
   min-width: 100%;
 }
 
 
-body:after{
-  content: '';
-  background-image: url("../img/aerial.jpg");
+body {
+  background-image: url("../img/aerial-scroll.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  opacity: 1;
-  top: -135px;
+  background-attachment: fixed;
+  backdrop-filter: blur(20px);
+  /* background-position: center center; */
   left: 0;
   bottom: 0;
   right: 0;
-  position: fixed;
-  z-index: -1;
+  overflow:auto;
 }
 
 #main-footer-light {
@@ -23,11 +22,20 @@ body:after{
 }
 
 #main-footer-pages {
-  background: #06323c;
+  background: #36384c;
+  box-shadow: inset 0px 0px 40px rgba(0,0,0,0.2);
 }
 
+  /* background-color: #36384c;
+  background-color: #613a43; */
+
 #listings {
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
+  min-height:350px;
+}
+
+#listings-featured {
+  background: #fff;
   min-height:350px;
 }
 
@@ -90,19 +98,19 @@ color: #fff;
 
 }
 
-#showcase-inner {
-}
 
 #showcase {
-
-
   padding-top: 6rem;
   position: relative;
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 
 #showcase-logout {
-  min-height: 520px;
+  min-height: 487px;
   padding-top: 3rem;
   position: relative;
 }
@@ -115,6 +123,21 @@ color: #fff;
 
 }
 #showcase .overlay {
+  border-radius: 5px;
+  background: rgba(97, 58, 67, 0.7);
+}
+
+#showcase-home .home-search-home {
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  border-radius: 5px;
+  position: relative;
+  padding-bottom: 5rem;
+
+}
+#showcase-home .overlay-home {
   border-radius: 5px;
   background: rgba(97, 58, 67, 0.7);
 }
@@ -157,30 +180,18 @@ color: #fff;
   position: relative;
 }
 
-
-
-.view-details {
-  border-radius: 50%;
-  background: #613a43;
-  margin-top: -40px;
-  width: 60px;
-  height: 60px;
-  position: absolute;
-}
-
-.icon-highlight {
+/* LISTINGS */
+.img-highlight {
   display: block;
   padding: 0;
-  height: 1px;
-  background: #555;
-  margin-top: -20px;
+  height: 7px;
+  margin-top: -7px;
+  background: #613a43;
 }
 
-.view-details:hover {
-  background: #36384c;
-}
-
+/* CARDS ANIMATION */
 .card.listing-preview {
+  border-radius: 5px;
   position: relative;
   color: rgb(95, 95, 95);
 }
@@ -191,28 +202,47 @@ color: #fff;
 
 }
 
-
 #badge-1-homeless {
   background: #404466;
   color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Arial';
+  text-transform: uppercase;
+  padding: 0.5rem;
+  font-weight: 100;
 }
 
 #badge-2-lost {
   background: #806542;
   color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Arial';
+  text-transform: uppercase;
+  padding: 0.5rem;
+  font-weight: 100;
 }
 #badge-3-forsale {
   background: #536e43;
   color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Arial';
+  text-transform: uppercase;
+  padding: 0.5rem;
+  font-weight: 100;
 }
 #badge-4-seekshelp {
   background: #613a43;
   color: #fff;
+  font-size: 1.3rem;
+  font-family: 'Arial';
+  text-transform: uppercase;
+  padding: 0.5rem;
+  font-weight: 100;
 }
 
 .social .fab {
   margin-right: 1rem;
-  color: #fff;
+  color: #4a4a4a;
 }
 
 .social .fab:hover {
@@ -221,50 +251,11 @@ color: #fff;
 
 /* IMAGES */
 
-/* LISTINGS CARDS */
+/* LISTINGS CARDS - BADGES */
 .card-img-overlay {
   pointer-events: none;
-}
-
-.card-img-top {
-  width: 100%;
-  height: 18vw;
-  object-fit: cover;
-}
-
-
-.img-highlight {
-  display: block;
-  padding: 0;
-  height: 7px;
-  margin-top: -1px;
-  background: #613a43;
-}
-
-.img-thumbnails {
-  width: 100%;
-  height: 5vw;
-  object-fit: cover;
-}
-
-/* LISTING */
-
-.img-main {
-  width: 100%;
-  height: 36vw;
-  object-fit: cover;
-}
-
-.img-listing-thumbnails {
-  width: 100%;
-  height: 8vw;
-  object-fit: cover;
-}
-
-.img-thumbnail {
-  width: 100%;
-  height: 8vw;
-  object-fit: cover;
+  margin-top: -42px;
+  left: -30px;
 }
 
 .img-profile-thumbnail {
@@ -273,17 +264,16 @@ color: #fff;
   object-fit: cover;
 }
 
-
 .img-forum {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .img-forum-empty {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-style: solid;
   border-width: 3px;
   border-color: #25395b;
@@ -291,57 +281,92 @@ color: #fff;
   object-fit: cover;
 }
 
-/* ACTIVE POSTS NEWLISTING EDITLISTING */
 
-.img-new-post {
+.img-fluid {
   width: 100%;
-  height: 9.5vw;
+  height: 100%;
   object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
 }
 
-.img-archive-post {
-  width: 100%;
-  height: 9.5vw;
-  object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
+#container-image {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    background: transparent;
+}
+#dummy {
+    margin-top: 75%; /* 4:3 aspect ratio */
+}
+#element {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-style: solid;
+    border-color: rgba(54, 56, 76, 0.7);
+    border-width: 4px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#element-cards {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    border-top-right-radius: 5px;
+}
+
+#element-main-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-style: solid;
+    border-color: #163c4a;
+    border-width: 4px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#element-thumb-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #fff;
+    border-radius: 5px;
+}
+
+#dummy-post {
+    margin-top: 45%;
+}
+#element-post {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-style: solid;
+    border-color: rgba(54, 56, 76, 0.7);
+    border-width: 4px;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 
-.img-post {
-  width: 100%;
-  height: 9.5vw;
-  object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-}
 
-.img-post-detail {
+.img-fluid .cards {
   width: 100%;
-  height: 25vw;
-  object-fit: cover;
-  background: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center center;
-  background-size: cover;
-}
-
-
-.img-profile {
-  width: 100%;
-  height: 20vw;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -355,8 +380,6 @@ color: #fff;
 .user-card {
   background: rgba(255, 255, 255, 0.9);
 }
-
-
 
 #testimonials .testimonial img {
   width: 100px;
@@ -403,6 +426,7 @@ color: #fff;
 
 }
 
+
 .btn-secondary.custom-btn {
   background-color: #36384c;
   border-color: #36384c;
@@ -412,6 +436,10 @@ color: #fff;
   background-color: #613a43;
   border-color: #613a43;
   font-size: 1rem;
+}
+
+.bg-custom-transparent-light {
+  background: rgba(255,255,255, 0.5);
 }
 
 .bg-custom-white-opaque {
@@ -445,7 +473,7 @@ color: #fff;
 }
 
 .bg-custom-primary-light {
-  background: rgba(54, 56, 76, 0.7);
+  background: rgba(54, 56, 76, 0.8);
   border: none;
 }
 
@@ -457,6 +485,10 @@ color: #fff;
 .bg-custom-secondary-light {
   background: #e8d8be;
   border-color: #e8d8be;
+}
+
+.bg-custom-transparent {
+  background: transparent;
 }
 
 .custom-primary-text {
@@ -629,12 +661,35 @@ label {
     box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 
-.carousel {
-  min-height:280px;
+/* .carousel { */
+  /* min-height:280px; */
+/* } */
+
+@media (max-width: 1024px) {
+  body {
+    background-image: url("../img/aerial-scroll.jpg");
+    background-attachment: scroll;
+    background-color: #fff;
+  }
+
+  #showcase {
+    background-position: center;
+    background-attachment: scroll !important;
+    background-position: top !important;}
+  }
+
+
+
 }
 
 
+
 @media (max-width: 992px) {
+
+  #listing-heading {
+  font-size:3rem;
+  }
+
 
   #no-more-tables table,
   #no-more-tables thead,
@@ -685,99 +740,16 @@ label {
    font-size: 0;
   }
 
-  .img-main {
-    width: 100%;
-    height: 55vw;
-    object-fit: cover;
-  }
-
-  /* NEWLISTING */
-    .img-new-post {
-      width: 100%;
-      height: 45vw;
-    }
-
-    .img-post {
-      width: 100%;
-      height: 40vw;
-    }
-
-    .img-archive-post {
-      width: 100%;
-      height: 38vw;
-    }
-
-    /* LISTING THUMBNAILS */
-    .img-listing-thumbnails {
-      width: 100%;
-      height: 26vw;
-      object-fit: cover;
-    }
-
-    /* PROFILE */
-    .img-profile {
-      width: 100%;
-      height: 55vw;
-    }
-
-    /* CARD LISTINGS */
-    .card-img-top {
-      width: 100%;
-      height: 35vw;
-    }
-
-
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
-  /* LISTING THUMBNAILS */
-
-  .img-listing-thumbnails {
-    width: 100%;
-    height: 65vw;
-    object-fit: cover;
+  #dummy-post {
+      margin-top: 65%;
   }
 
-
-  .card-img-top {
-    width: 100%;
-    height: 65vw;
-  }
-
-  .img-new-post {
-    width: 100%;
-    height: 55vw;
-  }
-
-
-  .img-thumbnail {
-    width: 100%;
-    height: 70vw;
-  }
-
-  .img-archive-post {
-    width: 100%;
-    height: 48vw;
-  }
-
-  .img-post-detail {
-    width: 100%;
-    height: 40vw;
-  }
-
-  body:after{
-    content: '';
-    background-image: url("../img/aerial.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    opacity: 1;
-    top: 40px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: fixed;
-    z-index: -1;
+  #listing-heading {
+  font-size:2.8rem;
   }
 
   .hidden-actions {
@@ -792,4 +764,60 @@ label {
     font-size:0.9rem;
   }
 
+  .img-post-detail {
+    height: 210px;
+  }
+
+}
+
+@media (max-width: 577px) {
+
+  .header-sticky {
+    font-size:0.7rem;
+  }
+
+  #listing-heading {
+  font-size:2.3rem;
+  }
+
+  #showcase-logout {
+    min-height: 680px;
+  }
+
+}
+
+@media (min-height: 1023px) {
+
+  #showcase-logout {
+    min-height: 860px;
+  }
+
+}
+
+@media (min-height: 1364px) {
+
+  #showcase-logout {
+    min-height: 1200px;
+  }
+
+  #listings-featured {
+    min-height:972px;
+  }
+
+  #contents {
+    min-height: 1030px;
+  }
+
+}
+
+
+@media (max-width: 481px) {
+
+  .header-sticky {
+    font-size:0.64rem;
+  }
+
+  #listing-heading {
+  font-size:2rem;
+  }
 }

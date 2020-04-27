@@ -4,8 +4,6 @@ html, body {
 }
 
 
-
-
 body {
   background-image: url("../img/aerial-scroll.jpg");
   background-repeat: no-repeat;
@@ -18,23 +16,6 @@ body {
   right: 0;
   overflow:auto;
 }
-
-/* media */
-/* body {
-  content: '';
-  background-image: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-size: inherit;
-  background-attachment: scroll;
-  background-position: top left;
-  top: -135px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow:auto;
-} */
-
-
 
 #main-footer-light {
   background-color: rgba(54, 56, 76, 0.7);
