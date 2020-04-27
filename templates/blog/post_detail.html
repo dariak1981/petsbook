@@ -13,7 +13,7 @@
     <div class="col-md-10 mx-auto">
       <div class="card mb-sm-4 bg-custom-primary-light shadow">
         <div class="card-body">
-          <div class="card p-3">
+          <div class="card">
 
               <div class="media m-0 pt-4 px-3">
                 {% if object.author.userprofile.photo %}
@@ -111,7 +111,7 @@
       <div class="col-md-10 mx-auto">
         <div class="card mb-sm-4 bg-custom-primary-light shadow">
           <div class="card-body">
-            <div class="card p-3">
+            <div class="card px-sm-2 px-0">
 
                   {% for message in messages %}
                   <div class="media m-0 pt-4 px-3">
@@ -170,7 +170,7 @@
                    </div>
                   </div>
                   <div class="col-12 px-sm-4 px-3" style="margin-top:-7px;">
-                    <p class="article-content pr-0">{{ message.message | safe | linebreaks }}</p>
+                    <p class="article-content">{{ message.message | safe | linebreaks }}</p>
                   </div>
 
                   {% endfor %}

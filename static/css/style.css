@@ -661,9 +661,6 @@ label {
     box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 
-/* .carousel { */
-  /* min-height:280px; */
-/* } */
 
 @media (max-width: 1024px) {
   body {
@@ -678,10 +675,7 @@ label {
     background-position: top !important;}
   }
 
-
-
 }
-
 
 
 @media (max-width: 992px) {
@@ -689,7 +683,6 @@ label {
   #listing-heading {
   font-size:3rem;
   }
-
 
   #no-more-tables table,
   #no-more-tables thead,

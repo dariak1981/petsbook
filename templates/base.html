@@ -7,10 +7,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta property="og:site_name" content="PetsBook Online">
     <meta property="og:title" content="{{ listing.title }}"/>
+    {% if listing.photo_main %}
     <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" />
+    {% else %}
+    <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{% static 'img/avatar-animal.png' %}" />
+    {% endif %}
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta name="og:description" content="{{ listing.description }}">

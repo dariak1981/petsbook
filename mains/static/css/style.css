@@ -661,11 +661,10 @@ label {
     box-shadow: 0 0 9px rgba(0,0,0,0.2);
 }
 
-/* .carousel { */
-  /* min-height:280px; */
-/* } */
+
 
 @media (max-width: 1024px) {
+
   body {
     background-image: url("../img/aerial-scroll.jpg");
     background-attachment: scroll;
@@ -675,21 +674,37 @@ label {
   #showcase {
     background-position: center;
     background-attachment: scroll !important;
-    background-position: top !important;}
+    background-position: top !important;
   }
-
-
-
-}
-
-
-
-@media (max-width: 992px) {
 
   #listing-heading {
   font-size:3rem;
   }
 
+  .hidden-phone {
+   font-size: 0;
+  }
+}
+
+
+
+@media (max-width: 767px) {
+
+  #dummy-post {
+      margin-top: 65%;
+  }
+
+  #listing-heading {
+  font-size:2.8rem;
+  }
+
+  .header-sticky {
+    font-size:0.9rem;
+  }
+
+  .img-post-detail {
+    height: 210px;
+  }
 
   #no-more-tables table,
   #no-more-tables thead,
@@ -736,36 +751,10 @@ label {
     padding: 1px;
   }
 
-  .hidden-phone {
-   font-size: 0;
-  }
 
-}
-
-@media (max-width: 767px) {
-
-  #dummy-post {
-      margin-top: 65%;
-  }
-
-  #listing-heading {
-  font-size:2.8rem;
-  }
 
   .hidden-actions {
    font-size: 0;
-  }
-
-  .carousel {
-    min-height:680px;
-  }
-
-  .header-sticky {
-    font-size:0.9rem;
-  }
-
-  .img-post-detail {
-    height: 210px;
   }
 
 }
