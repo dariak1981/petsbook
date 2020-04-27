@@ -5,28 +5,13 @@ html, body {
 
 
 
-/* body:after{
-  content: '';
-  background-image: url("../img/aerial.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 1;
-  top: -135px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: fixed;
-  z-index: -1;
-  overflow:auto;
-} */
-
-
 
 body {
-  background-image: url("../img/aerial.jpg");
+  background-image: url("../img/aerial-scroll.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  backdrop-filter: blur(20px);
   /* background-position: center center; */
   left: 0;
   bottom: 0;
@@ -56,17 +41,20 @@ body {
 }
 
 #main-footer-pages {
-  background: #163c4a;
+  background: #36384c;
   box-shadow: inset 0px 0px 40px rgba(0,0,0,0.2);
 }
 
+  /* background-color: #36384c;
+  background-color: #613a43; */
+
 #listings {
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
   min-height:350px;
 }
 
 #listings-featured {
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
   min-height:350px;
 }
 
@@ -133,6 +121,10 @@ color: #fff;
 #showcase {
   padding-top: 6rem;
   position: relative;
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 
@@ -150,6 +142,21 @@ color: #fff;
 
 }
 #showcase .overlay {
+  border-radius: 5px;
+  background: rgba(97, 58, 67, 0.7);
+}
+
+#showcase-home .home-search-home {
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  border-radius: 5px;
+  position: relative;
+  padding-bottom: 5rem;
+
+}
+#showcase-home .overlay-home {
   border-radius: 5px;
   background: rgba(97, 58, 67, 0.7);
 }
@@ -485,7 +492,7 @@ color: #fff;
 }
 
 .bg-custom-primary-light {
-  background: rgba(54, 56, 76, 0.7);
+  background: rgba(54, 56, 76, 0.8);
   border: none;
 }
 
@@ -679,24 +686,15 @@ label {
 
 @media (max-width: 1024px) {
   body {
-    background-image: url("../img/aerial.jpg");
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-    -webkit-background-size: cover;
-    -moz-background-size: cover; 
-    -o-background-size: cover;
-    background-size: cover;
+    background-image: url("../img/aerial-scroll.jpg");
+    background-attachment: scroll;
+    background-color: #fff;
   }
 
-  #services {
-    background-image: url("../img/aerial.jpg");
-    background-repeat: no-repeat;
-    background-size: inherit;
-    background-attachment: scroll;
-    background-position: top right;
-    overflow:auto;
+  #showcase {
+    background-position: center;
+    background-attachment: scroll !important;
+    background-position: top !important;}
   }
 
 

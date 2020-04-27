@@ -10,7 +10,7 @@ from pages.models import Services
 def index(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2').exclude(category_id = '3')
 
-  paginator = Paginator(listings, 8)
+  paginator = Paginator(listings, 12)
   page = request.GET.get('page')
   paged_listings = paginator.get_page(page)
 
