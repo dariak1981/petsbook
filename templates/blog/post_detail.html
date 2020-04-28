@@ -91,7 +91,7 @@
                   <p class="article-content">{{ object.content | safe | linebreaks }}</p>
                 </div>
                 {% if object.author == user %}
-                <div class="text-right">
+                <div class="text-right mb-3">
                   <a class="btn btn-secondary btn-sm my-1" href="{% url 'post-update' object.id %}">{% trans "Update" %}</a>
                   <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id %}">{% trans "Delete" %}</a>
                 </div>
@@ -178,7 +178,7 @@
 
 
 
-                  <div class="col-md-4 col-6 mx-auto mt-4">
+                  <div class="col-md-4 col-6 mx-auto my-4">
                     <a class="btn btn-secondary btn-sm d-block my-1" href="{% url 'message-create' object.id %}">{% trans "Reply" %}</a>
                   </div>
 

@@ -5,18 +5,34 @@ html, body {
 
 
 body {
-  background-image: url("../img/aerial-scroll.jpg");
+  background-color: #bdba99;
+}
+
+/* b0ae99 */
+/* e8d8be */
+  /* 36384c;
+ #613a43; */
+
+#actions {
+  background-image: url("../img/aerial.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
-  backdrop-filter: blur(20px);
-  /* background-position: center center; */
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow:auto;
-  background-color: #fff;
+  background-attachment: scroll;
+  height: 95px;
 }
+
+#actions-blog {
+  background-image: url("../img/aerial.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  height: 95px;
+}
+
+
+
+
+
 
 #main-footer-light {
   background-color: rgba(54, 56, 76, 0.7);
@@ -72,10 +88,7 @@ body {
   overflow: hidden;
 }
 
-#actions {
-  padding-bottom: 40px;
-  height: 86px;
-}
+
 
 .forums a {
   text-decoration: none;
@@ -126,6 +139,7 @@ color: #fff;
 #showcase .overlay {
   border-radius: 5px;
   background: rgba(97, 58, 67, 0.7);
+  backdrop-filter: blur(5px);
 }
 
 #showcase-home .home-search-home {
@@ -143,12 +157,34 @@ color: #fff;
   background: rgba(97, 58, 67, 0.7);
 }
 
+#showcase-inner {
+  background-image: url("../img/aerial-color.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+
+}
+/* #showcase-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  width: 100%;
+  background: rgba(97, 68, 70, 0.5);
+} */
 
 
 #services {
   position: relative;
   min-height: 300px;
   overflow: hidden;
+  background-image: url("../img/door-services.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
 }
 #services::before {
   content: "";
@@ -157,7 +193,7 @@ color: #fff;
   left: 0;
   min-height: 100%;
   width: 100%;
-  background: rgba(95, 51, 64, 0.7);
+  background: rgba(97, 68, 70, 0.5);
 }
 
 #showcase-search {
@@ -474,18 +510,21 @@ color: #fff;
 }
 
 .bg-custom-primary-light {
-  background: rgba(54, 56, 76, 0.8);
+  background: rgba(54, 56, 76, 0.9);
   border: none;
 }
+/* background: rgba(54, 56, 76, 0.8); */
+
 
 .bg-custom-secondary-light-opaque {
   background: rgba(97, 58, 67, 0.7);
   border-color: rgb(97, 58, 67);
 }
 
+/* LIGHT BG */
 .bg-custom-secondary-light {
-  background: #e8d8be;
-  border-color: #e8d8be;
+  background: #e8e5be;
+  border-color: #e8e5be;
 }
 
 .bg-custom-transparent {
@@ -550,7 +589,7 @@ color: #fff;
 
 /* BLOG NAV ICONS */
 
-#actions .topic-themes .fas {
+#actions-blog .topic-themes .fas {
   display: inline-block;
   overflow: hidden;
   background: #613a43;
@@ -561,7 +600,7 @@ color: #fff;
   margin-bottom: none;
 }
 
-#actions .topic-themes .fas:hover {
+#actions-blog .topic-themes .fas:hover {
   transform: scale(1.1);
   background: #36384c;
 }
@@ -666,17 +705,23 @@ label {
 
 @media (max-width: 1024px) {
 
-  body {
-    background-image: url("../img/aerial-scroll.jpg");
-    background-attachment: scroll;
-    background-color: #fff;
+  #services {
+    background-position: center;
+    background-attachment: scroll !important;
   }
+
 
   #showcase {
     background-position: center;
     background-attachment: scroll !important;
     background-position: top !important;
   }
+
+  #showcase-inner {
+    background-attachment: scroll !important;
+    background-position: center;
+  }
+
 
   #listing-heading {
   font-size:3rem;
@@ -773,6 +818,13 @@ label {
   #showcase-logout {
     min-height: 680px;
   }
+
+  #showcase-inner {
+    background-attachment: scroll !important;
+    background-size: 270%;
+    background-position: top center;
+  }
+
 
 }
 
