@@ -18,8 +18,8 @@ class UserRegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = _('Something that doesnt look awful')
-        self.fields['password2'].help_text = _('Something else')
+        self.fields['password1'].help_text = _('Something pretty enough')
+        self.fields['password2'].help_text = _('At least 8 symbols')
 
 
 class UserMainForm(forms.ModelForm):
