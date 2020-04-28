@@ -139,7 +139,7 @@ color: #fff;
 #showcase .overlay {
   border-radius: 5px;
   background: rgba(97, 58, 67, 0.7);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
 }
 
 #showcase-home .home-search-home {
