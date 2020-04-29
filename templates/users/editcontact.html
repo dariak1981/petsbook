@@ -65,10 +65,30 @@
                  <div class="col-lg-9 mr-auto text-white" id="description" name="description">
                    <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong>
                      <br>
-                     {% trans "Category" %}: {{ listing.category_id }};
-                     {% trans "Current location" %}: {{ listing.conditions_id }}
-                     / {% trans "Brief description" %}: {{ listing.types_id }},
-                     {{ listing.breeds }}, {% trans "Age" %}: {{ listing.age_id }}
+                     {% get_current_language as LANGUAGE_CODE %}
+                     {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
+                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
+
+
+                     / {% trans "Living conditions" %}:
+
+                     {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
+                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
+
+                     / {% trans "Type" %}:
+
+                     {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
+                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
+
+
+                     /
+                     {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
+                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
+
+                     / 
+
+                     {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
+                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
                    </p>
                   <p>{{ listing.description | truncatechars:330}}</p>
 
@@ -124,7 +144,7 @@
                        <select name="type" class="form-control shadow-sm" required>
                          {% for type in types %}
                              <option value="{{ type.id }}"
-                               {% if type.id == editcontact.type_id.id %} selected {% else %}{% endif %}>
+                               {% if type.id == editcontact.type.id %} selected {% else %}{% endif %}>
                                {% if LANGUAGE_CODE == 'en' %}{{ type.title }}
                                {% elif LANGUAGE_CODE == 'ru' %}{{ type.title_ru }}{% endif %}
                              </option>
@@ -138,7 +158,7 @@
                        <select name="group" class="form-control shadow-sm" required>
                          {% for group in groups %}
                              <option value="{{ group.id }}"
-                               {% if group.id == editcontact.group_id.id %} selected {% else %}{% endif %}>
+                               {% if group.id == editcontact.group.id %} selected {% else %}{% endif %}>
                                {{ group.title }}
                              </option>
                              {% endfor %}

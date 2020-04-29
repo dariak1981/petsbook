@@ -46,10 +46,32 @@
                    <div class="col-lg-9 mr-auto text-white" id="description" name="description">
                      <p><strong><i class="fas fa-paw"></i> {{ archived.title }}</strong>
                        <br>
-                       {% trans "Category" %}: {{ archived.category_id }};
-                       {% trans "Current location" %}: {{ archived.conditions_id }}
-                       / {% trans "Brief description" %}: {{ archived.types_id }},
-                       {{ archived.breed }}, {% trans "Age" %}: {{ archived.age_id }}
+                       {% trans "Category" %}:
+
+                       {% get_current_language as LANGUAGE_CODE %}
+                       {% if LANGUAGE_CODE == 'en' %}{{ archived.category_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ archived.category_id.title_ru }}{% endif %}
+
+
+                       / {% trans "Living conditions" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ archived.conditions_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ archived.conditions_id.title_ru }}{% endif %}
+
+                       <br> {% trans "Type" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ archived.types_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ archived.types_id.title_ru }}{% endif %}
+
+
+                       /
+                       {% if LANGUAGE_CODE == 'en' %}{{ archived.breeds.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ archived.breeds.title_ru }}{% endif %}
+
+                       / {% trans "Age" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ archived.age_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ archived.age_id.title_ru }}{% endif %}
                      </p>
                     <p>{{ archived.description | truncatechars:310}}</p>
 
