@@ -35,9 +35,6 @@
         <li class="breadcrumb-item">
           <a href="{% url 'home' %}"> <i class="fas fa-home"></i> {% trans "Home" %}</a>
         </li>
-        <li class="breadcrumb-item">
-          <a href="{% url 'listings' %}">{% trans "Listings" %}</a>
-        </li>
         <li class="breadcrumb-item active">
           {% get_current_language as LANGUAGE_CODE %}
           {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
