@@ -825,6 +825,10 @@ label {
     background-position: top center;
   }
 
+  #row-carousel {
+    height: 600px;
+  }
+
 
 }
 

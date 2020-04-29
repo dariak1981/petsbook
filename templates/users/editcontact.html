@@ -22,7 +22,7 @@
                <div class="row mb-4">
 
       <!--Carousel Wrapper-->
-       <div id="multi-item-example" class="carousel slide p-3" data-ride="carousel">
+       <div id="multi-item-example" class="carousel slide p-3" data-ride="carousel" style="width:100%">
          <!--Slides-->
          <div class="carousel-inner" role="listbox">
            <!--First slide-->
@@ -34,7 +34,8 @@
            <div class="carousel-item">
              {% endif %}
 
-              <div class="row" style="min-height:250px;">
+
+              <div class="row" id="row-carousel" style="min-height:240px;">
                  <div class="col-lg-3">
                   {% if listing.photo_main %}
                   <div class="card shadow" id="container-image">
@@ -54,7 +55,8 @@
                 </div>
                   {% endif %}
                   <div class="text-white mt-2">
-                    <i class="fas fa-clock"></i> {% trans "Created" %}: {{ listing.created.date }}
+                    {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
+                    - {{ listing.archived.date | date:"SHORT_DATE_FORMAT" }}
                   </div>
                   <div class="custom-control custom-checkbox text-center">
                     <input type="checkbox" class="custom-control-input" id="customCheckbox{{ listing.id }}" name="instance" value="{{ listing.id }}" >
@@ -63,8 +65,8 @@
                  </div>
 
                  <div class="col-lg-9 mr-auto text-white" id="description" name="description">
-                   <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong>
-                     <br>
+                   <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong></p>
+                     <p>
                      {% get_current_language as LANGUAGE_CODE %}
                      {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
                      {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
@@ -75,7 +77,7 @@
                      {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
                      {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
 
-                     / {% trans "Type" %}:
+                     <br>{% trans "Type" %}:
 
                      {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
                      {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
@@ -85,10 +87,11 @@
                      {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
                      {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
 
-                     / 
+                     / {% trans "Age" %}:
 
                      {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
                      {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
+
                    </p>
                   <p>{{ listing.description | truncatechars:330}}</p>
 
@@ -139,7 +142,7 @@
                    <div class="row my-lg-4">
 
                      <div class="col-lg-4 col-md-6 my-3">
-                       <label for="type">{% trans "Type" %}</label>
+                       <label for="type">{% trans "Contact's Type" %}</label>
                        {% get_current_language as LANGUAGE_CODE %}
                        <select name="type" class="form-control shadow-sm" required>
                          {% for type in types %}

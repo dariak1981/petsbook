@@ -38,16 +38,14 @@
                     </div>
                   </div>
                     {% endif %}
-                    <div class="text-white mt-2">
+                    <div class="text-white text-center mt-2">
                       <i class="fas fa-clock"></i> {% trans "Created" %}:<br>&nbsp;&nbsp;&nbsp; {{ archived.created.date }}
                     </div>
                    </div>
 
                    <div class="col-lg-9 mr-auto text-white" id="description" name="description">
-                     <p><strong><i class="fas fa-paw"></i> {{ archived.title }}</strong>
-                       <br>
-                       {% trans "Category" %}:
-
+                     <p><strong><i class="fas fa-paw"></i> {{ archived.title | truncatechars:80}}</strong></p>
+                       <p>
                        {% get_current_language as LANGUAGE_CODE %}
                        {% if LANGUAGE_CODE == 'en' %}{{ archived.category_id.title }}
                        {% elif LANGUAGE_CODE == 'ru' %}{{ archived.category_id.title_ru }}{% endif %}
@@ -58,7 +56,7 @@
                        {% if LANGUAGE_CODE == 'en' %}{{ archived.conditions_id.title }}
                        {% elif LANGUAGE_CODE == 'ru' %}{{ archived.conditions_id.title_ru }}{% endif %}
 
-                       <br> {% trans "Type" %}:
+                       <br>{% trans "Type" %}:
 
                        {% if LANGUAGE_CODE == 'en' %}{{ archived.types_id.title }}
                        {% elif LANGUAGE_CODE == 'ru' %}{{ archived.types_id.title_ru }}{% endif %}
@@ -72,8 +70,9 @@
 
                        {% if LANGUAGE_CODE == 'en' %}{{ archived.age_id.title }}
                        {% elif LANGUAGE_CODE == 'ru' %}{{ archived.age_id.title_ru }}{% endif %}
+
                      </p>
-                    <p>{{ archived.description | truncatechars:310}}</p>
+                    <p>{{ archived.description | truncatechars:330}}</p>
 
                    </div>
                 </div>
