@@ -194,6 +194,10 @@
                                     </div>
                                     <div class="col-lg-9 px-sm-3 px-0" id="description" name="description">
                                      <p class="m-0">{{ listing.description | safe | linebreaks }}</p>
+                                     {% if listing.owner %}
+                                      <p><strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}</p>
+                                     {% else %}
+                                     {% endif %}
                                     </div>
                                  </div>
                                </div>
