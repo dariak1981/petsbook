@@ -15,16 +15,16 @@
       <div class="col-lg-10 col-12 mb-4 mx-auto">
 
         <h3 class="text-center text-white mb-3">{% trans "Edit Contact" %}</h3>
-        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+        <div class="card bg-custom-primary-light mb-4 shadow">
           <div class="card-header pb-0">
             <form id = "contactinfo" action="{% url 'editcontact' editcontact.id %}" method="post">
               {% csrf_token %}
                <div class="row mb-4">
 
       <!--Carousel Wrapper-->
-       <div id="multi-item-example" class="carousel slide p-3" data-ride="carousel" style="width:100%">
+       <div id="multi-item-example" class="carousel carousel-fade slide p-4 pt-3" data-ride="carousel" style="width:100%">
          <!--Slides-->
-         <div class="carousel-inner" role="listbox">
+         <div class="carousel-inner px-3" role="listbox">
            <!--First slide-->
            {% if archived %}
             {% for listing in archived %}
@@ -35,8 +35,8 @@
              {% endif %}
 
 
-              <div class="row" id="row-carousel" style="min-height:240px;">
-                 <div class="col-lg-3">
+              <div class="row" id="row-carousel">
+                 <div class="col-lg-3 p-3">
                   {% if listing.photo_main %}
                   <div class="card shadow" id="container-image">
                     <div id="dummy">
@@ -55,6 +55,7 @@
                 </div>
                   {% endif %}
                   <div class="text-white text-center mt-2">
+                    <i class="fas fa-clock"></i> {% trans "Publish dates" %}:
                     {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
                     - {{ listing.archived.date | date:"SHORT_DATE_FORMAT" }}
                   </div>
@@ -64,7 +65,7 @@
                   </div>
                  </div>
 
-                 <div class="col-lg-9 mr-auto mt-sm-0 mt-3 text-white" id="description" name="description">
+                 <div class="col-lg-9 mr-auto mt-3 px-sm-4 px-1 text-white" id="description" name="description">
                    <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong></p>
                      <p>
                      {% get_current_language as LANGUAGE_CODE %}
@@ -108,7 +109,7 @@
     </div>
   <!--Controls-->
   {% if archived %}
-  <div class="d-flex justify-content-between">
+  <div class="d-flex px-4 pt-4 justify-content-between">
     <a class="control-angles" href="#multi-item-example" data-slide="prev"><i class="fas fa-angle-left fa-2x pr-4 my-3"></i></a>
     <h3 class="text-center text-white my-3">
       <button form="contactinfo" type="submit" class="btn btn-primary custom-btn mx-3 shadow" name="attach" id="attach">
@@ -131,15 +132,13 @@
   </div> -->
   <!--/.Controls-->
             <div class="text-center my-4">
-              <!-- Alerts -->
-              {% include 'partials/_alerts.html' %}
              </div>
               <form action="{% url 'editcontact' editcontact.id %}" method="POST" id="contactinfo">
                {% csrf_token %}
 
-               <div class="card">
+               <div class="card mx-4 mb-4">
                  <div class="card-body">
-                   <div class="row my-lg-4">
+                   <div class="row mb-lg-4">
 
                      <div class="col-lg-4 col-md-6 my-3">
                        <label for="type">{% trans "Contact's Type" %}</label>
