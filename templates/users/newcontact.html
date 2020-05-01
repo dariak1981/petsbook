@@ -72,7 +72,7 @@
 
                          <div class="col-12 my-3 mx-auto">
                            <label for="listings">{% trans "Request for animal" %}</label>
-                           <select name="listings" class="form-control shadow-sm" required>
+                           <select name="listings" class="form-control shadow-sm">
                              <option disabled selected value>--------</option>
                            {% for listing in listings %}
                              <option value="{{ listing.id }}">{{ listing.title }}</option>
