@@ -508,7 +508,13 @@ def newcontact(request):
         address = request.POST['address']
         phone = request.POST['phone']
         links = request.POST['links']
-        attached = Listing.objects.get(id=request.POST['listings'])
+        if 'listings' in request.POST:
+            if request.POST['listings'] == '':
+                attached = None
+            else:
+                attached = Listing.objects.get(id=request.POST['listings'])
+        else:
+            attached = None
         comments = request.POST['comments']
 
         newcontact = Contact(
