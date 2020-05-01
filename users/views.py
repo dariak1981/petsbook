@@ -15,7 +15,7 @@ from django.utils import timezone
 
 from listings.models import Listing, Category, Taps, Gender, Condition, Health, Adstatus, Age, Breeds
 from .models import UserProfile, Contact, Contactstype, Contactsgroup, UserType
-from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, UserMainForm, UserRegisterForm
+from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, UserMainForm, UserRegisterForm, ForesterForm
 from blog.models import Post, Message
 from . import forms
 from django.utils.translation import ugettext as _
@@ -129,6 +129,7 @@ def dashboard(request):
 @login_required
 def posts(request, id=None):
     listings = Listing.objects.all().filter(user_id=request.user.id).order_by('-archived')
+    contacts = Contact.objects.filter(user_id=request.user.id)
 
     if 'delete' in request.POST:
         id_list = request.POST.getlist('instance')
@@ -222,6 +223,7 @@ def posts(request, id=None):
 
     context = {
         'listings': paged_listings,
+        'contacts': contacts,
     }
 
     return render(request, 'users/posts.html', context)
@@ -289,6 +291,7 @@ def editlisting(request, listing_id):
   genders = Gender.objects.all()
   conditions = Condition.objects.all()
   types = Taps.objects.all()
+  contacts = Contact.objects.filter(user_id=request.user.id)
 
   context = {
   'editlisting': editlisting,
@@ -299,6 +302,7 @@ def editlisting(request, listing_id):
   'genders': genders,
   'conditions':conditions,
   'types': types,
+  'contacts': contacts,
   }
 
   if request.method == "POST":
@@ -315,6 +319,23 @@ def editlisting(request, listing_id):
       editlisting.gender_id = Gender.objects.get(id=request.POST['gender'])
       editlisting.conditions_id = Condition.objects.get(id=request.POST['condition'])
       editlisting.health_id = Health.objects.get(id=request.POST['health'])
+
+      if 'owner' in request.POST:
+          if request.POST['owner'] == '':
+              editlisting.owner = None
+          else:
+              editlisting.owner = Contact.objects.get(id=request.POST['owner'])
+      else:
+          editlisting.owner = editlisting.owner
+
+      if 'forester' in request.POST:
+          if request.POST['forester'] == '':
+              editlisting.forester = None
+          else:
+              editlisting.forester = Contact.objects.get(id=request.POST['forester'])
+      else:
+          editlisting.forester = editlisting.forester
+
       editlisting.description = request.POST['description']
       if 'image-clear' in request.POST:
           editlisting.photo_main = None
@@ -385,6 +406,31 @@ def archived(request, listing_id):
     return render(request, 'users/archived.html', context)
 
 @login_required
+def forested(request, listing_id):
+    forested = get_object_or_404(Listing, pk=listing_id)
+    form = ForesterForm(request.POST or None, instance=forested)
+    form.fields['forester'].queryset = Contact.objects.all().filter(user_id=request.user.id)
+
+    context = {
+        'forested': forested,
+        "form": form,
+    }
+
+
+    if request.method == "POST":
+      form = ForesterForm(request.POST, instance=forested)
+      if form.is_valid():
+          form = form.save(commit=False)
+          form.adstatus_id = get_object_or_404(Adstatus, pk=4)
+          form.save()
+          return redirect('posts')
+      else:
+          form = ForesterForm(instance=forested)
+
+    return render(request, 'users/forested.html', context)
+
+
+@login_required
 def contacts(request):
     contacts = Contact.objects.filter(user_id=request.user.id).order_by('-created')
 
@@ -453,6 +499,7 @@ def contacts(request):
 def newcontact(request):
     types = Contactstype.objects.all()
     groups = Contactsgroup.objects.all()
+    listings = Listing.objects.filter(user_id=request.user.id)
     if request.method == "POST":
         user = request.user
         type = Contactstype.objects.get(id=request.POST['type'])
@@ -461,10 +508,11 @@ def newcontact(request):
         address = request.POST['address']
         phone = request.POST['phone']
         links = request.POST['links']
+        attached = Listing.objects.get(id=request.POST['listings'])
         comments = request.POST['comments']
 
         newcontact = Contact(
-        user=user, type=type, group=group, name=name, address=address, phone=phone, links=links, comments=comments
+        user=user, type=type, group=group, name=name, address=address, phone=phone, links=links, attached=attached, comments=comments
         )
 
         newcontact.save()
@@ -474,22 +522,25 @@ def newcontact(request):
     context = {
     'types': types,
     'groups': groups,
+    'listings': listings
     }
 
     return render(request, 'users/newcontact.html', context)
 
 @login_required
 def editcontact(request, contact_id):
-    archived = Listing.objects.all().filter(user_id=request.user.id).filter(adstatus_id_id = '3')
+    archived = Listing.objects.all().filter(user_id=request.user.id).exclude(adstatus_id_id = '3')
     editcontact = Contact.objects.get(pk=contact_id)
     types = Contactstype.objects.all()
     groups = Contactsgroup.objects.all()
+    listings = Listing.objects.filter(user_id=request.user.id)
 
     context = {
     'types': types,
     'groups': groups,
     'editcontact': editcontact,
-    'archived': archived
+    'archived': archived,
+    'listings': listings
     }
 
     if request.method == "POST" and 'type' in request.POST:
@@ -500,6 +551,13 @@ def editcontact(request, contact_id):
         editcontact.address = request.POST['address']
         editcontact.phone = request.POST['phone']
         editcontact.links = request.POST['links']
+        if 'listings' in request.POST:
+            if request.POST['listings'] == '':
+                editcontact.attached = None
+            else:
+                editcontact.attached = Listing.objects.get(id=request.POST['listings'])
+        else:
+            editcontact.attached = editcontact.attached
         editcontact.comments = request.POST['comments']
 
         editcontact.save()
@@ -511,24 +569,24 @@ def editcontact(request, contact_id):
         if id_list:
             for i in id_list:
                 archived = get_object_or_404(Listing, pk=i)
-                archived.owner_id = editcontact
-                archived.save()
+                editcontact.attached = archived
+                editcontact.save()
                 return redirect('contacts')
         else:
             return redirect('editcontact')
 
-    if 'detach' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                archived = get_object_or_404(Listing, pk=i)
-                editcontact = get_object_or_404(Contact, pk=contact_id)
-                if archived.owner_id == editcontact.id:
-                    archived.owner_id = None
-                    archived.save()
-                    return redirect('contacts')
-                else:
-                    messages.error(request, 'The listing does not belong to this Contact')
+    # if 'detach' in request.POST:
+    #     id_list = request.POST.getlist('instance')
+    #     if id_list:
+    #         for i in id_list:
+    #             archived = get_object_or_404(Listing, pk=i)
+    #             editcontact = get_object_or_404(Contact, pk=contact_id)
+    #             if archived.owner_id == editcontact.id:
+    #                 archived.owner_id = None
+    #                 archived.save()
+    #                 return redirect('contacts')
+    #             else:
+    #                 messages.error(request, 'The listing does not belong to this Contact')
                     # return redirect('contacts')
 
     return render(request, 'users/editcontact.html', context)

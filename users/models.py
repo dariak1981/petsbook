@@ -74,5 +74,6 @@ class Contact(models.Model):
     links = models.CharField(max_length=250, blank=True, verbose_name = _('links'),)
     comments = models.TextField(max_length=2500, blank=True, verbose_name = _('comments'),)
     created = models.DateTimeField(default=datetime.now, verbose_name = _('created'),)
+    attached = models.ForeignKey('listings.Listing', blank=True, null=True, on_delete=models.SET_NULL, verbose_name = _('attached listing'),)
     def __str__(self):
         return self.name

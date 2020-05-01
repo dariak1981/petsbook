@@ -188,6 +188,11 @@
                                        {% else %}
                                         <a href="{% url 'archived' listing.id %}"><i class="fas fa-star"></i> {% trans "Archive" %}</a>
                                        {% endif %}
+                                       {% if listing.forester  %}
+                                        <i class="fas fa-stopwatch"></i> {% trans "Fostered" %}
+                                       {% else %}
+                                        <a href="{% url 'forested' listing.id %}"><i class="fas fa-stopwatch"></i> {% trans "Foster" %}</a>
+                                       {% endif %}
 
                                      </div>
 
@@ -198,8 +203,55 @@
                                       <p><strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}</p>
                                      {% else %}
                                      {% endif %}
+                                     {% if listing.forester %}
+                                      <p><strong>{% trans "Fosterer" %}:</strong> {{ listing.forester.name }}</p>
+                                     {% else %}
+                                     {% endif %}
                                     </div>
-                                 </div>
+
+                                  </div>
+
+
+                                   <div class="row">
+                                     <div class="col-lg-3 text-center">
+                                       <h4>{% trans "Requests" %} - {{ listing.contact_set.all.count }}
+                                       </h4>
+                                     </div>
+                                     <div class="col-lg-9 text-left">
+                                     </div>
+                                   </div>
+
+                                   {% for contact in contacts %}
+                                     {% if contact.attached_id == listing.id %}
+                                     <div class="row my-3">
+                                       <div class="col-lg-3 text-left">
+                                         <p>
+                                           {{ contact.name }}
+                                           <br>
+                                           {% trans "Address" %}: {{ contact.address }}
+                                           <br>
+                                           {% trans "Contacts" %}: {{ contact.phone }},
+                                           {{ contact.links }}
+                                           <br>
+                                           {% trans "Group" %}: {{ contact.group }}
+                                         </p>
+                                       </div>
+                                       <div class="col-lg-9 px-sm-3 px-0">
+                                         <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
+                                       </div>
+                                     </div>
+
+                                       {% else %}
+                                       {% endif %}
+                                   {% endfor %}
+
+
+
+
+
+
+
+
                                </div>
                              </div>
                             </div>

@@ -60,6 +60,16 @@ class ArchiveForm(forms.ModelForm):
         ]
         exclude = ['adstatus_id']
 
+class ForesterForm(forms.ModelForm):
+
+    class Meta:
+        model = Listing
+        fields = [
+          'forester'
+        ]
+        exclude = ['adstatus_id']
+
+
 
 class ContactForm(forms.ModelForm):
     class Meta:

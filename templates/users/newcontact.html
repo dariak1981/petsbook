@@ -69,6 +69,16 @@
                            <label for="links">{% trans "Links" %}</label>
                            <input type="text" class="form-control shadow-sm" id="links" name="links" maxlength="250" required>
                          </div>
+
+                         <div class="col-12 my-3 mx-auto">
+                           <label for="listings">{% trans "Request for animal" %}</label>
+                           <select name="listings" class="form-control shadow-sm" required>
+                             <option disabled selected value>--------</option>
+                           {% for listing in listings %}
+                             <option value="{{ listing.id }}">{{ listing.title }}</option>
+                           {% endfor %}
+                           </select>
+                         </div>
                        </div>
 
                        <div class="row mb-5">

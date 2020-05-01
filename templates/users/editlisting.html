@@ -153,7 +153,53 @@
                                   {% endfor %}
                                 </select>
                               </div>
+
+
+                            <div class="col-lg-6 col-12 my-3">
+                              <label>{% trans "Owner" %}</label>
+                              {% if editlisting.owner %}
+                              <select name="owner" class="form-control shadow-sm">
+                                {% for owner in contacts %}
+                                <option value="{{ owner.id }}"
+                                {% if owner.id == editlisting.owner.id %} selected {% else %}{% endif %}>
+                                    {{ owner.name }}
+                                </option>
+                                {% endfor %}
+                                <option value="" title="" >---------</option>
+                              </select>
+                              {% else %}
+                              <select name="owner" class="form-control shadow-sm">
+                                <option disabled selected value>--------</option>
+                                {% for owner in contacts %}
+                                <option value="{{ owner.id }}">{{ owner.name }}</option>
+                                {% endfor %}
+                              </select>
+                              {% endif %}
                             </div>
+
+                            <div class="col-lg-6 col-12 my-3">
+                              <label>{% trans "Fosterer" %}</label>
+                              {% if editlisting.forester %}
+                              <select name="forester" class="form-control shadow-sm">
+                                {% for forester in contacts %}
+                                <option value="{{ forester.id }}"
+                                {% if forester.id == editlisting.forester.id %} selected {% else %}{% endif %}>
+                                    {{ forester.name }}
+                                </option>
+                                {% endfor %}
+                                <option value="" title="" >---------</option>
+                              </select>
+                              {% else %}
+                              <select name="forester" class="form-control shadow-sm">
+                                <option disabled selected value>--------</option>
+                                {% for forester in contacts %}
+                                <option value="{{ forester.id }}">{{ forester.name }}</option>
+                                {% endfor %}
+                              </select>
+                              {% endif %}
+                            </div>
+                        </div>
+
 
                             <div class="row">
                               <div class="col-md-12 my-3">

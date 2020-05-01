@@ -73,6 +73,9 @@ class Adstatus(models.Model):
 
 
 class Listing(models.Model):
+
+
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name= _('created'),)
     user_contact = models.CharField(max_length=150, verbose_name = _('contacts'),)
     title = models.CharField(max_length=100, verbose_name= _('title'),)
@@ -97,9 +100,11 @@ class Listing(models.Model):
     photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_2'),)
     photo_3 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_3'),)
     photo_4 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_4'),)
-    owner = models.ForeignKey(Contact, on_delete=models.CASCADE, default=None, blank=True, null=True, verbose_name= _('owner'),)
+    owner = models.ForeignKey(Contact, on_delete=models.DO_NOTHING, default=None, blank=True, null=True, verbose_name= _('owner'), related_name='listing_owner',)
+    forester = models.ForeignKey(Contact, on_delete=models.DO_NOTHING, default=None, blank=True, null=True, verbose_name= _('forester'), related_name='listing_foster',)
     def __str__(self):
         return self.title
+
 
     def save(self, *args, **kwargs):
         super(Listing, self).save(*args, **kwargs)

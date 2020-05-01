@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-30 21:23+0300\n"
+"POT-Creation-Date: 2020-05-01 17:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,12 +24,12 @@ msgstr ""
 msgid "author"
 msgstr "автор"
 
-#: .\blog\models.py:18 .\listings\models.py:78
+#: .\blog\models.py:18 .\listings\models.py:81
 msgid "title"
 msgstr "заголовок"
 
-#: .\blog\models.py:20 .\blog\models.py:47 .\listings\models.py:76
-#: .\listings\models.py:91 .\users\models.py:76
+#: .\blog\models.py:20 .\blog\models.py:47 .\listings\models.py:79
+#: .\listings\models.py:94 .\users\models.py:76
 msgid "created"
 msgstr "дата создания"
 
@@ -49,81 +49,85 @@ msgstr "фотография"
 msgid "message"
 msgstr "сообщение"
 
-#: .\listings\models.py:77
+#: .\listings\models.py:80
 msgid "contacts"
 msgstr "контакты"
 
-#: .\listings\models.py:79
+#: .\listings\models.py:82
 msgid "category"
 msgstr "категория"
 
-#: .\listings\models.py:80
+#: .\listings\models.py:83
 msgid "type"
 msgstr "раздел"
 
-#: .\listings\models.py:81
+#: .\listings\models.py:84
 msgid "city"
 msgstr "город"
 
-#: .\listings\models.py:82
+#: .\listings\models.py:85
 msgid "district"
 msgstr "район"
 
-#: .\listings\models.py:83
+#: .\listings\models.py:86
 msgid "price"
 msgstr "цена"
 
-#: .\listings\models.py:84
+#: .\listings\models.py:87
 msgid "breed"
 msgstr "порода"
 
-#: .\listings\models.py:85
+#: .\listings\models.py:88
 msgid "breeds"
 msgstr "порода"
 
-#: .\listings\models.py:86
+#: .\listings\models.py:89
 msgid "age"
 msgstr "возраст"
 
-#: .\listings\models.py:87
+#: .\listings\models.py:90
 msgid "gender"
 msgstr "пол"
 
-#: .\listings\models.py:88
+#: .\listings\models.py:91
 msgid "conditions"
 msgstr "условия"
 
-#: .\listings\models.py:89
+#: .\listings\models.py:92
 msgid "health"
 msgstr "здоровье"
 
-#: .\listings\models.py:90
+#: .\listings\models.py:93
 msgid "description"
 msgstr "подробности"
 
-#: .\listings\models.py:95
+#: .\listings\models.py:98
 msgid "main photo"
 msgstr "основное фото"
 
-#: .\listings\models.py:96
+#: .\listings\models.py:99
 msgid "photo_1"
 msgstr "фото 1"
 
-#: .\listings\models.py:97
+#: .\listings\models.py:100
 msgid "photo_2"
 msgstr "фото 2"
 
-#: .\listings\models.py:98
+#: .\listings\models.py:101
 msgid "photo_3"
 msgstr "фото 3"
 
-#: .\listings\models.py:99
+#: .\listings\models.py:102
 msgid "photo_4"
 msgstr "фото 4"
 
-#: .\listings\models.py:100
+#: .\listings\models.py:103
 msgid "owner"
 msgstr "владелец"
+
+#: .\listings\models.py:104
+msgid "forester"
+msgstr "передержка"
 
 #: .\templates\accounts\login.html:4
 msgid "Account Login"
@@ -380,9 +384,10 @@ msgstr "Порода"
 #: .\templates\listings\listing.html:134 .\templates\listings\search.html:90
 #: .\templates\listings\search.html:92 .\templates\pages\home.html:95
 #: .\templates\pages\home.html:97 .\templates\users\archived.html:69
-#: .\templates\users\editcontact.html:91 .\templates\users\editlisting.html:97
-#: .\templates\users\newlisting.html:98 .\templates\users\posts.html:142
-#: .\templates\users\responsible.html:182
+#: .\templates\users\editcontact.html:90 .\templates\users\editlisting.html:97
+#: .\templates\users\forested.html:69 .\templates\users\newlisting.html:98
+#: .\templates\users\posts.html:142 .\templates\users\responsible.html:185
+#: .\templates\users\responsible.html:240
 msgid "Age"
 msgstr "Возраст"
 
@@ -449,10 +454,11 @@ msgid "City"
 msgstr "Город"
 
 #: .\templates\listings\search.html:62 .\templates\pages\home.html:67
-#: .\templates\users\archived.html:59 .\templates\users\editcontact.html:81
-#: .\templates\users\editlisting.html:69 .\templates\users\index.html:73
-#: .\templates\users\newlisting.html:70 .\templates\users\posts.html:132
-#: .\templates\users\responsible.html:172
+#: .\templates\users\archived.html:59 .\templates\users\editcontact.html:80
+#: .\templates\users\editlisting.html:69 .\templates\users\forested.html:59
+#: .\templates\users\index.html:73 .\templates\users\newlisting.html:70
+#: .\templates\users\posts.html:132 .\templates\users\responsible.html:175
+#: .\templates\users\responsible.html:230
 msgid "Type"
 msgstr "Раздел"
 
@@ -493,7 +499,7 @@ msgid "Listings"
 msgstr "Объявления"
 
 #: .\templates\partials\_accountnavbar.html:34 .\templates\users\index.html:46
-#: .\templates\users\responsible.html:106
+#: .\templates\users\posts.html:233 .\templates\users\responsible.html:106
 msgid "Contacts"
 msgstr "Контакты"
 
@@ -521,7 +527,7 @@ msgstr "Добро пожаловать,"
 msgid "Register"
 msgstr "Регистрация"
 
-#: .\templates\users\archived.html:5
+#: .\templates\users\archived.html:5 .\templates\users\forested.html:5
 msgid "Add To Archive"
 msgstr "Добавить в Архив"
 
@@ -529,19 +535,22 @@ msgstr "Добавить в Архив"
 msgid "Close Advertisement"
 msgstr "Закрыть Объявление"
 
-#: .\templates\users\archived.html:42
+#: .\templates\users\archived.html:42 .\templates\users\forested.html:42
 msgid "Created"
 msgstr "Дата публикации"
 
-#: .\templates\users\archived.html:54 .\templates\users\editcontact.html:76
-#: .\templates\users\editlisting.html:130 .\templates\users\newlisting.html:131
-#: .\templates\users\posts.html:127 .\templates\users\responsible.html:167
+#: .\templates\users\archived.html:54 .\templates\users\editcontact.html:75
+#: .\templates\users\editlisting.html:130 .\templates\users\forested.html:54
+#: .\templates\users\newlisting.html:131 .\templates\users\posts.html:127
+#: .\templates\users\responsible.html:170
+#: .\templates\users\responsible.html:225
 msgid "Living conditions"
 msgstr "Условия содержания"
 
-#: .\templates\users\archived.html:96 .\templates\users\editcontact.html:199
-#: .\templates\users\editlisting.html:166 .\templates\users\newcontact.html:82
-#: .\templates\users\newlisting.html:167 .\templates\users\register.html:60
+#: .\templates\users\archived.html:96 .\templates\users\editcontact.html:220
+#: .\templates\users\editlisting.html:212 .\templates\users\forested.html:96
+#: .\templates\users\newcontact.html:92 .\templates\users\newlisting.html:167
+#: .\templates\users\register.html:60
 msgid "Submit form"
 msgstr "Сохранить"
 
@@ -550,57 +559,49 @@ msgid "Edit Contact"
 msgstr "Редактировать контакт"
 
 #: .\templates\users\editcontact.html:58
-msgid "Publish dates"
-msgstr "Даты публикации"
+msgid "Publish date"
+msgstr "Дата публикации"
 
-#: .\templates\users\editcontact.html:116
-msgid "Attach"
-msgstr "Привязать"
+#: .\templates\users\editcontact.html:115
+msgid "Add Request For Animal"
+msgstr "Добавить запрос на животное"
 
-#: .\templates\users\editcontact.html:117
-msgid "related post or"
-msgstr "объявление или"
-
-#: .\templates\users\editcontact.html:119
-msgid "Remove"
-msgstr "Открепить"
-
-#: .\templates\users\editcontact.html:120
-msgid "from contact (optional)"
-msgstr "от контакта"
-
-#: .\templates\users\editcontact.html:126
+#: .\templates\users\editcontact.html:121
 msgid "No Lisings In Archive"
 msgstr "В Архиве записей нет"
 
-#: .\templates\users\editcontact.html:144 .\templates\users\newcontact.html:29
+#: .\templates\users\editcontact.html:139 .\templates\users\newcontact.html:29
 msgid "Contact's Type"
 msgstr "Тип владельца"
 
-#: .\templates\users\editcontact.html:159 .\templates\users\newcontact.html:44
+#: .\templates\users\editcontact.html:154 .\templates\users\newcontact.html:44
 msgid "Contact's Group"
 msgstr "Группа контакта"
 
-#: .\templates\users\editcontact.html:171 .\templates\users\newcontact.html:54
+#: .\templates\users\editcontact.html:166 .\templates\users\newcontact.html:54
 msgid "Name"
 msgstr "Имя"
 
-#: .\templates\users\editcontact.html:176 .\templates\users\newcontact.html:59
-#: .\templates\users\responsible.html:104
+#: .\templates\users\editcontact.html:171 .\templates\users\newcontact.html:59
+#: .\templates\users\posts.html:231 .\templates\users\responsible.html:104
 msgid "Address"
 msgstr "Адрес"
 
-#: .\templates\users\editcontact.html:181 .\templates\users\newcontact.html:64
+#: .\templates\users\editcontact.html:176 .\templates\users\newcontact.html:64
 #: .\templates\users\profile.html:110
 msgid "Phone"
 msgstr "Телефон"
 
-#: .\templates\users\editcontact.html:186 .\templates\users\newcontact.html:69
+#: .\templates\users\editcontact.html:181 .\templates\users\newcontact.html:69
 #: .\templates\users\profile.html:115
 msgid "Links"
 msgstr "Ссылки"
 
-#: .\templates\users\editcontact.html:193 .\templates\users\newcontact.html:76
+#: .\templates\users\editcontact.html:188
+msgid "Add/Remove request for animal"
+msgstr "Добавить/удалить запрос на животное"
+
+#: .\templates\users\editcontact.html:214 .\templates\users\newcontact.html:86
 msgid "Comments"
 msgstr "Комментарии"
 
@@ -616,9 +617,21 @@ msgstr "Контакты"
 msgid "District"
 msgstr "Район"
 
-#: .\templates\users\editlisting.html:160 .\templates\users\newlisting.html:161
+#: .\templates\users\editlisting.html:159 .\templates\users\posts.html:203
+msgid "Owner"
+msgstr "Владелец"
+
+#: .\templates\users\editlisting.html:181
+msgid "Forester"
+msgstr "Передержка"
+
+#: .\templates\users\editlisting.html:206 .\templates\users\newlisting.html:161
 msgid "Description"
 msgstr "Подробности"
+
+#: .\templates\users\forested.html:18
+msgid "Foster Animal"
+msgstr "Отправить на передержку"
 
 #: .\templates\users\index.html:21
 msgid "Active"
@@ -675,6 +688,10 @@ msgstr "Новый контакт"
 #: .\templates\users\newcontact.html:17
 msgid "Add New Contact"
 msgstr "Добавить контакт"
+
+#: .\templates\users\newcontact.html:74
+msgid "Request for animal"
+msgstr "Заявка на животное"
 
 #: .\templates\users\newlisting.html:5 .\templates\users\newlisting.html:17
 msgid "New Listing"
@@ -733,11 +750,27 @@ msgstr "Редактировать"
 msgid "Archive"
 msgstr "В Архив"
 
-#: .\templates\users\posts.html:198
-msgid "Owner"
-msgstr "Владелец"
+#: .\templates\users\posts.html:192 .\templates\users\responsible.html:219
+msgid "Fostered"
+msgstr "На передержке"
 
-#: .\templates\users\posts.html:212
+#: .\templates\users\posts.html:194
+msgid "Foster"
+msgstr "На передержку"
+
+#: .\templates\users\posts.html:207
+msgid "Fosterer"
+msgstr "Передержка"
+
+#: .\templates\users\posts.html:217
+msgid "Requests"
+msgstr "Заявки"
+
+#: .\templates\users\posts.html:236
+msgid "Group"
+msgstr "Группа контакта"
+
+#: .\templates\users\posts.html:264
 msgid "No Listings Available"
 msgstr "Публикаций нет"
 
@@ -829,10 +862,14 @@ msgid "Date created"
 msgstr "Дата создания"
 
 #: .\templates\users\responsible.html:110
-msgid "Related ads"
-msgstr "Связанные объявления"
+msgid "Animals owned"
+msgstr "Пристроенные животные"
 
-#: .\templates\users\responsible.html:205
+#: .\templates\users\responsible.html:111
+msgid "Animals fostered"
+msgstr "Животные на передержке"
+
+#: .\templates\users\responsible.html:266
 msgid "No Contacts Available"
 msgstr "Контактов нет"
 
@@ -895,3 +932,7 @@ msgstr "адрес"
 #: .\users\models.py:75
 msgid "comments"
 msgstr "комментарии"
+
+#: .\users\models.py:77
+msgid "attached listing"
+msgstr "Прикрепленные объявления"

@@ -107,7 +107,8 @@
                                {{ contact.links }}
                              </p>
                              <i class="fas fa-clock"></i> {% trans "Date created" %}: {{ contact.created | date:"SHORT_DATE_FORMAT" }}
-                              <br>{% trans "Related ads" %}: {{ contact.listing_set.all.count }}
+                              <br>{% trans "Animals owned" %}: {{ contact.listing_owner.all.count }}
+                              <br>{% trans "Animals fostered" %}: {{ contact.listing_foster.all.count }}
                            </div>
 
                            <div class="col-md-6">
@@ -138,7 +139,9 @@
 
                          <div id="collapse{{ contact.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
                            <div class="card-body p-3">
-                             {% for listing in contact.listing_set.all %}
+
+                             {% if contact.listing_owner.all %}
+                             {% for listing in contact.listing_owner.all %}
                               <div class="row mt-4">
                                 <div class="col-lg-3 mb-sm-0 mb-3 text-left">
                                   <div class="card shadow" id="container-image">
@@ -189,6 +192,64 @@
 
                              </div>
                             {% endfor %}
+                            {% else %}
+                            {% endif %}
+
+                            {% if contact.listing_foster.all %}
+                            {% for listing in contact.listing_foster.all %}
+                             <div class="row mt-4">
+                               <div class="col-lg-3 mb-sm-0 mb-3 text-left">
+                                 <div class="card shadow" id="container-image">
+                                   <div id="dummy">
+                                     <div id="element">
+                                    {% if listing.photo_main %}
+                                    <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                    {% else %}
+                                    <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                                    {% endif %}
+                                  </div>
+                               </div>
+                             </div>
+
+                              </div>
+                              <div class="col-lg-9 px-sm-3 px-0" id="description" name="description">
+                                <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
+                                  <br>
+                                  {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
+                                  - <strong>{% trans "Fostered" %}</strong>
+                                  <br>
+                                  {% get_current_language as LANGUAGE_CODE %}
+                                  {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
+                                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
+
+                                   / {% trans "Living conditions" %}:
+
+                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
+                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
+
+                                  <br> {% trans "Type" %}:
+
+                                  {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
+                                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
+
+
+                                  /
+                                  {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
+                                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
+
+                                  / {% trans "Age" %}:
+
+                                  {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
+                                  {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
+                                </p>
+                               <p>{{ listing.description | truncatechars:310}}</p>
+                              </div>
+
+                            </div>
+                           {% endfor %}
+                           {% else %}
+                           {% endif %}
+
                            </div>
                          </div>
 
