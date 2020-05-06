@@ -6,7 +6,7 @@ var sBrowser, sUsrAg = navigator.userAgent;
     i.className = 'fa fa-smile-o';
 
     var ie=document.createElement('div');
-    ie.setAttribute("style", "width:100%;height:100%;z-index:2147483647;text-align:center;font-size:30px; padding-top:200px; background:rgba(240,240,240,.9); position: fixed; top:0px; left:0px;");
+    ie.setAttribute("style", "width:100%;height:100%;z-index:2147483647;text-align:center;font-size:30px; padding-top:200px; background:#fff; position: fixed; top:0px; left:0px;");
 
     var label = document.createElement('label');
     label.innerHTML = txt;
