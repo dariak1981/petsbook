@@ -30,7 +30,6 @@
 
     <title>PetsBook {% block title %}{% endblock %}</title>
 
-
   </head>
 <!-- Top Bar -->
 {% include 'partials/_topbar.html' %}
@@ -43,8 +42,6 @@
   {% endfor %}
 {% endif %} -->
   <!-- Main Content -->
-
-
 {% block content %} {% endblock %}
 
 {% include 'partials/_footer.html' %}
@@ -59,10 +56,10 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/GaugeMeter.js' %}"></script>
 <script src="{% static 'js/selectFilter.min.js' %}"></script>
+<script src="{% static 'js/ie.js' %}"></script>
 <script type="text/javascript">
   $("#year").text(new Date().getFullYear());
 </script>
-
 
   </body>
 </html>

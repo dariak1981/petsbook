@@ -13,26 +13,15 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# AUTH_USER_MODEL = 'account.UserProfile'
-
-# ACCOUNT_SIGNUP_FORM_CLASS = 'user_app.forms.SignupForm'
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9&)_r+f^3rgyn-57zx6xz%)a5xe(oj#7+x55&qo=*xnnq@$q19'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = False
 
 ALLOWED_HOSTS=['*']
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
@@ -62,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 LOGIN_REDIRECT_URL = '/users/profile'
 LOGIN_URL = 'login'
