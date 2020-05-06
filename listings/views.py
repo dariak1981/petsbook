@@ -36,7 +36,7 @@ def listing(request, listing_id):
 def searchlistings(request):
     categories = Category.objects.all()
     types = Taps.objects.all()
-    breeds = Breeds.objects.order_by('type_id')
+    breeds = Breeds.objects.order_by('type_id', 'title_ru')
     ages = Age.objects.all()
     services = Services.objects.all()
     queryset_list = Listing.objects.order_by('-created').filter(adstatus_id = '2')

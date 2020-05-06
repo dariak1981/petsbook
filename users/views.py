@@ -232,7 +232,7 @@ def posts(request, id=None):
 def newlisting(request):
     healths = Health.objects.all()
     categories = Category.objects.all()
-    breeds = Breeds.objects.all()
+    breeds = Breeds.objects.order_by('type_id', 'title_ru')
     ages = Age.objects.all()
     genders = Gender.objects.all()
     conditions = Condition.objects.all()
@@ -286,7 +286,7 @@ def editlisting(request, listing_id):
   editlisting = Listing.objects.get(pk=listing_id)
   healths = Health.objects.all()
   categories = Category.objects.all()
-  breeds = Breeds.objects.all()
+  breeds = Breeds.objects.order_by('type_id', 'title_ru')
   ages = Age.objects.all()
   genders = Gender.objects.all()
   conditions = Condition.objects.all()
