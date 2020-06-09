@@ -880,8 +880,8 @@ label {
     background-image: none;
   }
 
-  .header-sticky {
-    font-size:0.7rem;
+  .header-sticky .navbar {
+    font-size:0.73rem;
   }
 
   #listing-heading {
@@ -932,8 +932,8 @@ label {
 
 @media (max-width: 481px) {
 
-  .header-sticky {
-    font-size:0.64rem;
+  .header-sticky .navbar  {
+    font-size:0.6rem;
   }
 
   #listing-heading {
