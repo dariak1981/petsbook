@@ -1,4 +1,5 @@
 
+
 $('.pop').each(function () {
     var $elem = $(this);
     $elem.popover({

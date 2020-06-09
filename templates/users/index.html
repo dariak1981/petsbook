@@ -11,37 +11,40 @@
 {% include 'partials/_accountnavbar.html' %}
 
  <!-- Actions -->
- <section id="actions" class="py-4 bg-custom-secondary-light shadow">
+ <div class="account-wrap">
+
+
+ <section id="actions" class="py-4 bg-custom-secondary-light shadow mb-5">
   <div class="container">
     <div class="container-fluid px-0">
       <div class="row">
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
             <button class="btn btn-primary custom-btn btn-block shadow">
               <i class="fas fa-bell"></i> <span class="hidden-phone">{% trans "Active" %}</span><strong> {{ activelistings }}</strong></button>
           </div>
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
             <button class="btn btn-primary custom-btn btn-block shadow">
               <i class="fas fa-eye-slash"></i> <span class="hidden-phone">{% trans "Hidden" %}</span><strong> {{ hiddenlistings }}</strong></button>
           </div>
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="300">
             <button class="btn btn-primary custom-btn btn-block shadow">
               <i class="fas fa-star"></i> <span class="hidden-phone">{% trans "Archived" %}</span><strong> {{ archivedlistings }}</strong></button>
           </div>
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="400">
             <button class="btn btn-primary custom-btn btn-block shadow" name="threads">
               <i class="fas fa-share-alt"></i> <span class="hidden-phone">{% trans "Posts" %}</span><strong> {{ userposts }}</strong></button>
           </div>
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="500">
             <button class="btn btn-primary custom-btn btn-block shadow" name="restore">
               <i class="fas fa-comment"></i> <span class="hidden-phone">{% trans "Replies" %}</span><strong> {{ usermessages }}</strong></button>
           </div>
 
-          <div class="col action-buttons">
+          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
             <button class="btn btn-primary custom-btn btn-block shadow" name="restore">
               <i class="fas fa-users"></i> <span class="hidden-phone">{% trans "Contacts" %}</span><strong> {{ sitecontacts }}</strong></button>
           </div>
@@ -183,6 +186,6 @@
       </div>
     </section>
 
-
+</div>
 
 {% endblock %}

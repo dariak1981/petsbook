@@ -14,18 +14,22 @@
     {% if listing.photo_main %}
     <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{{ listing.photo_main.url }}" />
     {% else %}
-    <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{% static 'img/avatar-animal.png' %}" />
+    <meta property="og:image" itemprop="image" content="http://{{ request.get_host }}{% static 'img/avatar-animal.svg' %}" />
     {% endif %}
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta name="og:description" content="{{ listing.description }}"/>
     <script type="text/javascript" src="https://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.css' %}"/>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
     <!-- LightBox -->
-    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"/>
+    <link href="{% static 'css/lightbox.min.css' %}"/>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
     <title>PetsBook {% block title %}{% endblock %}</title>
@@ -34,13 +38,6 @@
 <!-- Top Bar -->
 {% include 'partials/_topbar.html' %}
 <body>
-<!-- {% if messages %}
-  {% for message in messages %}
-   <div class="alert alert-{{ message.tags }}">
-      {{ message }}
-   </div>
-  {% endfor %}
-{% endif %} -->
   <!-- Main Content -->
 {% block content %} {% endblock %}
 
@@ -54,11 +51,18 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/lightbox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/GaugeMeter.js' %}"></script>
 <script src="{% static 'js/selectFilter.min.js' %}"></script>
 <script src="{% static 'js/ie.js' %}"></script>
 <script type="text/javascript">
   $("#year").text(new Date().getFullYear());
+</script>
+<script>
+AOS.init({
+anchorPlacement: 'top-bottom',
+});
+
 </script>
 
   </body>

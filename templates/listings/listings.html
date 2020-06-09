@@ -37,7 +37,8 @@
     {% if listings %}
       {% for listing in listings %}
       <!-- Listing  -->
-        <div class="col-xl-3 col-lg-4 col-md-6 my-4">
+
+        <div class="col-xl-3 col-lg-4 col-md-6 my-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
           <div class="card listing-preview mx-sm-0 mx-4 shadow">
             <a href="{% url 'listing' listing.id %}">
             {% if listing.photo_main %}
@@ -52,7 +53,7 @@
             <div id="container-image">
               <div id="dummy">
                 <div id="element-cards">
-                   <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid cards">
+                   <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
                  </div>
               </div>
             </div>
@@ -65,24 +66,24 @@
               {% get_current_language as LANGUAGE_CODE %}
               {% if listing.category_id_id == 1 %}
 
-              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-1-homeless">{{ listing.category_id.title }}</span></h2>
-              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-1-homeless">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+              {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-1-homeless">{{ listing.category_id.title }}</span>
+              {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-1-homeless">{{ listing.category_id.title_ru }}</span>{% endif %}
 
 
               {% elif listing.category_id_id == 2 %}
 
-              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-2-lost">{{ listing.category_id.title }}</span></h2>
-              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-2-lost">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+              {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-2-lost">{{ listing.category_id.title }}</span>
+              {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-2-lost">{{ listing.category_id.title_ru }}</span>{% endif %}
 
               {% elif listing.category_id_id == 3 %}
 
-              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-3-forsale">{{ listing.category_id.title }}</span></h2>
-              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-3-forsale">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+              {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-3-forsale">{{ listing.category_id.title }}</span>
+              {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-3-forsale">{{ listing.category_id.title_ru }}</span>{% endif %}
 
               {% else %}
 
-              {% if LANGUAGE_CODE == 'en' %}<h2><span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title }}</span></h2>
-              {% elif LANGUAGE_CODE == 'ru' %}<h2><span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title_ru }}</span></h2>{% endif %}
+              {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title }}</span>
+              {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title_ru }}</span>{% endif %}
 
               {% endif %}
             </div>

@@ -10,59 +10,60 @@
 
 
 
-
+ <div class="account-wrap">
 
     <!-- Actions -->
-    <section id="actions" class="py-4 bg-custom-secondary-light shadow">
+    <section id="actions" class="py-4 bg-custom-secondary-light shadow mb-5">
       <!-- <form action="{% url 'posts' %}" method="post"> -->
        <div class="container">
           <div class="container-fluid px-0">
             <div class="row">
 
-              <div class="col action-buttons">
+              <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
                 <a href="{% url 'newlisting' %}" class="btn btn-primary custom-btn btn-block shadow" name="addnew">
                   <i class="fas fa-plus-circle"></i> <span class="hidden-phone">{% trans "Add New" %}</span></a>
               </div>
 
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="delete">
                     <i class="fas fa-trash-alt"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
                 </div>
 
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="300" id="aos-delete">
                   <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
                   <div class="dropdown-menu">
-                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus">
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus" id="js-aos-dropdown">
                       {% trans "By Status" %}</button>
-                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate">
+                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate" style="z-index:99999;">
                       {% trans "By Publish Date" %}</button>
+
                   </div>
                 </div>
 
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="400">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="publish">
                     <i class="fas fa-bell"></i> <span class="hidden-phone">{% trans "Publish" %}</span></button>
                 </div>
 
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="500">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="hide">
                     <i class="fas fa-eye-slash"></i> <span class="hidden-phone">{% trans "Hide" %}</span></button>
                 </div>
 
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="restore">
                     <i class="fas fa-trash-restore"></i> <span class="hidden-phone">{% trans "Restore" %}</span></button>
                 </div>
 
                 {% get_current_language as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE == 'en' %}
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
                 {% elif LANGUAGE_CODE == 'ru' %}
-                <div class="col action-buttons">
+                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
@@ -84,8 +85,8 @@
     <section id="contents">
       <div class="container">
 
-        <div class="row py-4 mb-5">
-          <div class="col-12 mb-4">
+        <div class="row pt-4 pb-5">
+          <div class="col-12 mb-4 mb-5">
             <div class="card bg-custom-primary-light shadow">
               <div class="card-body">
                 <form action="{% url 'posts' %}" method="POST" id="activeposts">
@@ -176,7 +177,7 @@
                                      <div class="card shadow" id="container-image">
                                        <div id="dummy">
                                          <div id="element">
-                                          <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                                          <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
                                         </div>
                                      </div>
                                    </div>
@@ -316,7 +317,7 @@
       </div>
     </section>
 
-
+</div>
 
 
 {% endblock %}

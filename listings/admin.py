@@ -40,6 +40,7 @@ class TapsAdmin(admin.ModelAdmin):
 
 class BreedsAdmin(admin.ModelAdmin):
      list_display = ('id', 'type_id', 'title', 'title_ru')
+     search_fields = ('title', 'title_ru')
      list_per_page = 25
 
 

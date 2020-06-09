@@ -452,9 +452,6 @@ def contacts(request):
     if 'bytype' in request.POST:
         contacts = contacts.order_by('type')
 
-    if 'bydate' in request.POST:
-        contacts = contacts.order_by('-created')
-
     if 'export' in request.POST:
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="Contacts.csv"'

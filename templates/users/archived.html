@@ -9,13 +9,13 @@
 <!-- Account Navbar -->
 {% include 'partials/_accountnavbar.html' %}
 
-
+<div class="account-wrap">
     <!-- Posts -->
     <section id="contents">
       <div class="container">
         <div class="row pt-4 pb-5">
           <div class="col-sm-10 col-12 mb-4 mx-auto">
-            <h3 class="text-center text-white mb-3">{% trans "Close Advertisement" %}</h3>
+            <h3 class="text-center text-dark mb-3">{% trans "Close Advertisement" %}</h3>
             <div class="card bg-custom-primary-light p-4 mb-4 shadow">
               <div class="card-header">
                 <div class="row my-3">
@@ -33,7 +33,7 @@
                     <div class="card shadow" id="container-image">
                       <div id="dummy">
                         <div id="element">
-                         <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                         <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
                        </div>
                     </div>
                   </div>
@@ -112,6 +112,6 @@
               </div>
             </div>
           </section>
-
+</div>
 
 {% endblock %}

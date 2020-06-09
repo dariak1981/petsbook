@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load humanize %}
+{% load user_agents %}
 {% block title %} | {{ listing.title }} {% endblock %}
 {% block content %}
 
@@ -76,7 +77,11 @@
      </span>
      {% endif %}
 
+     {% if request|is_mobile %}
      <a href='whatsapp://send?text={{ request.build_absolute_uri | urlencode }}' data-action="share/whatsapp/share" target="_blank"><i class="fab fa-whatsapp fa-lg"></i></a>
+     {% else %}
+     <a href='https://web.whatsapp.com/send?text={{ request.build_absolute_uri | urlencode }}' target="_blank"><i class="fab fa-whatsapp fa-lg"></i></a>
+     {% endif %}
     </div>
   </div>
 
@@ -93,9 +98,9 @@
         </div>
         {% else %}
         <div class="card shadow" id="container-image">
-          <div id="dummy">
+          <div id="dummy-noimage">
             <div id="element-main-img">
-             <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+             <img src="{% static 'img/avatar-noanimal.svg' %}" class="img-fluid">
            </div>
          </div>
         </div>

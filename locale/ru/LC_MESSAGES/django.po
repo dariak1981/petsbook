@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-01 17:33+0300\n"
+"POT-Creation-Date: 2020-06-09 01:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,7 +281,7 @@ msgstr "Краткое описание"
 #: .\templates\listings\search.html:35 .\templates\pages\home.html:38
 #: .\templates\pages\home.html:40 .\templates\users\editlisting.html:54
 #: .\templates\users\index.html:72 .\templates\users\newlisting.html:56
-#: .\templates\users\posts.html:121
+#: .\templates\users\posts.html:122
 msgid "Category"
 msgstr "Категория"
 
@@ -358,54 +358,54 @@ msgstr "Публикации автора"
 msgid "Posts by"
 msgstr "Публикации"
 
-#: .\templates\listings\listing.html:36 .\templates\listings\listings.html:30
+#: .\templates\listings\listing.html:37 .\templates\listings\listings.html:30
 #: .\templates\listings\search.html:120 .\templates\partials\_topbar.html:28
 msgid "Home"
 msgstr "Главная"
 
-#: .\templates\listings\listing.html:52
+#: .\templates\listings\listing.html:53
 msgid "By"
 msgstr "Автор"
 
-#: .\templates\listings\listing.html:116
+#: .\templates\listings\listing.html:121
 msgid "Asking Price"
 msgstr "Цена"
 
-#: .\templates\listings\listing.html:118
+#: .\templates\listings\listing.html:123
 msgid "Free of Charge"
 msgstr "Бесплатно"
 
-#: .\templates\listings\listing.html:124 .\templates\listings\search.html:76
+#: .\templates\listings\listing.html:129 .\templates\listings\search.html:76
 #: .\templates\pages\home.html:81 .\templates\users\editlisting.html:83
 #: .\templates\users\newlisting.html:84
 msgid "Breed"
 msgstr "Порода"
 
-#: .\templates\listings\listing.html:134 .\templates\listings\search.html:90
+#: .\templates\listings\listing.html:139 .\templates\listings\search.html:90
 #: .\templates\listings\search.html:92 .\templates\pages\home.html:95
 #: .\templates\pages\home.html:97 .\templates\users\archived.html:69
 #: .\templates\users\editcontact.html:90 .\templates\users\editlisting.html:97
 #: .\templates\users\forested.html:69 .\templates\users\newlisting.html:98
-#: .\templates\users\posts.html:142 .\templates\users\responsible.html:185
-#: .\templates\users\responsible.html:240
+#: .\templates\users\posts.html:143 .\templates\users\responsible.html:183
+#: .\templates\users\responsible.html:238
 msgid "Age"
 msgstr "Возраст"
 
-#: .\templates\listings\listing.html:143 .\templates\users\editlisting.html:111
+#: .\templates\listings\listing.html:148 .\templates\users\editlisting.html:111
 #: .\templates\users\newlisting.html:112
 msgid "Gender"
 msgstr "Пол"
 
-#: .\templates\listings\listing.html:152
+#: .\templates\listings\listing.html:157
 msgid "Current location"
 msgstr "Условия"
 
-#: .\templates\listings\listing.html:161 .\templates\users\editlisting.html:144
+#: .\templates\listings\listing.html:166 .\templates\users\editlisting.html:144
 #: .\templates\users\newlisting.html:145
 msgid "Health"
 msgstr "Здоровье"
 
-#: .\templates\listings\listing.html:247
+#: .\templates\listings\listing.html:252
 msgid "Featured in Blog"
 msgstr "В блоге.."
 
@@ -425,12 +425,12 @@ msgstr "Список объявлений в категории Потерялс
 msgid "Featured"
 msgstr "Избранные"
 
-#: .\templates\listings\listings.html:121 .\templates\listings\search.html:212
+#: .\templates\listings\listings.html:122 .\templates\listings\search.html:212
 #: .\templates\pages\home.html:207
 msgid "For free"
 msgstr "Бесплатно"
 
-#: .\templates\listings\listings.html:141 .\templates\listings\search.html:232
+#: .\templates\listings\listings.html:142 .\templates\listings\search.html:232
 msgid "Not Found"
 msgstr "Не найдено"
 
@@ -457,8 +457,8 @@ msgstr "Город"
 #: .\templates\users\archived.html:59 .\templates\users\editcontact.html:80
 #: .\templates\users\editlisting.html:69 .\templates\users\forested.html:59
 #: .\templates\users\index.html:73 .\templates\users\newlisting.html:70
-#: .\templates\users\posts.html:132 .\templates\users\responsible.html:175
-#: .\templates\users\responsible.html:230
+#: .\templates\users\posts.html:133 .\templates\users\responsible.html:173
+#: .\templates\users\responsible.html:228
 msgid "Type"
 msgstr "Раздел"
 
@@ -499,7 +499,7 @@ msgid "Listings"
 msgstr "Объявления"
 
 #: .\templates\partials\_accountnavbar.html:34 .\templates\users\index.html:46
-#: .\templates\users\posts.html:233 .\templates\users\responsible.html:106
+#: .\templates\users\posts.html:234 .\templates\users\responsible.html:104
 msgid "Contacts"
 msgstr "Контакты"
 
@@ -541,9 +541,9 @@ msgstr "Дата публикации"
 
 #: .\templates\users\archived.html:54 .\templates\users\editcontact.html:75
 #: .\templates\users\editlisting.html:130 .\templates\users\forested.html:54
-#: .\templates\users\newlisting.html:131 .\templates\users\posts.html:127
-#: .\templates\users\responsible.html:170
-#: .\templates\users\responsible.html:225
+#: .\templates\users\newlisting.html:131 .\templates\users\posts.html:128
+#: .\templates\users\responsible.html:168
+#: .\templates\users\responsible.html:223
 msgid "Living conditions"
 msgstr "Условия содержания"
 
@@ -583,7 +583,7 @@ msgid "Name"
 msgstr "Имя"
 
 #: .\templates\users\editcontact.html:171 .\templates\users\newcontact.html:59
-#: .\templates\users\posts.html:231 .\templates\users\responsible.html:104
+#: .\templates\users\posts.html:232 .\templates\users\responsible.html:102
 msgid "Address"
 msgstr "Адрес"
 
@@ -617,12 +617,12 @@ msgstr "Контакты"
 msgid "District"
 msgstr "Район"
 
-#: .\templates\users\editlisting.html:159 .\templates\users\posts.html:203
+#: .\templates\users\editlisting.html:159 .\templates\users\posts.html:204
 msgid "Owner"
 msgstr "Владелец"
 
-#: .\templates\users\editlisting.html:181
-msgid "Forester"
+#: .\templates\users\editlisting.html:181 .\templates\users\posts.html:208
+msgid "Fosterer"
 msgstr "Передержка"
 
 #: .\templates\users\editlisting.html:206 .\templates\users\newlisting.html:161
@@ -641,7 +641,7 @@ msgstr "Активные"
 msgid "Hidden"
 msgstr "Скрытые"
 
-#: .\templates\users\index.html:31 .\templates\users\posts.html:187
+#: .\templates\users\index.html:31 .\templates\users\posts.html:188
 msgid "Archived"
 msgstr "В Архиве"
 
@@ -717,60 +717,56 @@ msgstr "Статус"
 msgid "By Publish Date"
 msgstr "Дата создания"
 
-#: .\templates\users\posts.html:45
+#: .\templates\users\posts.html:46
 msgid "Publish"
 msgstr "Опубликовать"
 
-#: .\templates\users\posts.html:50
+#: .\templates\users\posts.html:51
 msgid "Hide"
 msgstr "Скрыть"
 
-#: .\templates\users\posts.html:55
+#: .\templates\users\posts.html:56
 msgid "Restore"
 msgstr "Восстановить"
 
-#: .\templates\users\posts.html:62 .\templates\users\posts.html:67
-#: .\templates\users\responsible.html:44 .\templates\users\responsible.html:49
+#: .\templates\users\posts.html:63 .\templates\users\posts.html:68
+#: .\templates\users\responsible.html:42 .\templates\users\responsible.html:47
 msgid "Save List"
 msgstr "Скачать"
 
-#: .\templates\users\posts.html:115
+#: .\templates\users\posts.html:116
 msgid "Date posted"
 msgstr "Дата создания"
 
-#: .\templates\users\posts.html:117
+#: .\templates\users\posts.html:118
 msgid "Date closed"
 msgstr "Дата закрытия"
 
-#: .\templates\users\posts.html:185
+#: .\templates\users\posts.html:186
 msgid "Edit"
 msgstr "Редактировать"
 
-#: .\templates\users\posts.html:189
+#: .\templates\users\posts.html:190
 msgid "Archive"
 msgstr "В Архив"
 
-#: .\templates\users\posts.html:192 .\templates\users\responsible.html:219
+#: .\templates\users\posts.html:193 .\templates\users\responsible.html:217
 msgid "Fostered"
 msgstr "На передержке"
 
-#: .\templates\users\posts.html:194
+#: .\templates\users\posts.html:195
 msgid "Foster"
 msgstr "На передержку"
 
-#: .\templates\users\posts.html:207
-msgid "Fosterer"
-msgstr "Передержка"
-
-#: .\templates\users\posts.html:217
+#: .\templates\users\posts.html:218
 msgid "Requests"
 msgstr "Заявки"
 
-#: .\templates\users\posts.html:236
+#: .\templates\users\posts.html:237
 msgid "Group"
 msgstr "Группа контакта"
 
-#: .\templates\users\posts.html:264
+#: .\templates\users\posts.html:265
 msgid "No Listings Available"
 msgstr "Публикаций нет"
 
@@ -849,27 +845,23 @@ msgstr "Группа"
 msgid "By Type"
 msgstr "Тип владельца"
 
-#: .\templates\users\responsible.html:36
-msgid "By Date"
-msgstr "Дата"
-
-#: .\templates\users\responsible.html:97
+#: .\templates\users\responsible.html:95
 msgid "Type of owner"
 msgstr "Тип владельца"
 
-#: .\templates\users\responsible.html:109
+#: .\templates\users\responsible.html:107
 msgid "Date created"
 msgstr "Дата создания"
 
-#: .\templates\users\responsible.html:110
+#: .\templates\users\responsible.html:108
 msgid "Animals owned"
 msgstr "Пристроенные животные"
 
-#: .\templates\users\responsible.html:111
+#: .\templates\users\responsible.html:109
 msgid "Animals fostered"
 msgstr "Животные на передержке"
 
-#: .\templates\users\responsible.html:266
+#: .\templates\users\responsible.html:264
 msgid "No Contacts Available"
 msgstr "Контактов нет"
 

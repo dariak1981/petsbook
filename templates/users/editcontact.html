@@ -7,14 +7,14 @@
 
 <!-- Account Navbar -->
 {% include 'partials/_accountnavbar.html' %}
-
+<div class="account-wrap">
 <!-- Posts -->
 <section id="contents">
   <div class="container">
     <div class="row pt-4 pb-5">
       <div class="col-lg-10 col-12 mb-4 mx-auto">
 
-        <h3 class="text-center text-white mb-3">{% trans "Edit Contact" %}</h3>
+        <h3 class="text-center text-dark mb-3">{% trans "Edit Contact" %}</h3>
         <div class="card bg-custom-primary-light mb-4 shadow">
           <div class="card-header pb-0">
             <form id = "contactinfo" action="{% url 'editcontact' editcontact.id %}" method="post">
@@ -49,7 +49,7 @@
                   <div class="card shadow" id="container-image">
                     <div id="dummy">
                       <div id="element">
-                       <img src="{% static 'img/avatar-animal.png' %}" class="img-fluid">
+                       <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
                      </div>
                   </div>
                 </div>
@@ -231,7 +231,7 @@
           </div>
       </section>
 
-
+</div>
 
 
 {% endblock %}

@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='listing',
             name='photo_main',
-            field=models.ImageField(default='/img/avatar-animal.png', upload_to='photos/%Y/%m/%d/', verbose_name='main photo'),
+            field=models.ImageField(default='/img/avatar-animal.svg', upload_to='photos/%Y/%m/%d/', verbose_name='main photo'),
         ),
     ]
