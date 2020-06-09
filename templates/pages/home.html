@@ -18,7 +18,7 @@
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.title_ru }}{% endif %}
 
         </h1>
-        <p class="lead">
+        <p class="lead intro">
 
           {% if LANGUAGE_CODE == 'en' %}{{ welcometext.content }}
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.content_ru }}{% endif %} &nbsp;<i class="fas fa-paw"></i>
@@ -27,7 +27,7 @@
         <div class="search">
           <form action="{% url 'searchlistings' %}">
             <!-- Form Row 1 -->
-            <div class="form-row mb-md-2 mt-md-0 mt-5">
+            <div class="form-row mb-md-2 mt-0">
               <div class="col-md-3 col-sm-12 mx-auto p-md-2 py-3">
                 <label class="sr-only">{% trans "Keywords" %}</label>
                 <input type="text" name="keywords" class="form-control shadow-sm" placeholder="{% trans "Keyword" %}" value="{{ values.keywords }}">
@@ -105,7 +105,7 @@
                 </select>
               </div>
             </div>
-            <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-md-4 mt-5" type="submit">{% trans "Search" %}</button>
+            <button class="btn btn-secondary custom-btn bg-custom-primary shadow btn-block mt-md-4 mt-sm-5 mt-4" type="submit">{% trans "Search" %}</button>
           </form>
 
         </div>

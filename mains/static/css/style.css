@@ -944,4 +944,8 @@ label {
     height: 810px;
   }
 
+  #showcase {
+    padding-top: 3rem;
+  }
+
 }
