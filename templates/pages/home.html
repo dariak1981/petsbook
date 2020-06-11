@@ -18,7 +18,7 @@
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.title_ru }}{% endif %}
 
         </h1>
-        <p class="lead intro">
+        <p class="lead intro" data-aos="fade" data-aos-duration="3000">
 
           {% if LANGUAGE_CODE == 'en' %}{{ welcometext.content }}
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.content_ru }}{% endif %} &nbsp;<i class="fas fa-paw"></i>
@@ -116,7 +116,7 @@
 
 
 <!-- Listings -->
-<section id="listings" class="py-5">
+<section id="listings" class="py-5 mb-2">
   <div class="container">
     <h2 class="titles-custom text-center my-5">{% trans "Latest Listings" %}</h2>
     <div class="row">
@@ -144,9 +144,6 @@
               </div>
               {% endif %}
               </a>
-              <div class="text-center" id="parent">
-                <div class="img-highlight"></div>
-              </div>
               <div class="card-img-overlay">
                 {% get_current_language as LANGUAGE_CODE %}
                 {% if listing.category_id_id == 1 %}
@@ -175,7 +172,7 @@
               <div class="card-body pt-2">
 
                 <div class="listing-heading text-center mt-1">
-                  <i class="fas fa-map-marker"></i> {{ listing.city }}
+                  <i class="fas fa-map-marker-alt"></i> {{ listing.city }}
                 </div>
                 <div class="text-center">
                   <p class="topic-titles mb-3 px-0"><small>{{ listing.district }}</small></p>
@@ -185,28 +182,28 @@
                   <li class="list-group-item d-flex justify-content-between align-items-start p-2">
                     <div class="">
                       {% get_current_language as LANGUAGE_CODE %}
-                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-paw"></i> {{ listing.types_id.title }}
-                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-paw"></i> {{ listing.types_id.title_ru }}{% endif %}
+                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.types_id.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.types_id.title_ru }}{% endif %}
                     </div>
 
                     <div class="">
                       {% get_current_language as LANGUAGE_CODE %}
-                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-crown"></i> {{ listing.breeds.title | truncatechars:12}}
-                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-crown"></i> {{ listing.breeds.title_ru | truncatechars:12}}{% endif %}
+                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.breeds.title | truncatechars:12}}
+                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.breeds.title_ru | truncatechars:12}}{% endif %}
                     </div>
 
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-start p-2">
                     <div class="">
                       {% get_current_language as LANGUAGE_CODE %}
-                      {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-venus-mars"></i> {{ listing.gender_id.title }}
-                      {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-venus-mars"></i> {{ listing.gender_id.title_ru }}{% endif %}
+                      {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.gender_id.title }}
+                      {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.gender_id.title_ru }}{% endif %}
                     </div>
                     <div class="">
                       {% if listing.price == 0 %}
-                      <i class="fas fa-money-bill-wave"></i> {% trans "For free" %}
+                      <i class="fas fa-angle-down"></i> {% trans "For free" %}
                       {% else %}
-                      <i class="fas fa-money-bill-wave"></i> {{ listing.price | intcomma }}
+                      <i class="fas fa-angle-down"></i> {{ listing.price | intcomma }}
                       {% endif %}
                     </div>
 

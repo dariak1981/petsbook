@@ -6,6 +6,7 @@ from blog.models import Post
 from .choices import price_choices
 from django.contrib.auth.models import User
 from pages.models import Services
+from users.models import UserProfile
 
 def index(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2').exclude(category_id = '3')
@@ -22,13 +23,21 @@ def index(request):
 def listing(request, listing_id):
   listing = get_object_or_404(Listing, pk=listing_id)
   services = Services.objects.all()
-  featuredthreads = Post.objects.all().filter(is_featured=True)
+  field_name = 'user'
+  field_value = getattr(listing, field_name)
+  activeads = Listing.objects.filter(user_id=field_value).filter(adstatus_id = '2').count()
+  featuredlistings = Listing.objects.filter(adstatus_id = '2').exclude(category_id = '3').order_by('-created')[:3]
+  field_video = 'video'
+  field_video_value = getattr(listing, field_video)
+  youtube = field_video_value.rsplit('=', 1)[-1]
 
 
   context = {
   'listing':listing,
-  'featuredthreads': featuredthreads,
   'services': services,
+  'activeads':activeads,
+  'featuredlistings':featuredlistings,
+  'youtube':youtube
   }
   return render(request, 'listings/listing.html', context)
 

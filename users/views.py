@@ -37,11 +37,13 @@ def profile(request):
      mainuser = get_object_or_404(User, id=request.user.id)
      edituser = get_object_or_404(UserProfile, user=request.user)
      usertypes = UserType.objects.all()
+     activeads = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
 
      context = {
      'mainuser': mainuser,
      'edituser': edituser,
      'usertypes': usertypes,
+     'activeads': activeads,
      }
 
      if request.method == "POST":
@@ -62,7 +64,13 @@ def profile(request):
                  edituser.photo = request.FILES.get('photo')
              else:
                  edituser.photo = edituser.photo
-
+         edituser.ad_organization = request.POST['ad_organization']
+         edituser.ad_address = request.POST['ad_address']
+         edituser.ad_website = request.POST['ad_website']
+         edituser.ad_email = request.POST['ad_email']
+         edituser.ad_youtube = request.POST['ad_youtube']
+         edituser.ad_facebook = request.POST['ad_facebook']
+         edituser.ad_vk = request.POST['ad_vk']
 
          mainuser.save()
          edituser.save()
@@ -251,6 +259,7 @@ def newlisting(request):
         gender = Gender.objects.get(id=request.POST['gender'])
         condition = Condition.objects.get(id=request.POST['condition'])
         health = Health.objects.get(id=request.POST['health'])
+        video = request.POST['video']
         description = request.POST['description']
         photo_main = request.FILES.get('photo_main')
         photo_1 = request.FILES.get('photo_1')
@@ -260,7 +269,7 @@ def newlisting(request):
 
         newlisting = Listing(
         user=user, user_contact=user_contact, title=title, category_id=category, types_id=type, city=city, district=district,
-        price=price, breeds=breed, age_id=age, gender_id=gender, conditions_id=condition, health_id=health,
+        price=price, breeds=breed, age_id=age, gender_id=gender, conditions_id=condition, health_id=health, video=video,
         description=description, photo_main=photo_main, photo_1=photo_1, photo_2=photo_2, photo_3=photo_3, photo_4=photo_4)
 
         newlisting.save()
@@ -336,7 +345,9 @@ def editlisting(request, listing_id):
       else:
           editlisting.forester = editlisting.forester
 
+      editlisting.video = request.POST['video']
       editlisting.description = request.POST['description']
+      
       if 'image-clear' in request.POST:
           editlisting.photo_main = None
       else:

@@ -36,7 +36,7 @@
     <!-- POSTS -->
     <section id="contents">
       <div class="container pb-5">
-        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" id="userform">
          {% csrf_token %}
         <div class="row pt-4 pb-5">
           <div class="col-lg-8 col-12">
@@ -73,16 +73,63 @@
                        </div>
                      </div>
 
+                     <div class="row my-lg-4">
 
+
+                       <div class="col-12 mb-4">
+                         <hr>
+                         <div class="col-12 text-center text-profile">
+                          Контакты для страницы с объявлением (не обязательно)
+                         </div>
+                         <p class="text-muted text-center m-0"><small>Автоматическое добавление на страницу при наличии хотя бы названия организации (приют, ветклиника, частная помощь, заводчик)</small></p>
+                       </div>
+
+                       <div class="col-sm-6 col-12 my-3">
+                         <label for="ad_organization">Организация</label>
+                         <input type="text" class="form-control shadow-sm" id="ad_organization" name="ad_organization" maxlength="200" value="{{ edituser.ad_organization }}">
+                       </div>
+
+                       <div class="col-sm-6 col-12 my-3">
+                         <label for="ad_address">Адрес</label>
+                         <input type="text" class="form-control shadow-sm" id="ad_address" name="ad_address" maxlength="200" value="{{ edituser.ad_address }}">
+                       </div>
+
+                        <div class="col-sm-6 col-12 my-3">
+                          <label for="ad_website">Веб-сайт</label>
+                          <input type="text" class="form-control shadow-sm" id="ad_website" name="ad_website" placeholder="https://example.com" maxlength="200" value="{{ edituser.ad_website }}">
+                        </div>
+
+                        <div class="col-sm-6 col-12 my-3">
+                          <label for="ad_email">Эл. почта</label>
+                          <input type="text" class="form-control shadow-sm" id="ad_email" name="ad_email" maxlength="150" value="{{ edituser.ad_email }}">
+                        </div>
+
+                        <div class="col-sm-4 col-12 my-3">
+                          <label for="ad_youtube">Канал YouTube</label>
+                          <input type="text" class="form-control shadow-sm" id="ad_youtube" name="ad_youtube" placeholder="https://example.com" maxlength="200" value="{{ edituser.ad_youtube }}">
+                        </div>
+
+                        <div class="col-sm-4 col-12 my-3">
+                          <label for="ad_facebook">Facebook</label>
+                          <input type="text" class="form-control shadow-sm" id="ad_facebook" name="ad_facebook" placeholder="https://example.com" maxlength="200" value="{{ edituser.ad_facebook }}">
+                        </div>
+
+                        <div class="col-sm-4 col-12 my-3">
+                          <label for="ad_vk">Vkontakte</label>
+                          <input type="text" class="form-control shadow-sm" id="ad_vk" name="ad_vk" placeholder="https://example.com" maxlength="200" value="{{ edituser.ad_vk }}">
+                        </div>
+                    </div>
 
 
                    <div class="row my-lg-4">
-                     <div class="col-12 text-center">
-                      <i class="fas fa-plus-circle"></i>
-                     </div>
 
-                     <div class="col-12">
+
+                     <div class="col-12 mb-4">
                        <hr>
+                       <div class="col-12 text-center text-profile">
+                        Контакты для блога (не обязательно)
+                       </div>
+                       <p class="text-muted text-center m-0"><small>Доступны при наведении курсора на имя пользователя в блоге</small></p>
                      </div>
                      <div class="col-lg-4 col-6 my-3">
                        <label for="usertype">{% trans "Users Group" %}</label>
@@ -133,6 +180,8 @@
                       </div>
                     </div>
 
+                  </form>
+
 
           </div>
         </div>
@@ -144,100 +193,128 @@
           <!-- RIGHT CARDS -->
 
           <div class="col-lg-4 col-12 mb-4 mt-sm-0 mt-4">
-
-            <div class="card text-center bg-custom-primary-light text-white mb-4 shadow">
-               <div class="card-header">
-                 <h4>{% trans "Image & Blog View" %}</h4>
+            <div class="card bg-custom-primary-light text-white mb-4 shadow">
+               <div class="card-header text-center">
+                 <h4>Профиль в объявлении</h4>
                  <p class="mb-0">~</p>
+               </div>
+             <div class="card-body pb-5">
+               {% if edituser.ad_organization %}
+               <ul class="list-group list-group-flush text-white">
+                 <div class="text-center">
+                   <h4 class="mt-3 mb-0"><i class="fas fa-home"></i><strong> {{ edituser.ad_organization }}</strong></h4>
+                   {% if edituser.ad_address %}
+                   <p class="text-muted">{{ edituser.ad_address }}</p>
+                   {% endif %}
+                 </div>
+                   <li class="list-group-item py-2 bg-custom-transparent">
+                       Активные объявления:
+                     <span class="float-right pl-4"> {{ activeads }}</span>
+                   </li>
+
+                   {% if edituser.ad_website %}
+                   <li class="list-group-item w-100 py-2 bg-custom-transparent">
+                     Сайт:
+                     <span class="float-right pl-4"> <a class="text-white" href="{{ edituser.ad_website }}" target="_blank">{{ edituser.ad_website }}</a></span>
+                   </li>
+                   {% endif %}
+
+                   {% if edituser.ad_email %}
+                   <li class="list-group-item py-2 bg-custom-transparent">
+                       Эл. почта:
+                       <span class="float-right pl-4"> {{ edituser.ad_email }}</span>
+                   </li>
+                   {% endif %}
+
+                   {% if edituser.ad_youtube or edituser.ad_facebook or edituser.ad_vk %}
+                   <li class="list-group-item py-2 bg-custom-transparent">
+                       Соц. сети:
+                     <span class="float-right pl-4 social-profile">
+                       {% if edituser.ad_youtube %}
+                       <a href="{{ edituser.ad_youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                       {% endif %}
+
+                       {% if edituser.ad_facebook %}
+                       <a href="{{ edituser.ad_facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                       {% endif %}
+
+                       {% if edituser.ad_vk %}
+                       <a href="{{ edituser.ad_vk }}" target="_blank"><i class="fab fa-vk"></i></a>
+                       {% endif %}
+                     </span>
+                   </li>
+                   {% endif %}
+                  </ul>
+                  {% else %}
+                   Данных нет
+                  {% endif %}
+               </div>
               </div>
-            <div class="card-body mx-auto">
 
 
-                {% if edituser.photo %}
-                <div class="card shadow" id="container-image">
-                  <div id="dummy">
-                    <div id="element">
-                    <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="text-white text-center mr-4">
-                <i class="fas fa-cut mr-1"></i>
-                <input id="image-clear_id" name="image-clear" type="checkbox" />
-              </div>
-                {% else %}
-                <div class="card shadow" id="container-image">
-                  <div id="dummy">
-                    <div id="element">
-                     <img src="{% static 'img/avatar-profile.png' %}" id="image-field-0" class="img-fluid">
+              <div class="card text-center bg-custom-primary-light text-white mb-4 shadow">
+                 <div class="card-header">
+                   <h4>{% trans "Image & Blog View" %}</h4>
+                   <p class="mb-0">~</p>
+                 </div>
+               <div class="card-body mx-auto pb-5">
+                 <h3 class="mb-4">~ {{ edituser.user }} ~ </h3>
+                 {% if edituser.photo %}
+                 <div class="card shadow" id="container-image">
+                   <div id="dummy">
+                     <div id="element">
+                     <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
+                   </div>
+                 </div>
+               </div>
+               <div class="text-white text-center mr-4">
+                 <i class="fas fa-cut mr-1"></i>
+                 <input id="image-clear_id" name="image-clear" type="checkbox" />
+               </div>
+                 {% else %}
+                 <div class="card shadow" id="container-image">
+                   <div id="dummy">
+                     <div id="element">
+                      <img src="{% static 'img/avatar-profile.png' %}" id="image-field-0" class="img-fluid">
+                     </div>
                     </div>
                    </div>
-                  </div>
-                {% endif %}
-                <label>
-                    <input id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
-                </label>
-                </form>
+                 {% endif %}
+                 <label>
+                     <input form="userform" id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
+                 </label>
+                       <br>
+                       <br>
+                       {% if edituser.usertype %}
+                       {% get_current_language as LANGUAGE_CODE %}
+                       {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
+                       {% endif %}
 
-              </div>
+                       {% if edituser.business %}
+                        <br>{{ edituser.business }}
+                       {% endif %}
+
+                       {% if edituser.publicmail %}
+                        <br> {{ edituser.publicmail }};
+                       {% endif %}
+
+                       {% if edituser.phone %}
+                         {{ edituser.phone }}
+                       {% endif %}
+
+                       {% if edituser.links %}
+                        <br> {{ edituser.links }}
+                       {% endif %}
+
+                       {% if edituser.description %}
+                          <br> {{ edituser.description }}
+                       {% endif %}
+
+                 </div>
+                </div>
+
             </div>
-
-
-            <div class="card text-center bg-custom-primary-light text-white mb-4 shadow">
-              <div class="card-body mx-auto py-4">
-                <div class="col-12 text-center">
-                  <div class="col-md-12 mb-2">
-                    <strong>~ {{ edituser.user }} ~</strong>
-                    {% if edituser.usertype %}
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
-                    {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
-                    {% endif %}
-                  </div>
-
-
-
-                 <div class="row">
-
-                  <div class="col-12 pl-4">
-                    <div class="mt-1 text-center">
-                      {% if edituser.business %}
-                       {{ edituser.business }}
-                      {% endif %}
-
-                      {% if edituser.publicmail %}
-                       <br> {{ edituser.publicmail }}
-                      {% endif %}
-
-                      {% if edituser.phone %}
-                       <br> {{ edituser.phone }}
-                      {% endif %}
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="col-md-12 py-0 text-center">
-                    {% if edituser.links %}
-                     <br> {{ edituser.links }}
-                    {% endif %}
-                  </div>
-                </div>
-
-                {% if edituser.description %}
-                <div class="row">
-                  <div class="col-md-12 mt-2 text-center">
-                    <hr class="mb-1">
-                    {{ edituser.description }}
-                  </div>
-                </div>
-                {% endif %}
-
-                </div>
-              </div>
-            </div>
-          </div>
 
     </section>
 

@@ -10,17 +10,15 @@ body {
   min-width: 100%;
 }
 
-span {
-  vertical-align: middle;
-}
 
-.navbar {
-  font-family: 'Montserrat Alternates', sans-serif;
-  font-size: 0.9rem;
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.text-profile {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 1.2rem;
 }
 
 .page-item {
@@ -51,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
  */
 
 #actions {
-  background-image: url("../img/aerial-actions.jpg");
+  background-image: url("../img/aerial-actions.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
@@ -60,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 #actions-blog {
-  background-image: url("../img/aerial-actions.jpg");
+  background-image: url("../img/aerial-actions.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
@@ -113,6 +111,8 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
   padding: 0;
   z-index: 20;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 0.9rem;
 }
 
 .header-sticky {
@@ -150,7 +150,7 @@ color: #fff;
 #showcase {
   padding-top: 6rem;
   position: relative;
-  background-image: url("../img/aerial.jpg");
+  background-image: url("../img/aerial.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -177,7 +177,7 @@ color: #fff;
 }
 
 #showcase-home .home-search-home {
-  background-image: url("../img/aerial.jpg");
+  background-image: url("../img/aerial.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -192,7 +192,7 @@ color: #fff;
 }
 
 #showcase-inner {
-  background-image: url("../img/aerial-color.jpg");
+  background-image: url("../img/aerial-color.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -214,7 +214,7 @@ color: #fff;
   position: relative;
   min-height: 300px;
   overflow: hidden;
-  background-image: url("../img/door-services.jpg");
+  background-image: url("../img/door-services.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -312,13 +312,24 @@ color: #fff;
 }
 
 .social .fab {
-  margin-right: 1rem;
+  margin-left: 1rem;
   color: #4a4a4a;
 }
 
 .social .fab:hover {
   color: rgb(211, 209, 209);
 }
+
+.social-profile .fab {
+  margin-left: 1rem;
+  color: #fff;
+}
+
+.social-profile .fab:hover {
+  color: rgb(211, 209, 209);
+}
+
+
 
 /* IMAGES */
 
@@ -359,6 +370,10 @@ color: #fff;
   object-fit: cover;
 }
 
+.card {
+  border:none;
+}
+
 #container-image {
     display: inline-block;
     position: relative;
@@ -374,9 +389,9 @@ color: #fff;
     bottom: 0;
     left: 0;
     right: 0;
-    border-style: solid;
+    /* border-style: solid;
     border-color: rgba(20, 49, 59, 0.7);
-    border-width: 4px;
+    border-width: 4px; */
     overflow: hidden;
     border-radius: 5px;
 }
@@ -397,9 +412,9 @@ color: #fff;
     bottom: 0;
     left: 0;
     right: 0;
-    border-style: solid;
+    /* border-style: solid;
     border-color: #fff;
-    border-width: 4px;
+    border-width: 4px; */
     overflow: hidden;
     border-radius: 5px;
 }
@@ -412,9 +427,9 @@ color: #fff;
     left: 0;
     right: 0;
     overflow: hidden;
-    border-style: solid;
+    /* border-style: solid;
     border-width: 2px;
-    border-color: #fff;
+    border-color: #fff; */
     border-radius: 5px;
 }
 
@@ -431,9 +446,9 @@ color: #fff;
     bottom: 0;
     left: 0;
     right: 0;
-    border-style: solid;
+    /* border-style: solid;
     border-color: rgba(20, 49, 59, 0.7);
-    border-width: 4px;
+    border-width: 4px; */
     overflow: hidden;
     border-radius: 5px;
 }

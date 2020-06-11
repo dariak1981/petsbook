@@ -1,3 +1,7 @@
+$(".carousel").carousel({
+        interval: 6000,
+        pause: "hover"
+      });
 
 
 $('.pop').each(function () {

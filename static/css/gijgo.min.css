@@ -2296,10 +2296,10 @@ ul.gj-list-md li.disabled > [data-role="wrapper"] > [data-role="expander"] {
   background-repeat: repeat-x;
 }
 .gj-slider-bootstrap-4 [role="handle"] {
-  background-color: #007bff;
-  background-image: -webkit-linear-gradient(top, #007bff 0, #2e6da4 100%);
-  background-image: -o-linear-gradient(top, #007bff 0, #2e6da4 100%);
-  background-image: linear-gradient(to bottom, #007bff 0, #2e6da4 100%);
+  background-color: #613a43;
+  background-image: -webkit-linear-gradient(top, #613a43 0, #2e6da4 100%);
+  background-image: -o-linear-gradient(top, #613a43 0, #2e6da4 100%);
+  background-image: linear-gradient(to bottom, #613a43 0, #2e6da4 100%);
   background-repeat: repeat-x;
 }
 .gj-colorpicker [role="right-icon"] {

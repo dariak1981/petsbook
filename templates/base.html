@@ -28,8 +28,6 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
     <!-- LightBox -->
-    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}"/>
-
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
     <title>PetsBook {% block title %}{% endblock %}</title>
@@ -49,7 +47,6 @@
 <!-- for tooltips and popups -->
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/lightbox.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/GaugeMeter.js' %}"></script>
@@ -60,10 +57,23 @@
 </script>
 <script>
 AOS.init({
-anchorPlacement: 'top-bottom',
+duration: 600,
 });
-
 </script>
-
+<script>
+$(function() {
+  $(".video").click(function() {
+    var theModal = $(this).data("target"),
+      videoSRC = $(this).attr("data-video"),
+      videoSRCauto =
+        videoSRC +
+        "?modestbranding=1&rel=0&controls=0&showinfo=0&html5=1&autoplay=1";
+    $(theModal + " iframe").attr("src", videoSRCauto);
+    $(theModal + " button.close").click(function() {
+      $(theModal + " iframe").attr("src", videoSRC);
+    });
+  });
+});
+</script>
   </body>
 </html>

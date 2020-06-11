@@ -18,12 +18,19 @@ class UserType(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     usertype = models.ForeignKey(UserType, on_delete=models.DO_NOTHING, verbose_name = _('users_group'), default='5')
-    publicmail = models.CharField(max_length=100, blank=True, verbose_name = _('public email'),)
+    publicmail = models.CharField(max_length=100, blank=True, verbose_name = _('blog email'),)
     business = models.CharField(max_length=250, blank=True, verbose_name = _('organization name'),)
     phone = models.CharField(max_length=20, blank=True, verbose_name = _('phone'),)
     links = models.CharField(max_length=70, blank=True, verbose_name = _('links'),)
     description = models.CharField(max_length=300, blank=True, verbose_name = _('details'),)
     photo = models.ImageField(upload_to='profile_pics', blank=True, verbose_name = _('photo'),)
+    ad_organization = models.CharField(max_length=200, blank=True, verbose_name = _('organization'),)
+    ad_address = models.CharField(max_length=200, blank=True, verbose_name = _('company address'),)
+    ad_website = models.CharField(max_length=200, blank=True, verbose_name = _('website'),)
+    ad_email = models.CharField(max_length=150, blank=True, verbose_name = _('company email'),)
+    ad_youtube = models.CharField(max_length=200, blank=True)
+    ad_facebook = models.CharField(max_length=200, blank=True)
+    ad_vk = models.CharField(max_length=200, blank=True)
     def __int__(self):
         return self.user
 
