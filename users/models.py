@@ -72,7 +72,7 @@ class Contactsgroup(models.Model):
 
 
 class Contact(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     type = models.ForeignKey(Contactstype, on_delete=models.DO_NOTHING, verbose_name = _('owner type'),)
     group = models.ForeignKey(Contactsgroup, on_delete=models.DO_NOTHING, verbose_name = _('group'),)
     name = models.CharField(max_length=150, verbose_name = _('name'),)

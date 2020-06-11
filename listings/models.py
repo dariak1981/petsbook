@@ -76,11 +76,11 @@ class Listing(models.Model):
 
 
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name= _('created'),)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name= _('created'),)
     user_contact = models.CharField(max_length=150, verbose_name = _('contacts'),)
     title = models.CharField(max_length=100, verbose_name= _('title'),)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name= _('category'),)
-    types_id = models.ForeignKey(Taps, on_delete=models.CASCADE, verbose_name = _('type'),)
+    types_id = models.ForeignKey(Taps, on_delete=models.DO_NOTHING, verbose_name = _('type'),)
     city = models.CharField(max_length=20, verbose_name= _('city'),)
     district = models.CharField(max_length=30, verbose_name= _('district'),)
     price = models.IntegerField(verbose_name= _('price'),)
@@ -100,8 +100,8 @@ class Listing(models.Model):
     photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_2'),)
     photo_3 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_3'),)
     photo_4 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name= _('photo_4'),)
-    owner = models.ForeignKey(Contact, on_delete=models.DO_NOTHING, default=None, blank=True, null=True, verbose_name= _('owner'), related_name='listing_owner',)
-    forester = models.ForeignKey(Contact, on_delete=models.DO_NOTHING, default=None, blank=True, null=True, verbose_name= _('forester'), related_name='listing_foster',)
+    owner = models.ForeignKey(Contact, on_delete=models.SET_NULL, default=None, blank=True, null=True, verbose_name= _('owner'), related_name='listing_owner',)
+    forester = models.ForeignKey(Contact, on_delete=models.SET_NULL, default=None, blank=True, null=True, verbose_name= _('forester'), related_name='listing_foster',)
     def __str__(self):
         return self.title
 
