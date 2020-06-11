@@ -76,7 +76,7 @@ class Listing(models.Model):
 
 
 
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name= _('created'),)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name= _('created'),)
     user_contact = models.CharField(max_length=150, verbose_name = _('contacts'),)
     title = models.CharField(max_length=100, verbose_name= _('title'),)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name= _('category'),)
