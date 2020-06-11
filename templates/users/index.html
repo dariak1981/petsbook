@@ -114,7 +114,7 @@
                       </table>
                     {% else %}
                     <div class="col-md-12 text-center text-white">
-                      <p>{% trans "No Listings Are Published" %}</p>
+                      <i class="fas fa-edit"></i>
                     </div>
                     {% endif %}
 
@@ -174,7 +174,9 @@
                     </div>
                     {% endfor %}
                     {% else %}
-                    <h4>{% trans "No Ads to follow" %}</h4>
+                    <div class="col-12 mx-auto text-center">
+                      <i class="fas fa-edit"></i>
+                    </div>
                     {% endif %}
                 </div>
               </div>
