@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | Добавление заявки на питомца {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+<div class="account-wrap">
+    <!-- Posts -->
+    <section id="contents">
+      <div class="container">
+        <div class="row pt-4 pb-5">
+          <div class="col-sm-10 col-12 mb-4 mx-auto">
+            <h3 class="text-center text-dark mb-3">Редактировать заявку на питомца</h3>
+            <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+              <div class="card-header">
+                <div class="row my-3">
+                  <div class="col-lg-3">
+
+                   {% if requested.photo_main %}
+                    <div class="card shadow" id="container-image">
+                      <div id="dummy">
+                        <div id="element">
+                         <img src="{{ requested.photo_main.url }}" class="img-fluid">
+                         </div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="card shadow" id="container-image">
+                      <div id="dummy">
+                        <div id="element">
+                         <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
+                       </div>
+                    </div>
+                  </div>
+                    {% endif %}
+                    <div class="text-white text-center mt-2">
+                      <i class="fas fa-clock"></i> {% trans "Created" %}:<br>&nbsp;&nbsp;&nbsp; {{ requested.created.date }}
+                    </div>
+                   </div>
+
+                   <div class="col-lg-9 mr-auto mt-sm-0 mt-3 px-md-4 px-0 text-white" id="description" name="description">
+                     <p><strong><i class="fas fa-paw"></i> {{ requested.title | truncatechars:80}}</strong></p>
+                       <p>
+                       {% get_current_language as LANGUAGE_CODE %}
+                       {% if LANGUAGE_CODE == 'en' %}{{ requested.category_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ requested.category_id.title_ru }}{% endif %}
+
+
+                       / {% trans "Living conditions" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ requested.conditions_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ requested.conditions_id.title_ru }}{% endif %}
+
+                       <br>{% trans "Type" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ requested.types_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ requested.types_id.title_ru }}{% endif %}
+
+
+                       /
+                       {% if LANGUAGE_CODE == 'en' %}{{ requested.breeds.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ requested.breeds.title_ru }}{% endif %}
+
+                       / {% trans "Age" %}:
+
+                       {% if LANGUAGE_CODE == 'en' %}{{ requested.age_id.title }}
+                       {% elif LANGUAGE_CODE == 'ru' %}{{ requested.age_id.title_ru }}{% endif %}
+
+                     </p>
+                    <p>{{ requested.description | truncatechars:330}}</p>
+
+                   </div>
+                </div>
+              </div>
+
+              <div class="card-body p-0 mt-5">
+
+
+
+                     <div class="card">
+                       <div class="card-body">
+                         <form method="POST" id="add">
+                           {% csrf_token %}
+                              <div class="col-md-4 mt-3 mb-5 mx-auto text-center">
+                                <label class="my-4">Контакты</label>
+                                <div class="input-group mb-3">
+                                  <select name="contact" class="form-control shadow-sm">
+                                    <option value="">---------</option>
+                                    {% for contact in contacts %}
+                                        <option value="{{ contact.id }}">
+                                          {{ contact.name }}
+                                        </option>
+                                    {% endfor %}
+                                  </select>
+                                  <div class="input-group-append">
+                                    <button class="btn btn-primary custom-btn btn-block" name="addrequest" type="submit"><i class="fas fa-plus text-white"></i></button>
+                                  </div>
+                                </div>
+                              </div>
+                          </form>
+
+
+
+
+                        <form method="POST" id="remove">
+                          {% csrf_token %}
+                            {% if attachedrequests %}
+                            <hr class="mb-5">
+                              <div class="col-md-6 mx-auto text-center">
+                                <label class="mb-4">Сохраненные заявки</label>
+                                {% for contact in attachedrequests %}
+                                <div class="d-flex justify-content-center">
+                                 <div class="form-check">
+                                  <input class="form-check-input" name="checkedid" type="checkbox" value="{{ contact.id }}" id="defaultCheck1">
+                                 </div>
+                                 <div class="">
+                                   {{ contact.name }}
+                                 </div>
+                               </div>
+                              {% endfor %}
+                             </div>
+                           <div class="col-md-2 col-4 my-5 mx-auto">
+                             <button class="btn btn-primary custom-btn btn-block shadow mt-2" type="submit" name="removerequest">Удалить</button>
+                           </div>
+                          {% endif %}
+                        </form>
+
+
+                     </div>
+                    </div>
+
+
+
+                   <!-- ROW ENDING -->
+                 </form>
+              </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+</div>
+
+{% endblock %}

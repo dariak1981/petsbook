@@ -15,7 +15,7 @@ from django.utils import timezone
 
 from listings.models import Listing, Category, Taps, Gender, Condition, Health, Adstatus, Age, Breeds
 from .models import UserProfile, Contact, Contactstype, Contactsgroup, UserType
-from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, UserMainForm, UserRegisterForm, ForesterForm
+from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, UserMainForm, UserRegisterForm, AttachContactsForm, AttachRequestForm, RemoveRequestForm
 from blog.models import Post, Message
 from . import forms
 from django.utils.translation import ugettext as _
@@ -139,16 +139,10 @@ def posts(request, id=None):
     listings = Listing.objects.all().filter(user_id=request.user.id).order_by('-archived')
     contacts = Contact.objects.filter(user_id=request.user.id)
 
-    if 'delete' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                listings = Listing.objects.filter(id=i)
-                for object in listings:
-                    object.delete()
-                    return redirect('posts')
-        else:
-            return redirect('posts')
+    if 'delete' in request.POST and 'instance' in request.POST:
+        id_selected = request.POST.get('instance')
+        listing = Listing.objects.get(id=id_selected)
+        listing.delete()
 
     if 'bystatus' in request.POST:
         listings = listings.order_by('adstatus_id')
@@ -157,47 +151,48 @@ def posts(request, id=None):
         listings = listings.order_by('-created')
 
 
-    if 'publish' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                listings = Listing.objects.filter(id=i)
-                for object in listings:
-                    object.adstatus_id_id = '2'
-                    object.created = timezone.now()
-                    object.owner = None
-                    object.save()
-                    return redirect('dashboard')
-        else:
-            return redirect('posts')
+    if 'publish' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        listing.adstatus_id_id = '2'
+        listing.created = timezone.now()
+        listing.owner = None
+        listing.save()
+        return redirect('dashboard')
 
+    if 'editrecord' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        return redirect('editlisting', listing_id=listing.id)
 
-    if 'hide' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                listings = Listing.objects.filter(id=i)
-                for object in listings:
-                    object.adstatus_id_id = '1'
-                    object.owner = None
-                    object.save()
-                    return redirect('posts')
-        else:
-            return redirect('posts')
+    if 'sendtoarchive' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        listing.adstatus_id_id = '3'
+        listing.save()
+        return redirect('posts')
 
-    if 'restore' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                listings = Listing.objects.filter(id=i)
-                for object in listings:
-                    object.adstatus_id_id = '1'
-                    object.owner = None
-                    object.save()
-                    return redirect('posts')
+    if 'restore' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        listing.adstatus_id_id = '1'
+        listing.save()
+        return redirect('posts')
 
-        else:
-            return redirect('posts')
+    if 'addrequest' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        return redirect('requested', listing_id=listing.id)
+
+    if 'editowner' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        return redirect('archived', listing_id=listing.id)
+
+    if 'attachfosterer' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Listing.objects.get(id=i)
+        return redirect('forested', listing_id=listing.id)
 
     if 'export' in request.POST:
         response = HttpResponse(content_type='text/csv')
@@ -347,7 +342,7 @@ def editlisting(request, listing_id):
 
       editlisting.video = request.POST['video']
       editlisting.description = request.POST['description']
-      
+
       if 'image-clear' in request.POST:
           editlisting.photo_main = None
       else:
@@ -419,7 +414,7 @@ def archived(request, listing_id):
 @login_required
 def forested(request, listing_id):
     forested = get_object_or_404(Listing, pk=listing_id)
-    form = ForesterForm(request.POST or None, instance=forested)
+    form = AttachContactsForm(request.POST or None, instance=forested)
     form.fields['forester'].queryset = Contact.objects.all().filter(user_id=request.user.id)
 
     context = {
@@ -429,33 +424,72 @@ def forested(request, listing_id):
 
 
     if request.method == "POST":
-      form = ForesterForm(request.POST, instance=forested)
+      form = AttachContactsForm(request.POST, instance=forested)
       if form.is_valid():
           form = form.save(commit=False)
           form.adstatus_id = get_object_or_404(Adstatus, pk=4)
           form.save()
           return redirect('posts')
       else:
-          form = ForesterForm(instance=forested)
+          form = AttachContactsForm(instance=forested)
 
     return render(request, 'users/forested.html', context)
+
+@login_required
+def requested(request, listing_id):
+    requested = get_object_or_404(Listing, pk=listing_id)
+    attachedrequests = Contact.objects.filter(attached_id=listing_id).filter(user_id=request.user.id)
+    contacts = Contact.objects.filter(user_id=request.user.id).exclude(attached_id=listing_id)
+    form = RemoveRequestForm(request.POST)
+
+    context = {
+        'requested': requested,
+        'attachedrequests':attachedrequests,
+        'contacts':contacts,
+        "form": form,
+    }
+
+    if request.method=="POST" and 'addrequest' in request.POST:
+        id_selected = request.POST.get('contact')
+        if id_selected != '':
+            contact = Contact.objects.get(id=id_selected)
+            contact.attached_id = listing_id
+            contact.save()
+            return redirect('posts')
+        else:
+            return redirect('posts')
+
+    if request.method=="POST" and 'removerequest' in request.POST:
+        form = RemoveRequestForm(request.POST or None)
+        if form.is_valid():
+            is_checked = request.POST.getlist('checkedid')
+
+            for i in is_checked:
+                contact = Contact.objects.get(id=i)
+                form = RemoveRequestForm(request.POST, instance = contact)
+                form.attached_id = None
+                form.save()
+            return redirect('posts')
+        else:
+            form = RemoveRequestForm()
+
+    return render(request, 'users/requested.html', context)
 
 
 @login_required
 def contacts(request):
     contacts = Contact.objects.filter(user_id=request.user.id).order_by('-created')
 
+    if 'editcontact' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        editcont = Contact.objects.get(id=i)
+        return redirect('editcontact', contact_id=editcont.id)
 
-    if 'delete' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                contacts = Contact.objects.filter(id=i)
-                for object in contacts:
-                    object.delete()
-                    return redirect('contacts')
-        else:
-            return redirect('contacts')
+    if 'delete' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        contacts = Contact.objects.filter(id=i)
+        contacts.delete()
+        return redirect('contacts')
 
     if 'bygroup' in request.POST:
         contacts = contacts.order_by('group')
@@ -469,9 +503,9 @@ def contacts(request):
         response.write(u'\ufeff'.encode('utf8'))
 
         writer = csv.writer(response, delimiter=',')
-        writer.writerow(['Name', 'Listing', 'Type', 'Group', 'Phone', 'Address', 'Links', 'Comments', 'Created'])
+        writer.writerow(['Name', 'Type', 'Group', 'Phone', 'Address', 'Links', 'Comments', 'Created'])
 
-        for contact in Contact.objects.all().filter(user_id=request.user.id).values_list('name', 'listing__title', 'type__title', 'group', 'phone', 'address', 'links', 'comments', 'created'):
+        for contact in Contact.objects.all().filter(user_id=request.user.id).values_list('name', 'type__title', 'group', 'phone', 'address', 'links', 'comments', 'created'):
             writer.writerow(contact)
 
         return response
@@ -482,9 +516,9 @@ def contacts(request):
         response.write(u'\ufeff'.encode('utf8'))
 
         writer = csv.writer(response, delimiter=',')
-        writer.writerow(['Имя', 'Объявление', 'Тип владельца', 'Группа', 'Телефон', 'Адрес', 'Ссылки', 'Комментарии', 'Дата создания'])
+        writer.writerow(['Имя', 'Тип владельца', 'Группа', 'Телефон', 'Адрес', 'Ссылки', 'Комментарии', 'Дата создания'])
 
-        for contact in Contact.objects.all().filter(user_id=request.user.id).values_list('name', 'listing__title', 'type__title_ru', 'group', 'phone', 'address', 'links', 'comments', 'created'):
+        for contact in Contact.objects.all().filter(user_id=request.user.id).values_list('name', 'type__title_ru', 'group', 'phone', 'address', 'links', 'comments', 'created'):
             writer.writerow(contact)
 
         return response
@@ -543,18 +577,14 @@ def newcontact(request):
 
 @login_required
 def editcontact(request, contact_id):
-    archived = Listing.objects.all().filter(user_id=request.user.id).exclude(adstatus_id_id = '3')
     editcontact = Contact.objects.get(pk=contact_id)
     types = Contactstype.objects.all()
     groups = Contactsgroup.objects.all()
-    listings = Listing.objects.filter(user_id=request.user.id)
 
     context = {
     'types': types,
     'groups': groups,
     'editcontact': editcontact,
-    'archived': archived,
-    'listings': listings
     }
 
     if request.method == "POST" and 'type' in request.POST:
@@ -578,29 +608,5 @@ def editcontact(request, contact_id):
         return redirect('contacts')
 
 
-    if 'attach' in request.POST:
-        id_list = request.POST.getlist('instance')
-        if id_list:
-            for i in id_list:
-                archived = get_object_or_404(Listing, pk=i)
-                editcontact.attached = archived
-                editcontact.save()
-                return redirect('contacts')
-        else:
-            return redirect('editcontact')
-
-    # if 'detach' in request.POST:
-    #     id_list = request.POST.getlist('instance')
-    #     if id_list:
-    #         for i in id_list:
-    #             archived = get_object_or_404(Listing, pk=i)
-    #             editcontact = get_object_or_404(Contact, pk=contact_id)
-    #             if archived.owner_id == editcontact.id:
-    #                 archived.owner_id = None
-    #                 archived.save()
-    #                 return redirect('contacts')
-    #             else:
-    #                 messages.error(request, 'The listing does not belong to this Contact')
-                    # return redirect('contacts')
 
     return render(request, 'users/editcontact.html', context)

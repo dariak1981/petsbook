@@ -16,7 +16,7 @@
             <a href="{% url 'dashboard' %}" class="nav-link">{% trans "Dashboard" %}</a>
           </li>
           <li
-            {% if 'ads' in request.path or 'newlisting' in request.path or 'editlisting' in request.path or 'archived' in request.path%}
+            {% if 'ads' in request.path or 'newlisting' in request.path or 'editlisting' in request.path or 'archived' in request.path or 'fostered' in request.path or 'requested' in request.path %}
               class="nav-item px-2 active"
             {% else %}
               class="nav-item px-2"

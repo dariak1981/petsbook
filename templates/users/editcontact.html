@@ -8,132 +8,19 @@
 <!-- Account Navbar -->
 {% include 'partials/_accountnavbar.html' %}
 <div class="account-wrap">
-<!-- Posts -->
 <section id="contents">
   <div class="container">
     <div class="row pt-4 pb-5">
-      <div class="col-lg-10 col-12 mb-4 mx-auto">
+      <div class="col-lg-8 col-12 mb-4 mx-auto">
+       <h3 class="text-center text-dark mb-3">{% trans "Edit Contact" %}</h3>
+        <div class="card bg-custom-primary-light p-4 shadow">
 
-        <h3 class="text-center text-dark mb-3">{% trans "Edit Contact" %}</h3>
-        <div class="card bg-custom-primary-light mb-4 shadow">
-          <div class="card-header pb-0">
-            <form id = "contactinfo" action="{% url 'editcontact' editcontact.id %}" method="post">
-              {% csrf_token %}
-               <div class="row mb-4">
-
-      <!--Carousel Wrapper-->
-       <div id="multi-item-example" class="carousel carousel-fade slide p-4 pt-3" data-ride="carousel" style="width:100%">
-         <!--Slides-->
-         <div class="carousel-inner px-3" role="listbox">
-           <!--First slide-->
-           {% if archived %}
-            {% for listing in archived %}
-            {% if forloop.first %}
-           <div class="carousel-item active">
-             {% else %}
-           <div class="carousel-item">
-             {% endif %}
-
-
-              <div class="row" id="row-carousel">
-                 <div class="col-lg-3 p-3">
-                  {% if listing.photo_main %}
-                  <div class="card shadow" id="container-image">
-                    <div id="dummy">
-                      <div id="element">
-                       <img src="{{ listing.photo_main.url }}" class="img-fluid">
-                     </div>
-                  </div>
-                </div>
-                  {% else %}
-                  <div class="card shadow" id="container-image">
-                    <div id="dummy">
-                      <div id="element">
-                       <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
-                     </div>
-                  </div>
-                </div>
-                  {% endif %}
-                  <div class="text-white text-center mt-2">
-                    <i class="fas fa-clock"></i> {% trans "Publish date" %}:
-                    {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
-                  </div>
-                  <div class="custom-control custom-checkbox text-center">
-                    <input type="checkbox" class="custom-control-input" id="customCheckbox{{ listing.id }}" name="instance" value="{{ listing.id }}" >
-                    <label for="customCheckbox{{ listing.id }}" class="custom-control-label"></label>
-                  </div>
-                 </div>
-
-                 <div class="col-lg-9 mr-auto mt-3 px-sm-4 px-1 text-white" id="description" name="description">
-                   <p><strong><i class="fas fa-paw"></i> {{ listing.title | truncatechars:80}}</strong></p>
-                     <p>
-                     {% get_current_language as LANGUAGE_CODE %}
-                     {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
-                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
-
-
-                     / {% trans "Living conditions" %}:
-
-                     {% if LANGUAGE_CODE == 'en' %}{{ listing.conditions_id.title }}
-                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.conditions_id.title_ru }}{% endif %}
-
-                     <br>{% trans "Type" %}:
-
-                     {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
-                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
-
-
-                     /
-                     {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
-                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
-
-                     / {% trans "Age" %}:
-
-                     {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
-                     {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
-
-                   </p>
-                  <p>{{ listing.description | truncatechars:330}}</p>
-
-                 </div>
-                </div>
-               </div>
-               {% endfor %}
-              {% else %}
-             {% endif %}
-            </form>
-          </div>
-         </div>
-      </div>
-    </div>
-  <!--Controls-->
-  {% if archived %}
-  <div class="d-flex px-4 pt-4 justify-content-between">
-    <a class="control-angles" href="#multi-item-example" data-slide="prev"><i class="fas fa-angle-left fa-2x pr-4 my-3"></i></a>
-    <h3 class="text-center text-white my-3">
-      <button form="contactinfo" type="submit" class="btn btn-primary custom-btn mx-3 shadow" name="attach" id="attach">
-      <i class="fas fa-link"></i> {% trans "Add Request For Animal" %}</button>
-     </h3>
-    <a class="control-angles" href="#multi-item-example" data-slide="next"><i class="fas fa-angle-right fa-2x pl-4 my-3"></i></a>
-  </div>
-  {% else %}
-  <div class="mt-4 text-white text-center">
-    <h4><i class="far fa-folder-open fa-3x"></i> {% trans "No Lisings In Archive" %}</h4>
-  </div>
-
- {% endif %}
-  <!-- <div class="controls-bottom">
-
-  </div> -->
-  <!--/.Controls-->
-            <div class="text-center my-4">
-             </div>
               <form action="{% url 'editcontact' editcontact.id %}" method="POST" id="contactinfo">
                {% csrf_token %}
 
-               <div class="card mx-4 mb-4">
+               <div class="card">
                  <div class="card-body">
-                   <div class="row mb-lg-4">
+                   <div class="row my-lg-4">
 
                      <div class="col-lg-4 col-md-6 my-3">
                        <label for="type">{% trans "Contact's Type" %}</label>
@@ -182,37 +69,12 @@
                        <input type="text" class="form-control shadow-sm" id="links" name="links" maxlength="250" value="{{ editcontact.links }}" required>
                      </div>
 
-
-
-                   <div class="col-12 my-3 mx-auto">
-                     <label for="listings">{% trans "Add/Remove request for animal" %}</label>
-                     {% if editcontact.attached %}
-                     <select name="listings" class="form-control shadow-sm" required>
-                       {% for listing in listings %}
-                           <option value="{{ listing.id }}"
-                             {% if listing.id == editcontact.attached.id %} selected {% else %}{% endif %}>
-                             {{ listing.title }}
-                           </option>
-                        {% endfor %}
-                        <option value="" title="" >---------</option>
-                     </select>
-                     {% else %}
-                     <select name="listings" class="form-control shadow-sm" required>
-                       <option disabled selected value>--------</option>
-                       {% for listing in listings %}
-                           <option value="{{ listing.id }}">
-                             {{ listing.title }}
-                           </option>
-                       {% endfor %}
-                     </select>
-                     {% endif %}
-                   </div>
                  </div>
 
                    <div class="row mb-5">
                      <div class="col-12 my-3 mx-auto">
                        <label for="comments">{% trans "Comments" %}</label>
-                       <textarea class="form-control shadow-sm" style="min-height: 350px;" id="comments" name="comments" maxlength="1500" value="{{ editcontact.comments }}" required>{{ editcontact.comments }}</textarea>
+                       <textarea class="form-control shadow-sm" style="min-height: 150px;" id="comments" name="comments" maxlength="1500" value="{{ editcontact.comments }}" required>{{ editcontact.comments }}</textarea>
                      </div>
                    </div>
 
@@ -224,13 +86,12 @@
 
 
 
-                <!-- ROW ENDING -->
-               </form>
-              </div>
-            </div>
-          </div>
-      </section>
-
+            <!-- ROW ENDING -->
+           </form>
+       </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 

@@ -19,51 +19,77 @@
           <div class="container-fluid px-0">
             <div class="row">
 
-              <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
-                <a href="{% url 'newlisting' %}" class="btn btn-primary custom-btn btn-block shadow" name="addnew">
-                  <i class="fas fa-plus-circle"></i> <span class="hidden-phone">{% trans "Add New" %}</span></a>
+              <div class="col action-buttons">
+                <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                  <i class="fas fa-edit"></i> <span class="hidden-phone">Действия</span></a>
+                <div class="dropdown-menu shadow">
+
+                  <a href="{% url 'newlisting' %}" class="dropdown-item btn btn-light" name="addnew">
+                    <i class="fas fa-plus-circle"></i> <span class="hidden-phone">Новое объявление</span></a>
+
+                  <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editrecord">
+                    <i class="fas fa-pen-square"></i> <span class="hidden-phone">{% trans "Edit" %}</span></button>
+
+                  <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="delete">
+                    <i class="fas fa-trash"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+
+                </div>
               </div>
 
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="delete">
-                    <i class="fas fa-trash-alt"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+
+                <div class="col action-buttons">
+                  <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-thumbtack"></i> <span class="hidden-phone">Статусы объявлений</span></a>
+                  <div class="dropdown-menu shadow">
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="publish">
+                        <i class="fas fa-share-alt"></i> <span class="hidden-phone">{% trans "Publish" %}</span></button>
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="sendtoarchive">
+                        <i class="fas fa-lock"></i> <span class="hidden-phone">Закрыть объявление</span></button>
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="restore">
+                        <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Добавить в отложенные</span></button>
+                  </div>
                 </div>
 
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="300" id="aos-delete">
+                <div class="col action-buttons">
                   <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
-                    <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
-                  <div class="dropdown-menu">
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus" id="js-aos-dropdown">
-                      {% trans "By Status" %}</button>
-                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate" style="z-index:99999;">
-                      {% trans "By Publish Date" %}</button>
+                    <i class="fas fa-user-plus"></i> <span class="hidden-phone">Прикрепить</span></a>
+                  <div class="dropdown-menu shadow">
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="attachfosterer">
+                        <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Передержка</span></button>
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editowner">
+                        <i class="fas fa-user"></i> <span class="hidden-phone">Владелец</span></button>
+
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="addrequest">
+                        <i class="fas fa-user-friends"></i> <span class="hidden-phone">Заявки</span></button>
 
                   </div>
                 </div>
 
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="400">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="publish">
-                    <i class="fas fa-bell"></i> <span class="hidden-phone">{% trans "Publish" %}</span></button>
+                <div class="col action-buttons">
+                  <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
+                  <div class="dropdown-menu shadow">
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus" id="js-aos-dropdown">
+                      <i class="fas fa-unlock"></i> Статус объявления</button>
+                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate" style="z-index:99999;">
+                      <i class="fas fa-clock"></i> Дата создания</button>
+                  </div>
                 </div>
 
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="500">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="hide">
-                    <i class="fas fa-eye-slash"></i> <span class="hidden-phone">{% trans "Hide" %}</span></button>
-                </div>
-
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="restore">
-                    <i class="fas fa-trash-restore"></i> <span class="hidden-phone">{% trans "Restore" %}</span></button>
-                </div>
 
                 {% get_current_language as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE == 'en' %}
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
+                <div class="col action-buttons">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
                 {% elif LANGUAGE_CODE == 'ru' %}
-                <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
+                <div class="col action-buttons">
                   <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
@@ -105,11 +131,23 @@
                                </div>
 
                                <div class="col-md-4" style="overflow:hidden">
-                                 <button class="btn btn-link text-left pl-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
+                                 <button class="btn btn-link text-left pl-0 pb-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
                                    <strong>
                                      {{ listing.title }}
                                    </strong>
                                  </button>
+
+                                <div class="">
+                                  {% if listing.owner %}
+                                   <strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}<br>
+                                  {% else %}
+                                  {% endif %}
+                                  {% if listing.forester %}
+                                   <strong>{% trans "Fosterer" %}:</strong> {{ listing.forester.name }}
+                                  {% else %}
+                                  {% endif %}
+                                </div>
+
                                </div>
 
                                <div class="col-md-6">
@@ -149,13 +187,13 @@
                                 </div>
                                 <div class="col-md-1 text-center my-auto">
                                   {% if listing.adstatus_id_id == 3  %}
-                                   <i class="fas fa-star"></i>
+                                   <i class="fas fa-lock"></i>
 
                                   {% elif listing.adstatus_id_id == 2 %}
-                                   <i class="fas fa-bell"></i>
+                                   <i class="fas fa-share-alt"></i>
 
                                   {% else %}
-                                   <i class="fas fa-eye-slash"></i>
+                                   <i class="fas fa-stopwatch"></i>
                                   {% endif %}
                                 </div>
                              </div>
@@ -163,69 +201,40 @@
                              <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
                                <div class="card-body p-3">
                                  <div class="row mt-4">
-                                   <div class="col-lg-3 text-left">
-
-                                     {% if listing.photo_main %}
+                                   <div class="col-lg-5 text-center px-lg-5 py-2 mb-lg-0 mb-4">
                                      <div class="card shadow" id="container-image">
                                        <div id="dummy">
                                          <div id="element">
-                                          <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                           {% if listing.photo_main %}
+                                           <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                           {% else %}
+                                           <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
+                                           {% endif %}
                                         </div>
                                      </div>
                                    </div>
-                                     {% else %}
-                                     <div class="card" id="container-image">
-                                       <div id="dummy">
-                                         <div id="element">
-                                          <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
-                                        </div>
-                                     </div>
-                                   </div>
-                                     {% endif %}
-                                     <div class="my-3 text-center">
-                                       <a href="{% url 'editlisting' listing.id %}" class="mr-2"><i class="fas fa-edit"></i> {% trans "Edit" %}</a><br>
-                                       {% if listing.adstatus_id_id == 3  %}
-                                        <i class="fas fa-star"></i> {% trans "Archived" %}
-                                       {% else %}
-                                        <a href="{% url 'archived' listing.id %}"><i class="fas fa-star"></i> {% trans "Archive" %}</a>
-                                       {% endif %}
-                                       {% if listing.forester  %}
-                                        <i class="fas fa-stopwatch"></i> {% trans "Fostered" %}
-                                       {% else %}
-                                        <a href="{% url 'forested' listing.id %}"><i class="fas fa-stopwatch"></i> {% trans "Foster" %}</a>
-                                       {% endif %}
+                                 </div>
 
-                                     </div>
-
-                                    </div>
-                                    <div class="col-lg-9 px-sm-3 px-0" id="description" name="description">
-                                     <p class="m-0">{{ listing.description | safe | linebreaks }}</p>
-                                     {% if listing.owner %}
-                                      <p><strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}</p>
-                                     {% else %}
-                                     {% endif %}
-                                     {% if listing.forester %}
-                                      <p><strong>{% trans "Fosterer" %}:</strong> {{ listing.forester.name }}</p>
-                                     {% else %}
-                                     {% endif %}
+                                    <div class="col-lg-6 px-sm-3 p-0">
+                                     {{ listing.description | safe | linebreaks }}
                                     </div>
 
                                   </div>
 
 
                                    <div class="row">
-                                     <div class="col-lg-3 text-center">
-                                       <h4>{% trans "Requests" %} - {{ listing.contact_set.all.count }}
-                                       </h4>
+                                     <div class="col-lg-5 text-center mt-4">
+                                       <strong>{% trans "Requests" %}</strong> - {{ listing.contact_set.all.count }}
+
                                      </div>
-                                     <div class="col-lg-9 text-left">
+                                     <div class="col-lg-6 text-left">
                                      </div>
                                    </div>
 
                                    {% for contact in contacts %}
                                      {% if contact.attached_id == listing.id %}
-                                     <div class="row my-3">
-                                       <div class="col-lg-3 text-left">
+                                     <div class="row my-4">
+                                       <div class="col-lg-5 text-left px-md-5 px-0">
                                          <p>
                                            {{ contact.name }}
                                            <br>
@@ -237,7 +246,7 @@
                                            {% trans "Group" %}: {{ contact.group }}
                                          </p>
                                        </div>
-                                       <div class="col-lg-9 px-sm-3 px-0">
+                                       <div class="col-lg-6 px-sm-3 px-0">
                                          <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
                                        </div>
                                      </div>

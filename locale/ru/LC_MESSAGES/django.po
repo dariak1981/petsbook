@@ -123,11 +123,11 @@ msgstr "фото 4"
 
 #: .\listings\models.py:103
 msgid "owner"
-msgstr "владелец"
+msgstr "список контактов"
 
 #: .\listings\models.py:104
 msgid "forester"
-msgstr "передержка"
+msgstr "список контактов"
 
 #: .\templates\accounts\login.html:4
 msgid "Account Login"

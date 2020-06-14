@@ -17,35 +17,42 @@
       <div class="container-fluid px-0">
         <div class="row">
 
-          <div class="col" data-aos="zoom-in" data-aos-delay="100">
-            <a href="{% url 'newcontact' %}" class="btn btn-primary custom-btn btn-block shadow" name="addnew">
-              <i class="fas fa-plus-circle"></i> <span class="hidden-actions">{% trans "New" %}</span></a>
+          <div class="col">
+            <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+              <i class="fas fa-edit"></i> <span class="hidden-phone">Действия</span></a>
+            <div class="dropdown-menu shadow">
+
+              <a href="{% url 'newcontact' %}" class="dropdown-item btn btn-light" name="addnew">
+                <i class="fas fa-plus-circle"></i> <span class="hidden-phone">Новый контакт</span></a>
+
+              <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="editcontact">
+                <i class="fas fa-pen-square"></i> <span class="hidden-phone">{% trans "Edit" %}</span></button>
+
+              <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="delete">
+                <i class="fas fa-trash"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+
+            </div>
           </div>
 
-            <div class="col" data-aos="zoom-in" data-aos-delay="200">
-              <button type="submit" form="activecontacts" class="btn btn-primary custom-btn btn-block shadow" name="delete">
-                <i class="fas fa-trash-alt"></i> <span class="hidden-actions">{% trans "Delete" %}</span></button>
-            </div>
-
-            <div class="col" data-aos="zoom-in" data-aos-delay="300">
+            <div class="col">
               <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-sort fa-lg"></i> <span class="hidden-actions">{% trans "Sort" %}</span></a>
               <div class="dropdown-menu">
                 <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="bygroup">
-                  {% trans "By Group" %}</button>
+                  <i class="fas fa-grin"></i> {% trans "By Group" %}</button>
                 <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="bytype">
-                  {% trans "By Type" %}</button>
+                  <i class="fas fa-layer-group"></i> {% trans "By Type" %}</button>
               </div>
             </div>
 
             {% get_current_language as LANGUAGE_CODE %}
             {% if LANGUAGE_CODE == 'en' %}
-            <div class="col" data-aos="zoom-in" data-aos-delay="400">
+            <div class="col">
               <button type="submit" form="activecontacts" class="btn btn-primary custom-btn btn-block shadow" name="export">
                 <i class="fas fa-file-excel"></i> <span class="hidden-actions">{% trans "Save List" %}</span></button>
             </div>
             {% elif LANGUAGE_CODE == 'ru' %}
-            <div class="col" data-aos="zoom-in" data-aos-delay="400">
+            <div class="col">
               <button type="submit" form="activecontacts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
                 <i class="fas fa-file-excel"></i> <span class="hidden-actions">{% trans "Save List" %}</span></button>
             </div>
@@ -93,8 +100,15 @@
                              <button class="btn btn-link text-left pl-0" type="button" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="false" aria-controls="collapse{{ contact.id }}">
                                <i class="fas fa-id-card-alt mr-2"></i><strong> {{ contact.name }}</strong>
                              </button>
-                               <a href="{% url 'editcontact' contact.id %}"><i class="fas fa-edit"></i></a>
-                             <p>
+                             <br>
+                             <i class="fas fa-clock"></i> {% trans "Date created" %}: {{ contact.created | date:"SHORT_DATE_FORMAT" }}
+                              <br>{% trans "Animals owned" %}: {{ contact.listing_owner.all.count }}
+                              <br>{% trans "Animals fostered" %}: {{ contact.listing_foster.all.count }}
+                           </div>
+
+                           <div class="col-md-6">
+
+                             <p class="mt-2">
                                {% trans "Type of owner" %}:
 
                                {% get_current_language as LANGUAGE_CODE %}
@@ -106,15 +120,7 @@
                                <br>
                                {% trans "Contacts" %}: {{ contact.phone }},
                                {{ contact.links }}
-                             </p>
-                             <i class="fas fa-clock"></i> {% trans "Date created" %}: {{ contact.created | date:"SHORT_DATE_FORMAT" }}
-                              <br>{% trans "Animals owned" %}: {{ contact.listing_owner.all.count }}
-                              <br>{% trans "Animals fostered" %}: {{ contact.listing_foster.all.count }}
-                           </div>
-
-                           <div class="col-md-6">
-
-                             <p class="mt-2">
+                               <br>
                                {{ contact.comments | safe | linebreaks }}
                              </p>
                             </div>
@@ -199,7 +205,7 @@
                             {% if contact.listing_foster.all %}
                             {% for listing in contact.listing_foster.all %}
                              <div class="row mt-4">
-                               <div class="col-lg-3 mb-sm-0 mb-3 text-left">
+                               <div class="col-lg-5 text-center px-lg-5 py-2 mb-lg-0 mb-4">
                                  <div class="card shadow" id="container-image">
                                    <div id="dummy">
                                      <div id="element">
@@ -213,7 +219,7 @@
                              </div>
 
                               </div>
-                              <div class="col-lg-9 px-sm-3 px-0" id="description" name="description">
+                              <div class="col-lg-6 px-sm-3 p-0">
                                 <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                   <br>
                                   {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}

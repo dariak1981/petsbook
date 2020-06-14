@@ -60,7 +60,7 @@ class ArchiveForm(forms.ModelForm):
         ]
         exclude = ['adstatus_id']
 
-class ForesterForm(forms.ModelForm):
+class AttachContactsForm(forms.ModelForm):
 
     class Meta:
         model = Listing
@@ -72,9 +72,26 @@ class ForesterForm(forms.ModelForm):
 
 
 class ContactForm(forms.ModelForm):
+
     class Meta:
         model = Contact
         fields = [
             'type', 'group', 'name', 'address', 'phone', 'links', 'comments'
         ]
-        exclude = ['user', 'listing_id']
+        exclude = ['user']
+
+class AttachRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = Contact
+        fields = [
+          'id', 'attached'
+        ]
+
+class RemoveRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = Contact
+        fields = [
+          'id', 'attached'
+        ]

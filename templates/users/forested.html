@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load humanize %}
-{% block title %} | {% trans "Add To Archive" %} {% endblock %}
+{% block title %} | Добавить на передержку {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -85,16 +85,12 @@
 
                      <div class="card">
                        <div class="card-body">
-                         <div class="row">
                            <div class="col-md-4 my-3 mx-auto">
                               {{ form.forester | as_crispy_field }}
-                           </div>
                           </div>
 
-                        <div class="row">
-                         <div class="col-md-4 my-3 mx-auto">
+                         <div class="col-md-4 mb-3 mt-5 mx-auto">
                            <button class="btn btn-primary custom-btn btn-block shadow mt-2" type="submit" value="submit">{% trans "Submit form" %}</button>
-                         </div>
                        </div>
 
                      </div>

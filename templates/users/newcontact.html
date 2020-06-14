@@ -9,15 +9,12 @@
 {% include 'partials/_accountnavbar.html' %}
 
 <div class="account-wrap">
-<!-- Posts -->
 <section id="contents">
   <div class="container">
     <div class="row pt-4 pb-5">
       <div class="col-lg-8 col-12 mb-4 mx-auto">
         <h3 class="text-center text-dark mb-3">{% trans "Add New Contact" %}</h3>
-        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
-
-
+          <div class="card bg-custom-primary-light p-4 shadow">
               <form action="{% url 'newcontact' %}" method="POST" id="contactinfo">
                 {% csrf_token %}
 
@@ -70,15 +67,6 @@
                            <input type="text" class="form-control shadow-sm" id="links" name="links" maxlength="250" required>
                          </div>
 
-                         <div class="col-12 my-3 mx-auto">
-                           <label for="listings">{% trans "Request for animal" %}</label>
-                           <select name="listings" class="form-control shadow-sm">
-                             <option disabled selected value>--------</option>
-                           {% for listing in listings %}
-                             <option value="{{ listing.id }}">{{ listing.title }}</option>
-                           {% endfor %}
-                           </select>
-                         </div>
                        </div>
 
                        <div class="row mb-5">
@@ -97,12 +85,11 @@
 
 
                  <!-- ROW ENDING -->
-               </form>
-              </div>
-            </div>
-          </div>
+            </form>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 </div>
 
 
