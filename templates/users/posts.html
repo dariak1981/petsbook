@@ -25,13 +25,13 @@
                 <div class="dropdown-menu shadow">
 
                   <a href="{% url 'newlisting' %}" class="dropdown-item btn btn-light" name="addnew">
-                    <i class="fas fa-plus-circle"></i> <span class="hidden-phone">Новое объявление</span></a>
+                    <i class="fas fa-plus-circle"></i> <span>Новое объявление</span></a>
 
                   <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editrecord">
-                    <i class="fas fa-pen-square"></i> <span class="hidden-phone">{% trans "Edit" %}</span></button>
+                    <i class="fas fa-pen-square"></i> <span>{% trans "Edit" %}</span></button>
 
                   <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="delete">
-                    <i class="fas fa-trash"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+                    <i class="fas fa-trash"></i> <span>{% trans "Delete" %}</span></button>
 
                 </div>
               </div>
@@ -43,13 +43,13 @@
                   <div class="dropdown-menu shadow">
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="publish">
-                        <i class="fas fa-share-alt"></i> <span class="hidden-phone">{% trans "Publish" %}</span></button>
+                        <i class="fas fa-share-alt"></i> <span>{% trans "Publish" %}</span></button>
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="sendtoarchive">
-                        <i class="fas fa-lock"></i> <span class="hidden-phone">Закрыть объявление</span></button>
+                        <i class="fas fa-lock"></i> <span>Закрыть объявление</span></button>
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="restore">
-                        <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Добавить в отложенные</span></button>
+                        <i class="fas fa-stopwatch"></i> <span>Добавить в отложенные</span></button>
                   </div>
                 </div>
 
@@ -59,13 +59,13 @@
                   <div class="dropdown-menu shadow">
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="attachfosterer">
-                        <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Передержка</span></button>
+                        <i class="fas fa-stopwatch"></i> <span>Передержка</span></button>
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editowner">
-                        <i class="fas fa-user"></i> <span class="hidden-phone">Владелец</span></button>
+                        <i class="fas fa-user"></i> <span>Владелец</span></button>
 
                       <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="addrequest">
-                        <i class="fas fa-user-friends"></i> <span class="hidden-phone">Заявки</span></button>
+                        <i class="fas fa-user-friends"></i> <span>Заявки</span></button>
 
                   </div>
                 </div>
@@ -74,10 +74,10 @@
                   <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
                   <div class="dropdown-menu shadow">
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus" id="js-aos-dropdown">
-                      <i class="fas fa-unlock"></i> Статус объявления</button>
-                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate" style="z-index:99999;">
-                      <i class="fas fa-clock"></i> Дата создания</button>
+                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus">
+                      <i class="fas fa-unlock"></i> По статусу</button>
+                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate">
+                      <i class="fas fa-clock"></i> По дате</button>
                   </div>
                 </div>
 

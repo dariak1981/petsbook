@@ -23,20 +23,20 @@
             <div class="dropdown-menu shadow">
 
               <a href="{% url 'newcontact' %}" class="dropdown-item btn btn-light" name="addnew">
-                <i class="fas fa-plus-circle"></i> <span class="hidden-phone">Новый контакт</span></a>
+                <i class="fas fa-plus-circle"></i> <span>Новый контакт</span></a>
 
               <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="editcontact">
-                <i class="fas fa-pen-square"></i> <span class="hidden-phone">{% trans "Edit" %}</span></button>
+                <i class="fas fa-pen-square"></i> <span>{% trans "Edit" %}</span></button>
 
               <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="delete">
-                <i class="fas fa-trash"></i> <span class="hidden-phone">{% trans "Delete" %}</span></button>
+                <i class="fas fa-trash"></i> <span>{% trans "Delete" %}</span></button>
 
             </div>
           </div>
 
             <div class="col">
               <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
-                <i class="fas fa-sort fa-lg"></i> <span class="hidden-actions">{% trans "Sort" %}</span></a>
+                <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
               <div class="dropdown-menu">
                 <button type="submit" form="activecontacts" class="dropdown-item btn btn-light" name="bygroup">
                   <i class="fas fa-grin"></i> {% trans "By Group" %}</button>
@@ -49,12 +49,12 @@
             {% if LANGUAGE_CODE == 'en' %}
             <div class="col">
               <button type="submit" form="activecontacts" class="btn btn-primary custom-btn btn-block shadow" name="export">
-                <i class="fas fa-file-excel"></i> <span class="hidden-actions">{% trans "Save List" %}</span></button>
+                <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
             </div>
             {% elif LANGUAGE_CODE == 'ru' %}
             <div class="col">
               <button type="submit" form="activecontacts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
-                <i class="fas fa-file-excel"></i> <span class="hidden-actions">{% trans "Save List" %}</span></button>
+                <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
             </div>
             {% endif %}
 
