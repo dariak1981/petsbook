@@ -17,7 +17,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('marketing/', MarketingPreferenceUpdateView.as_view(), name='marketing-pref'),
     path('webhooks/mailchimp/', MailchimpWebhookView.as_view(), name='webhooks-mailchimp'),
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
