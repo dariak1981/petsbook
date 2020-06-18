@@ -24,9 +24,9 @@
             {% if allposts %}
             {% for post in allposts %}
               <div class="media m-0 pt-4 px-3">
-                {% if post.author.userprofile.photo %}
+                {% if post.author.profile.photo %}
                 <a href="{% url 'user-posts' post.author.username %}">
-                  <img class="img-forum mr-3" src="{{ post.author.userprofile.photo.url }}">
+                  <img class="img-forum mr-3" src="{{ post.author.profile.photo.url }}">
                 </a>
                 {% else %}
                 <a href="{% url 'user-posts' post.author.username %}">
@@ -38,30 +38,30 @@
 
 
                     <h4><a class="pop" data-toggle="popover" data-content="
-                      {% if post.author.userprofile.usertype %}
+                      {% if post.author.profile.usertype %}
 
                       {% get_current_language as LANGUAGE_CODE %}
-                      {% if LANGUAGE_CODE == 'en' %}{{ post.author.userprofile.usertype.title }}
-                      {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.userprofile.usertype.title_ru }}{% endif %}
+                      {% if LANGUAGE_CODE == 'en' %}{{ post.author.profile.usertype.title }}
+                      {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.profile.usertype.title_ru }}{% endif %}
 
                        ~
                       {% else%}
                       Visitor
                       {% endif %}
-                      {% if post.author.userprofile.business %}
-                      {{ post.author.userprofile.business }}
+                      {% if post.author.profile.business %}
+                      {{ post.author.profile.business }}
                       {% endif %}
-                      {% if post.author.userprofile.publicmail %}
-                      <br>{{ post.author.userprofile.publicmail }};
+                      {% if post.author.profile.publicmail %}
+                      <br>{{ post.author.profile.publicmail }};
                       {% endif %}
-                      {% if post.author.userprofile.phone %}
-                      {{ post.author.userprofile.phone }}
+                      {% if post.author.profile.phone %}
+                      {{ post.author.profile.phone }}
                       {% endif %}
-                      {% if post.author.userprofile.links %}
-                      <br>{{ post.author.userprofile.links }}
+                      {% if post.author.profile.links %}
+                      <br>{{ post.author.profile.links }}
                       {% endif %}
-                      {% if post.author.userprofile.description %}
-                      <br><br>{{ post.author.userprofile.description }}
+                      {% if post.author.profile.description %}
+                      <br><br>{{ post.author.profile.description }}
                       {% endif %}
 
                       ">{{ post.author }}</a></h4>

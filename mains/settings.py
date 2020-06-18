@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'listings.apps.ListingsConfig',
     'users.apps.UsersConfig',
-    'accounts.apps.AccountsConfig',
+    'accounts',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,7 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'crispy_forms',
     'django_user_agents',
+    'analysis',
+    'marketing',
 ]
+
+MAILCHIMP_API_KEY = 'bd61bf7671c4685b4bee68fd1104b474-us10'
+MAILCHIMP_DATA_CENTER = 'us10'
+MAILCHIMP_EMAIL_LIST_ID = '9cb5ffa299'
+
+
+AUTH_USER_MODEL = 'accounts.User'
+AUTH_PROFILE_MODULE = 'accounts.Profile'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -59,6 +69,7 @@ MIDDLEWARE = [
 LOGIN_REDIRECT_URL = '/users/profile'
 LOGIN_URL = 'login'
 ROOT_URLCONF = 'mains.urls'
+# LOGOUT_URL = 'home'
 
 
 TEMPLATES = [
@@ -152,10 +163,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 #messages
-from django.contrib.messages import constants as messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
+# from django.contrib.messages import constants as messages
+# MESSAGE_TAGS = {
+#     messages.ERROR: 'danger'
+# }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -163,7 +174,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'infopetfaceapp@gmail.com'
 EMAIL_HOST_PASSWORD = '_8Sv5cq8tNkhd3SR'
-
+DEFAULT_FROM_EMAIL = 'Petsbook.club <infopetfaceapp@gmail.com>'
+BASE_URL = '127.0.0.1:8000'
+# BASE_URL = 'https://petsbook.club/'
 
 try:
     from .local_settings import *

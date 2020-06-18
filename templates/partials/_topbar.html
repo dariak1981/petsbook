@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <nav
-  {% if 'users' in request.path %}
+  {% if 'user' in request.path %}
     class="navbar navbar-expand-lg navbar-light bg-custom-secondary-light"
   {% else %}
     class="navbar navbar-expand-lg navbar-dark bg-custom-primary shadow sticky-top"
@@ -48,7 +48,7 @@
         </li>
         {% if user.is_authenticated %}
         <li
-          {% if 'users' in request.path%}
+          {% if 'user' in request.path%}
             class="nav-item px-2 active"
           {% else %}
             class="nav-item px-2"
@@ -88,9 +88,35 @@
           class="nav-item mr-3"
         {% endif %}
         >
-          <a href="#" class="nav-link">
+        <!-- <div class="col action-buttons">
+          <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+            <i class="fas fa-user"></i> {% trans "Welcome" %} {{ user.full_name }}
+          <div class="dropdown-menu shadow">
+
+            <a href="{% url 'newlisting' %}" class="dropdown-item btn btn-light" name="addnew">
+              <i class="fas fa-plus-circle"></i> <span>Новое объявление</span></a>
+
+            <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editrecord">
+              <i class="fas fa-pen-square"></i> <span>{% trans "Edit" %}</span></button>
+
+            <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="delete">
+              <i class="fas fa-trash"></i> <span>{% trans "Delete" %}</span></button>
+
+          </div>
+        </div> -->
+         <div class="dropdown">
+          <a href="#" type="button" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton">
             <i class="fas fa-user"></i> {% trans "Welcome" %} {{ user.username }}
           </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a href="{% url 'profile' %}" class="dropdown-item text-left">
+              <small>Профиль</small></a>
+            <a href="#" class="dropdown-item text-left">
+              <small>Инструкция</small></a>
+            <a href="#" class="dropdown-item text-left">
+              <small>Контакты</small></a>
+          </div>
+        </div>
         </li>
 
         <li class="nav-item">

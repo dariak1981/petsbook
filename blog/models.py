@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
-from django.contrib.auth.models import User
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -14,7 +15,7 @@ class Themes(models.Model):
         return self.title
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = _('author'),)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
     title = models.CharField(max_length=100, verbose_name = _('title'),)
     is_featured = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now, blank=True, verbose_name = _('created'),)
@@ -39,10 +40,14 @@ class Post(models.Model):
                 output_size = (1000, 1000)
                 img.thumbnail(output_size)
                 img.save(self.photo.path)
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'post'
+        verbose_name_plural = 'posts'
 
 class Message(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name = _('author'),)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
     message = models.TextField(max_length=1500, blank=False, verbose_name = _('message'),)
     created = models.DateTimeField(default=timezone.now, verbose_name = _('created'),)
     def __int__(self):
@@ -50,3 +55,8 @@ class Message(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.post_id})
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'message'
+        verbose_name_plural = 'messages'

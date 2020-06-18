@@ -10,25 +10,30 @@
 <section id="showcase-logout">
   <div class="container pb-4">
     <div class="row py-4 mb-5">
-      <div class="col-md-5 mx-auto">
-        <div class="card-enter shadow m-3">
-          <div class="card-header bg-custom-secondary-light-opaque text-white px-4">
 
-            <h3 class="custom-h3"><i class="fas fa-sign-in-alt"></i> &nbsp {% trans "Login" %}</h3>
+
+
+      <div class="col-md-5 mx-auto">
+        <div class="card bg-custom-secondary-light-opaque text-white px-4 shadow m-3">
+          <div class="card-header">
+
+            <h3 class="custom-h3 my-3"><i class="fas fa-sign-in-alt mr-3"></i>{% trans "Login" %}</h3>
           </div>
-          <div class="card-body bg-custom-secondary-light-opaque text-white px-4">
-            <!-- Alerts -->
-            {% include 'partials/_alerts.html' %}
-            <form action="{% url 'login' %}" class="px-4 pb-4 mx-3" method="POST">
+          <div class="card-body">
+
+            <form action="{% url 'login' %}" class="pb-4 mx-3" method="POST">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ next }}">
-              {{ form|crispy }}
+              {{ form | crispy }}
+
+              <!-- Alerts -->
+              {% include 'partials/_alerts.html' %}
 
               <div class="pt-3">
                 <button type="submit" class="btn btn-secondary custom-btn btn-block shadow">{% trans "Enter" %}</button>
               <div class="mt-4 text-center">
                 <small class=text-muted">
-                  <a href="{% url 'password_reset' %}">{% trans "Forgot Password?" %}"</a>
+                  <a href="{% url 'password_reset' %}">{% trans "Forgot Password?" %}</a>
                 </small>
               </div>
 

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} | {% trans "Password Reset" %} {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <!-- Showcase -->
+<div class="account-wrap">
+<section id="showcase-logout">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 mx-auto">
+        <div class="card bg-custom-secondary-light-opaque text-white px-4 shadow" shadow">
+          <div class="card-header">
+            {% if key %}
+            <div class="my-4 text-center">
+              <h4>Activation error. Please try again.</h4>
+            </div>
+            {% else %}
+            <div class="my-4 text-center">
+              <h4>Re-activate your email below.</h4>
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="col-12 my-4">
+            <form class="p-4 mx-3" action="" method="POST">
+              {% csrf_token %}
+              {{ form | crispy }}
+              <input class="btn btn-secondary custom-btn btn-block shadow mt-4" type="submit" value="Resend Activation"">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+{% endblock %}

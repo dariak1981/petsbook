@@ -4,22 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Themes, Message
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.contrib.auth.models import User
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
+Profile = settings.AUTH_PROFILE_MODULE
 from django.contrib.auth.decorators import login_required
 
-
-# def blogposts(request):
-#     postviews = Post.objects.all()
-#     featuredthreads = Post.objects.all().filter(is_featured=True)
-#
-#
-#     context = {
-#     'featuredthreads': featuredthreads,
-#     'postviews': postviews,
-#     }
-#
-#     return render(request, 'blog.html')
-#
 
 class PostListView(ListView):
     model = Post
@@ -184,20 +173,6 @@ def updatepost(request, pk):
     return render(request, 'blog/post_edit.html', context)
 
 
-# class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Post
-#     fields = ['title', 'theme', 'content']
-#
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-#
-#     def test_func(self):
-#         post = self.get_object()
-#         if self.request.user == post.author:
-#             return True
-#         return False
-
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
@@ -245,17 +220,6 @@ class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-# def viewpost(request, pk):
-#     viewpost = Post.objects.get(pk=pk)
-#     messages = Message.objects.fileter(post=pk)
-#
-#     context = {
-#     'viewpost': viewpost,
-#     'messages': messages,
-#     }
-
-
 
 
 

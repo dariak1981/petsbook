@@ -15,10 +15,10 @@
     <div class="container-fluid px-0">
       <div class="row">
         <div class="col-lg-2 col" data-aos="zoom-in" data-aos-delay="100">
-          <a href="{% url 'password_reset' %}"
+          <a href="{% url 'password_change' %}"
           class="btn btn-primary custom-btn btn-block shadow"
           >
-          <i class="fas fa-key"></i> {% trans "Password Reset" %}
+          <i class="fas fa-key"></i> Изменить пароль
           </a>
         </div>
         <div class="col-lg-2 col" data-aos="zoom-in" data-aos-delay="200">
@@ -52,26 +52,22 @@
 
 
                      <div class="row mt-lg-4">
-                       <div class="col-lg-3 col-6 my-lg-0 my-3">
+                       <div class="col-lg-4 col-6 my-lg-0 my-3">
                          <label for="username">{% trans "Username" %}</label>
                          <input type="text" class="form-control shadow-sm" id="username" name="username" maxlength="15" value="{{ mainuser.username }}" required>
                        </div>
 
-                       <div class="col-lg-3 col-6 my-lg-0 my-3">
+                       <div class="col-lg-4 col-6 my-lg-0 my-3">
                          <label for="email">{% trans "Email" %}</label>
-                         <input type="text" class="form-control shadow-sm" id="email" name="email" maxlength="20" value="{{ mainuser.email }}" required>
+                         <input type="text" class="form-control shadow-sm" id="email" name="email" value="{{ mainuser.email }}" disabled='disabled'>
                        </div>
 
-                       <div class="col-lg-3 col-6 my-lg-0 my-3">
-                         <label for="first_name">{% trans "First Name" %}</label>
-                         <input type="text" class="form-control shadow-sm" id="first_name" name="first_name" maxlength="10" value="{{ mainuser.first_name }}" required>
+                       <div class="col-lg-4 col-12 my-lg-0 my-3">
+                         <label for="full_name">{% trans "Full Name" %}</label>
+                         <input type="text" class="form-control shadow-sm" id="full_name" name="full_name" maxlength="255" value="{{ mainuser.full_name }}" required>
                        </div>
+                      </div>
 
-                       <div class="col-lg-3 col-6 my-lg-0 my-3">
-                         <label for="last_name">{% trans "Last Name" %}</label>
-                         <input type="text" class="form-control shadow-sm" id="last_name" name="last_name" maxlength="15" value="{{ mainuser.last_name }}" required>
-                       </div>
-                     </div>
 
                      <div class="row my-lg-4">
 
@@ -175,7 +171,7 @@
 
                     <div class="row">
                       <div class="col-md-4 mb-3 mx-auto">
-                        <button type="submit" class="btn btn-primary custom-btn btn-block shadow">
+                        <button type="submit" name='userprofile' class="btn btn-primary custom-btn btn-block shadow">
                         {% trans "Update" %}</button>
                       </div>
                     </div>
@@ -193,6 +189,29 @@
           <!-- RIGHT CARDS -->
 
           <div class="col-lg-4 col-12 mb-4 mt-sm-0 mt-4">
+
+            <!-- RIGHT CARDS -->
+
+
+              <div class="card text-center bg-custom-primary-light text-white mb-4 shadow">
+                <div class="card-body p-4">
+
+               <!-- Subscription -->
+                  <div class="col-12">
+                    <form class=""  method="post">
+                      {% csrf_token %}
+                       {% if subscription.subscribed %}
+                       <button type="submit" class="btn btn-outline-light btn-block" name="marketing">Отписаться от уведомлений</button>
+                       {% else %}
+                       <button type="submit" class="btn btn-outline-light btn-block" name="marketing">Включить отправку уведомлений</button>
+                       {% endif %}
+                     </form>
+                  </div>
+
+                </div>
+              </div>
+
+
             <div class="card bg-custom-primary-light text-white mb-4 shadow">
                <div class="card-header text-center">
                  <h4>Профиль в объявлении</h4>
@@ -260,7 +279,7 @@
                    <p class="mb-0">~</p>
                  </div>
                <div class="card-body mx-auto pb-5">
-                 <h3 class="mb-4">~ {{ edituser.user }} ~ </h3>
+                 <h3 class="mb-4">~ {{ edituser.user.username }} ~ </h3>
                  {% if edituser.photo %}
                  <div class="card shadow" id="container-image">
                    <div id="dummy">
@@ -314,6 +333,14 @@
                        {% endif %}
 
                  </div>
+
+                 <div class="text-center">
+                   <hr>
+                     <h6>Дата регистрации:</h6>
+                     <p>{{ mainuser.joined.date }}</p>
+                 </div>
+
+
                 </div>
 
             </div>

@@ -263,12 +263,12 @@
 
           <!-- MIDDLE INFO -->
 
-            {% if listing.user.userprofile.ad_organization %}
+            <!-- {% if listing.profile.ad_organization %}
             <ul class="list-group mt-4 list-group-flush">
               <div class="text-center">
-                <h4 class="mt-3"><i class="fas fa-home"></i><strong> {{ listing.user.userprofile.ad_organization }}</strong></h4>
-                {% if listing.user.userprofile.ad_address %}
-                <p class="text-muted">{{ listing.user.userprofile.ad_address }}</p>
+                <h4 class="mt-3"><i class="fas fa-home"></i><strong> {{ listing.profile.ad_organization }}</strong></h4>
+                {% if listing.profile.ad_address %}
+                <p class="text-muted">{{ listing.profile.ad_address }}</p>
                 {% endif %}
               </div>
                 <li class="list-group-item py-2 bg-custom-transparent">
@@ -276,41 +276,41 @@
                   <span class="float-right pl-4"> {{ activeads }}</span>
                 </li>
 
-                {% if listing.user.userprofile.ad_website %}
+                {% if listing.profile.ad_website %}
                 <li class="list-group-item w-100 py-2 bg-custom-transparent">
                   Сайт:
-                  <span class="float-right pl-4"> <a href="{{ listing.user.userprofile.ad_website }}" target="_blank">{{ listing.user.userprofile.ad_website }}</a></span>
+                  <span class="float-right pl-4"> <a href="{{ listing.profile.ad_website }}" target="_blank">{{ listing.profile.ad_website }}</a></span>
                 </li>
                 {% endif %}
 
-                {% if listing.user.userprofile.ad_email %}
+                {% if listing.profile.ad_email %}
                 <li class="list-group-item py-2 bg-custom-transparent">
                     Эл. почта:
-                    <span class="float-right pl-4"> {{ listing.user.userprofile.ad_email }}</span>
+                    <span class="float-right pl-4"> {{ listing.profile.ad_email }}</span>
                 </li>
                 {% endif %}
 
-                {% if listing.user.userprofile.ad_youtube or listing.user.userprofile.ad_facebook or listing.user.userprofile.ad_vk %}
+                {% if listing.profile.ad_youtube or listing.profile.ad_facebook or listing.profile.ad_vk %}
                 <li class="list-group-item py-2 bg-custom-transparent">
                     Соц. сети:
                   <span class="float-right pl-4 social">
-                    {% if listing.user.userprofile.ad_youtube %}
-                    <a href="{{ listing.user.userprofile.ad_youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                    {% if listing.profile.ad_youtube %}
+                    <a href="{{ listing.profile.ad_youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
                     {% endif %}
 
-                    {% if listing.user.userprofile.ad_facebook %}
-                    <a href="{{ listing.user.userprofile.ad_facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    {% if listing.profile.ad_facebook %}
+                    <a href="{{ listing.profile.ad_facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     {% endif %}
 
-                    {% if listing.user.userprofile.ad_vk %}
-                    <a href="{{ listing.user.userprofile.ad_vk }}" target="_blank"><i class="fab fa-vk"></i></a>
+                    {% if listing.profile.ad_vk %}
+                    <a href="{{ listing.profile.ad_vk }}" target="_blank"><i class="fab fa-vk"></i></a>
                     {% endif %}
                   </span>
                 </li>
                 {% endif %}
                </ul>
                {% endif %}
-          </div>
+          </div> -->
 
 
           <!-- BOTTOM INFO -->

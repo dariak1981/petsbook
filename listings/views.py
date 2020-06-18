@@ -4,9 +4,8 @@ from datetime import date
 from .models import Listing, Category, Taps, Age, Breeds
 from blog.models import Post
 from .choices import price_choices
-from django.contrib.auth.models import User
 from pages.models import Services
-from users.models import UserProfile
+from analysis.signals import object_viewed_signal
 
 def index(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2').exclude(category_id = '3')
@@ -39,6 +38,7 @@ def listing(request, listing_id):
   'featuredlistings':featuredlistings,
   'youtube':youtube
   }
+  object_viewed_signal.send(listing.__class__, instance=listing, request=request)
   return render(request, 'listings/listing.html', context)
 
 

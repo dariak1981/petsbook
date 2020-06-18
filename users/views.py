@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from datetime import date, datetime
 from django.utils.timezone import utc
-from django.contrib.auth.models import User
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
+Profile = settings.AUTH_PROFILE_MODULE
+from django.contrib.auth import get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import context
 from django.urls import reverse
@@ -14,43 +17,38 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils import timezone
 
 from listings.models import Listing, Category, Taps, Gender, Condition, Health, Adstatus, Age, Breeds
-from .models import UserProfile, Contact, Contactstype, Contactsgroup, UserType
-from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, UserMainForm, UserRegisterForm, AttachContactsForm, AttachRequestForm, RemoveRequestForm
+from .models import Contact, Contactstype, Contactsgroup
+from accounts.models import UserType, Profile
+from marketing.forms import MarketingPreferenceForm
+from marketing.models import MarketingPreference, marketing_pref_update_receiver
+from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, AttachContactsForm, AttachRequestForm, RemoveRequestForm
 from blog.models import Post, Message
+from analysis.models import ObjectViewed
 from . import forms
 from django.utils.translation import ugettext as _
 
-def register(request):
-    if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            return redirect('login')
-    else:
-        form = UserRegisterForm()
-
-    return render(request, 'users/register.html', {'form':form})
+User = get_user_model()
 
 @login_required
 def profile(request):
      mainuser = get_object_or_404(User, id=request.user.id)
-     edituser = get_object_or_404(UserProfile, user=request.user)
+     edituser = get_object_or_404(Profile, user=request.user)
      usertypes = UserType.objects.all()
      activeads = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
+     subscription = MarketingPreference.objects.get(user=request.user)
 
      context = {
      'mainuser': mainuser,
      'edituser': edituser,
      'usertypes': usertypes,
      'activeads': activeads,
+     'subscription': subscription,
      }
 
-     if request.method == "POST":
+     if request.method == "POST" and 'userprofile' in request.POST:
          mainuser.user = request.user
-         mainuser.email = request.POST['email']
-         mainuser.first_name = request.POST['first_name']
-         mainuser.last_name = request.POST['last_name']
+         mainuser.username = request.POST['username']
+         mainuser.full_name = request.POST['full_name']
          edituser.usertype = UserType.objects.get(id=request.POST['usertype'])
          edituser.publicmail = request.POST['publicmail']
          edituser.business = request.POST['business']
@@ -76,34 +74,18 @@ def profile(request):
          edituser.save()
          return redirect('profile')
 
-     return render(request, 'users/profile.html', context)
+     if request.method=="POST" and 'marketing' in request.POST:
+         if request.user.is_authenticated:
+             if subscription.subscribed == True:
+                 subscription.subscribed = False
+                 subscription.save()
+             else:
+                 subscription.subscribed = True
+                 subscription.save()
+         else:
+             return redirect('login')
 
-     # //////////////////////////////////////////////////////////////////////
-    # mainuser = get_object_or_404(User, id=request.user.id)
-    # edituser = get_object_or_404(UserProfile, user=request.user)
-    #
-    # form1 = UserMainForm(instance=mainuser)
-    # form2 = UserForm(instance=edituser)
-    #
-    # context = {
-    #     "edituser": edituser,
-    #     "form1":form1,
-    #     "form2":form2,
-    # }
-    #
-    # if request.method == 'POST':
-    #     form1 = UserMainForm(request.POST, instance=mainuser)
-    #     form2 = UserForm(request.POST, request.FILES, instance=edituser)
-    #     if form1.is_valid() and form2.is_valid():
-    #         form1.save()
-    #         form2.save()
-    #         return redirect('profile')
-    # else:
-    #     form1 = UserMainForm(instance=mainuser)
-    #     form2 = UserForm(instance=edituser)
-    #
-    #
-    # return render(request, 'users/profile.html', context)
+     return render(request, 'user/profile.html', context)
 
 
 @login_required
@@ -116,8 +98,12 @@ def dashboard(request):
   usermessages = Message.objects.filter(author=request.user.id).count()
   sitecontacts = Contact.objects.filter(user=request.user.id).count()
   pendingtime = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:1]
-  datejoined = User.objects.filter(id=request.user.id)
-  alllistings = Listing.objects.filter(user_id=request.user.id).count()
+  views = request.user.objectviewed_set.by_model(Listing)[:18]
+  # viewed_ids = []
+  # for x in viewed_ids:
+  #     viewed_ids.append(x.object_id)
+  # viewed_ids = [x.object_id for x in objects_viewed]
+  # views = Listing.objects.filter(pk__in=viewed_ids)
 
   context = {
      'publishedlistings': publishedlistings,
@@ -128,11 +114,10 @@ def dashboard(request):
      'usermessages': usermessages,
      'sitecontacts': sitecontacts,
      'pendingtime': pendingtime,
-     'datejoined': datejoined,
-     'alllistings': alllistings,
+     'views': views,
     }
 
-  return render(request, 'users/index.html', context)
+  return render(request, 'user/index.html', context)
 
 @login_required
 def posts(request, id=None):
@@ -229,7 +214,7 @@ def posts(request, id=None):
         'contacts': contacts,
     }
 
-    return render(request, 'users/posts.html', context)
+    return render(request, 'user/posts.html', context)
 
 @login_required
 def newlisting(request):
@@ -282,7 +267,7 @@ def newlisting(request):
     'types': types,
     }
 
-    return render(request, 'users/newlisting.html', context)
+    return render(request, 'user/newlisting.html', context)
 
 
 @login_required
@@ -383,7 +368,7 @@ def editlisting(request, listing_id):
       editlisting.save()
       return redirect('posts')
 
-  return render(request, 'users/editlisting.html', context)
+  return render(request, 'user/editlisting.html', context)
 
 
 
@@ -409,7 +394,7 @@ def archived(request, listing_id):
       else:
           form = ArchiveForm(instance=archived)
 
-    return render(request, 'users/archived.html', context)
+    return render(request, 'user/archived.html', context)
 
 @login_required
 def forested(request, listing_id):
@@ -433,7 +418,7 @@ def forested(request, listing_id):
       else:
           form = AttachContactsForm(instance=forested)
 
-    return render(request, 'users/forested.html', context)
+    return render(request, 'user/forested.html', context)
 
 @login_required
 def requested(request, listing_id):
@@ -473,7 +458,7 @@ def requested(request, listing_id):
         else:
             form = RemoveRequestForm()
 
-    return render(request, 'users/requested.html', context)
+    return render(request, 'user/requested.html', context)
 
 
 @login_required
@@ -534,7 +519,7 @@ def contacts(request):
      }
 
 
-    return render(request, 'users/responsible.html', context)
+    return render(request, 'user/responsible.html', context)
 
 
 @login_required
@@ -573,7 +558,7 @@ def newcontact(request):
     'listings': listings
     }
 
-    return render(request, 'users/newcontact.html', context)
+    return render(request, 'user/newcontact.html', context)
 
 @login_required
 def editcontact(request, contact_id):
@@ -609,4 +594,4 @@ def editcontact(request, contact_id):
 
 
 
-    return render(request, 'users/editcontact.html', context)
+    return render(request, 'user/editcontact.html', context)

@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
+            model_name='Profile',
             name='usertype',
             field=models.ForeignKey(default='5', on_delete=django.db.models.deletion.DO_NOTHING, to='users.UserType', verbose_name='users_group'),
         ),

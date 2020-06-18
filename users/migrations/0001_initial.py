@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='UserProfile',
+            name='Profile',
             fields=[
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
                 ('publicmail', models.CharField(blank=True, max_length=100, verbose_name='Public email')),

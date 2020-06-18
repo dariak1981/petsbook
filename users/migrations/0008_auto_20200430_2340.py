@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='listings.Listing', verbose_name='attached listing'),
         ),
         migrations.AlterField(
-            model_name='userprofile',
+            model_name='Profile',
             name='usertype',
             field=models.ForeignKey(default='5', on_delete=django.db.models.deletion.DO_NOTHING, to='users.UserType', verbose_name='users_group'),
         ),

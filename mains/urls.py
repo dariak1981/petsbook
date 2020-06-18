@@ -4,20 +4,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
 from django.conf.urls.i18n import i18n_patterns
-
-# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-# if settings.DEBUG:
-#     urlpatterns += staticfiles_urlpatterns()
+from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
-    path('register/', user_views.register, name='register'),
     path('listings/', include('listings.urls')),
-    path('users/', include('users.urls')),
+    path('user/', include('users.urls')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.passwords.urls')),
     path('blog/', include('blog.urls')),
     path('', include('pages.urls')),
+    path('marketing/', MarketingPreferenceUpdateView.as_view(), name='marketing-pref'),
+    path('webhooks/mailchimp/', MailchimpWebhookView.as_view(), name='webhooks-mailchimp'),
     path('admin/', admin.site.urls),
 ]
 

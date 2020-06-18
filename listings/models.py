@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date, datetime
-from django.contrib.auth.models import User
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 from django.utils import timezone
 from django.conf import settings
 import pytz
@@ -26,12 +27,20 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
 
 class Taps(models.Model):
     title = models.CharField(max_length=70)
     title_ru = models.CharField(max_length=70)
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'type'
+        verbose_name_plural = 'types'
 
 
 class Breeds(models.Model):
@@ -40,6 +49,10 @@ class Breeds(models.Model):
     title_ru = models.CharField(max_length=70)
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'breeds'
+        verbose_name_plural = 'breeds'
 
 
 class Gender(models.Model):
@@ -54,6 +67,10 @@ class Age(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'age'
+        verbose_name_plural = 'age'
+
 class Condition(models.Model):
     title = models.CharField(max_length=70)
     title_ru = models.CharField(max_length=70)
@@ -66,17 +83,24 @@ class Health(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'health'
+        verbose_name_plural = 'health'
+
 class Adstatus(models.Model):
     title = models.CharField(max_length=200)
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'ad status'
+        verbose_name_plural = 'ad statuses'
+
 
 class Listing(models.Model):
 
 
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name= _('created'),)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name= _('created'),)
     user_contact = models.CharField(max_length=150, verbose_name = _('contacts'),)
     title = models.CharField(max_length=100, verbose_name= _('title'),)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING, verbose_name= _('category'),)

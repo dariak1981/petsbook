@@ -1,0 +1,25 @@
+<div class="col-12 mx-auto">
+
+  {% if title %}<h5 class="my-3">{{ title }}</h5>{% endif %}
+  sfdsfds
+  <form action="{% url 'marketing-pref' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+        <button type="submit" class="btn btn-outline-light custom-btn btn-block shadow">
+        Marketing</button>
+
+  </form>
+</div>
+
+{% if messages %}
+<ul class="alert alert-success messages">
+    {% for message in messages %}
+    <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </span>
+    <br>
+    {% endfor %}
+</ul>
+{% endif %}

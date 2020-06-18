@@ -16,9 +16,9 @@
           <div class="card">
 
               <div class="media m-0 pt-4 px-3">
-                {% if object.author.userprofile.photo %}
+                {% if object.author.profile.photo %}
                 <a href="{% url 'user-posts' object.author.username %}">
-                  <img class="img-forum mx-4" src="{{ object.author.userprofile.photo.url }}">
+                  <img class="img-forum mx-4" src="{{ object.author.profile.photo.url }}">
                 </a>
                 {% else %}
                 <a href="{% url 'user-posts' object.author.username %}">
@@ -30,30 +30,30 @@
                     <div class="d-flex justify-content-between">
                       <div class="d-flex">
                         <h4><a class="pop" data-toggle="popover" data-content="
-                          {% if object.author.userprofile.usertype %}
+                          {% if object.author.profile.usertype %}
 
                           {% get_current_language as LANGUAGE_CODE %}
-                          {% if LANGUAGE_CODE == 'en' %}{{ post.author.userprofile.usertype.title }}
-                          {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.userprofile.usertype.title_ru }}{% endif %}
+                          {% if LANGUAGE_CODE == 'en' %}{{ post.author.profile.usertype.title }}
+                          {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.profile.usertype.title_ru }}{% endif %}
 
                            ~
                           {% else%}
                           Visitor
                           {% endif %}
-                          {% if object.author.userprofile.business %}
-                          {{ object.author.userprofile.business }}
+                          {% if object.author.profile.business %}
+                          {{ object.author.profile.business }}
                           {% endif %}
-                          {% if object.author.userprofile.publicmail %}
-                          <br>{{ object.author.userprofile.publicmail }};
+                          {% if object.author.profile.publicmail %}
+                          <br>{{ object.author.profile.publicmail }};
                           {% endif %}
-                          {% if object.author.userprofile.phone %}
-                          {{ object.author.userprofile.phone }}
+                          {% if object.author.profile.phone %}
+                          {{ object.author.profile.phone }}
                           {% endif %}
-                          {% if object.author.userprofile.links %}
-                          <br>{{ object.author.userprofile.links }}
+                          {% if object.author.profile.links %}
+                          <br>{{ object.author.profile.links }}
                           {% endif %}
-                          {% if object.author.userprofile.description %}
-                          <br><br>{{ object.author.userprofile.description }}
+                          {% if object.author.profile.description %}
+                          <br><br>{{ object.author.profile.description }}
                           {% endif %}
 
                           ">{{ object.author }}</a></h4>
@@ -115,8 +115,8 @@
 
                   {% for message in messages %}
                   <div class="media m-0 pt-4 px-3">
-                    {% if message.author.userprofile.photo %}
-                       <img class="img-forum mx-4" src="{{ message.author.userprofile.photo.url }}">
+                    {% if message.author.profile.photo %}
+                       <img class="img-forum mx-4" src="{{ message.author.profile.photo.url }}">
                     {% else %}
                        <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
                     {% endif %}
@@ -130,25 +130,25 @@
 
 
                           <h4><a class="pop" data-toggle="popover" data-content="
-                            {% if message.author.userprofile.usertype %}
-                            {{ message.author.userprofile.usertype }} ~
+                            {% if message.author.profile.usertype %}
+                            {{ message.author.profile.usertype }} ~
                             {% else%}
                             Visitor
                             {% endif %}
-                            {% if message.author.userprofile.business %}
-                            {{ message.author.userprofile.business }}
+                            {% if message.author.profile.business %}
+                            {{ message.author.profile.business }}
                             {% endif %}
-                            {% if message.author.userprofile.publicmail %}
-                            <br>{{ message.author.userprofile.publicmail }};
+                            {% if message.author.profile.publicmail %}
+                            <br>{{ message.author.profile.publicmail }};
                             {% endif %}
-                            {% if message.author.userprofile.phone %}
-                            {{ message.author.userprofile.phone }}
+                            {% if message.author.profile.phone %}
+                            {{ message.author.profile.phone }}
                             {% endif %}
-                            {% if message.author.userprofile.links %}
-                            <br>{{ message.author.userprofile.links }}
+                            {% if message.author.profile.links %}
+                            <br>{{ message.author.profile.links }}
                             {% endif %}
-                            {% if message.author.userprofile.description %}
-                            <br><br>{{ message.author.userprofile.description }}
+                            {% if message.author.profile.description %}
+                            <br><br>{{ message.author.profile.description }}
                             {% endif %}
 
                             ">{{ message.author }}</a></h4>

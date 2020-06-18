@@ -11,42 +11,42 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_address',
             field=models.CharField(blank=True, max_length=200, verbose_name='company address'),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_email',
             field=models.CharField(blank=True, max_length=150, verbose_name='company email'),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_facebook',
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_organization',
             field=models.CharField(blank=True, max_length=200, verbose_name='organization'),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_vk',
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_website',
             field=models.CharField(blank=True, max_length=200, verbose_name='website'),
         ),
         migrations.AddField(
-            model_name='userprofile',
+            model_name='Profile',
             name='ad_youtube',
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='userprofile',
+            model_name='Profile',
             name='publicmail',
             field=models.CharField(blank=True, max_length=100, verbose_name='blog email'),
         ),

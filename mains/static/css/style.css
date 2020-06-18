@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem;
 }
 
+.dropdown-menu {
+  z-index:4;
+}
+
 .page-item {
   color: red;
   background: red! important;
@@ -404,6 +408,7 @@ color: #fff;
     right: 0;
     overflow: hidden;
     border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 #element-main-img {
