@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'listings.apps.ListingsConfig',
     'users.apps.UsersConfig',
     'accounts',
-    'blog.apps.BlogConfig',
+    # 'blog.apps.BlogConfig',
     # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
