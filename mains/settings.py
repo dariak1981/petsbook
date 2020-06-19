@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'petsbook',
+         'NAME': 'pbdkclub',
          'USER': 'dbadmin',
          'PASSWORD': 'abc123!',
          'HOST': 'localhost'
