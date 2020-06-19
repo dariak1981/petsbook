@@ -50,7 +50,11 @@ class EmailActivationAdmin(admin.ModelAdmin):
     class Meta:
         model = EmailActivation
 
+class UserTypeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'title_ru')
+    list_display_links = ('id', 'title', 'title_ru',)
+
 admin.site.register(EmailActivation, EmailActivationAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(UserType)
+admin.site.register(UserType, UserTypeAdmin)
 admin.site.unregister(Group)
