@@ -145,14 +145,15 @@
             </a>
             <div class="card-body py-1">
               <div class="view.content_object-heading text-center my-1">
-                <i class="fas fa-map-marker-alt"></i> {{ view.content_object.city }}
+                <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
               </div>
               <hr class="my-0">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-center p-2">
                     {% get_current_language as LANGUAGE_CODE %}
-                        {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ view.content_object.category_id.title | truncatechars:12}}
-                        {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ view.content_object.category_id.title_ru | truncatechars:12}}{% endif %}
+                        {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
+                        {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
+                        {% endif %}
                 </li>
                </ul>
             </div>
