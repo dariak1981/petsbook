@@ -8,7 +8,8 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 Profile = settings.AUTH_PROFILE_MODULE
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class PostListView(ListView):
     model = Post
@@ -230,7 +231,7 @@ class UserPostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(User, email=self.kwargs.get('email'))
         return Post.objects.filter(author=user).order_by('-created')
 
     def get_context_data(self, **kwargs):

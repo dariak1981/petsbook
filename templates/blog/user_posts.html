@@ -20,16 +20,16 @@
           <div class="card">
 
 
-            <h3 class="mb-3 p-3">{% trans "Posts by" %} {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h3>
+            <h3 class="mb-3 p-3">Всего записей {{ page_obj.paginator.count }}</h3>
             {% if allposts %}
             {% for post in allposts %}
               <div class="media m-0 pt-4 px-3">
                 {% if post.author.profile.photo %}
-                <a href="{% url 'user-posts' post.author.username %}">
+                <a href="{% url 'user-posts' post.author.email %}">
                   <img class="img-forum mr-3" src="{{ post.author.profile.photo.url }}">
                 </a>
                 {% else %}
-                <a href="{% url 'user-posts' post.author.username %}">
+                <a href="{% url 'user-posts' post.author.email %}">
                   <img class="img-forum-empty mr-3" src="{% static 'img/avatar.png' %}">
                 </a>
                 {% endif %}
@@ -64,7 +64,7 @@
                       <br><br>{{ post.author.profile.description }}
                       {% endif %}
 
-                      ">{{ post.author }}</a></h4>
+                      ">{{ post.author.username }}</a></h4>
 
                     <!-- <a href="#" class="mr-2">{{ post.author }}</a> -->
                     <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>

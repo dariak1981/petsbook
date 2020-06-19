@@ -16,5 +16,5 @@ urlpatterns = [
     path('<int:post_id>/message/', MessageCreateView.as_view(), name='message-create'),
     path('<int:pk>/message_update/', MessageUpdateView.as_view(), name='message-update'),
     path('<int:pk>/delete_message/', MessageDeleteView.as_view(), name='message-delete'),
-    path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
+    path('author/<str:email>', UserPostListView.as_view(), name='user-posts'),
 ]

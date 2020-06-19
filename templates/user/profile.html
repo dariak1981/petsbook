@@ -281,18 +281,22 @@
                <div class="card-body mx-auto pb-5">
                  <h3 class="mb-4">~ {{ edituser.user.username }} ~ </h3>
                  {% if edituser.photo %}
-                 <div class="card shadow" id="container-image">
-                   <div id="dummy">
-                     <div id="element">
-                     <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
-                   </div>
-                 </div>
-               </div>
+                <div class="p-4">
+                  <div class="card shadow" id="container-image">
+                    <div id="dummy">
+                      <div id="element">
+                      <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
                <div class="text-white text-center mr-4">
                  <i class="fas fa-cut mr-1"></i>
                  <input id="image-clear_id" name="image-clear" type="checkbox" />
                </div>
                  {% else %}
+                <div class="p-4">
                  <div class="card shadow" id="container-image">
                    <div id="dummy">
                      <div id="element">
@@ -300,6 +304,7 @@
                      </div>
                     </div>
                    </div>
+                  </div>
                  {% endif %}
                  <label>
                      <input form="userform" id="selectedFile" type="file" name="photo" onchange="previewImage(event)">

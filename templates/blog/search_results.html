@@ -26,11 +26,11 @@
           {% for post in allposts %}
             <div class="media m-0 pt-4 px-3">
               {% if post.author.profile.photo %}
-              <a href="{% url 'user-posts' post.author.username %}">
+              <a href="{% url 'user-posts' post.author.email %}">
                 <img class="img-forum mx-4" src="{{ post.author.profile.photo.url }}">
               </a>
               {% else %}
-              <a href="{% url 'user-posts' post.author.username %}">
+              <a href="{% url 'user-posts' post.author.email %}">
                 <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
               </a>
               {% endif %}

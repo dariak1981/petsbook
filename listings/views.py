@@ -6,6 +6,11 @@ from blog.models import Post
 from .choices import price_choices
 from pages.models import Services
 from analysis.signals import object_viewed_signal
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
+Profile = settings.AUTH_PROFILE_MODULE
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def index(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2').exclude(category_id = '3')
