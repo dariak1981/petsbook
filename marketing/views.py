@@ -9,18 +9,23 @@ from django.contrib.auth import authenticate
 MAILCHIMP_EMAIL_LIST_ID = getattr(settings, 'MAILCHIMP_EMAIL_LIST_ID', None)
 from .utils import Mailchimp
 from .mixins import CsrfExemptMixin
+User = settings.AUTH_USER_MODEL
+Profile = settings.AUTH_PROFILE_MODULE
+from django.contrib.auth import get_user_model
+User = get_user_model()
+from .forms import MarketingPreferenceForm
 
 class MarketingPreferenceUpdateView(SuccessMessageMixin, UpdateView):
     form_class = MarketingPreferenceForm
     template_name = 'partials/_marketing.html'
-    success_url = '/users/dashboard'
-    success_message = 'Your email preferences have been updated'
+    success_url = '/user/dashboard'
+    success_message = 'Ваши настройки уведомлений сохранены'
 
     def dispatch(self, *args, **kwargs):
         user = self.request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return redirect('login')
-        return super(MarketingPreferenceUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(MarketingPreferenceUpdateView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(MarketingPreferenceUpdateView, self).get_context_data(*args, **kwargs)
