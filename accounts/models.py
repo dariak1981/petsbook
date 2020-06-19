@@ -247,7 +247,7 @@ class EmailActivation(models.Model):
 
                 txt_ = get_template('accounts/emails/verify.txt').render(context)
                 html_ = get_template('accounts/emails/verify.html').render(context)
-                subject = '1-Click Email Verification'
+                subject = 'Подтверждение регистрации на сайте'
                 from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [self.email]
                 sent_mail = send_mail(

@@ -52,14 +52,14 @@ class AccountEmailActivateView(FormMixin, View):
             if confirm_qs.count() == 1:
                 obj = qs.first()
                 obj.activate()
-                messages.success(request, "Your email has been confirmed. Please login.")
+                messages.success(request, "Адрес вашей почты подтвержден.")
                 return redirect('login')
             else:
                 activated_qs = qs.filter(activated=True)
                 if activated_qs.exists():
                     reset_link = reverse('password_reset')
-                    msg = """Your email has already been confirmed
-                    Do you need to reset <a href="{link}"> your password</a>?
+                    msg = """Ваш эмейл уже подтвержден.
+                    Попробовать<a href="{link}"> сбросить пароль</a>?
                     """.format(link=reset_link)
                     messages.success(request, mark_safe(msg))
                     return redirect('login')
@@ -74,7 +74,7 @@ class AccountEmailActivateView(FormMixin, View):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        msg = """Activation link sent, please check your email."""
+        msg = """Отправлена ссылка на активащию, пожалуйста проверьте почту."""
         request = self.request
         messages.success(request, msg)
         email = form.cleaned_data.get('email')

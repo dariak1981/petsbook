@@ -15,7 +15,7 @@ class ReactivateEmailForm(forms.Form):
         qs = EmailActivation.objects.email_exists(email)
         if not qs.exists():
             register_link = reverse('register')
-            msg = """This email does not exist, would you like to <a href="{link}">register</a>?
+            msg = """Этот адрес не существует, <a href="{link}">зарегистрироваться</a>?
             """.format(link=register_link)
             raise forms.ValidationError(mark_safe(msg))
         return email
@@ -27,8 +27,8 @@ class RegisterForm(forms.ModelForm):
     fields, plus a repeated password.
     """
 
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -39,7 +39,7 @@ class RegisterForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("password2")
         if password and password2 and password != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError("Пароли не совпадают")
         return password2
 
     def save(self, commit=True):
@@ -91,23 +91,24 @@ class LoginForm(forms.Form):
             if not_active.exists():
             #not active, check email activation
                 link = reverse('resend-activation')
-                reconfirm_msg = """ Go to
-                <a href="{resend_link}">resend confirmation email<a/>
+                reconfirm_msg = """ Перейдите по ссылке
+                <a href="{resend_link}">для повторного подтверждения<a/>
                 """.format(resend_link = link)
                 confirm_email = EmailActivation.objects.filter(email=email)
                 is_confirmable = confirm_email.confirmable().exists()
                 if is_confirmable:
-                    msg1 = 'Please check your email to confirm your account or ' + reconfirm_msg.lower()
+                    msg1 = 'Пожалуйста проверьте ваш почтовый ящик или ' + reconfirm_msg.lower()
+                    # Please check your email to confirm your account or
                     raise forms.ValidationError(mark_safe(msg1))
                 email_confirm_exists = EmailActivation.objects.email_exists(email).exists()
                 if email_confirm_exists:
-                    msg2 = 'Email not confirmed. ' + reconfirm_msg
+                    msg2 = 'Адрес не подтвержден. ' + reconfirm_msg
                     raise forms.ValidationError(mark_safe(msg2))
                 if not is_confirmable and not email_confirm_exists:
-                    raise forms.ValidationError('This user is inactive')
+                    raise forms.ValidationError('Этот пользователь не активирован')
         user = authenticate(request, username=email, password=password)
         if user is None:
-            raise forms.ValidationError('Invalid credentials')
+            raise forms.ValidationError('Неверные данные')
         login(request, user)
         self.user = user
         return data
