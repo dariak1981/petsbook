@@ -254,7 +254,6 @@ def newlisting(request):
 
         newlisting.save()
 
-        messages.success(request, 'New listing is registered')
         return redirect('posts')
 
     context = {
