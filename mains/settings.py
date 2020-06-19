@@ -101,9 +101,9 @@ DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
          'NAME': 'petsbook',
-         'USER': 'postgres',
-         'PASSWORD': 'dbadmin',
-         'HOST': 'abc123!'
+         'USER': 'dbadmin',
+         'PASSWORD': 'abc123!',
+         'HOST': 'localhost'
      }
  }
 
