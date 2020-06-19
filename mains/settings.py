@@ -17,8 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '9&)_r+f^3rgyn-57zx6xz%)a5xe(oj#7+x55&qo=*xnnq@$q19'
 
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS=['*']
 
@@ -98,25 +98,25 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': 'petsbook',
-#          'USER': 'postgres',
-#          'PASSWORD': '888777max',
-#          'HOST': 'localhost'
-#      }
-# }
-
 DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.postgresql',
-          'NAME': 'pbdkclub',
-          'USER': 'dbadmin',
-          'PASSWORD': 'abc123!',
-          'HOST': 'localhost'
-      }
- }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'petsbook',
+         'USER': 'postgres',
+         'PASSWORD': '888777max',
+         'HOST': 'localhost'
+     }
+}
+
+# DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.postgresql',
+#           'NAME': 'pbdkclub',
+#           'USER': 'dbadmin',
+#           'PASSWORD': 'abc123!',
+#           'HOST': 'localhost'
+#       }
+#  }
 
 
 # dbadmin
@@ -187,8 +187,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'infopetfaceapp@gmail.com'
 EMAIL_HOST_PASSWORD = '_8Sv5cq8tNkhd3SR'
 DEFAULT_FROM_EMAIL = 'Petsbook.club <infopetfaceapp@gmail.com>'
-# BASE_URL = '127.0.0.1:8000'
-BASE_URL = 'https://petsbook.club'
+BASE_URL = '127.0.0.1:8000'
+# BASE_URL = 'https://petsbook.club'
 
 try:
     from .local_settings import *

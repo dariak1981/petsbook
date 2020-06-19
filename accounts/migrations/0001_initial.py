@@ -70,7 +70,6 @@ class Migration(migrations.Migration):
                 ('ad_youtube', models.CharField(blank=True, max_length=200)),
                 ('ad_facebook', models.CharField(blank=True, max_length=200)),
                 ('ad_vk', models.CharField(blank=True, max_length=200)),
-                ('usertype', models.ForeignKey(default='5', on_delete=django.db.models.deletion.DO_NOTHING, to='accounts.UserType', verbose_name='users_group')),
             ],
         ),
     ]
