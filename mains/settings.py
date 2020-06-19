@@ -17,8 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '9&)_r+f^3rgyn-57zx6xz%)a5xe(oj#7+x55&qo=*xnnq@$q19'
 
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS=['*']
 
@@ -97,25 +97,25 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'petsbook',
-         'USER': 'postgres',
-         'PASSWORD': '888777max',
-         'HOST': 'localhost'
-     }
- }
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': 'petsbook',
+#          'USER': 'postgres',
+#          'PASSWORD': '888777max',
+#          'HOST': 'localhost'
+#      }
+#  }
 
- # DATABASES = {
- #      'default': {
- #          'ENGINE': 'django.db.backends.postgresql',
- #          'NAME': 'pbdkclub',
- #          'USER': 'dbadmin',
- #          'PASSWORD': 'abc123!',
- #          'HOST': 'localhost'
- #      }
- #  }
+ DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql',
+          'NAME': 'pbdkclub',
+          'USER': 'dbadmin',
+          'PASSWORD': 'abc123!',
+          'HOST': 'localhost'
+      }
+  }
 
 
 
