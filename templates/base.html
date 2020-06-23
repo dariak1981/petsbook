@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{% static 'css/all.css' %}"/>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
     <!-- LightBox -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
@@ -51,6 +52,7 @@
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/selectFilter.min.js' %}"></script>
 <script src="{% static 'js/ie.js' %}"></script>
+<script src="{% static 'js/swiper.min.js' %}"></script>
 <script type="text/javascript">
   $("#year").text(new Date().getFullYear());
 </script>
@@ -74,5 +76,22 @@ $(function() {
   });
 });
 </script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 0,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      loop: true,
+      breakpoints: {
+        320: { slidesPerView: 1 },
+        480: { slidesPerView: 1 }, // when window width is <= 640px
+        769: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+    }
+    });
+  </script>
   </body>
 </html>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'analysis',
     'marketing',
+    'products',
 ]
 
 MAILCHIMP_API_KEY = 'bd61bf7671c4685b4bee68fd1104b474-us10'
@@ -101,7 +102,7 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 # DATABASES = {
 #      'default': {
 #          'ENGINE': 'django.db.backends.postgresql',
-#          'NAME': 'pdatabase',
+#          'NAME': 'petsbook',
 #          'USER': 'postgres',
 #          'PASSWORD': '888777max',
 #          'HOST': 'localhost'

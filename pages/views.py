@@ -3,6 +3,7 @@ from listings.choices import price_choices
 from listings.models import Listing, Category, Taps, Age, Breeds
 from listings.forms import *
 from .models import WelcomeText, Services, Terms
+from products.models import Product, ProductCategory
 
 def home(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2')[:4]
@@ -12,6 +13,8 @@ def home(request):
   breeds = Breeds.objects.order_by('type_id', 'title_ru')
   services = Services.objects.all()
   welcometext = WelcomeText.objects.first()
+  products = Product.objects.order_by('-created').filter(adstatus_id = '2')[:3]
+  product_categories = ProductCategory.objects.all()
 
   context = {
     'listings': listings,
@@ -22,6 +25,8 @@ def home(request):
     'breeds': breeds,
     'services': services,
     'welcometext': welcometext,
+    'object_list': products,
+    'category_links': product_categories,
   }
 
   return render(request, 'pages/home.html', context)

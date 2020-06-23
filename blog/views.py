@@ -20,8 +20,6 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-
-
         context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
         context['searchthreads'] = Themes.objects.all()
         return context

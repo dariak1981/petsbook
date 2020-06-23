@@ -1,0 +1,50 @@
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+
+
+
+<div class="col-12 col-md-4 col-sm-6 my-3">
+<div class="card mx-sm-0 mx-4 listing-preview shadow">
+  <div class="row no-gutters">
+
+     <div class="col-lg-5">
+      <a href="{{ obj.get_absolute_url }}">
+        <td id="container-image">
+          <div id="dummy">
+            <div id="element-products">
+              {% if obj.photo_main %}
+               <img src="{{ obj.photo_main.url }}" class="img-fluid">
+              {% else %}
+               <img src="{% static 'img/fostering.jpg' %}" class="img-fluid">
+              {% endif %}
+            </div>
+          </div>
+        </td>
+       </a>
+     </div>
+
+
+      <div class="col-lg-7 px-sm-3 px-4 pt-2">
+        <div>
+          <a href="{{ obj.get_absolute_url }}">
+            <h6 class="mb-md-3 mb-0 pt-sm-0 pt-2" style="height: 4.2em; line-height: 1.4; overflow: auto; color:blue;">{{ obj.title | truncatechars:50 }}</h6>
+          </a>
+          <div class="d-flex justify-content-between align-items-start">
+            {% if obj.price == 0 %}
+            <p class="mb-md-2 mb-3"><i class="fas fa-angle-down"></i> {% trans "For free" %}</p>
+            {% else %}
+            <p class="mb-md-2 mb-3"><i class="fas fa-angle-down"></i> {{ obj.price | intcomma }}</p>
+            {% endif %}
+            <span><i class="far fa-heart"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="card-footer mx-sm-0 mx-4 border-0 pb-4">
+  <p class="card-text p-0" style="line-height: 1.2;">
+   <small>{{ obj.description | truncatewords:20 }}</small>
+  </p>
+</div>
+</div>

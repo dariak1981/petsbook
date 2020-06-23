@@ -1,0 +1,27 @@
+{% load i18n %}
+
+{% for service in services %}
+<div class="col-lg col-12 mb-sm-0 mb-4 text-center" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
+
+  <div class="d-flex flex-column justify-content-between h-100">
+    <div>
+      <div class="col-12 mb-3 mx-auto">
+        <i class="fas fa-feather-alt fa-lg"></i>
+      </div>
+      <h5 class="mb-4">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE == 'en' %}{{ service.title }}
+        {% elif LANGUAGE_CODE == 'ru' %}{{ service.title_ru }}{% endif %}
+      </h5>
+    </div>
+    <div>
+      <p>
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE == 'en' %}{{ service.content }}
+        {% elif LANGUAGE_CODE == 'ru' %}{{ service.content_ru }}{% endif %}
+      </p>
+      <hr class="d-lg-none">
+    </div>
+</div>
+</div>
+{% endfor %}

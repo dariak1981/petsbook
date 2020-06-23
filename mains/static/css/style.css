@@ -126,6 +126,15 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+#categories-link {
+  text-decoration: none! important;
+  color: white;
+}
+
+#categories-link:hover {
+  text-decoration: none! important;
+  color: #68bd6d;
+}
 
 
 .forums a {
@@ -144,6 +153,11 @@ h5 {
   font-size: 1.5rem;
 }
 
+h6 {
+  font-size: 0.85rem;
+}
+
+
 .titles-custom-cards {
 font-family: 'Righteous', cursive;
 color: #fff;
@@ -155,6 +169,14 @@ color: #fff;
   padding-top: 6rem;
   position: relative;
   background-image: url("../img/aerial.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+#showcase-products {
+  position: relative;
+  background-image: url("../img/door-services.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -179,6 +201,18 @@ color: #fff;
   background: rgba(97, 58, 67, 0.7);
   backdrop-filter: blur(3px);
 }
+
+#showcase-products .overlay {
+  border-radius: 5px;
+  background: rgba(7, 54, 20, 0.7);
+  backdrop-filter: blur(3px);
+}
+
+.swiper-container {
+  background: rgba(7, 54, 20, 0.7);
+  backdrop-filter: blur(3px);
+}
+
 
 #showcase-home .home-search-home {
   background-image: url("../img/aerial.webp");
@@ -213,6 +247,27 @@ color: #fff;
   background: rgba(97, 68, 70, 0.5);
 }
 
+#products-title {
+  position: relative;
+  min-height: 150px;
+  overflow: hidden;
+  background-image: url("../img/door-services.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+}
+
+#products-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  width: 100%;
+  background: rgba(47, 77, 55, 0.5);
+  /* backdrop-filter: blur(15px); */
+}
 
 #services {
   position: relative;
@@ -409,6 +464,17 @@ color: #fff;
     overflow: hidden;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
+}
+
+#element-products {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 #element-main-img {
@@ -893,6 +959,10 @@ label {
     height: 740px;
   }
 
+  h6 {
+    font-size:1rem;
+  }
+
 
 }
 
@@ -921,6 +991,10 @@ label {
 
   #row-carousel {
     height: 700px;
+  }
+
+  h6 {
+    font-size:1.2rem;
   }
 
 

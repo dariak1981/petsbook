@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "Products list" %} {% endblock %}
+{% block content %}
+
+
+<!-- Showcase-search -->
+<section id="showcase-products" class="shadow">
+  <div class="col-md-7 col-12 mx-auto">
+      <div class="container py-5 ext-center">
+          <div class="overlay p-5 text-white shadow">
+              <form method='GET' action="{% url 'products:product-search' %}">
+                <div class="input-group shadow">
+                  <input type="text" name="q" class="form-control" placeholder="город категория цена ключевые слова" value="">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-secondary custom-btn bg-custom-primary rounded-right"
+                    type="submit" value="{{ request.GET.q }}">{% trans "Search" %}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+
+      {% include 'products/snippets/categories.html'%}
+
+</section>
+
+
+<section style="min-height:480px;" >
+
+  <div class="container py-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}">
+            <i class="fas fa-home"></i> {% trans "Home" %}</a>
+        </li>
+        {% if query %}
+          <li class="breadcrumb-item active">Результаты поиска по фильтру <strong>"{{ query }}"</strong></li>
+        {% else %}
+          <li class="breadcrumb-item active"> Все предложения</li>
+        {% endif %}
+      </ol>
+    </nav>
+    <hr>
+    <!-- <h2 class="titles-custom text-center my-5">{% trans "Search Results" %}</h2> -->
+    <div class="row mb-3 d-flex justify-content-center">
+
+
+
+      {% for obj in object_list %}
+        {% include 'products/snippets/card.html' with instance=obj %}
+      {% endfor %}
+
+
+    </div>
+
+    {% if is_paginated %}
+     <ul class="mt-5 mb-2 pl-0 text-center">
+       {% if page_obj.has_previous %}
+         <a class="btn btn-outline-info mb-4" href="?page=1">{% trans "First" %}</a>
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+
+       {% endif %}
+
+       {% for num in page_obj.paginator.page_range %}
+         {% if page_obj.number == num %}
+
+           <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+           <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+         {% endif %}
+
+       {% endfor %}
+
+       {% if page_obj.has_next %}
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">{% trans "Last" %}</a>
+       {% endif %}
+     </ul>
+    {% endif %}
+    
+  </div>
+
+
+
+
+</section>
+
+
+{% endblock %}

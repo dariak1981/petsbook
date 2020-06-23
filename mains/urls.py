@@ -10,6 +10,7 @@ from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('listings/', include('listings.urls')),
+    path('products/', include('products.urls', namespace='products')),
     path('user/', include('users.urls')),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('accounts.passwords.urls')),
