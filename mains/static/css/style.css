@@ -846,18 +846,18 @@ label {
 
   #services {
     background-position: center;
-    background-attachment: scroll !important;
+    /* background-attachment: scroll !important; */
   }
 
 
   #showcase {
     background-position: center;
-    background-attachment: scroll !important;
+    /* background-attachment: scroll !important; */
     background-position: top !important;
   }
 
   #showcase-inner {
-    background-attachment: scroll !important;
+    /* background-attachment: scroll !important; */
     background-position: center;
   }
 
@@ -984,7 +984,7 @@ label {
   }
 
   #showcase-inner {
-    background-attachment: scroll !important;
+    /* background-attachment: scroll !important; */
     background-size: 270%;
     background-position: top center;
   }
