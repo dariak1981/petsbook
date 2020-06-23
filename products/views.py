@@ -10,7 +10,7 @@ from pages.models import Services
 class ProductListView(ListView):
     template_name = 'products/list.html'
     context_object_name = 'object_list'
-    paginate_by = 15
+    paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
@@ -25,7 +25,7 @@ class ProductListView(ListView):
 class ProductCategoryView(ListView):
     template_name = 'products/list.html'
     context_object_name = 'object_list'
-    paginate_by = 15
+    paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductCategoryView, self).get_context_data(*args, **kwargs)
@@ -66,7 +66,7 @@ class ProductDetailSlugView(DetailView):
 
 class ProductSearchView(ListView):
     template_name = 'products/search.html'
-    paginate_by = 15
+    paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductSearchView, self).get_context_data(*args, **kwargs)
