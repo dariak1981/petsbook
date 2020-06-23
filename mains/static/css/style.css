@@ -993,6 +993,12 @@ label {
     font-size:1rem;
   }
 
+  #products-title {
+    font-size:1rem;
+    position: relative;
+    z-index: 1
+  }
+
 }
 
 @media (min-height: 1023px) {
