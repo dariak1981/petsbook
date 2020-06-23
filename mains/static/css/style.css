@@ -230,7 +230,7 @@ color: #fff;
 }
 
 #showcase-inner {
-  background-image: url("../img/aerial-color.webp");
+  background-image: url("../img/aerial.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -959,10 +959,6 @@ label {
     height: 740px;
   }
 
-  h6 {
-    font-size:1rem;
-  }
-
 
 }
 
@@ -994,9 +990,8 @@ label {
   }
 
   h6 {
-    font-size:1.2rem;
+    font-size:1rem;
   }
-
 
 }
 
