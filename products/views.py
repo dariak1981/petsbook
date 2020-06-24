@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, ProductCategory
 from listings.models import Listing
 from pages.models import Services
+from analysis.mixins import ObjectViewedMixin
 
 class ProductListView(ListView):
     template_name = 'products/list.html'
@@ -40,7 +41,7 @@ class ProductCategoryView(ListView):
         return Product.objects.get_by_category(slug)
 
 
-class ProductDetailSlugView(DetailView):
+class ProductDetailSlugView(ObjectViewedMixin, DetailView):
     queryset = Product.objects.all_active()
     template_name = 'products/detail.html'
 
@@ -61,7 +62,6 @@ class ProductDetailSlugView(DetailView):
             instance = qs.first()
         except:
             raise Http404('Uhhmmmm ')
-
         return instance
 
 class ProductSearchView(ListView):

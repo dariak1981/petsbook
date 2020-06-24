@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Themes, Message
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
@@ -10,6 +9,9 @@ Profile = settings.AUTH_PROFILE_MODULE
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+from .models import Post, Themes, Message
+from analysis.mixins import ObjectViewedMixin
 
 class PostListView(ListView):
     model = Post
@@ -80,7 +82,7 @@ class FilterPostListView(ListView):
 
 
 
-class PostDetailView(DetailView):
+class PostDetailView(ObjectViewedMixin, DetailView):
     model = Post
     paginate_by = 20
 

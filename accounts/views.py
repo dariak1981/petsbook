@@ -27,6 +27,9 @@ class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
 
     def form_valid(self, form):
         next_path = self.get_next_url()
+        request = self.request
+        user = self.request.user
+        user_logged_in.send(user.__class__, instance=user, request=request)
         return redirect(next_path)
 
 
