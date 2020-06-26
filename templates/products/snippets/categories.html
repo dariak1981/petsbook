@@ -1,11 +1,14 @@
+
 <div class="swiper-container" style="cursor: pointer;">
   <div class="swiper-wrapper">
     {% for category in category_links %}
       <div class="swiper-slide">
         <div class="col-12 py-3 text-center">
-          <h4 class="m-0"><a href="{{ category.get_url }}" id="categories-link">{{ category.title_ru }}</a></h4>
+          <h4 class="mb-4"><a href="{{ category.get_url }}" id="categories-link">{{ category.title_ru }}</a></h4>
         </div>
       </div>
     {% endfor %}
   </div>
+  <!-- Add Pagination -->
+  <div class="swiper-pagination"></div>
 </div>

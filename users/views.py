@@ -24,6 +24,8 @@ from marketing.models import MarketingPreference, marketing_pref_update_receiver
 from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, AttachContactsForm, AttachRequestForm, RemoveRequestForm
 from blog.models import Post, Message
 from analysis.models import ObjectViewed
+from products.models import ProductCategory, Product
+from products.forms import ProductForm, ProductCategoryForm
 from . import forms
 from django.utils.translation import ugettext as _
 
@@ -90,15 +92,23 @@ def profile(request):
 
 @login_required
 def dashboard(request):
-  publishedlistings = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:3]
-  activelistings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
-  hiddenlistings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '1').count()
-  archivedlistings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
+  published_listings = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:3]
+  all_listings = Listing.objects.filter(user_id=request.user.id).count()
+  all_products = Product.objects.filter(user_id=request.user.id).count()
+  active_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
+  hidden_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '1').count()
+  archived_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
+  active_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
+  hidden_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '1').count()
+  archived_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
   userposts = Post.objects.filter(author=request.user.id).count()
   usermessages = Message.objects.filter(author=request.user.id).count()
   sitecontacts = Contact.objects.filter(user=request.user.id).count()
   pendingtime = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:1]
-  views = request.user.objectviewed_set.by_model(Listing)[:18]
+  views = request.user.objectviewed_set.by_model(Listing)[:7]
+  views_product = request.user.objectviewed_set.by_model(Product)[:7]
+  published_products = Product.objects.filter(user_id=request.user.id).active()[:3]
+  pendingtime_product = Product.objects.filter(user_id=request.user.id).active()[:1]
   # viewed_ids = []
   # for x in viewed_ids:
   #     viewed_ids.append(x.object_id)
@@ -106,15 +116,23 @@ def dashboard(request):
   # views = Listing.objects.filter(pk__in=viewed_ids)
 
   context = {
-     'publishedlistings': publishedlistings,
-     'activelistings': activelistings,
-     'hiddenlistings': hiddenlistings,
-     'archivedlistings': archivedlistings,
+     'published_listings': published_listings,
+     'published_products' : published_products,
+     'all_listings': all_listings,
+     'all_products': all_products,
+     'active_listings': active_listings,
+     'hidden_listings': hidden_listings,
+     'archived_listings': archived_listings,
+     'active_products' : active_products,
+     'hidden_products' : hidden_products,
+     'archived_products' : archived_products,
      'userposts': userposts,
      'usermessages': usermessages,
      'sitecontacts': sitecontacts,
      'pendingtime': pendingtime,
+     'pendingtime_product' : pendingtime_product,
      'views': views,
+     'views_product' : views_product,
     }
 
   return render(request, 'user/index.html', context)
@@ -590,7 +608,157 @@ def editcontact(request, contact_id):
 
         editcontact.save()
         return redirect('contacts')
-
-
-
     return render(request, 'user/editcontact.html', context)
+
+@login_required
+def product_ads(request):
+    products = Product.objects.all().filter(user_id=request.user.id).order_by('-updated')
+
+    if 'delete' in request.POST and 'instance' in request.POST:
+        id_selected = request.POST.get('instance')
+        listing = Product.objects.get(id=id_selected)
+        listing.delete()
+
+    if 'bystatus' in request.POST:
+        products = products.order_by('adstatus_id')
+
+    if 'bydate' in request.POST:
+        products = products.order_by('-created')
+
+
+    if 'publish' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Product.objects.get(id=i)
+        listing.adstatus_id_id = '2'
+        listing.created = timezone.now()
+        listing.save()
+        return redirect('dashboard')
+
+    if 'editrecord' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Product.objects.get(id=i)
+        return redirect('edit_product', product_id=listing.id)
+
+    if 'sendtoarchive' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Product.objects.get(id=i)
+        listing.adstatus_id_id = '3'
+        listing.save()
+        return redirect('product_ads')
+
+    if 'restore' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Product.objects.get(id=i)
+        listing.adstatus_id_id = '1'
+        listing.save()
+        return redirect('product_ads')
+
+    if 'export' in request.POST:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Products.csv"'
+        response.write(u'\ufeff'.encode('utf8'))
+
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(['Title', 'Category', 'Price', 'City', 'Created', 'Description'])
+
+        for listing in Product.objects.all().filter(user_id=request.user.id).values_list('title', 'category_id__title', 'price', 'city', 'created', 'description'):
+            writer.writerow(listing)
+
+        return response
+
+    if 'export_ru' in request.POST:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Export.csv"'
+        response.write(u'\ufeff'.encode('utf8'))
+
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(['Заголовок', 'Категория', 'Цена', 'Город', 'Дата создания', 'Описание'])
+
+        for listing in Product.objects.all().filter(user_id=request.user.id).values_list('title', 'category_id__title_ru', 'price', 'city', 'created', 'description'):
+            writer.writerow(listing)
+
+        return response
+
+    paginator = Paginator(products, 5)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+
+    context = {
+        'products': paged_products,
+    }
+
+    return render(request, 'user/product_ads.html', context)
+
+
+@login_required
+def new_product(request):
+    form = ProductForm(request.POST, request.FILES)
+    categories = ProductCategory.objects.all()
+
+    if request.method == "POST":
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.category_id = ProductCategory.objects.get(id=request.POST['category'])
+            form.save()
+            return redirect('product_ads')
+
+    context = {
+        'form': form,
+        'categories': categories
+    }
+    return render(request, 'user/newproduct.html', context)
+
+
+@login_required
+def edit_product(request, product_id):
+    product_instance = get_object_or_404(Product, pk=product_id)
+    categories = ProductCategory.objects.all()
+    form = ProductForm(instance=product_instance)
+
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES, instance=product_instance)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.category_id = ProductCategory.objects.get(id=request.POST['category'])
+            if 'image-clear' in request.POST:
+                form.photo_main = None
+            else:
+                if request.FILES.get('photo_main'):
+                    form.photo_main = request.FILES.get('photo_main')
+                else:
+                    form.photo_main = form.photo_main
+            if 'image-clear1' in request.POST:
+                form.photo_1 = None
+            else:
+                if request.FILES.get('photo_1'):
+                    form.photo_1 = request.FILES.get('photo_1')
+                else:
+                    form.photo_1 = form.photo_1
+            if 'image-clear2' in request.POST:
+                form.photo_2 = None
+            else:
+                if request.FILES.get('photo_2'):
+                    form.photo_2 = request.FILES.get('photo_2')
+                else:
+                    form.photo_2 = form.photo_2
+            if 'image-clear3' in request.POST:
+                form.photo_3 = None
+            else:
+                if request.FILES.get('photo_3'):
+                    form.photo_3 = request.FILES.get('photo_3')
+                else:
+                    form.photo_3 = form.photo_3
+            form.save()
+            return redirect('product_ads')
+        else:
+            form = ProductForm(instance=product_instance)
+
+    context = {
+        'form': form,
+        'categories': categories,
+        'product_instance': product_instance
+    }
+
+    return render(request, 'user/editproduct.html', context)

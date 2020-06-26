@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load humanize %}
-{% block title %} | {% trans "My Ads" %} {% endblock %}
+{% block title %} | {% trans "My Product Ads" %} {% endblock %}
 {% block content %}
 
 <!-- Account Navbar -->
@@ -24,13 +24,13 @@
                   <i class="fas fa-edit"></i> <span class="hidden-phone">Действия</span></a>
                 <div class="dropdown-menu shadow">
 
-                  <a href="{% url 'newlisting' %}" class="dropdown-item btn btn-light" name="addnew">
+                  <a href="{% url 'new_product' %}" class="dropdown-item btn btn-light" name="addnew">
                     <i class="fas fa-plus-circle"></i> <span>Новое объявление</span></a>
 
-                  <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editrecord">
+                  <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="editrecord">
                     <i class="fas fa-pen-square"></i> <span>{% trans "Edit" %}</span></button>
 
-                  <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="delete">
+                  <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="delete">
                     <i class="fas fa-trash"></i> <span>{% trans "Delete" %}</span></button>
 
                 </div>
@@ -42,31 +42,14 @@
                     <i class="fas fa-thumbtack"></i> <span class="hidden-phone">Статусы объявлений</span></a>
                   <div class="dropdown-menu shadow">
 
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="publish">
+                      <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="publish">
                         <i class="fas fa-share-alt"></i> <span>{% trans "Publish" %}</span></button>
 
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="sendtoarchive">
+                      <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="sendtoarchive">
                         <i class="fas fa-lock"></i> <span>Закрыть объявление</span></button>
 
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="restore">
+                      <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="restore">
                         <i class="fas fa-stopwatch"></i> <span>Добавить в отложенные</span></button>
-                  </div>
-                </div>
-
-                <div class="col action-buttons">
-                  <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
-                    <i class="fas fa-user-plus"></i> <span class="hidden-phone">Прикрепить</span></a>
-                  <div class="dropdown-menu shadow">
-
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="attachfosterer">
-                        <i class="fas fa-stopwatch"></i> <span>Передержка</span></button>
-
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="editowner">
-                        <i class="fas fa-user"></i> <span>Владелец</span></button>
-
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="addrequest">
-                        <i class="fas fa-user-friends"></i> <span>Заявки</span></button>
-
                   </div>
                 </div>
 
@@ -74,9 +57,9 @@
                   <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
                   <div class="dropdown-menu shadow">
-                      <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bystatus">
+                      <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="bystatus">
                       <i class="fas fa-unlock"></i> По статусу</button>
-                    <button type="submit" form="activeposts" class="dropdown-item btn btn-light" name="bydate">
+                    <button type="submit" form="activeproductposts" class="dropdown-item btn btn-light" name="bydate">
                       <i class="fas fa-clock"></i> По дате</button>
                   </div>
                 </div>
@@ -85,12 +68,12 @@
                 {% get_current_language as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE == 'en' %}
                 <div class="col action-buttons">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export">
+                  <button type="submit" form="activeproductposts" class="btn btn-primary custom-btn btn-block shadow" name="export">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
                 {% elif LANGUAGE_CODE == 'ru' %}
                 <div class="col action-buttons">
-                  <button type="submit" form="activeposts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
+                  <button type="submit" form="activeproductposts" class="btn btn-primary custom-btn btn-block shadow" name="export_ru">
                     <i class="fas fa-file-excel"></i> <span class="hidden-phone">{% trans "Save List" %}</span></button>
                 </div>
                 {% endif %}
@@ -115,12 +98,12 @@
           <div class="col-12 mb-4 mb-5">
             <div class="card bg-custom-primary-light shadow">
               <div class="card-body">
-                <form action="{% url 'posts' %}" method="POST" id="activeposts">
+                <form action="{% url 'product_ads' %}" method="POST" id="activeproductposts">
                 	{% csrf_token %}
-                  {% if listings %}
+                  {% if products %}
                         <div class="accordion" id="accordionExample">
                           <div class="card">
-                            {% for listing in listings %}
+                            {% for listing in products %}
                             <div class="card-header p-3 shadow-sm">
                              <div class="row">
                                <div class="col-md-1 text-center my-auto">
@@ -142,10 +125,6 @@
                                    <strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}<br>
                                   {% else %}
                                   {% endif %}
-                                  {% if listing.forester %}
-                                   <strong>{% trans "Fosterer" %}:</strong> {{ listing.forester.name }}
-                                  {% else %}
-                                  {% endif %}
                                 </div>
 
                                </div>
@@ -157,11 +136,10 @@
                                  {% else %}
                                  {% endif %}
                                  <p>
-                                   <i class="fas fa-paw"></i> {% trans "Category" %}:
+                                   <i class="fas fa-shapes"></i> {% trans "Category" %}:
                                    {% get_current_language as LANGUAGE_CODE %}
                                    {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
-                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
-
+                                   {% else %}{{ listing.category_id.title_ru }}{% endif %}
 
                                    / {% trans "Price" %}:
 
@@ -171,20 +149,14 @@
                                    {{ listing.price | intcomma }}
                                    {% endif %}
 
-                                   <br> {% trans "Type" %}:
+                              <br> {% trans "Город" %}:
 
-                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
-                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
+                                  {{ listing.city }}
 
+                                  / {% trans "Контакты для связи" %}:
 
-                                   /
-                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.breeds.title }}
-                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.breeds.title_ru }}{% endif %}
+                                  {{ listing.user_contact }}
 
-                                   / {% trans "Age" %}:
-
-                                   {% if LANGUAGE_CODE == 'en' %}{{ listing.age_id.title }}
-                                   {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
 
                                  </p>
                                 </div>
@@ -211,7 +183,7 @@
                                            {% if listing.photo_main %}
                                            <img src="{{ listing.photo_main.url }}" class="img-fluid">
                                            {% else %}
-                                           <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
+                                           <img src="{% static 'img/fostering.jpg' %}" class="img-fluid">
                                            {% endif %}
                                         </div>
                                      </div>
@@ -222,49 +194,7 @@
                                      {{ listing.description | safe | linebreaks }}
                                     </div>
 
-                                  </div>
-
-
-                                   <div class="row">
-                                     <div class="col-lg-5 text-center mt-4">
-                                       <strong>{% trans "Requests" %}</strong> - {{ listing.contact_set.all.count }}
-
-                                     </div>
-                                     <div class="col-lg-6 text-left">
-                                     </div>
-                                   </div>
-
-                                   {% for contact in contacts %}
-                                     {% if contact.attached_id == listing.id %}
-                                     <div class="row my-4">
-                                       <div class="col-lg-5 text-left px-md-5 px-0">
-                                         <p>
-                                           {{ contact.name }}
-                                           <br>
-                                           {% trans "Address" %}: {{ contact.address }}
-                                           <br>
-                                           {% trans "Contacts" %}: {{ contact.phone }},
-                                           {{ contact.links }}
-                                           <br>
-                                           {% trans "Group" %}: {{ contact.group }}
-                                         </p>
-                                       </div>
-                                       <div class="col-lg-6 px-sm-3 px-0">
-                                         <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
-                                       </div>
-                                     </div>
-
-                                       {% else %}
-                                       {% endif %}
-                                   {% endfor %}
-
-
-
-
-
-
-
-
+                                 </div>
                                </div>
                              </div>
                             </div>
@@ -283,21 +213,21 @@
 
 
               <div class="ml-4">
-                {% if listings.has_other_pages %}
+                {% if products.has_other_pages %}
                 <!-- <p>No Listings Available</p>
               </div>  -->
                     <ul class="pagination">
-                      {% if listings.has_previous %}
+                      {% if products.has_previous %}
                         <li class="page-item">
-                          <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;</a>
+                          <a href="?page={{products.previous_page_number}}" class="page-link">&laquo;</a>
                         </li>
                       {% else %}
                       <li class="page-item disabled">
                         <a class="page-link">&laquo;</a>
                       </li>
                       {% endif %}
-                      {% for i in listings.paginator.page_range %}
-                        {% if listings.number == i %}
+                      {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
                         <li class="page-item active">
                           <a class="page-link">{{i}}</a>
                         </li>
@@ -307,9 +237,9 @@
                         </li>
                         {% endif %}
                       {% endfor %}
-                      {% if listings.has_next %}
+                      {% if products.has_next %}
                         <li class="page-item">
-                          <a href="?page={{listings.next_page_number}}" class="page-link">&raquo;</a>
+                          <a href="?page={{products.next_page_number}}" class="page-link">&raquo;</a>
                         </li>
                       {% else %}
                       <li class="page-item disabled">

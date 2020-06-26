@@ -91,18 +91,18 @@ class Product(models.Model):
     user_contact = models.CharField(max_length=150, verbose_name = _('contacts'),)
     adstatus_id = models.ForeignKey(Adstatus, on_delete=models.DO_NOTHING, default='1')
     category_id = models.ForeignKey(ProductCategory, on_delete=models.DO_NOTHING, verbose_name= _('category'),)
-    title = models.CharField(max_length=200, verbose_name= _('title'),)
+    title = models.CharField(max_length=110, verbose_name= _('title'),)
     slug =  models.SlugField(max_length=200, blank=True, null=True, unique=True)
     price = models.IntegerField(verbose_name= _('price'),)
     city = models.CharField(max_length=20, verbose_name= _('city'),)
     description = models.TextField(max_length=1500, blank=True, verbose_name= _('description'),)
     created = models.DateTimeField(default=timezone.now, blank=True, verbose_name= _('created'),)
+    updated = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name= _('updated'),)
     featured = models.BooleanField(default=False)
     photo_main = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True, null=True, verbose_name = _('main photo'),)
     photo_1 = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True, null=True, verbose_name= _('photo_1'),)
     photo_2 = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True, null=True, verbose_name= _('photo_2'),)
     photo_3 = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True, null=True, verbose_name= _('photo_3'),)
-    photo_4 = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True, null=True, verbose_name= _('photo_4'),)
 
     objects = ProductManager()
 
@@ -151,15 +151,6 @@ class Product(models.Model):
                 output_size = (1000, 1000)
                 img.thumbnail(output_size)
                 img.save(self.photo_3.path)
-
-        if self.photo_4:
-
-            img = Image.open(self.photo_4.path)
-
-            if img.height > 1000 or img.width > 1000:
-                output_size = (1000, 1000)
-                img.thumbnail(output_size)
-                img.save(self.photo_4.path)
 
 def product_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:

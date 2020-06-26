@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block title %} | {% trans "New Listing" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+<div class="account-wrap">
+<!-- Posts -->
+<section id="contents">
+  <div class="container">
+    <div class="row pt-4 pb-5">
+      <div class="col-sm-10 col-12 mb-4 mx-auto">
+        <h3 class="text-center text-dark mb-3">{% trans "New Advertisement" %}</h3>
+        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+          <form enctype="multipart/form-data" method="POST">
+           {% csrf_token %}
+
+
+            <div class="row">
+
+              <div class="col-lg-9 col-12">
+                <div class="card">
+                  <div class="card-body">
+
+                        <div class="row my-lg-4">
+                          <div class="col-12 my-3">
+                            <label for="title">{% trans "Title" %}</label>
+                            {% render_field form.title class+="form-control shadow-sm" %}
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 col-12 my-3">
+                            <label>{% trans "Category" %}</label>
+                            {% get_current_language as LANGUAGE_CODE %}
+                            <select name="category" class="form-control shadow-sm" required>
+                              {% for category in categories %}
+                                  <option value="{{ category.id }}"
+                                    {% if category.id == product_instance.category_id.id %} selected {% else %}{% endif %}>
+                                    {% get_current_language as LANGUAGE_CODE %}
+                                    {% if LANGUAGE_CODE == 'en' %}{{ category.title }}
+                                    {% elif LANGUAGE_CODE == 'ru' %}{{ category.title_ru }}{% endif %}
+                                  </option>
+                                  {% endfor %}
+                            </select>
+                           </div>
+
+                          <div class="col-md-6 col-12 my-3">
+                            <label for="price">{% trans "Price" %}</label>
+                            {% render_field form.price class+="form-control shadow-sm" %}
+                          </div>
+                        </div>
+
+
+                       <div class="row">
+                         <div class="col-md-6 col-12 my-3">
+                           <label for="city">{% trans "City" %}</label>
+                           {% render_field form.city class+="form-control shadow-sm" %}
+                         </div>
+
+                         <div class="col-md-6 col-12 my-3">
+                           <label for="user_contact">{% trans "Contact Details" %}</label>
+                           {% render_field form.user_contact class+="form-control shadow-sm" %}
+                         </div>
+                       </div>
+
+
+                          <div class="col-12 my-3 px-0">
+                              <label for="description">{% trans "Description" %}</label>
+                              {% render_field form.description rows="8" class+="form-control shadow-sm" %}
+                          </div>
+
+                        <div class="col-md-4 mb-3 mx-auto" style="margin-top:60px;">
+                          <button class="btn btn-primary custom-btn btn-block shadow my-2" name="submit" value="Submit">{% trans "Submit form" %}</button>
+                        </div>
+
+                  </div>
+                </div>
+              </div>
+             <!-- END OF COL-10 -->
+             <!-- MAIN PHOTO -->
+             <div class="col-lg-3 col-12 mt-lg-0 mt-5 mx-auto image-fields">
+               <div class="">
+                 {% if product_instance.photo_main %}
+                  <div class="card shadow" id="container-image">
+                    <div id="dummy">
+                      <div id="element">
+                        <img src="{{ product_instance.photo_main.url }}" id="image-field-0" class="img-fluid">
+                   </div>
+                 </div>
+               </div>
+                 <div class="text-white text-center mr-4">
+                   <i class="fas fa-cut mr-1"></i>
+                   <input id="image-clear_id" name="image-clear" type="checkbox" />
+                 </div>
+                   {% else %}
+                   <div class="card shadow" id="container-image">
+                     <div id="dummy">
+                       <div id="element">
+                         <img src="" id="image-field-0" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                <label>
+                    <input id="selectedFile" type="file" name="photo_main" onchange="previewImage(event)">
+                </label>
+           </div>
+
+
+
+                   <div class="">
+                   {% if product_instance.photo_1 %}
+                     <div class="card shadow" id="container-image">
+                       <div id="dummy">
+                         <div id="element">
+                           <img src="{{ product_instance.photo_1.url }}" id="image-field-1" class="img-fluid">
+                         </div>
+                       </div>
+                     </div>
+                      <div class="text-white text-center mr-4">
+                        <i class="fas fa-cut mr-1"></i>
+                        <input id="image-clear_id" name="image-clear1" type="checkbox" />
+                      </div>
+                      {% else %}
+                      <div class="card shadow" id="container-image">
+                        <div id="dummy">
+                          <div id="element">
+                            <img src="" id="image-field-1" class="img-fluid">
+                          </div>
+                        </div>
+                      </div>
+                     {% endif %}
+                     <label>
+                         <input type="file" name="photo_1" onchange="previewImage1(event)">
+                     </label>
+                     </div>
+
+                      <div class="">
+                       {% if product_instance.photo_2 %}
+                        <div class="card shadow" id="container-image">
+                          <div id="dummy">
+                            <div id="element">
+                              <img src="{{ product_instance.photo_2.url }}" id="image-field-2" class="img-fluid">
+                            </div>
+                          </div>
+                        </div>
+                         <div class="text-white text-center mr-4">
+                           <i class="fas fa-cut mr-1"></i>
+                           <input id="image-clear_id" name="image-clear2" type="checkbox" />
+                         </div>
+                           {% else %}
+                           <div class="card shadow" id="container-image">
+                             <div id="dummy">
+                               <div id="element">
+                                 <img src="" id="image-field-2" class="img-fluid">
+                               </div>
+                             </div>
+                           </div>
+                          {% endif %}
+                          <label>
+                              <input type="file" name="photo_2" onchange="previewImage2(event)">
+                          </label>
+                         </div>
+
+                         <div class="">
+                           {% if product_instance.photo_3 %}
+                           <div class="card shadow" id="container-image">
+                             <div id="dummy">
+                               <div id="element">
+                                 <img src="{{ product_instance.photo_3.url }}" id="image-field-3" class="img-fluid">
+                               </div>
+                             </div>
+                           </div>
+                            <div class="text-white text-center mr-4">
+                              <i class="fas fa-cut mr-1"></i>
+                              <input id="image-clear_id" name="image-clear3" type="checkbox" />
+                            </div>
+                            {% else %}
+                            <div class="card shadow" id="container-image">
+                              <div id="dummy">
+                                <div id="element">
+                                  <img src="" id="image-field-3" class="img-fluid">
+                                </div>
+                              </div>
+                            </div>
+                           {% endif %}
+                           <label>
+                               <input type="file" name="photo_3" onchange="previewImage3(event)" >
+                           </label>
+                           </div>
+
+
+              </div>
+            </form>
+            <!-- END OF MAIN ROW -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+{% endblock %}
