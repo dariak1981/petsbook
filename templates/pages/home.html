@@ -12,7 +12,8 @@
       <div class="overlay m-sm-2 m-4 p-4 text-white shadow">
 
         <p class="lead intro" data-aos="fade" data-aos-duration="3000">
-
+          
+          {% get_current_language as LANGUAGE_CODE %}
           {% if LANGUAGE_CODE == 'en' %}{{ welcometext.content }}
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.content_ru }}{% endif %} &nbsp;<i class="fas fa-paw"></i>
 

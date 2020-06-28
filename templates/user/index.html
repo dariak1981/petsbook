@@ -183,20 +183,19 @@
 
 
  <section>
-    <div class="container">
-      <div class="row pb-5 d-flex justify-content-center">
+      <div class="row pb-5 d-flex justify-content-center mt-4 px-4 mx-0">
 
     {% if views %}
       {% for view in views %}
-        {% if view.content_object.adstatus_id_id == 2  %}
+        {% if view.adstatus_id_id == 2  %}
           <div class="col-6 col-md-4 col-lg-2 my-3">
             <div class="card listing-preview mx-sm-0 mx-2 shadow">
-              <a href="{% url 'listing' view.content_object.id %}">
+              <a href="{% url 'listing' view.id %}">
                 <div id="container-image">
                   <div id="dummy">
                     <div id="element-cards">
-                      {% if view.content_object.photo_main %}
-                       <img src="{{ view.content_object.photo_main.url }}" class="img-fluid cards">
+                      {% if view.photo_main %}
+                       <img src="{{ view.photo_main.url }}" class="img-fluid cards">
                       {% else %}
                         <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
                       {% endif %}
@@ -205,15 +204,15 @@
                 </div>
               </a>
               <div class="card-body py-1">
-                <div class="view.content_object-heading text-center my-1">
-                  <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
+                <div class="view-heading text-center my-1">
+                  <i class="fas fa-map-marker-alt"></i><small> {{ view.city }}</small>
                 </div>
                 <hr class="my-0">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item text-center p-2">
                       {% get_current_language as LANGUAGE_CODE %}
-                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
-                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
+                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.category_id.title | truncatechars:12}}</small>
+                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.category_id.title_ru | truncatechars:12}}</small>
                           {% endif %}
                   </li>
                  </ul>
@@ -226,15 +225,15 @@
 
   {% if views_product %}
         {% for view in views_product %}
-          {% if view.content_object.adstatus_id_id == 2  %}
+          {% if view.adstatus_id_id == 2  %}
             <div class="col-6 col-md-4 col-lg-2 my-3">
               <div class="card listing-preview mx-sm-0 mx-2 shadow">
-                <a href="{% url 'products:detail' view.content_object.slug %}">
+                <a href="{% url 'products:detail' view.slug %}">
                   <div id="container-image">
                     <div id="dummy">
                       <div id="element-cards">
-                        {% if view.content_object.photo_main %}
-                         <img src="{{ view.content_object.photo_main.url }}" class="img-fluid cards">
+                        {% if view.photo_main %}
+                         <img src="{{ view.photo_main.url }}" class="img-fluid cards">
                         {% else %}
                           <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
                         {% endif %}
@@ -243,15 +242,15 @@
                   </div>
                 </a>
                 <div class="card-body py-1">
-                  <div class="view.content_object-heading text-center my-1">
-                    <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
+                  <div class="view-heading text-center my-1">
+                    <i class="fas fa-map-marker-alt"></i><small> {{ view.city }}</small>
                   </div>
                   <hr class="my-0">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center p-2">
                         {% get_current_language as LANGUAGE_CODE %}
-                            {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
-                            {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
+                            {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.category_id.title | truncatechars:12}}</small>
+                            {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.category_id.title_ru | truncatechars:12}}</small>
                             {% endif %}
                     </li>
                    </ul>
@@ -263,7 +262,6 @@
       {% endif %}
 
      </div>
-    </div>
   </section>
 
 

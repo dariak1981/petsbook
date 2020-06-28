@@ -14,6 +14,7 @@ Wishlist
    <h3>Отложенные объявления</h3>
   </div>
 
+  {% if cart_items %}
   <div class="col-lg-10 col-md-6 col-12 mt-4 mx-auto">
    <div class="card bg-custom-primary-light shadow p-4">
     <div class="card">
@@ -78,10 +79,10 @@ Wishlist
     </div>
   </div>
 </div>
+{% endif %}
 
 
-
-  <div class="row pb-5 d-flex justify-content-center mt-4 px-3 mx-0">
+  <div class="row pb-5 d-flex justify-content-center mt-4 px-4 mx-0">
 
       {% if cart.listings.exists %}
         {% for cart_item in cart.listings.all %}

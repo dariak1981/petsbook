@@ -105,8 +105,8 @@ def dashboard(request):
   usermessages = Message.objects.filter(author=request.user.id).count()
   sitecontacts = Contact.objects.filter(user=request.user.id).count()
   pendingtime = Listing.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:1]
-  views = request.user.objectviewed_set.by_model(Listing)[:6]
-  views_product = request.user.objectviewed_set.by_model(Product)[:6]
+  views = request.user.objectviewed_set.by_model(Listing, model_queryset=True)[:6]
+  views_product = request.user.objectviewed_set.by_model(Product, model_queryset=True)[:6]
   published_products = Product.objects.filter(user_id=request.user.id).active()[:3]
   pendingtime_product = Product.objects.filter(user_id=request.user.id).active()[:1]
   # viewed_ids = []
