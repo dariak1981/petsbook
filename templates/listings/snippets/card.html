@@ -3,30 +3,13 @@
 {% load humanize %}
 
 
-<div class="col-xl-3 col-md-4 col-sm-6 my-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
-  <div class="card mx-sm-0 mx-4">
-    <div class="card-header border-0 p-0">
-      <div class="d-flex mb-1">
-
-        <form method='POST' action="{% url 'carts:update' %}">
-          {% csrf_token %}
-           <input type="hidden" name="listing_id" value="{{ listing.id }}">
-           {% if listing in cart.listings.all %}
-            <button type="submit" class="btn btn-link pl-0"><i class="fas fa-heart fa-lg"></i></button>
-           {% else %}
-            <button type="submit" class="btn btn-link pl-0"><i class="far fa-heart fa-lg"></i></button>
-           {% endif %}
-        </form>
-
-        {% get_current_language as LANGUAGE_CODE %}
-        {% if LANGUAGE_CODE == 'en' %}<div class="card-category my-auto">{{ listing.category_id.title }}</div>
-        {% else %}<div class="card-category my-auto">{{ listing.category_id.title_ru }}</div>{% endif %}
-
-      </div>
-
+<div class="col-xl-3 col-lg-4 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
+  <div class="card listing-preview mx-sm-0 mx-4">
+    <div class="card-header border-0">
 
     </div>
-    <div class="card-body listing-preview p-0 shadow">
+
+    <div class="card-body p-0 shadow" style="">
       <a href="{% url 'listing' listing.id %}">
         <div id="container-image">
           <div id="dummy">
@@ -40,6 +23,39 @@
           </div>
         </div>
       </a>
+
+
+      <div class="card-img-overlay pr-5 mr-5">
+        <span class="badge d-block badge-dark p-0" id="badge-listing"
+          {% if listing.category_id_id == 1 %}
+            style="background: #404466;"
+          {% elif listing.category_id_id == 2 %}
+            style="background: #806542;"
+          {% elif listing.category_id_id == 3 %}
+            style="background: #536e43;"
+          {% else %}
+            style="background: #613a43;"
+          {% endif %}
+        >
+          <div class="col-6 d-flex mb-1">
+            <form method='POST' action="{% url 'carts:update' %}">
+              {% csrf_token %}
+               <input type="hidden" name="listing_id" value="{{ listing.id }}">
+               {% if listing in cart.listings.all %}
+                <button type="submit" class="btn btn-link pl-0 text-white"><i class="fas fa-heart icon"></i></button>
+               {% else %}
+                <button type="submit" class="btn btn-link pl-0 text-white"><i class="far fa-heart icon"></i></button>
+               {% endif %}
+            </form>
+
+            {% get_current_language as LANGUAGE_CODE %}
+            {% if LANGUAGE_CODE == 'en' %}<h4 class="my-auto">{{ listing.category_id.title }}</h4>
+            {% else %}<h4 class="my-auto">{{ listing.category_id.title_ru }}</h4>{% endif %}
+          </div>
+        </span>
+      </div>
+
+
 
     <div class="px-3 pt-2">
       <div class="listing-heading text-center">
@@ -82,10 +98,10 @@
        </ul>
     </div>
   </div>
-  <div class="card-footer mx-sm-0 mx-4 border-0 bg-light">
-    <div class="col text-center">
-      <i class="fas fa-clock"></i><small> {{ listing.created | naturaltime }}</small>
-    </div>
-  </div>
+ </div>
+ <div class="card-footer mx-sm-0 mx-4 border-0 bg-light">
+   <div class="col text-center">
+     <i class="fas fa-clock"></i><small> {{ listing.created | naturaltime }}</small>
+   </div>
  </div>
 </div>

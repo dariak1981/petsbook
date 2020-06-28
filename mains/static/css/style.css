@@ -347,42 +347,11 @@ color: #fff;
   transform: scale(1.02);
 }
 
-#badge-1-homeless {
-  background: #404466;
-  color: #fff;
+#badge-listing {
   font-size: 1.3rem;
   font-family: 'Montserrat Alternates', sans-serif;
   text-transform: uppercase;
   padding: 0.5rem;
-  font-weight: 100;
-}
-
-#badge-2-lost {
-  background: #806542;
-  color: #fff;
-  font-size: 1.3rem;
-  font-family: 'Montserrat Alternates', sans-serif;
-  text-transform: uppercase;
-  padding: 0.5rem;
-  font-weight: 100;
-}
-#badge-3-forsale {
-  background: #536e43;
-  color: #fff;
-  font-size: 1.3rem;
-  font-family: 'Montserrat Alternates', sans-serif;
-  text-transform: uppercase;
-  padding: 0.5rem;
-  font-weight: 100;
-}
-#badge-4-seekshelp {
-  background: #613a43;
-  color: #fff;
-  font-size: 1.3rem;
-  font-family: 'Montserrat Alternates', sans-serif;
-  text-transform: uppercase;
-  padding: 0.5rem;
-  font-weight: 100;
 }
 
 .social .fab {
@@ -404,14 +373,21 @@ color: #fff;
 }
 
 
-
 /* IMAGES */
 
 /* LISTINGS CARDS - BADGES */
 .card-img-overlay {
-  pointer-events: none;
-  margin-top: -42px;
+  margin-top: -14px;
   left: -30px;
+  pointer-events:none;
+}
+
+.card-img-overlay .icon {
+  pointer-events:auto;
+}
+
+.card-img-overlay .icon:hover {
+  color: #ffcf57;
 }
 
 .img-profile-thumbnail {
