@@ -4,54 +4,45 @@
 
 
 <div class="col-xl-3 col-md-4 col-sm-6 my-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
-  <div class="card listing-preview mx-sm-0 mx-4 shadow">
-    <a href="{% url 'listing' listing.id %}">
-    {% if listing.photo_main %}
-    <div id="container-image">
-      <div id="dummy">
-        <div id="element-cards">
-           <img src="{{ listing.photo_main.url }}" class="img-fluid cards">
-         </div>
+  <div class="card mx-sm-0 mx-4">
+    <div class="card-header border-0 p-0">
+      <div class="d-flex mb-1">
+
+        <form method='POST' action="{% url 'carts:update' %}">
+          {% csrf_token %}
+           <input type="hidden" name="listing_id" value="{{ listing.id }}">
+           {% if listing in cart.listings.all %}
+            <button type="submit" class="btn btn-link pl-0"><i class="fas fa-heart fa-lg"></i></button>
+           {% else %}
+            <button type="submit" class="btn btn-link pl-0"><i class="far fa-heart fa-lg"></i></button>
+           {% endif %}
+        </form>
+
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE == 'en' %}<div class="card-category my-auto">{{ listing.category_id.title }}</div>
+        {% else %}<div class="card-category my-auto">{{ listing.category_id.title_ru }}</div>{% endif %}
+
       </div>
+
+
     </div>
-    {% else %}
-    <div id="container-image">
-      <div id="dummy">
-        <div id="element-cards">
-           <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
-         </div>
-      </div>
-    </div>
-    {% endif %}
-    </a>
-    <div class="card-img-overlay">
-      {% get_current_language as LANGUAGE_CODE %}
-      {% if listing.category_id_id == 1 %}
+    <div class="card-body listing-preview p-0 shadow">
+      <a href="{% url 'listing' listing.id %}">
+        <div id="container-image">
+          <div id="dummy">
+            <div id="element-cards">
+              {% if listing.photo_main %}
+               <img src="{{ listing.photo_main.url }}" class="img-fluid cards">
+              {% else %}
+               <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
+              {% endif %}
+             </div>
+          </div>
+        </div>
+      </a>
 
-      {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-1-homeless">{{ listing.category_id.title }}</span>
-      {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-1-homeless">{{ listing.category_id.title_ru }}</span>{% endif %}
-
-
-      {% elif listing.category_id_id == 2 %}
-
-      {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-2-lost">{{ listing.category_id.title }}</span>
-      {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-2-lost">{{ listing.category_id.title_ru }}</span>{% endif %}
-
-      {% elif listing.category_id_id == 3 %}
-
-      {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-3-forsale">{{ listing.category_id.title }}</span>
-      {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-3-forsale">{{ listing.category_id.title_ru }}</span>{% endif %}
-
-      {% else %}
-
-      {% if LANGUAGE_CODE == 'en' %}<span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title }}</span>
-      {% elif LANGUAGE_CODE == 'ru' %}<span class="badge" id="badge-4-seekshelp">{{ listing.category_id.title_ru }}</span>{% endif %}
-
-      {% endif %}
-    </div>
-    <div class="card-body py-2">
-
-      <div class="listing-heading text-center mt-1">
+    <div class="px-3 pt-2">
+      <div class="listing-heading text-center">
         <i class="fas fa-map-marker-alt"></i> {{ listing.city }}
       </div>
       <div class="text-center">
@@ -63,21 +54,21 @@
           <div class="">
             {% get_current_language as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.types_id.title }}
-                {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.types_id.title_ru }}{% endif %}
+                {% else %}<i class="fas fa-angle-down"></i> {{ listing.types_id.title_ru }}{% endif %}
           </div>
 
           <div class="">
             {% get_current_language as LANGUAGE_CODE %}
                 {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.breeds.title | truncatechars:12}}
-                {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.breeds.title_ru | truncatechars:12}}{% endif %}
+                {% else %}<i class="fas fa-angle-down"></i> {{ listing.breeds.title_ru | truncatechars:12}}{% endif %}
           </div>
 
         </li>
-        <li class="list-group-item d-flex justify-content-between align-items-start p-2">
+        <li class="list-group-item d-flex justify-content-between align-items-start p-2 mb-2">
           <div class="">
             {% get_current_language as LANGUAGE_CODE %}
             {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ listing.gender_id.title }}
-            {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> {{ listing.gender_id.title_ru }}{% endif %}
+            {% else %}<i class="fas fa-angle-down"></i> {{ listing.gender_id.title_ru }}{% endif %}
           </div>
           <div class="">
             {% if listing.price == 0 %}
@@ -96,4 +87,5 @@
       <i class="fas fa-clock"></i><small> {{ listing.created | naturaltime }}</small>
     </div>
   </div>
+ </div>
 </div>

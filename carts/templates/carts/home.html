@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load user_agents %}
+{% block title %} | Список желаний {% endblock %}
+{% block content %}
+
+
+<div class="account-wrap py-5" style="min-height:550px;">
+    <div class="col-sm-10 col-12 mx-auto mt-4">
+      {% include 'carts/cart.html' %}
+    </div>
+
+    <section>
+       <div class="container mt-5">
+         <div class="row pb-5 d-flex justify-content-center">
+
+             {% if cart.listings.exists %}
+               {% for cart_item in cart.listings.all %}
+                   <div class="col-6 col-md-4 col-lg-2 my-3">
+                     <div class="card listing-preview mx-sm-0 mx-2 shadow">
+                       <a href="{% url 'listing' cart_item.id %}">
+                         <div id="container-image">
+                           <div id="dummy">
+                             <div id="element-cards">
+                               {% if cart_item.photo_main %}
+                                <img src="{{ cart_item.photo_main.url }}" class="img-fluid cards">
+                               {% else %}
+                                 <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
+                               {% endif %}
+                              </div>
+                           </div>
+                         </div>
+                       </a>
+                       <div class="card-body py-1">
+                         <div class="view.content_object-heading text-center my-1">
+                           <i class="fas fa-map-marker-alt"></i><small> {{ cart_item.city }}</small>
+                         </div>
+                         <hr class="my-0">
+                         <ul class="list-group list-group-flush">
+                           <li class="list-group-item text-center p-2">
+                               {% get_current_language as LANGUAGE_CODE %}
+                                   {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ cart_item.category_id.title | truncatechars:12}}</small>
+                                   {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ cart_item.category_id.title_ru | truncatechars:12}}</small>
+                                   {% endif %}
+                           </li>
+                          </ul>
+                       </div>
+                     </div>
+                   </div>
+               {% endfor %}
+           {% endif %}
+
+        </div>
+       </div>
+     </section>
+
+</div>
+
+
+
+
+{% endblock %}

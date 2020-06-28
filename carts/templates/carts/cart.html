@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+Wishlist
+{% endblock %}
+
+{% block content %}
+
+<div class="account-wrap py-5" style="min-height:550px;">
+
+  <div class="col-12 mx-auto text-center mt-4">
+   <h3>Отложенные объявления</h3>
+  </div>
+
+  <div class="col-lg-10 col-md-6 col-12 mt-4 mx-auto">
+   <div class="card bg-custom-primary-light shadow p-4">
+    <div class="card">
+      {% for cart_item in cart_items %}
+      <div class="card-header border-0 px-lg-0 px-5 pt-4 shadow-sm">
+        <div class="row mx-0">
+          <div class="col-lg-1 col-12 text-center px-0 my-lg-0 my-4">
+            <strong>{{ forloop.counter }}</strong>
+          </div>
+          <div class="col-lg-2 col-12 p-0">
+            <a href="{{ cart_item.product.get_absolute_url }}">
+                <div class="card shadow" id="container-image">
+                  <div id="dummy">
+                    <div id="element">
+                    {% if cart_item.product.photo_main %}
+                    <img src="{{ cart_item.product.photo_main.url }}" class="img-fluid">
+                    {% else %}
+                    <img src="{% static 'img/fostering.jpg' %}" class="img-fluid">
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </a>
+          </div>
+          <div class="col-lg-4 col-12 mt-lg-0 mt-4 text-lg-left text-center">
+            <a href="{{ cart_item.product.get_absolute_url }}">{{ cart_item.product.title }}</a>
+          </div>
+          <div class="col-lg-2 col-12 text-center px-0">
+            {{ cart_item.product.category_id.title_ru }}, <br>{{ cart_item.product.city }}
+          </div>
+          <div class="col-lg-1 col-12 text-center px-0">
+            {% if not cart_item.product.price == 0 %}
+            Кол-во: {{ cart_item.quantity }} x
+            {{ cart_item.product.price | intcomma }}
+            {% else %}
+            Кол-во: {{ cart_item.quantity }} x
+            {% trans "For free" %}
+            {% endif %}
+          </div>
+          <div class="col-lg-1 col-12 text-center px-0">
+            {{ cart_item.sub_total | intcomma }}
+          </div>
+          <div class="col-lg-1 col-12 text-center px-0 mt-lg-0 mt-4">
+            <div class="flex-lg-column d-flex justify-content-center">
+              <div class="px-lg-0 px-4">
+                <a href="{% url 'carts:add_cart' cart_item.product.id %}"><i class="fas fa-plus"></i></a>
+              </div>
+              <div class="px-lg-0 px-4">
+                <a href="{% url 'carts:cart_remove' cart_item.product.id %}"><i class="fas fa-minus"></i></a>
+              </div>
+              <div class="px-lg-0 px-4">
+                <a href="{% url 'carts:cart_remove_product' cart_item.product.id %}"><i class="fas fa-times"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-12 mt-lg-3 mt-4 text-lg-right text-center text-white">
+      <h4 class="mb-0">Общая стоимость: &nbsp;{{ total }}</h4>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="row pb-5 d-flex justify-content-center mt-4 px-3 mx-0">
+
+      {% if cart.listings.exists %}
+        {% for cart_item in cart.listings.all %}
+            <div class="col-6 col-md-4 col-lg-2 my-4">
+              <div class="card listing-preview mx-sm-0 mx-2 bg-transparent">
+                <div class="cart-header">
+                    <span class="badge">
+                      <form method='POST' action="{% url 'carts:update' %}">
+                        {% csrf_token %}
+                         <input type="hidden" name="listing_id" value="{{ cart_item.id }}">
+                         <button type="submit" class="btn btn-link p-0" name="button"><i class="fas fa-times"></i></button>
+                      </form>
+                    </span>
+                </div>
+                <div class="cart-body bg-white shadow">
+                  <a href="{% url 'listing' cart_item.id %}">
+                    <div id="container-image">
+                      <div id="dummy">
+                        <div id="element-cards">
+                          {% if cart_item.photo_main %}
+                           <img src="{{ cart_item.photo_main.url }}" class="img-fluid cards">
+                          {% else %}
+                            <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
+                          {% endif %}
+                         </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  <div class="py-1">
+                    <div class="view.content_object-heading text-center my-1">
+                      <i class="fas fa-map-marker-alt"></i><small> {{ cart_item.city }}</small>
+                    </div>
+                    <hr class="my-0">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item text-center p-2">
+                          {% get_current_language as LANGUAGE_CODE %}
+                              {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ cart_item.category_id.title | truncatechars:12}}</small>
+                              {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ cart_item.category_id.title_ru | truncatechars:12}}</small>
+                              {% endif %}
+                      </li>
+                     </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

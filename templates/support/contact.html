@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load tz %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %} | {% trans "Support" %} {% endblock %}
+{% block content %}
+
+
+<!-- Account Navbar -->
+{% include 'partials/_supportnavbar.html' %}
+
+
+<div class="account-wrap py-5" style="min-height:550px;">
+  <section>
+
+      <div class="container">
+        <div class="row justify-content-center mt-4">
+          <div class="col-12 col-md-8 col-lg-6 pb-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="py-2 px-3 mb-3">
+              <h3 class="text-dark text-center">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% if LANGUAGE_CODE == 'en' %}{{ intro.title }}
+                {% else %}{{ intro.title_ru }}{% endif %}
+              </h3>
+              <p class="text-left">
+                {% if LANGUAGE_CODE == 'en' %}{{ intro.content | safe | linebreaks }}
+                {% else %}{{ intro.content_ru | safe | linebreaks }}{% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-8 col-lg-6 px-5 mb-5" data-aos="fade-up" data-aos-delay="300">
+           <form action="{% url 'support' %}" method="POST">
+             {% csrf_token %}
+             <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+               <div class="card-body">
+                 <div class="text-white text-center mb-4">
+                   <h3>Контакты</h3>
+                   <p>Ваши вопросы и предложения</p>
+                 </div>
+
+                 <div class="form-group">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-envelope-open-text text-dark"></i></span>
+                      </div>
+                      {% render_field form.subject class+="form-control" placeholder="Тема сообщения" %}
+                    </div>
+                 </div>
+
+                 <div class="form-group">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-comment text-dark"></i></span>
+                      </div>
+                      {% render_field form.message rows="7" class+="form-control" %}
+                    </div>
+                 </div>
+
+                  <button type="submit" class="btn btn-block btn-outline-light">Отправить</button>
+
+               </div>
+             </div>
+           </form>
+          </div>
+        </div>
+      </div>
+
+ </section>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load tz %}
+{% load static %}
+{% block title %} | {% trans "Dashboard" %} {% endblock %}
+{% block content %}
+
+
+<!-- Account Navbar -->
+{% include 'partials/_supportnavbar.html' %}
+
+<!-- Actions -->
+<div class="account-wrap py-5" style="min-height:550px;">
+  <section>
+
+
+    <div class="container">
+      <div class="row pt-4 pb-5">
+        <div class="col-sm-10 col-12 mb-4 mx-auto">
+          <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+            <div class="card">
+              <div class="card-body pt-0">
+                 {% for item in guidance %}
+                  <h3 class="my-4">
+                   {% get_current_language as LANGUAGE_CODE %}
+                   {% if LANGUAGE_CODE == 'en' %}{{ item.title }}
+                   {% else %}{{ item.title_ru }}{% endif %}
+                 </h3>
+                  <p>
+                    {% if LANGUAGE_CODE == 'en' %}{{ item.content }}
+                    {% else %}{{ item.content_ru }}{% endif %}
+                  </p>
+                 {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+</div>
+
+
+{% endblock %}

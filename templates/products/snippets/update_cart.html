@@ -1,0 +1,11 @@
+{% load i18n %}
+
+<form method='POST' action="{% url 'carts:update' %}" class="text-center mt-3">
+  {% csrf_token %}
+   <input type="hidden" name="listing_id" value="{{ listing.id }}">
+    {% if listing in cart.listings.all %}
+     <button type="submit" class="btn btn-link" name="button"><i class="fas fa-heart fa-lg"></i></button>
+   {% else %}
+     <button type="submit" class="btn btn-link" name="button"><i class="far fa-heart fa-lg"></i></button>
+   {% endif %}
+</form>

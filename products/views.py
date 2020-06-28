@@ -7,6 +7,7 @@ from .models import Product, ProductCategory
 from listings.models import Listing
 from pages.models import Services
 from analysis.mixins import ObjectViewedMixin
+from carts.models import Cart, CartItem
 
 class ProductListView(ListView):
     template_name = 'products/list.html'
@@ -47,6 +48,12 @@ class ProductDetailSlugView(ObjectViewedMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailSlugView, self).get_context_data(*args, **kwargs)
+        cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+        context['cart'] = cart_obj
+        items_wishlisted = CartItem.objects.filter(cart=cart_obj)
+        q = self.kwargs.get('slug')
+        wishlisted = items_wishlisted.filter(product__slug=q)
+        context['wishlisted'] = wishlisted
         context['services'] = Services.objects.all()
         return context
 

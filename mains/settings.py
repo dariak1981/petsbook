@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'analysis',
     'marketing',
     'products',
+    'support',
+    'carts',
 ]
 
 MAILCHIMP_API_KEY = 'bd61bf7671c4685b4bee68fd1104b474-us10'
@@ -85,6 +87,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'carts.context_processors.counter',
+                'carts.context_processors.wishitems',
+                'carts.context_processors.listingitems',
             ],
 
             'libraries':{

@@ -4,6 +4,7 @@ from listings.models import Listing, Category, Taps, Age, Breeds
 from listings.forms import *
 from .models import WelcomeText, Services, Terms
 from products.models import Product, ProductCategory
+from carts.models import Cart
 
 def home(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2')[:4]
@@ -15,6 +16,7 @@ def home(request):
   welcometext = WelcomeText.objects.first()
   products = Product.objects.order_by('-created').filter(adstatus_id = '2')[:3]
   product_categories = ProductCategory.objects.all()
+  cart_obj, new_obj = Cart.objects.new_or_get(request)
 
   context = {
     'listings': listings,
@@ -27,6 +29,7 @@ def home(request):
     'welcometext': welcometext,
     'object_list': products,
     'category_links': product_categories,
+    'cart':cart_obj
   }
 
   return render(request, 'pages/home.html', context)

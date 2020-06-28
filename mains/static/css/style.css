@@ -319,6 +319,11 @@ color: #fff;
   background: #613a43;
 }
 
+.card-category {
+  font-size: 1.1rem;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
 /* CARDS ANIMATION */
 .card.listing-preview {
   border-radius: 5px;
@@ -329,7 +334,17 @@ color: #fff;
 .card.listing-preview:hover {
   color: rgb(15, 15, 15);
   transform: scale(1.02);
+}
 
+.card-body.listing-preview {
+  border-radius: 5px;
+  position: relative;
+  color: rgb(95, 95, 95);
+}
+
+.card-body.listing-preview:hover {
+  color: rgb(15, 15, 15);
+  transform: scale(1.02);
 }
 
 #badge-1-homeless {

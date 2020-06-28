@@ -11,27 +11,22 @@
 {% include 'partials/_accountnavbar.html' %}
 
  <!-- Actions -->
- <div class="account-wrap" style="min-height:550px;">
+ <div class="account-wrap pb-5" style="min-height:550px;">
 
 
-<section id="actions" class="py-4 shadow">
+<section id="actions" class="py-4 mb-5 shadow">
   <div class="container">
     <div class="container-fluid px-0">
       <div class="row">
 
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
             <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-share-alt"></i> <span class="hidden-phone">{% trans "Active" %}</span><strong> {{ active_listings }}</strong></button>
+              <i class="fas fa-share-alt"></i> <span class="hidden-phone">Объявления</span><strong> {{ all_listings }}</strong></button>
           </div>
 
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
             <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-stopwatch"></i> <span class="hidden-phone">{% trans "Hidden" %}</span><strong> {{ hidden_listings }}</strong></button>
-          </div>
-
-          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="300">
-            <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-lock"></i> <span class="hidden-phone">{% trans "Archived" %}</span><strong> {{ archived_listings }}</strong></button>
+              <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Предложений</span><strong> {{ all_products }}</strong></button>
           </div>
 
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="400">
@@ -60,14 +55,13 @@
           <div class="card bg-custom-primary-light shadow">
             <div class="card-header text-white">
 
-              <h4>Последние публикации объявлений</h4>
+              <h4>Активные объявления</h4>
               <small>
-                {% if pendingtime %}
-                <i class="fas fa-bell"></i> Обновлено: &nbsp;
+                Всего опубликовано: {{ active_listings }}
+                &nbsp;&nbsp; <i class="fas fa-bell"></i> Обновлено: &nbsp;&nbsp;
                 {% for time in pendingtime %}
                  {{ time.created | naturaltime }}
                 {% endfor %}
-                {% endif %}
               </small>
 
             </div>
@@ -119,18 +113,16 @@
    {% endif %}
 
    {% if published_products %}
-       <div class="col-md-10 mx-auto py-4 mt-3">
+       <div class="col-md-10 mx-auto py-4">
          <div class="card bg-custom-primary-light shadow">
            <div class="card-header text-white">
 
              <h4>Активные предложения по товарам и услугам</h4>
-             <small>
-               {% if pendingtime_product %}
-               <i class="fas fa-bell"></i> Обновлено: &nbsp;
+             <small>  Всего опубликовано: {{ active_products }}
+               &nbsp;&nbsp; <i class="fas fa-bell"></i> Обновлено: &nbsp;
                {% for time in pendingtime_product %}
                 {{ time.created | naturaltime }}
                {% endfor %}
-               {% endif %}
              </small>
 
            </div>
@@ -165,7 +157,7 @@
 
                          </td>
                          <td>
-                           <a href="{% url 'listing' listing.id %}" class="btn btn-primary custom-btn shadow">
+                           <a href="{% url 'products:detail' listing.slug %}" class="btn btn-primary custom-btn shadow">
                              <i class="fas fa-angle-double-right"></i>
                              <!-- add link to main page -->
                            </a>
@@ -180,63 +172,100 @@
        </div>
   {% endif %}
 
-{% if views %}
-<section style="min-height:300px;">
-     <div class="col-12 mt-5 mb-4 mx-auto text-center">
-       <h3>История просмотров</h3>
-     </div>
-    <div class="container pb-5">
-      <div class="row mb-3 d-flex justify-content-center">
 
-        {% for view in views %}
-        {% if view.content_object.adstatus_id_id == 2 %}
-        <div class="col-9 col-md-4 col-lg-2 my-3">
-          <div class="card listing-preview mx-sm-0 mx-2 shadow">
-            <a href="{% url 'listing' view.content_object.id %}">
-              <div id="container-image">
-                <div id="dummy">
-                  <div id="element-cards">
-                    {% if view.content_object.photo_main %}
-                     <img src="{{ view.content_object.photo_main.url }}" class="img-fluid cards">
-                    {% else %}
-                      <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
-                    {% endif %}
-                   </div>
+  <div class="col-12 mt-5 mb-4 mx-auto text-center">
+   <h3>История просмотров
+   {% if not active_products and not active_listings %}
+   и объявлений
+   {% endif %}
+   </h3>
+  </div>
+
+
+ <section>
+    <div class="container">
+      <div class="row pb-5 d-flex justify-content-center">
+
+    {% if views %}
+      {% for view in views %}
+        {% if view.content_object.adstatus_id_id == 2  %}
+          <div class="col-6 col-md-4 col-lg-2 my-3">
+            <div class="card listing-preview mx-sm-0 mx-2 shadow">
+              <a href="{% url 'listing' view.content_object.id %}">
+                <div id="container-image">
+                  <div id="dummy">
+                    <div id="element-cards">
+                      {% if view.content_object.photo_main %}
+                       <img src="{{ view.content_object.photo_main.url }}" class="img-fluid cards">
+                      {% else %}
+                        <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
+                      {% endif %}
+                     </div>
+                  </div>
                 </div>
+              </a>
+              <div class="card-body py-1">
+                <div class="view.content_object-heading text-center my-1">
+                  <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
+                </div>
+                <hr class="my-0">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item text-center p-2">
+                      {% get_current_language as LANGUAGE_CODE %}
+                          {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
+                          {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
+                          {% endif %}
+                  </li>
+                 </ul>
               </div>
-            </a>
-            <div class="card-body py-1">
-              <div class="view.content_object-heading text-center my-1">
-                <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
-              </div>
-              <hr class="my-0">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center p-2">
-                    {% get_current_language as LANGUAGE_CODE %}
-                        {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
-                        {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
-                        {% endif %}
-                </li>
-               </ul>
             </div>
           </div>
-        </div>
-
         {% endif %}
+      {% endfor %}
+  {% endif %}
+
+  {% if views_product %}
+        {% for view in views_product %}
+          {% if view.content_object.adstatus_id_id == 2  %}
+            <div class="col-6 col-md-4 col-lg-2 my-3">
+              <div class="card listing-preview mx-sm-0 mx-2 shadow">
+                <a href="{% url 'products:detail' view.content_object.slug %}">
+                  <div id="container-image">
+                    <div id="dummy">
+                      <div id="element-cards">
+                        {% if view.content_object.photo_main %}
+                         <img src="{{ view.content_object.photo_main.url }}" class="img-fluid cards">
+                        {% else %}
+                          <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid cards">
+                        {% endif %}
+                       </div>
+                    </div>
+                  </div>
+                </a>
+                <div class="card-body py-1">
+                  <div class="view.content_object-heading text-center my-1">
+                    <i class="fas fa-map-marker-alt"></i><small> {{ view.content_object.city }}</small>
+                  </div>
+                  <hr class="my-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center p-2">
+                        {% get_current_language as LANGUAGE_CODE %}
+                            {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title | truncatechars:12}}</small>
+                            {% elif LANGUAGE_CODE == 'ru' %}<i class="fas fa-angle-down"></i> <small>{{ view.content_object.category_id.title_ru | truncatechars:12}}</small>
+                            {% endif %}
+                    </li>
+                   </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
         {% endfor %}
+      {% endif %}
 
      </div>
     </div>
   </section>
-    {% else %}
 
-      {% if not published_listings %}
-      <div class="col-12 my-5 mx-auto text-center">
-       <h3>История просмотров и объявлений</h3>
-      </div>
-      {% endif %}
-
-    {% endif %}
 
 
 

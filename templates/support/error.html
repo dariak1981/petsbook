@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load tz %}
+{% load static %}
+{% block title %} | {% trans "Dashboard" %} {% endblock %}
+{% block content %}
+
+
+<!-- Account Navbar -->
+{% include 'partials/_supportnavbar.html' %}
+
+<!-- Actions -->
+<div class="account-wrap py-5" style="min-height:550px;">
+  <section>
+
+
+    <div class="container">
+      <div class="row pt-4 pb-5">
+        <div class="col-sm-10 col-12 mb-4 mx-auto text-center">
+          <h3>Неверный запрос, попробуйте отправить сообщение еще раз</h3>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+</div>
+
+
+{% endblock %}

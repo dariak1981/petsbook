@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import ProductCategory, Adstatus, Product
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'price', 'city', 'adstatus_id', 'category_id', 'slug']
+    list_display = ['id', '__str__', 'price', 'city', 'adstatus_id', 'category_id', 'slug']
     list_editable = ['adstatus_id', 'category_id']
     class Meta:
         model = Product

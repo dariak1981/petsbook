@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from datetime import date
 from .models import Listing, Category, Taps, Age, Breeds
+from carts.models import Cart
 from blog.models import Post
 from .choices import price_choices
 from pages.models import Services
@@ -14,6 +15,7 @@ User = get_user_model()
 
 def index(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2').exclude(category_id = '3')
+  cart_obj, new_obj = Cart.objects.new_or_get(request)
 
 
   paginator = Paginator(listings, 12)
@@ -21,7 +23,8 @@ def index(request):
   paged_listings = paginator.get_page(page)
 
   context = {
-    'listings': paged_listings
+    'listings': paged_listings,
+    'cart':cart_obj
    }
   return render(request, 'listings/listings.html', context)
 
@@ -35,14 +38,15 @@ def listing(request, listing_id):
   field_video = 'video'
   field_video_value = getattr(listing, field_video)
   youtube = field_video_value.rsplit('=', 1)[-1]
-
+  cart_obj, new_obj = Cart.objects.new_or_get(request)
 
   context = {
   'listing':listing,
   'services': services,
   'activeads':activeads,
   'featuredlistings':featuredlistings,
-  'youtube':youtube
+  'youtube':youtube,
+  'cart':cart_obj
   }
   object_viewed_signal.send(listing.__class__, instance=listing, request=request)
   return render(request, 'listings/listing.html', context)
@@ -55,8 +59,7 @@ def searchlistings(request):
     ages = Age.objects.all()
     services = Services.objects.all()
     queryset_list = Listing.objects.order_by('-created').filter(adstatus_id = '2')
-
-
+    cart_obj, new_obj = Cart.objects.new_or_get(request)
 
 
     # keywords
@@ -113,6 +116,7 @@ def searchlistings(request):
      'ages': ages,
      'price_choices': price_choices,
      'values':request.GET,
-     'services': services
+     'services': services,
+     'cart':cart_obj
     }
     return render(request, 'listings/search.html', context)

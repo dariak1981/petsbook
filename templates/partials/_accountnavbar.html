@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 my-2">
-        <nav class="navbar navbar-expand navbar-dark sticky-top">
+        <nav class="navbar navbar-expand navbar-dark justify-content-center sticky-top">
         <ul class="navbar-nav">
           <li
             {% if 'dashboard' in request.path %}
@@ -13,7 +13,7 @@
               class="nav-item pr-2"
             {% endif %}
           >
-            <a href="{% url 'dashboard' %}" class="nav-link">{% trans "Dashboard" %}</a>
+            <a href="{% url 'dashboard' %}" class="nav-link">Общая информация</a>
           </li>
           <li
             {% if 'ads' in request.path or 'new-listing' in request.path or 'edit-listing' in request.path or 'archived' in request.path or 'fostered' in request.path or 'requested' in request.path %}
@@ -31,7 +31,7 @@
               class="nav-item px-2"
             {% endif %}
           >
-            <a href="{% url 'contacts' %}" class="nav-link">{% trans "Contacts" %}</a>
+            <a href="{% url 'contacts' %}" class="nav-link">Владельцы и передержка</a>
           </li>
           <li
             {% if 'my-proposals' in request.path or 'new-product' in request.path or 'edit-product' in request.path %}

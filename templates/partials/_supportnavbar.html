@@ -1,0 +1,32 @@
+{% load i18n %}
+<!-- SubMenu / Search -->
+<header class="bg-custom-primary shadow header-sticky" style="z-index:5;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 my-2">
+        <nav class="navbar navbar-expand navbar-dark justify-content-center sticky-top">
+        <ul class="navbar-nav">
+          <li
+            {%  if 'info' in request.path  %}
+              class="nav-item pr-2 active"
+            {% else %}
+              class="nav-item pr-2"
+            {% endif %}
+          >
+            <a href="{% url 'support' %}" class="nav-link">Общая информация и контакты</a>
+          </li>
+          <li
+            {% if 'guidance' in request.path %}
+              class="nav-item px-2 active"
+            {% else %}
+              class="nav-item px-2"
+            {% endif %}
+          >
+            <a href="{% url 'guidance' %}" class="nav-link">Работа с сайтом</a>
+          </li>
+         </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

@@ -11,13 +11,6 @@
 
       <div class="overlay m-sm-2 m-4 p-4 text-white shadow">
 
-        <h1 class="d-none d-sm-block display-4 mb-4">
-
-          {% get_current_language as LANGUAGE_CODE %}
-          {% if LANGUAGE_CODE == 'en' %}{{ welcometext.title }}
-          {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.title_ru }}{% endif %}
-
-        </h1>
         <p class="lead intro" data-aos="fade" data-aos-duration="3000">
 
           {% if LANGUAGE_CODE == 'en' %}{{ welcometext.content }}
