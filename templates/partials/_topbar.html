@@ -139,9 +139,9 @@
         {% if not request.user_agent.is_bot %}
             <li
               {% if 'register' in request.path%}
-                class="nav-item px-2 mr-3 active"
+                class="nav-item my-auto px-2 mr-3 active"
               {% else %}
-                class="nav-item px-2 mr-3"
+                class="nav-item my-auto px-2 mr-3"
               {% endif %}
             >
               <a href="{% url 'register' %}" class="nav-link">
@@ -150,9 +150,9 @@
             </li>
             <li
               {% if 'login' in request.path%}
-                class="nav-item pr-2 active"
+                class="nav-item my-auto pr-2 active"
               {% else %}
-                class="nav-item pr-2"
+                class="nav-item my-auto pr-2"
               {% endif %}
             >
               <a href="{% url 'login' %}" class="nav-link">
