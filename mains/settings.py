@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'mains.wsgi.application'
 #          'HOST': 'localhost'
 #      }
 # }
-
+#
 DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql',

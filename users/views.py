@@ -21,7 +21,7 @@ from .models import Contact, Contactstype, Contactsgroup
 from accounts.models import UserType, Profile
 from marketing.forms import MarketingPreferenceForm
 from marketing.models import MarketingPreference, marketing_pref_update_receiver
-from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, AttachContactsForm, AttachRequestForm, RemoveRequestForm
+from .forms import ListingForm, ContactForm, ArchiveForm, UserForm, AttachContactsForm
 from blog.models import Post, Message
 from analysis.models import ObjectViewed
 from products.models import ProductCategory, Product
@@ -428,8 +428,6 @@ def forested(request, listing_id):
     if request.method == "POST":
       form = AttachContactsForm(request.POST, instance=forested)
       if form.is_valid():
-          form = form.save(commit=False)
-          form.adstatus_id = get_object_or_404(Adstatus, pk=4)
           form.save()
           return redirect('posts')
       else:
@@ -440,40 +438,18 @@ def forested(request, listing_id):
 @login_required
 def requested(request, listing_id):
     requested = get_object_or_404(Listing, pk=listing_id)
-    attachedrequests = Contact.objects.filter(attached_id=listing_id).filter(user_id=request.user.id)
-    contacts = Contact.objects.filter(user_id=request.user.id).exclude(attached_id=listing_id)
-    form = RemoveRequestForm(request.POST)
+    contacts = Contact.objects.filter(user=request.user)
+
+    if request.method == "POST":
+        contacts_selected = request.POST.getlist('contacts_list')
+        requested.requests.set(contacts_selected)
+        requested.save()
+        return redirect('posts')
 
     context = {
         'requested': requested,
-        'attachedrequests':attachedrequests,
-        'contacts':contacts,
-        "form": form,
+        'contacts': contacts,
     }
-
-    if request.method=="POST" and 'addrequest' in request.POST:
-        id_selected = request.POST.get('contact')
-        if id_selected != '':
-            contact = Contact.objects.get(id=id_selected)
-            contact.attached_id = listing_id
-            contact.save()
-            return redirect('posts')
-        else:
-            return redirect('posts')
-
-    if request.method=="POST" and 'removerequest' in request.POST:
-        form = RemoveRequestForm(request.POST or None)
-        if form.is_valid():
-            is_checked = request.POST.getlist('checkedid')
-
-            for i in is_checked:
-                contact = Contact.objects.get(id=i)
-                form = RemoveRequestForm(request.POST, instance = contact)
-                form.attached_id = None
-                form.save()
-            return redirect('posts')
-        else:
-            form = RemoveRequestForm()
 
     return render(request, 'user/requested.html', context)
 

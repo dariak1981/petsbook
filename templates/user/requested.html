@@ -3,7 +3,6 @@
 {% load static %}
 {% load humanize %}
 {% block title %} | Добавление заявки на питомца {% endblock %}
-{% load crispy_forms_tags %}
 {% block content %}
 
 <!-- Account Navbar -->
@@ -79,67 +78,36 @@
               </div>
 
               <div class="card-body p-0 mt-5">
+               <div class="card">
+                <div class="card-body">
 
+                  <div class="col-12 my-4 text-center"><h3>Контакты</h3></div>
+                   <div class="col-md-10 mx-auto text-center">
 
-
-                     <div class="card">
-                       <div class="card-body">
-                         <form method="POST" id="add">
-                           {% csrf_token %}
-                              <div class="col-md-4 mt-3 mb-5 mx-auto text-center">
-                                <label class="my-4">Контакты</label>
-                                <div class="input-group mb-3">
-                                  <select name="contact" class="form-control shadow-sm">
-                                    <option value="">---------</option>
-                                    {% for contact in contacts %}
-                                        <option value="{{ contact.id }}">
-                                          {{ contact.name }}
-                                        </option>
-                                    {% endfor %}
-                                  </select>
-                                  <div class="input-group-append">
-                                    <button class="btn btn-primary custom-btn btn-block" name="addrequest" type="submit"><i class="fas fa-plus text-white"></i></button>
-                                  </div>
-                                </div>
-                              </div>
-                          </form>
-
-
-
-
-                        <form method="POST" id="remove">
+                        <form method="post">
                           {% csrf_token %}
-                            {% if attachedrequests %}
-                            <hr class="mb-5">
-                              <div class="col-md-6 mx-auto text-center">
-                                <label class="mb-4">Сохраненные заявки</label>
-                                {% for contact in attachedrequests %}
-                                <div class="d-flex justify-content-center">
-                                 <div class="form-check">
-                                  <input class="form-check-input" name="checkedid" type="checkbox" value="{{ contact.id }}" id="defaultCheck1">
-                                 </div>
-                                 <div class="">
-                                   {{ contact.name }}
-                                 </div>
-                               </div>
+
+                          <div class="form-group">
+                            <select name="contacts_list" multiple class="form-control" id="exampleFormControlSelect2">
+                              {% for option in contacts %}
+                                 <option value="{{ option.id }}"
+                                 {% if option in requested.requests.all %} selected {% else %}{% endif %}
+                                 >{{ option.name }}</option>
                               {% endfor %}
-                             </div>
-                           <div class="col-md-2 col-6 my-5 mx-auto">
-                             <button class="btn btn-primary custom-btn btn-block shadow mt-2" type="submit" name="removerequest">Удалить</button>
-                           </div>
-                          {% endif %}
+                            </select>
+                          </div>
+
+                          <div class="col-md-4 mb-3 mt-5 mx-auto">
+                            <button class="btn btn-primary custom-btn btn-block shadow" type="submit" value="submit">{% trans "Submit form" %}</button>
+                          </div>
+
                         </form>
 
 
                      </div>
-                    </div>
-
-
-
+                   </div>
                    <!-- ROW ENDING -->
               </div>
-
-
           </div>
         </div>
       </div>

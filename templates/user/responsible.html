@@ -109,7 +109,7 @@
                            <div class="col-md-6">
 
                              <p class="mt-2">
-                               {% trans "Type of owner" %}:
+                               Тип контакта:
 
                                {% get_current_language as LANGUAGE_CODE %}
                                {% if LANGUAGE_CODE == 'en' %}{{ contact.type.title }}
@@ -118,7 +118,7 @@
                                <br>
                                {% trans "Address" %}: {{ contact.address }}
                                <br>
-                               {% trans "Contacts" %}: {{ contact.phone }},
+                               {{ contact.phone }},
                                {{ contact.links }}
                                <br>
                                {{ contact.comments | safe | linebreaks }}

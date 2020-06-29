@@ -8,32 +8,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from django.forms.widgets import FileInput
 
-# class UserRegisterForm(UserCreationForm):
-#     email = forms.EmailField(max_length=30)
-#     full_name = forms.CharField(max_length=15, label=_(u'First name'))
-#     last_name = forms.CharField(max_length=20, label=_(u'Last name'))
-#
-#     class Meta:
-#         model = User
-#         fields = ('email', 'full_name', 'password1', 'password2')
-#
-#     def __init__(self, *args, **kwargs):
-#         super(UserRegisterForm, self).__init__(*args, **kwargs)
-#         self.fields['password1'].help_text = _('Something pretty enough')
-#         self.fields['password2'].help_text = _('At least 8 symbols')
-#
-#
-# class UserMainForm(forms.ModelForm):
-#     username = forms.CharField(max_length=15, label=_(u'Username'))
-#     email = forms.EmailField(max_length=30)
-#     first_name = forms.CharField(max_length=15, label=_(u'First name'))
-#     last_name = forms.CharField(max_length=20, label=_(u'Last name'))
-#
-#     class Meta:
-#         model = User
-#         fields = [
-#             'email', 'full_name'
-#         ]
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -80,19 +54,3 @@ class ContactForm(forms.ModelForm):
             'type', 'group', 'name', 'address', 'phone', 'links', 'comments'
         ]
         exclude = ['user']
-
-class AttachRequestForm(forms.ModelForm):
-
-    class Meta:
-        model = Contact
-        fields = [
-          'id', 'attached'
-        ]
-
-class RemoveRequestForm(forms.ModelForm):
-
-    class Meta:
-        model = Contact
-        fields = [
-          'id', 'attached'
-        ]

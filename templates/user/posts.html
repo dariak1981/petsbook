@@ -227,14 +227,37 @@
 
                                    <div class="row">
                                      <div class="col-lg-5 text-center mt-4">
-                                       <strong>{% trans "Requests" %}</strong> - {{ listing.contact_set.all.count }}
+                                       <strong>{% trans "Requests" %}</strong> - {{ listing.requests.all.count}}
 
                                      </div>
                                      <div class="col-lg-6 text-left">
                                      </div>
                                    </div>
 
-                                   {% for contact in contacts %}
+
+                                   {% if listing.requests.exists %}
+                                     {% for contact in listing.requests.all %}
+                                       <div class="row my-4">
+                                         <div class="col-lg-5 text-left px-md-5 px-0">
+                                           <p>
+                                             {{ contact.name }}
+                                             <br>
+                                             {% trans "Address" %}: {{ contact.address }}
+                                             <br>
+                                             {% trans "Contacts" %}: {{ contact.phone }},
+                                             {{ contact.links }}
+                                             <br>
+                                             {% trans "Group" %}: {{ contact.group }}
+                                           </p>
+                                         </div>
+                                         <div class="col-lg-6 px-sm-3 px-0">
+                                           <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
+                                         </div>
+                                       </div>
+                                     {% endfor %}
+                                    {% endif %}
+
+                                   <!-- {% for contact in contacts %}
                                      {% if contact.attached_id == listing.id %}
                                      <div class="row my-4">
                                        <div class="col-lg-5 text-left px-md-5 px-0">
@@ -253,10 +276,8 @@
                                          <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
                                        </div>
                                      </div>
-
-                                       {% else %}
-                                       {% endif %}
-                                   {% endfor %}
+                                     {% endif %}
+                                   {% endfor %} -->
 
 
 
