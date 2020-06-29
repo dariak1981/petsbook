@@ -528,17 +528,10 @@ def newcontact(request):
         address = request.POST['address']
         phone = request.POST['phone']
         links = request.POST['links']
-        if 'listings' in request.POST:
-            if request.POST['listings'] == '':
-                attached = None
-            else:
-                attached = Listing.objects.get(id=request.POST['listings'])
-        else:
-            attached = None
         comments = request.POST['comments']
 
         newcontact = Contact(
-        user=user, type=type, group=group, name=name, address=address, phone=phone, links=links, attached=attached, comments=comments
+        user=user, type=type, group=group, name=name, address=address, phone=phone, links=links, comments=comments
         )
 
         newcontact.save()
@@ -573,13 +566,6 @@ def editcontact(request, contact_id):
         editcontact.address = request.POST['address']
         editcontact.phone = request.POST['phone']
         editcontact.links = request.POST['links']
-        if 'listings' in request.POST:
-            if request.POST['listings'] == '':
-                editcontact.attached = None
-            else:
-                editcontact.attached = Listing.objects.get(id=request.POST['listings'])
-        else:
-            editcontact.attached = editcontact.attached
         editcontact.comments = request.POST['comments']
 
         editcontact.save()
