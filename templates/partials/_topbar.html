@@ -64,7 +64,9 @@
           class="nav-item px-2"
         {% endif %}>
            <a class="nav-link" href="{% url 'carts:cart_detail' %}">
-               {{ listing_items }} <i class="fas fa-paw"></i>
+             <span class="navbar-listings-count">
+              {{ listing_items }}
+             </span> <i class="fas fa-paw"></i>
            </a>
         </li>
 
@@ -75,7 +77,9 @@
           class="nav-item px-2"
         {% endif %}>
            <a class="nav-link" href="{% url 'carts:cart_detail' %}">
-               {{ item_count }} <i class="fas fa-heart"></i>
+             <span class="navbar-products-count">
+               {{ product_items }}
+             </span> <i class="fas fa-heart"></i>
            </a>
         </li>
 

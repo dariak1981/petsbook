@@ -208,17 +208,21 @@
                  </li>
                 </ul>
 
-                <div class="col-12 px-0">
-                  {% if wishlisted %}
-                 <div class="col-10 mx-auto text-center mt-3">
-                   <a href="{% url 'carts:add_cart' object.id %}" class="btn btn-link"><i class="fas fa-heart fa-lg"></i></a>
-                 </div>
-                 {% else %}
-                 <div class="col-10 mx-auto text-center mt-3">
-                   <a href="{% url 'carts:add_cart' object.id %}" class="btn btn-link"><i class="far fa-heart fa-lg"></i></a>
-                 </div>
-                 {% endif %}
+                <div class="col-12 px-0 pt-3">
+                  <form class="form-update-product-ajax-home-page text-center" method='POST' action="{% url 'carts:products_update' %}">
+                    {% csrf_token %}
+                     <input type="hidden" name="product_id" value="{{ object.id }}">
+                     <span class="submit-product-span-home-page">
+                       {% if wishlisted %}
+                         <button type="submit" class="btn btn-link"><i class="fas fa-heart fa-lg"></i></button>
+                       {% else %}
+                         <button type="submit" class="btn btn-link"><i class="far fa-heart fa-lg"></i></button>
+                       {% endif %}
+                     </span>
+                  </form>
                 </div>
+
+
             </div>
 
 

@@ -39,13 +39,17 @@
 
             <div class="">
 
-               {% if obj.id in items_wishlisted %}
-               <a href="{% url 'carts:cart_remove' obj.id %}"><i class="fas fa-heart"></i></a>
-                <!-- <span><i class="fas fa-heart"></i></span> -->
-               {% else %}
-               <a href="{% url 'carts:add_cart' obj.id %}"><i class="far fa-heart"></i></a>
-                <!-- <span><i class="far fa-heart"></i></span> -->
-               {% endif %}
+              <form class="form-update-product-ajax" method='POST' action="{% url 'carts:products_update' %}">
+                {% csrf_token %}
+                 <input type="hidden" name="product_id" value="{{ obj.id }}">
+                 <span class="submit-product-span">
+                   {% if obj.id in items_wishlisted %}
+                     <button type="submit" class="btn btn-link"><i class="fas fa-heart icon"></i></button>
+                   {% else %}
+                     <button type="submit" class="btn btn-link"><i class="far fa-heart icon"></i></button>
+                   {% endif %}
+                 </span>
+              </form>
 
             </div>
           </div>

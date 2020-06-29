@@ -38,14 +38,16 @@
           {% endif %}
         >
           <div class="col-6 d-flex mb-1">
-            <form method='POST' action="{% url 'carts:update' %}">
+            <form class="form-listing-ajax" method='POST' action="{% url 'carts:update' %}">
               {% csrf_token %}
                <input type="hidden" name="listing_id" value="{{ listing.id }}">
-               {% if listing in cart.listings.all %}
-                <button type="submit" class="btn btn-link pl-0 text-white"><i class="fas fa-heart icon"></i></button>
-               {% else %}
-                <button type="submit" class="btn btn-link pl-0 text-white"><i class="far fa-heart icon"></i></button>
-               {% endif %}
+               <span class="submit-span">
+                 {% if listing in cart.listings.all %}
+                   <button type="submit" class="btn btn-link pl-0 text-white"><i class="fas fa-heart icon"></i></button>
+                 {% else %}
+                   <button type="submit" class="btn btn-link pl-0 text-white"><i class="far fa-heart icon"></i></button>
+                 {% endif %}
+               </span>
             </form>
 
             {% get_current_language as LANGUAGE_CODE %}

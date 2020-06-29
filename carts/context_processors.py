@@ -1,10 +1,11 @@
 from .models import CartItem, Cart
 from products.models import Product
 from django.db.models import Count
+from django.http import JsonResponse
 
 
 def counter(request):
-    item_count = 0
+    product_items = 0
     if 'admin' in request.path:
         return {}
     else:
@@ -12,11 +13,11 @@ def counter(request):
             cart_obj, new_obj = Cart.objects.new_or_get(request)
             cart_items = CartItem.objects.filter(cart_id=cart_obj.id)
             for cart_item in cart_items:
-                item_count += cart_item.quantity
+                product_items += cart_item.quantity
         except Cart.DoesNotExist:
-            item_count = 0
+            product_items = 0
 
-    return dict(item_count = item_count)
+    return dict(product_items = product_items)
 
 
 def wishitems(request):
