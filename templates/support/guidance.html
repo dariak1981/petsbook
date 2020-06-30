@@ -28,8 +28,8 @@
                    {% else %}{{ item.title_ru }}{% endif %}
                  </h3>
                   <p>
-                    {% if LANGUAGE_CODE == 'en' %}{{ item.content }}
-                    {% else %}{{ item.content_ru }}{% endif %}
+                    {% if LANGUAGE_CODE == 'en' %}{{ item.content | linebreaks }}
+                    {% else %}{{ item.content_ru | linebreaks }}{% endif %}
                   </p>
                  {% endfor %}
               </div>
