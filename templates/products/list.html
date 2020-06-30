@@ -9,7 +9,7 @@
 <!-- Showcase-search -->
 <section id="showcase-products" class="shadow">
   <div class="col-md-7 col-12 mx-auto">
-      <div class="container py-5 ext-center">
+      <div class="container py-5 text-center">
           <div class="overlay p-5 text-white shadow">
               <form method='GET' action="{% url 'products:product-search' %}">
                 <div class="input-group shadow">
@@ -53,7 +53,7 @@
     </nav>
     <hr>
     <!-- <h2 class="titles-custom text-center my-5">{% trans "Search Results" %}</h2> -->
-    <div class="row mb-3 d-flex justify-content-center"> 
+    <div class="row mb-3 d-flex justify-content-center">
 
       {% for obj in object_list %}
         {% include 'products/snippets/card.html' with instance=obj %}

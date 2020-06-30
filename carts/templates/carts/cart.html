@@ -8,14 +8,19 @@ Wishlist
 
 {% block content %}
 
+<section id="showcase-products" class="shadow">
+      <div class="py-5">
+          <div class="overlay p-5 mx-0 text-center text-white shadow">
+              <h3>Отложенные объявления</h3>
+            </div>
+        </div>
+</section>
+
 <div class="account-wrap py-5" style="min-height:550px;">
 
-  <div class="col-12 mx-auto text-center mt-4">
-   <h3>Отложенные объявления</h3>
-  </div>
 
   {% if cart_items %}
-  <div class="col-lg-10 col-md-6 col-12 mt-4 mx-auto">
+  <div class="col-lg-10 col-md-6 col-12 my-4 mx-auto">
    <div class="card bg-custom-primary-light shadow p-4">
     <div class="card">
       {% for cart_item in cart_items %}
@@ -82,9 +87,12 @@ Wishlist
 {% endif %}
 
 
-  <div class="row pb-5 d-flex justify-content-center mt-4 px-4 mx-0">
+  <div class="row pb-5 d-flex justify-content-center px-4 mx-0">
 
       {% if cart.listings.exists %}
+      <div class="bg-dark d-block" style="height:10px;">
+
+      </div>
         {% for cart_item in cart.listings.all %}
             <div class="col-6 col-md-4 col-lg-2 my-4">
               <div class="card listing-preview mx-sm-0 mx-2 bg-transparent">

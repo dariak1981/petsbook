@@ -103,7 +103,10 @@
                              <br>
                              <i class="fas fa-clock"></i> {% trans "Date created" %}: {{ contact.created | date:"SHORT_DATE_FORMAT" }}
                               <br>{% trans "Animals owned" %}: {{ contact.listing_owner.all.count }}
-                              <br>{% trans "Animals fostered" %}: {{ contact.listing_foster.all.count }}
+                              <br>{% trans "Fostered" %}: {{ contact.listing_foster.all.count }}
+                              {% if contact.id in listings %}
+                              <br>В заявках
+                              {% endif %}
                            </div>
 
                            <div class="col-md-6">
@@ -116,10 +119,17 @@
                                {% elif LANGUAGE_CODE == 'ru' %}{{ contact.type.title_ru }}{% endif %}
 
                                <br>
-                               {% trans "Address" %}: {{ contact.address }}
+                               {% if contact.address %}
+                               {{ contact.address }}
                                <br>
+                               {% endif %}
+                               {% if contact.phone and contact.links%}
                                {{ contact.phone }},
                                {{ contact.links }}
+                               {% else %}
+                               {{ contact.phone }}
+                               {{ contact.links }}
+                               {% endif %}
                                <br>
                                {{ contact.comments | safe | linebreaks }}
                              </p>
@@ -150,21 +160,24 @@
                              {% if contact.listing_owner.all %}
                              {% for listing in contact.listing_owner.all %}
                               <div class="row mt-4">
-                                <div class="col-lg-3 mb-sm-0 mb-3 text-left">
-                                  <div class="card shadow" id="container-image">
-                                    <div id="dummy">
-                                      <div id="element">
-                                     {% if listing.photo_main %}
-                                     <img src="{{ listing.photo_main.url }}" class="img-fluid">
-                                     {% else %}
-                                     <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
-                                     {% endif %}
-                                   </div>
-                                </div>
+                                <div class="col-lg-5 text-center px-lg-5 py-2 mb-lg-0 mb-4">
+                                  <div class="px-lg-5">
+                                    <div class="card shadow" id="container-image">
+                                      <div id="dummy">
+                                        <div id="element">
+                                       {% if listing.photo_main %}
+                                       <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                       {% else %}
+                                       <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
+                                       {% endif %}
+                                     </div>
+                                  </div>
+                                  </div>
+
                               </div>
 
                                </div>
-                               <div class="col-lg-9 px-sm-3 px-0" id="description" name="description">
+                               <div class="col-lg-6 px-sm-3 p-0" id="description" name="description">
                                  <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                    <br>
                                    {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
@@ -206,19 +219,21 @@
                             {% for listing in contact.listing_foster.all %}
                              <div class="row mt-4">
                                <div class="col-lg-5 text-center px-lg-5 py-2 mb-lg-0 mb-4">
-                                 <div class="card shadow" id="container-image">
-                                   <div id="dummy">
-                                     <div id="element">
-                                    {% if listing.photo_main %}
-                                    <img src="{{ listing.photo_main.url }}" class="img-fluid">
-                                    {% else %}
-                                    <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
-                                    {% endif %}
+                                 <div class="px-lg-5">
+                                   <div class="card shadow" id="container-image">
+                                     <div id="dummy">
+                                       <div id="element">
+                                      {% if listing.photo_main %}
+                                      <img src="{{ listing.photo_main.url }}" class="img-fluid">
+                                      {% else %}
+                                      <img src="{% static 'img/avatar-animal.svg' %}" class="img-fluid">
+                                      {% endif %}
+                                    </div>
                                   </div>
                                </div>
                              </div>
+                          </div>
 
-                              </div>
                               <div class="col-lg-6 px-sm-3 p-0">
                                 <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                   <br>

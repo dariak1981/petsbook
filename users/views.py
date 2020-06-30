@@ -457,6 +457,8 @@ def requested(request, listing_id):
 @login_required
 def contacts(request):
     contacts = Contact.objects.filter(user_id=request.user.id).order_by('-created')
+    # listings = Listing.objects.filter(user_id=request.user.id)
+    listings = Listing.objects.all().filter(user_id=request.user.id).values_list('requests', flat=True)
 
     if 'editcontact' in request.POST and 'instance' in request.POST:
         i = request.POST.get('instance')
@@ -508,7 +510,8 @@ def contacts(request):
 
 
     context = {
-     'contacts': paged_contacts
+     'contacts': paged_contacts,
+     'listings': listings,
      }
 
 

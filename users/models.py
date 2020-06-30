@@ -39,7 +39,7 @@ class Contact(models.Model):
     address = models.CharField(max_length=100, blank=True, verbose_name = _('address'),)
     phone = models.CharField(max_length=20, blank=True, verbose_name = _('phone'),)
     links = models.CharField(max_length=250, blank=True, verbose_name = _('links'),)
-    comments = models.TextField(max_length=2500, blank=True, verbose_name = _('comments'),)
+    comments = models.TextField(max_length=2500, verbose_name = _('comments'),)
     created = models.DateTimeField(default=datetime.now, verbose_name = _('created'),)
 
     def __str__(self):
