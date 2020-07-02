@@ -15,7 +15,7 @@ from django.urls import reverse
 
 
 class Themes(models.Model):
-    slug = models.SlugField(max_length=400, blank=True)
+    slug = models.SlugField(max_length=400, unique=True)
     title = models.CharField(max_length=400)
     title_ru = models.CharField(max_length=400)
 
@@ -68,7 +68,7 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
-    slug = models.SlugField(max_length=120, blank=True)
+    slug = models.SlugField(max_length=120, unique=True)
     title = models.CharField(max_length=100, verbose_name = _('title'),)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='post_likes')
     is_featured = models.BooleanField(default=False)
