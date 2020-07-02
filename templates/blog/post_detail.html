@@ -16,9 +16,9 @@
     <div class="col-md-10 mx-auto">
       <div class="card mb-sm-4 bg-custom-primary-light shadow">
         <div class="card-body">
-          <div class="card">
+          <div class="card p-sm-3 px-0 py-3">
 
-              <div class="media m-0 pt-4 px-3">
+              <div class="media">
                 {% if object.author.profile.photo %}
                 <a href="{% url 'user-posts' object.author.username %}">
                   <img class="img-forum mx-4" src="{{ object.author.profile.photo.url }}">
@@ -68,20 +68,18 @@
                   <div class="d-flex">
                     <h4>{{ object.created | date:"SHORT_DATE_FORMAT" }}</h4> &nbsp;&nbsp;&nbsp;
                     <i class="fas fa-comments"></i>&nbsp;{{ object.message_set.all.count }}
-                    &nbsp;&nbsp;<i class="fas fa-heart"></i>&nbsp;{{ post.likes.count }}
+                    &nbsp;<i class="fas fa-heart"></i>&nbsp;{{ post.likes.count }}
                   </div>
                   <hr class="mt-2 mr-4">
                   </div>
                 </div>
               </div>
               <div class="col-12">
-                <div class="col-12 px-lg-3 px-0">
                   <h2 class="article-title mb-4">{{ object.title }}</h2>
-                </div>
 
 
                   {% if object.photo %}
-                  <div class="col-12 px-lg-3 px-0 mb-4">
+                  <div class="col-12 mb-4 px-0">
                     <div class="card shadow" id="container-image">
                       <div id="dummy-post">
                         <div id="element-post">
@@ -94,13 +92,13 @@
                   {% endif %}
 
 
-                <div class="col-12 px-lg-3 px-0">
+                <div class="col-12 px-0">
                   <p class="article-content">{{ object.content | safe | linebreaks }}</p>
                 </div>
                 {% if object.author == user %}
-                <div class="text-right m-3">
-                  <a class="btn btn-secondary btn-sm" href="{% url 'post-update' object.slug %}">{% trans "Update" %}</a>
-                  <a class="btn btn-danger btn-sm" href="{% url 'post-delete' object.slug %}">{% trans "Delete" %}</a>
+                <div class="text-right pr-3">
+                  <a class="btn btn-secondary btn-sm" href="{% url 'post-update' object.slug %}"><i class="fas fa-edit"></i></a>
+                  <a class="btn btn-danger btn-sm" href="{% url 'post-delete' object.slug %}"><i class="fas fa-times-circle"></i></a>
                 </div>
                 {% endif %}
 
@@ -116,86 +114,78 @@
     <!-- REPLIES -->
     <div class="row pb-4">
       <div class="col-md-10 mx-auto">
-        <div class="card mb-sm-4 bg-custom-primary-light shadow">
-          <div class="card-body">
-            <div class="card px-sm-2 px-0">
 
                   {% for message in messages %}
-                  <div class="media m-0 pt-4 px-3">
-                    {% if message.author.profile.photo %}
-                       <img class="img-forum mx-4" src="{{ message.author.profile.photo.url }}">
-                    {% else %}
-                       <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
-                    {% endif %}
-                  <div class="media-body">
-                    <div class="row">
+                  <div class="card-header pt-4 shadow-sm">
+                    <div class="media">
+                      {% if message.author.profile.photo %}
+                         <img class="img-forum mx-4" src="{{ message.author.profile.photo.url }}">
+                      {% else %}
+                         <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
+                      {% endif %}
+                    <div class="media-body">
+                      <div class="row">
 
-                    </div>
-                    <div class="article-metadata">
-                      <div class="d-flex justify-content-between">
-                        <div class="d-flex">
-
-
-                          <h4><a class="pop" data-toggle="popover" data-content="
-                            {% if message.author.profile.usertype %}
-                            {{ message.author.profile.usertype }} ~
-                            {% else%}
-                            Visitor
-                            {% endif %}
-                            {% if message.author.profile.business %}
-                            {{ message.author.profile.business }}
-                            {% endif %}
-                            {% if message.author.profile.publicmail %}
-                            <br>{{ message.author.profile.publicmail }};
-                            {% endif %}
-                            {% if message.author.profile.phone %}
-                            {{ message.author.profile.phone }}
-                            {% endif %}
-                            {% if message.author.profile.links %}
-                            <br>{{ message.author.profile.links }}
-                            {% endif %}
-                            {% if message.author.profile.description %}
-                            <br><br>{{ message.author.profile.description }}
-                            {% endif %}
-
-                            ">{{ message.author.username }}</a></h4>
-
-                          <small class="text-muted ml-3">{{ message.created | date:"SHORT_DATE_FORMAT" }}</small>
-                        </div>
-                        <div>
-                          {% if message.author == user %}
-                          <div class="m-2 text-right">
-                            <a class="btn btn-secondary btn-sm" href="{% url 'message-update' message.id %}">{% trans "Update" %}</a>
-                            <a class="btn btn-danger btn-sm mt-sm-0 mt-1" href="{% url 'message-delete' message.id %}" value="{{ object.id }}" name="post_id">{% trans "Delete" %}</a>
-                          </div>
-                          {% endif %}
-                        </div>
                       </div>
+                      <div class="article-metadata">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex">
 
-                      <hr class="mt-2 mb-1">
 
+                            <h4><a class="pop" data-toggle="popover" data-content="
+                              {% if message.author.profile.usertype %}
+                              {{ message.author.profile.usertype }} ~
+                              {% else%}
+                              Visitor
+                              {% endif %}
+                              {% if message.author.profile.business %}
+                              {{ message.author.profile.business }}
+                              {% endif %}
+                              {% if message.author.profile.publicmail %}
+                              <br>{{ message.author.profile.publicmail }};
+                              {% endif %}
+                              {% if message.author.profile.phone %}
+                              {{ message.author.profile.phone }}
+                              {% endif %}
+                              {% if message.author.profile.links %}
+                              <br>{{ message.author.profile.links }}
+                              {% endif %}
+                              {% if message.author.profile.description %}
+                              <br><br>{{ message.author.profile.description }}
+                              {% endif %}
+
+                              ">{{ message.author.username }}</a></h4>
+
+                            <small class="text-muted ml-3">{{ message.created | date:"SHORT_DATE_FORMAT" }}</small>
+                          </div>
+                          <div>
+                            {% if message.author == user %}
+                            <div class="pr-3 text-right">
+                              <a class="btn btn-secondary btn-sm" href="{% url 'message-update' message.id %}"><i class="fas fa-edit"></i></a>
+                              <a class="btn btn-danger btn-sm" href="{% url 'message-delete' message.id %}" value="{{ object.id }}" name="post_id"><i class="fas fa-times-circle"></i></a>
+                            </div>
+                            {% endif %}
+                          </div>
+                        </div>
+
+                        <hr class="mt-2 mb-1">
+
+                      </div>
+                     </div>
                     </div>
-                   </div>
+                    <div class="col-12 px-sm-4 px-3" style="margin-top:-7px;">
+                      <p class="article-content">{{ message.message | safe | linebreaks }}</p>
+                    </div>
+
+
                   </div>
-                  <div class="col-12 px-sm-4 px-3" style="margin-top:-7px;">
-                    <p class="article-content">{{ message.message | safe | linebreaks }}</p>
-                  </div>
-
-                  {% endfor %}
-
-
+                {% endfor %}
 
 
                   <div class="col-md-4 col-6 mx-auto my-4">
                     <a class="btn btn-secondary btn-sm d-block my-1" href="{% url 'message-create' object.id %}">{% trans "Reply" %}</a>
                   </div>
 
-
-
-
-
-            </div>
-          </div>
         <div class="ml-4">
           {% if messages.has_other_pages %}
           <!-- <p>No Listings Available</p>
@@ -233,11 +223,8 @@
               </ul>
             {% endif %}
           </div>
-        </div>
-      </div>
 
 
-  </div>
 </section>
 
 </div>
