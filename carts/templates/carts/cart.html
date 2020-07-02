@@ -9,12 +9,15 @@ Wishlist
 {% block content %}
 
 <section id="showcase-products" class="shadow">
-      <div class="py-5">
-          <div class="overlay p-5 mx-0 text-center text-white shadow">
-              <h3>Отложенные объявления</h3>
-            </div>
-        </div>
+  <div class="overlay pt-5 pb-3 mx-0 text-center text-white shadow">
+  </div>
+      <div class="py-4 text-center text-white" style="overflow:hidden" data-aos="fade-up" data-aos-delay="100">
+        <h2>Отложенные объявления</h2>
+      </div>
+  <div class="overlay pt-5 mx-0 text-center text-white shadow">
+  </div>
 </section>
+
 
 <div class="account-wrap py-5" style="min-height:550px;">
 
@@ -90,11 +93,8 @@ Wishlist
   <div class="row pb-5 d-flex justify-content-center px-4 mx-0">
 
       {% if cart.listings.exists %}
-      <div class="bg-dark d-block" style="height:10px;">
-
-      </div>
         {% for cart_item in cart.listings.all %}
-            <div class="col-6 col-md-4 col-lg-2 my-4">
+            <div class="col-6 col-md-4 col-lg-2 my-4" data-aos="fade-up" data-aos-delay="{% widthratio forloop.counter 1 100 %}">
               <div class="card listing-preview mx-sm-0 mx-2 bg-transparent">
                 <div class="cart-header">
                     <span class="badge">
