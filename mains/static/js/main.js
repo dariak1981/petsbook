@@ -1,4 +1,36 @@
 
+// function updateText(btn, newCount) {
+//   btn.text(newCount)
+// }
+// $('.like-btn').click(function(e) {
+//   e.preventDefault()
+//   var this_ = $(this)
+//   var likeUrl = this_.attr('data-href')
+//   var likeCount = parseInt(this_.attr('data-likes')) | 0
+//   var addLike = likeCount + 1
+//   var removeLike = likeCount -1
+//
+//   $.ajax({
+//     url: likeUrl,
+//     method: 'GET',
+//     data: {},
+//     success: function(data) {
+//       console.log(data)
+//       var newLikes;
+//       if (data.liked){
+//           updateText(this_, addLike)
+//       } else {
+//           updateText(this_, removeLike)
+//       }
+//     }, error: function(error) {
+//       console.log(error),
+//       console.log('error')
+//     }
+//   })
+// })
+
+
+
 $(document).ready(function(){
   var productForm = $(".form-listing-ajax")
 

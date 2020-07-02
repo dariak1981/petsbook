@@ -68,7 +68,9 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
+    slug = models.SlugField(max_length=120, unique=True)
     title = models.CharField(max_length=100, verbose_name = _('title'),)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='post_likes')
     is_featured = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now, blank=True, verbose_name = _('created'),)
     updated = models.DateTimeField(auto_now=True)
@@ -82,7 +84,11 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('post-detail', kwargs={'slug': self.slug})
+
+    def get_like_url(self):
+        return reverse('like-toggle', kwargs={'slug': self.slug})
+
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
@@ -100,6 +106,11 @@ class Post(models.Model):
         verbose_name = 'post'
         verbose_name_plural = 'posts'
 
+def post_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+pre_save.connect(post_pre_save_receiver, sender=Post)
+
 class Message(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
@@ -109,7 +120,7 @@ class Message(models.Model):
         return self.message
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.post_id})
+        return reverse('post-detail', kwargs={'slug': self.post.slug})
 
     class Meta:
         ordering = ['-created']

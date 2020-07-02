@@ -20,6 +20,9 @@
        {% include 'blog/snippets/card.html' with instance=listing %}
       {% endfor %}
     </div>
+
+    {% include 'blog/snippets/pagination.html' %}
+
   </div>
 
 
@@ -52,13 +55,9 @@
           <div class="my-5 text-center">
             <h5>Облако тегов</h5>
             <div class="tagcloud">
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Помощь</small></button>
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Питание</small></button>
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Контакты</small></button>
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Законодательство</small></button>
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Передержка</small></button>
-              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Новы дом</small></button>
-
+              {% for tag in tags %}
+              <a href="{{ tag.get_url }}" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="tags"><small>{{ tag.title_ru }}</small></a>
+              {% endfor %}
             </div>
           </div>
 

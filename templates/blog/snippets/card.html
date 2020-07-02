@@ -7,7 +7,7 @@
   <div class="card listing-preview mx-0">
     <div class="card-body p-0 shadow" style="">
         {% if post.photo %}
-        <a href="{% url 'post-detail' post.id %}">
+        <a href="{{ post.get_absolute_url }}">
           <div id="container-image">
             <div id="dummy">
               <div id="element-cards">
@@ -22,8 +22,6 @@
            <br>
          </div>
         {% endif %}
-
-
 
 
       <div class="card-post-img-overlay pl-3 pt-0">
@@ -47,7 +45,7 @@
                    <hr class="mb-2 mt-0">
                    <p class="m-0">
                      <i class="fas fa-comments"></i>&nbsp;{{ post.message_set.all.count }}
-                     &nbsp;&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>&nbsp;5
+                     &nbsp;&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i> {{ post.likes.count }}
                    </p>
                  </div>
                </div>
@@ -58,7 +56,7 @@
 
     <div class="px-3 pt-2 text-center">
       <div class="post-title">
-        <a href="{% url 'post-detail' post.id %}">{{ post.title | truncatechars:50}}</a>
+        <a href="{{ post.get_absolute_url }}">{{ post.title | truncatechars:50}}</a>
       </div>
       <p class="text-uppercase"><span><i class="far fa-calendar-alt"></i> {{ post.created.date }}</span></p>
     </div>

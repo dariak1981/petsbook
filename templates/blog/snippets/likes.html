@@ -1,0 +1,13 @@
+
+
+
+{% if request.user.is_authenticated %}
+ <form class="mx-3 my-1" action="{{ post.get_like_url }}" method="post">
+   {% csrf_token %}
+   {% if request.user in post.likes.all %}
+   <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-danger"><i class="fas fa-thumbs-up"></i></button>
+   {% else %}
+   <button type="submit" id="like" name="post_id" value="{{ post.id }}" class="btn btn-warning"><i class="far fa-heart"></i></button>
+   {% endif %}
+ </form>
+{% endif %}

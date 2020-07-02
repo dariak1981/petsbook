@@ -28,7 +28,7 @@
                <div class="col">
                 <div class="p-3 mx-auto">
                   <button class="btn btn-outline-light custom-btn btn-block shadow my-2" type="submit">{% trans "Yes, Delete" %}</button>
-                  <a class="btn btn-outline-light custom-btn btn-block shadow my-2" href="{% url 'post-detail' object.id %}">{% trans "Cancel" %}</a>
+                  <a class="btn btn-outline-light custom-btn btn-block shadow my-2" href="{{ object.get_absolute_url }}">{% trans "Cancel" %}</a>
                 </div>
                </div>
 

@@ -13,7 +13,7 @@ class ThemesAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'author', 'is_featured', 'title', 'created')
-    list_display_links = ('id', 'title')
+    list_display_links = ('id', 'title', 'author',)
     list_filter = ('theme', 'author')
     list_per_page = 25
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -88,7 +88,9 @@ class PostDetailView(ObjectViewedMixin, DetailView):
 
     def get_context_data(self, **kwargs):
             context = super(PostDetailView, self).get_context_data(**kwargs)
-            messages = Message.objects.filter(post=self.kwargs.get('pk'))
+            q = self.kwargs.get('slug')
+            post = Post.objects.get(slug=q)
+            messages = Message.objects.filter(post=post.id)
             paginator = Paginator(messages, self.paginate_by)
 
             page = self.request.GET.get('page')
@@ -103,6 +105,18 @@ class PostDetailView(ObjectViewedMixin, DetailView):
             context['messages'] = replies
             return context
 
+class PostLikeToggle(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        obj = get_object_or_404(Post, slug=slug)
+        url_ = obj.get_absolute_url()
+        user = self.request.user
+        if user.is_authenticated:
+            if user in obj.likes.all():
+                obj.likes.remove(user)
+            else:
+                obj.likes.add(user)
+        return url_
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -136,15 +150,15 @@ def createnewpost(request):
         newpost.save()
 
         # return redirect(reverse('blog', kwargs={'newpost':newpost.pk}))
-        return redirect('post-detail', newpost.id)
+        return redirect('post-detail', newpost.slug)
 
 
     return render(request, 'blog/post_form.html', context)
 
 
 @login_required
-def updatepost(request, pk):
-    editpost = Post.objects.get(pk=pk)
+def updatepost(request, slug):
+    editpost = Post.objects.get(slug=slug)
     threads = Themes.objects.all()
 
     context = {
@@ -168,7 +182,7 @@ def updatepost(request, pk):
         editpost.save()
 
         # return redirect(reverse('blog', kwargs={'newpost':newpost.pk}))
-        return redirect('post-detail', editpost.id)
+        return redirect('post-detail', editpost.slug)
 
 
     return render(request, 'blog/post_edit.html', context)
@@ -192,12 +206,14 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.post_id = self.kwargs['post_id']
+        form.instance.post_id = self.kwargs['id']
         return super().form_valid(form)
 
 class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Message
     fields = ['message']
+    slug_field = 'id'
+    slug_url_kwarg = 'id'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -211,10 +227,13 @@ class MessageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class MessageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Message
+    template_name = 'blog/message_confirm_delete.html'
+    slug_field = 'id'
+    slug_url_kwarg = 'id'
 
     def get_success_url(self):
-        post = self.object.post
-        return reverse('post-detail', kwargs={'pk': post.id})
+        post = self.get_object()
+        return post.get_absolute_url()
 
     def test_func(self):
         post = self.get_object()
@@ -231,11 +250,12 @@ class UserPostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user = get_object_or_404(User, email=self.kwargs.get('email'))
+        # user = get_object_or_404(User, email=self.kwargs.get('email'))
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super(UserPostListView, self).get_context_data(**kwargs)
         context['searchthreads'] = Themes.objects.all()
-        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        context['tags'] = Tag.objects.all()
         return context

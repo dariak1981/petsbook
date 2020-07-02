@@ -13,55 +13,57 @@
 
 <section class="mx-3 px-lg-5 px-4" id="contents">
 
-<div class="row py-4">
-  <div class="col-lg-9 order-lg-1 order-2">
-    <div class="row d-flex justify-content-center">
-      {% for post in allposts %}
-       {% include 'blog/snippets/card.html' with instance=listing %}
-      {% endfor %}
+  <div class="row py-4">
+    <div class="col-lg-9 order-lg-1 order-2">
+      <div class="row d-flex justify-content-center">
+        {% for post in allposts %}
+         {% include 'blog/snippets/card.html' %}
+        {% endfor %}
+      </div>
+
+      {% include 'blog/snippets/pagination.html' %}
+
     </div>
-  </div>
 
 
-  <div class="col-lg-3 order-lg-2 order-1 px-0 mt-0 mb-4">
-      <div class="col-12 sidebar">
-        <form method='GET' action="{% url 'search' %}">
-          <div class="input-group shadow">
-            <input type="text" name="q" class="form-control" value="">
-            <div class="input-group-prepend">
-              <button class="btn btn-secondary custom-btn bg-custom-primary rounded-right"
-              type="submit" value="{{ request.GET.q }}">{% trans "Search" %}
-              </button>
+    <div class="col-lg-3 order-lg-2 order-1 px-0 mt-0 mb-4">
+        <div class="col-12 sidebar">
+          <form method='GET' action="{% url 'search' %}">
+            <div class="input-group shadow">
+              <input type="text" name="q" class="form-control" value="">
+              <div class="input-group-prepend">
+                <button class="btn btn-secondary custom-btn bg-custom-primary rounded-right"
+                type="submit" value="{{ request.GET.q }}">{% trans "Search" %}
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="my-5 text-center">
-              <h5>Категории</h5>
-              {% for thread in searchthreads %}
-              <li class="list-group-item border-0 background-0 d-flex justify-content-between align-items-start p-2" style="background:none">
-                <a href="{{ thread.get_url }}">
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ thread.title }}
-                  {% else %}<i class="fas fa-angle-down"></i> {{ thread.title_ru }}{% endif %}
-                </a>
-                <span>{{ thread.post_set.count }}</span>
-              </li>
-              <hr class="my-0">
-              {% endfor %}
-          </div>
-          <div class="my-5 text-center">
-            <h5>Облако тегов</h5>
-            <div class="tagcloud">
-              {% for tag in tags %}
-              <a href="{{ tag.get_url }}" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="tags"><small>{{ tag.title_ru }}</small></a>
-              {% endfor %}
+            <div class="my-5 text-center">
+                <h5>Категории</h5>
+                {% for thread in searchthreads %}
+                <li class="list-group-item border-0 background-0 d-flex justify-content-between align-items-start p-2" style="background:none">
+                  <a href="{{ thread.get_url }}">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ thread.title }}
+                    {% else %}<i class="fas fa-angle-down"></i> {{ thread.title_ru }}{% endif %}
+                  </a>
+                  <span>{{ thread.post_set.count }}</span>
+                </li>
+                <hr class="my-0">
+                {% endfor %}
             </div>
-          </div>
-
+            <div class="my-5 text-center">
+              <h5>Облако тегов</h5>
+              <div class="tagcloud">
+                {% for tag in tags %}
+                <a href="{{ tag.get_url }}" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="tags"><small>{{ tag.title_ru }}</small></a>
+                {% endfor %}
+              </div>
+            </div>
         </div>
-  </div>
- </div>
-</section>
+    </div>
 
+  </div>
+ </section>
 </div>
 
 {% endblock %}
