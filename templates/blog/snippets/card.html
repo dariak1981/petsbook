@@ -60,7 +60,7 @@
       <div class="post-title">
         <a href="{% url 'post-detail' post.id %}">{{ post.title | truncatechars:50}}</a>
       </div>
-      <p class="text-uppercase"><span><i class="far fa-calendar-alt"></i> {{ post.created }}</span></p>
+      <p class="text-uppercase"><span><i class="far fa-calendar-alt"></i> {{ post.created.date }}</span></p>
     </div>
   </div>
  </div>
