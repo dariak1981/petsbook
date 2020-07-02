@@ -39,20 +39,11 @@ class FilterPostListView(ListView):
         page_size = self.get_paginate_by(filter_set)
         context_object_name = self.get_context_object_name(filter_set)
 
-        if self.request.GET.get('keywords'):
-            keywords = self.request.GET.get('keywords') or None
-            if keywords:
-                filter_set = filter_set.filter(content__icontains=keywords)
+        # if self.request.GET.get('keywords'):
+        #     keywords = self.request.GET.get('keywords') or None
+        #     if keywords:
+        #         filter_set = filter_set.filter(content__icontains=keywords)
 
-        if self.request.GET.get('title'):
-            title = self.request.GET.get('title') or None
-            if title:
-                filter_set = filter_set.filter(title__icontains=title)
-
-        if self.request.GET.get('theme'):
-            theme = self.request.GET.get('theme')
-            if theme:
-                filter_set = filter_set.filter(theme_id=theme)
         if page_size:
             paginator, page, filter_set, is_paginated = self.paginate_queryset(filter_set, page_size)
 
@@ -72,7 +63,7 @@ class FilterPostListView(ListView):
             context['allposts'] = filter_set
             context['searchthreads'] = Themes.objects.all()
             context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
-            context['values']:request.GET
+            # context['values']:request.GET
             return context
 
         if context_object_name is not None:
@@ -80,7 +71,23 @@ class FilterPostListView(ListView):
         context.update(kwargs)
         return super().get_context_data(**context)
 
+class PostThemesView(ObjectViewedMixin, ListView):
+    template_name = 'blog/index.html'
+    context_object_name = 'allposts'
+    paginate_by = 9
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostThemesView, self).get_context_data(*args, **kwargs)
+        # q = self.kwargs.get('category_slug')
+        # context['categories'] = Themes.objects.filter(slug=q).first()
+        context['searchthreads'] = Themes.objects.all()
+        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        slug = self.kwargs.get('category_slug')
+        return Post.objects.get_by_category(slug)
 
 class PostDetailView(ObjectViewedMixin, DetailView):
     model = Post

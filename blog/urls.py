@@ -2,12 +2,13 @@ from django.contrib import admin
 from django.urls import path
 from .views import (PostListView, PostDetailView,
 PostDeleteView, MessageCreateView, MessageUpdateView, MessageDeleteView,
-FilterPostListView, UserPostListView
+FilterPostListView, UserPostListView, PostThemesView
 )
 from . import views
 
 urlpatterns = [
     path('', PostListView.as_view(), name='blog'),
+    path('thread=<slug:category_slug>/', PostThemesView.as_view(), name='category-view'),
     path('new/', views.createnewpost, name='createnewpost'),
     path('post_edit/<int:pk>/', views.updatepost, name='post-update'),
     path('search_results', FilterPostListView.as_view(), name='search'),

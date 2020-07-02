@@ -9,10 +9,44 @@ from PIL import Image
 
 
 class Themes(models.Model):
+    slug = models.SlugField(max_length=400, blank=True)
     title = models.CharField(max_length=400)
     title_ru = models.CharField(max_length=400)
+
+    class Meta:
+        verbose_name = 'theme'
+        verbose_name_plural = 'themes'
+
     def __str__(self):
         return self.title
+
+    def get_url(self):
+        return reverse('category-view', args=[self.slug])
+
+class PostQuerySet(models.query.QuerySet):
+
+    def search(self, query):
+        term_list = query.split(' ')
+
+        query = reduce(operator.and_,
+            ((Q(title__icontains=item) |
+            Q(description__icontains=item) |
+            Q(theme_id__title__icontains=item) |
+            Q(theme_id__title_ru__icontains=item))
+            for item in term_list))
+        return self.filter(query).distinct()
+
+
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return PostQuerySet(self.model, using=self._db)
+
+    def get_by_category(self, category_slug):
+        qs =  self.get_queryset().filter(theme_id__slug__iexact=category_slug)
+        return qs
+
+    def search(self, query):
+        return self.get_queryset().search(query)
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name = _('author'),)
@@ -23,6 +57,9 @@ class Post(models.Model):
     theme = models.ForeignKey(Themes, on_delete=models.CASCADE, verbose_name = _('theme'),)
     content = models.TextField(max_length=20000, blank=False, verbose_name = _('content'),)
     photo = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True, verbose_name = _('photo'),)
+
+    objects = PostManager()
+
     def __str__(self):
         return self.title
 
