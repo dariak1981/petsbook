@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'products',
     'support',
     'carts',
+    'tags'
 ]
 
 MAILCHIMP_API_KEY = 'bd61bf7671c4685b4bee68fd1104b474-us10'

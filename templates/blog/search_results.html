@@ -10,170 +10,61 @@
 
 
 <div class="account-wrap py-5">
-  <!-- TOPICS -->
-<section class="mx-3 px-5" id="contents">
- <!-- <div class="container mx-1"> -->
-  <div class="row py-4">
-    <div class="col-lg-9">
-      <div class="card mb-sm-4 bg-custom-primary-light shadow">
-        <div class="card-body">
-          <div class="card">
 
+<section class="mx-3 px-lg-5 px-4" id="contents">
 
-
-            {% if allposts %}
-            {% for post in allposts %}
-              <div class="media m-0 pt-4 px-3">
-                {% if post.author.profile.photo %}
-                <!-- <a href="{% url 'user-posts' post.author.email %}"> -->
-                <a href="{% url 'user-posts' post.author.email %}">
-                  <img class="img-forum mx-4" src="{{ post.author.profile.photo.url }}">
-                </a>
-                {% else %}
-                <a href="{% url 'user-posts' post.author.email %}">
-                  <img class="img-forum-empty mx-4" src="{% static 'img/avatar.png' %}">
-                </a>
-                {% endif %}
-                <div class="media-body">
-                  <div class="d-flex">
-
-
-                    <h4><a class="pop" data-toggle="popover" data-content="
-                      {% if post.author.profile.usertype %}
-
-                      {% get_current_language as LANGUAGE_CODE %}
-                      {% if LANGUAGE_CODE == 'en' %}{{ post.author.profile.usertype.title }}
-                      {% elif LANGUAGE_CODE == 'ru' %}{{ post.author.profile.usertype.title_ru }}{% endif %}
-
-                       ~
-                      {% else%}
-                      Visitor
-                      {% endif %}
-                      {% if post.author.profile.business %}
-                      {{ post.author.profile.business }}
-                      {% endif %}
-                      {% if post.author.profile.publicmail %}
-                      <br>{{ post.author.profile.publicmail }};
-                      {% endif %}
-                      {% if post.author.profile.phone %}
-                      {{ post.author.profile.phone }}
-                      {% endif %}
-                      {% if post.author.profile.links %}
-                      <br>{{ post.author.profile.links }}
-                      {% endif %}
-                      {% if post.author.profile.description %}
-                      <br><br>{{ post.author.profile.description }}
-                      {% endif %}
-
-                      ">{{ post.author.username }}</a></h4>
-
-                    <!-- <a href="#" class="mr-2">{{ post.author }}</a> -->
-                    <h4>&nbsp;&nbsp; ~ &nbsp;&nbsp;</h4>
-                    <small class="text-muted">{{ post.created.date }}</small> &nbsp;&nbsp;
-                    <i class="fas fa-comments"></i>&nbsp;{{ post.message_set.all.count }}
-                  </div>
-                  <hr class="mt-2 mr-4 mb-0">
-
-                </div>
-              </div>
-              <div class="col-12 px-sm-4 px-3 mb-4">
-                <h2><a href="{% url 'post-detail' post.id %}" class="article-title">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content | truncatechars:350 }}</p>
-              </div>
-
-            {% endfor %}
-            {% else %}
-            <div class="col-md-12 p-4 text-center">
-              <i class="far fa-folder-open fa-3x"></i>
-            </div>
-            {% endif %}
-
-
-            {% if is_paginated %}
-             <ul class="mt-4 mb-2 pl-0 text-center">
-               {% if page_obj.has_previous %}
-                 <a class="btn btn-outline-info mb-4" href="?page=1">{% trans "First" %}</a>
-                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
-
-               {% endif %}
-
-               {% for num in page_obj.paginator.page_range %}
-                 {% if page_obj.number == num %}
-
-                   <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                   <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                 {% endif %}
-
-               {% endfor %}
-
-               {% if page_obj.has_next %}
-                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
-                 <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">{% trans "Last" %}</a>
-               {% endif %}
-             </ul>
-            {% endif %}
-
-       </div>
-      </div>
-     </div>
+<div class="row py-4">
+  <div class="col-lg-9 order-lg-1 order-2">
+    <div class="row d-flex justify-content-center">
+      {% for post in allposts %}
+       {% include 'blog/snippets/card.html' with instance=listing %}
+      {% endfor %}
     </div>
+  </div>
 
-    <div class="col-lg-3 mt-sm-0 mt-4 mb-4">
-      <div class="card mb-sm-4 bg-custom-primary-light shadow">
-        <div class="card-body">
-          <div class="card p-3">
-            <div class="col-md-12 sidebar">
-                <div class="sidebar-box">
-                  <form action="{% url 'search' %}" method='GET' class="search-form">
-                    <div class="form-group">
-                      <span class="icon fa fa-search"></span>
-                      <input type="text" value="{{ request.Get.q }}" class="form-control" name='q' placeholder="Type a keyword and hit enter">
-                    </div>
-                  </form>
-                </div>
-                <div class="sidebar-box">
-                    <h3>Threads</h3>
-                    {% for thread in searchthreads %}
-                    <li><a href="{% url 'threads' thread %}">{{ thread }} <span>{{ thread.post_set.count }}</span></a></li>
-                    {% endfor %}
-                </div>
-              </div>
+
+  <div class="col-lg-3 order-lg-2 order-1 px-0 mt-0 mb-4">
+      <div class="col-12 sidebar">
+        <form method='GET' action="{% url 'search' %}">
+          <div class="input-group shadow">
+            <input type="text" name="q" class="form-control" value="">
+            <div class="input-group-prepend">
+              <button class="btn btn-secondary custom-btn bg-custom-primary rounded-right"
+              type="submit" value="{{ request.GET.q }}">{% trans "Search" %}
+              </button>
+            </div>
+          </div>
+          <div class="my-5 text-center">
+              <h5>Категории</h5>
+              {% for thread in searchthreads %}
+              <li class="list-group-item border-0 background-0 d-flex justify-content-between align-items-start p-2" style="background:none">
+                <a href="{{ thread.get_url }}">
+                  {% get_current_language as LANGUAGE_CODE %}
+                  {% if LANGUAGE_CODE == 'en' %}<i class="fas fa-angle-down"></i> {{ thread.title }}
+                  {% else %}<i class="fas fa-angle-down"></i> {{ thread.title_ru }}{% endif %}
+                </a>
+                <span>{{ thread.post_set.count }}</span>
+              </li>
+              <hr class="my-0">
+              {% endfor %}
           </div>
 
-          <div class="card p-3 mt-4">
-            <div class="col-md-12 mb-4 text-center">
-              <h3>{% trans "Featured Posts" %}</h3>
+          <div class="my-5 text-center">
+            <h5>Облако тегов</h5>
+            <div class="tagcloud">
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Помощь</small></button>
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Питание</small></button>
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Контакты</small></button>
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Законодательство</small></button>
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Передержка</small></button>
+              <button type="button" class="btn btn-outline-dark mr-1 mt-2 py-1 px-2" name="button"><small>Новы дом</small></button>
+
             </div>
+          </div>
 
-            <!-- <div class="col-md-12">
-              <div class="card mb-3 shadow-sm">
-                {% if featuredthreads %}
-
-              <ul class="list-group-flush px-0">
-                {% for thread in featuredthreads %}
-                <li class="list-group-item" style="color: #606160;">
-                  <div>
-                    <a href="{% url 'post-detail' thread.id %}">{{ thread.title | truncatechars:60 }}</a>
-                  </div>
-                </li>
-                {% endfor %}
-              </ul>
-              {% else %}
-              <li
-              class="list-group-item d-flex justify-content-between align-items-end"
-              >
-              <p>{% trans "No Featured Posts Available" %}</p>
-            </li>
-            {% endif %}
-              </div>
-            </div> -->
-
-      </div>
-     </div>
-    </div>
-   </div>
-  <!-- </div> -->
+        </div>
+  </div>
+ </div>
 </section>
 
 </div>

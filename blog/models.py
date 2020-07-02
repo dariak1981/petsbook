@@ -6,10 +6,16 @@ from django.utils import timezone
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+from django.db.models import Q
+from functools import reduce
+import operator
+from django.db.models.signals import pre_save, post_save
+from products.utils import unique_slug_generator
+from django.urls import reverse
 
 
 class Themes(models.Model):
-    slug = models.SlugField(max_length=400, blank=True)
+    slug = models.SlugField(max_length=400, unique=True)
     title = models.CharField(max_length=400)
     title_ru = models.CharField(max_length=400)
 
@@ -23,6 +29,11 @@ class Themes(models.Model):
     def get_url(self):
         return reverse('category-view', args=[self.slug])
 
+def category_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+pre_save.connect(category_pre_save_receiver, sender=Themes)
+
 class PostQuerySet(models.query.QuerySet):
 
     def search(self, query):
@@ -30,9 +41,12 @@ class PostQuerySet(models.query.QuerySet):
 
         query = reduce(operator.and_,
             ((Q(title__icontains=item) |
-            Q(description__icontains=item) |
+            Q(author_id__username__icontains=item) |
+            Q(content__icontains=item) |
             Q(theme_id__title__icontains=item) |
-            Q(theme_id__title_ru__icontains=item))
+            Q(theme_id__title_ru__icontains=item) |
+            Q(tag__title__icontains=item) |
+            Q(tag__title_ru__icontains=item))
             for item in term_list))
         return self.filter(query).distinct()
 
@@ -43,6 +57,10 @@ class PostManager(models.Manager):
 
     def get_by_category(self, category_slug):
         qs =  self.get_queryset().filter(theme_id__slug__iexact=category_slug)
+        return qs
+
+    def get_by_tag(self, tag_slug):
+        qs =  self.get_queryset().filter(tag__slug__icontains=tag_slug)
         return qs
 
     def search(self, query):

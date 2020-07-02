@@ -12,76 +12,69 @@ User = get_user_model()
 
 from .models import Post, Themes, Message
 from analysis.mixins import ObjectViewedMixin
+from tags.models import Tag
 
 class PostListView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'allposts'
     ordering = ['-created']
-    paginate_by = 5
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
+        context['tags'] = Tag.objects.all()
         context['searchthreads'] = Themes.objects.all()
         return context
 
-
-class FilterPostListView(ListView):
+class PostSearchView(ListView):
     model = Post
-    ordering = ['-created']
-    paginate_by = 5
+    context_object_name = 'allposts'
+    paginate_by = 9
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostSearchView, self).get_context_data(*args, **kwargs)
+        context['tags'] = Tag.objects.all()
+        context['searchthreads'] = Themes.objects.all()
+        context['query'] = self.request.GET.get('q')
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        method_dict = request.GET
+        query = method_dict.get('q', None)
+        if query is not None:
+            return Post.objects.search(query)
+        return Post.objects.all()
+
+class PostTagView(ListView):
+    model = Post
+    context_object_name = 'allposts'
+    paginate_by = 9
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PostTagView, self).get_context_data(*args, **kwargs)
+        context['tags'] = Tag.objects.all()
+        context['searchthreads'] = Themes.objects.all()
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        slug = self.kwargs.get('tag_slug')
+        return Post.objects.get_by_tag(slug)
 
 
-    def get_context_data(self, **kwargs):
-        context = super(FilterPostListView, self).get_context_data(**kwargs)
-        filter_set = Post.objects.all().order_by('-created')
-        page_size = self.get_paginate_by(filter_set)
-        context_object_name = self.get_context_object_name(filter_set)
-
-        # if self.request.GET.get('keywords'):
-        #     keywords = self.request.GET.get('keywords') or None
-        #     if keywords:
-        #         filter_set = filter_set.filter(content__icontains=keywords)
-
-        if page_size:
-            paginator, page, filter_set, is_paginated = self.paginate_queryset(filter_set, page_size)
-
-            context['paginator'] = paginator
-            context['page_obj'] = page
-            context['is_paginated'] = is_paginated
-            context['allposts'] = filter_set
-            context['searchthreads'] = Themes.objects.all()
-            context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
-            context['values']:request.GET
-            return context
-
-        else:
-            context['paginator'] = None
-            context['page_obj'] = None
-            context['is_paginated'] = False
-            context['allposts'] = filter_set
-            context['searchthreads'] = Themes.objects.all()
-            context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
-            # context['values']:request.GET
-            return context
-
-        if context_object_name is not None:
-            context[context_object_name] = filter_set
-        context.update(kwargs)
-        return super().get_context_data(**context)
-
-class PostThemesView(ObjectViewedMixin, ListView):
+class PostThemesView(ListView):
     template_name = 'blog/index.html'
     context_object_name = 'allposts'
     paginate_by = 9
 
     def get_context_data(self, *args, **kwargs):
         context = super(PostThemesView, self).get_context_data(*args, **kwargs)
+        context['tags'] = Tag.objects.all()
         # q = self.kwargs.get('category_slug')
         # context['categories'] = Themes.objects.filter(slug=q).first()
         context['searchthreads'] = Themes.objects.all()
-        context['featuredthreads'] = Post.objects.all().filter(is_featured=True)
         return context
 
     def get_queryset(self, *args, **kwargs):
