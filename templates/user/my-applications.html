@@ -166,14 +166,14 @@
                              </div>
                            </div>
 
-                           <div class="col-md-6" style="overflow:hidden">
+                           <div class="col-md-6 text-md-left text-center" style="overflow:hidden">
                              <p>
                               <i class="fas fa-clock"></i> {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}, {{ listing.user.full_name }}
                              <br>
                              </p>
                            </div>
 
-                           <div class="col-md-4">
+                           <div class="col-md-4 text-md-left text-center">
                              <p class="mb-0">
                                <i class="fas fa-money-bill-wave-alt"></i> Сумма помощи:
                                {% if listing.amount == 0 %}

@@ -117,7 +117,7 @@
                                  </div>
                                </div>
 
-                               <div class="col-md-5" style="overflow:hidden">
+                               <div class="col-md-5 text-md-left text-center" style="overflow:hidden">
                                  <p>
                                   {{ listing.user.full_name }}
                                   <br>
@@ -129,7 +129,7 @@
                                  </p>
                                </div>
 
-                               <div class="col-md-5">
+                               <div class="col-md-5 text-md-left text-center">
                                  <p>
                                    <i class="fas fa-money-bill-wave-alt"></i> Сумма:
                                    {% if listing.amount == 0 %}
@@ -162,7 +162,7 @@
                                <div class="card-body bg-light p-3">
                                  <div class="row mt-4">
 
-                                    <div class="col-12 px-sm-3 p-0">
+                                    <div class="col-12 px-4">
                                      {{ listing.description | safe | linebreaks }}
                                     </div>
 
