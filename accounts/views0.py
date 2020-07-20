@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, get_user_model
 from .signals import user_logged_in
-from .forms import LoginForm, RegisterForm, ReactivateEmailForm
+from .forms import LoginForm, RegisterForm, ReactivateEmailForm, CompanyRegisterForm
 from django.views.generic import CreateView, FormView, DeleteView, View
 from django.utils.http import is_safe_url
 from django.utils.safestring import mark_safe
@@ -22,18 +22,11 @@ User = get_user_model()
 
 class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
     form_class = LoginForm
+    success_url = 'user/dashboard'
     template_name = 'accounts/login.html'
 
-    def get_success_url(self):
-        request = self.request
-        user = self.request.user
-        if user.is_sponsor == True:
-            return reverse('sponsor-dashboard')
-        else:
-            return reverse('dashboard')
-
     def form_valid(self, form):
-        next_path = self.get_success_url()
+        next_path = self.get_next_url()
         request = self.request
         user = self.request.user
         user_logged_in.send(user.__class__, instance=user, request=request)
@@ -41,14 +34,10 @@ class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
 
 
 class RegisterView(CreateView):
-    form_class = RegisterForm
+    form_classes = {'users': RegisterForm,
+                    'companies': CompanyRegisterForm}
     template_name = 'accounts/register.html'
     success_url = '/accounts/login/'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(RegisterView, self).get_context_data(**kwargs)
-        context['is_sponsor'] = self.request.GET.get('sponsor')
-        return context
 
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):

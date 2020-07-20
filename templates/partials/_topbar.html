@@ -116,11 +116,16 @@
         >
          <div class="dropdown">
           <a href="#" type="button" class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton">
-            <i class="fas fa-user"></i> {% trans "Welcome" %} {{ user.username }}
+            <i class="fas fa-user"></i> {{ user.username }}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% if request.user.is_sponsor == True %}
+            <a href="{% url 'sponsor-dashboard' %}" class="dropdown-item text-left">
+              <small>{% trans "Account" %}</small></a>
+            {% else %}
             <a href="{% url 'dashboard' %}" class="dropdown-item text-left">
               <small>{% trans "Account" %}</small></a>
+            {% endif %}
             <a href="{% url 'profile' %}" class="dropdown-item text-left">
               <small>Профиль</small></a>
             <a href="{% url 'support' %}" class="dropdown-item text-left">

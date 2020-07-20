@@ -19,14 +19,9 @@
     <div class="container-fluid px-0">
       <div class="row">
 
-          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
-            <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-share-alt"></i> <span class="hidden-phone">Объявления</span><strong> {{ all_listings }}</strong></button>
-          </div>
-
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
             <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Предложений</span><strong> {{ all_products }}</strong></button>
+              <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Предложений</span><strong> {{ all_proposals }}</strong></button>
           </div>
 
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="400">
@@ -39,88 +34,21 @@
               <i class="fas fa-comment"></i> <span class="hidden-phone">{% trans "Replies" %}</span><strong> {{ usermessages }}</strong></button>
           </div>
 
-          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
-            <button class="btn btn-primary custom-btn btn-block shadow" name="restore">
-              <i class="fas fa-user-friends"></i> <span class="hidden-phone">{% trans "Contacts" %}</span><strong> {{ sitecontacts }}</strong></button>
-          </div>
-
       </div>
     </div>
   </div>
 </section>
 
 
-    {% if published_listings %}
-        <div class="col-md-10 mx-auto py-4 mt-5">
-          <div class="card bg-custom-primary-light shadow">
-            <div class="card-header text-white">
-
-              <h4>Активные объявления</h4>
-              <small>
-                Всего опубликовано: {{ active_listings }}
-                &nbsp;&nbsp; <i class="fas fa-bell"></i> Обновлено: &nbsp;&nbsp;
-                {% for time in pendingtime %}
-                 {{ time.created | naturaltime }}
-                {% endfor %}
-              </small>
-
-            </div>
-
-            <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table mb-0" id="no-more-tables">
-                    <thead class="thead bg-custom-secondary-light custom-secondary-text">
-                      <tr>
-                        <th>{% trans "Title" %}</th>
-                        <th>{% trans "Date" %}</th>
-                        <th>{% trans "Category" %}</th>
-                        <th>{% trans "Type" %}</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                    {% for listing in published_listings %}
-                        <tr>
-                          <td>{{ listing.title }}</td>
-                          <td>{{ listing.created | date}}</td>
-                          <td>
-
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
-                            {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
-
-                          </td>
-                          <td>
-
-                            {% if LANGUAGE_CODE == 'en' %}{{ listing.types_id.title }}
-                            {% elif LANGUAGE_CODE == 'ru' %}{{ listing.types_id.title_ru }}{% endif %}
-
-                          </td>
-                          <td>
-                            <a href="{% url 'listing' listing.id %}" class="btn btn-primary custom-btn shadow">
-                              <i class="fas fa-angle-double-right"></i>
-                              <!-- add link to main page -->
-                            </a>
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                </div>
-            </div>
-          </div>
-        </div>
-   {% endif %}
-
-   {% if published_products %}
+   {% if published_proposals %}
        <div class="col-md-10 mx-auto py-4">
          <div class="card bg-custom-primary-light shadow">
            <div class="card-header text-white">
 
-             <h4>Активные предложения по товарам и услугам</h4>
-             <small>  Всего опубликовано: {{ active_products }}
+             <h4>Активные предложения помощи</h4>
+             <small>  Всего опубликовано: {{ active_proposals }}
                &nbsp;&nbsp; <i class="fas fa-bell"></i> Обновлено: &nbsp;
-               {% for time in pendingtime_product %}
+               {% for time in pendingtime_proposal %}
                 {{ time.created | naturaltime }}
                {% endfor %}
              </small>
@@ -134,34 +62,19 @@
                      <tr>
                        <th>{% trans "Title" %}</th>
                        <th>{% trans "Date" %}</th>
-                       <th>{% trans "Category" %}</th>
-                       <th>{% trans "Price" %}</th>
-                       <th></th>
+                       <th>{% trans "City" %}</th>
+                       <th>{% trans "Amount" %}</th>
+                       <th>{% trans "Contact" %}</th>
                      </tr>
                    </thead>
                    <tbody class="bg-white">
-                   {% for listing in published_products %}
+                   {% for listing in published_proposals %}
                        <tr>
                          <td>{{ listing.title }}</td>
                          <td>{{ listing.created | date}}</td>
-                         <td>
-
-                           {% get_current_language as LANGUAGE_CODE %}
-                           {% if LANGUAGE_CODE == 'en' %}{{ listing.category_id.title }}
-                           {% elif LANGUAGE_CODE == 'ru' %}{{ listing.category_id.title_ru }}{% endif %}
-
-                         </td>
-                         <td>
-
-                           {{ listing.price | intcomma  }}
-
-                         </td>
-                         <td>
-                           <a href="{% url 'products:detail' listing.slug %}" class="btn btn-primary custom-btn shadow">
-                             <i class="fas fa-angle-double-right"></i>
-                             <!-- add link to main page -->
-                           </a>
-                         </td>
+                         <td>{{ listing.city }}</td>
+                         <td>{{ listing.amount }}</td>
+                         <td>{{ listing.user_contact }}</td>
                        </tr>
                        {% endfor %}
                      </tbody>
@@ -172,52 +85,11 @@
        </div>
   {% endif %}
 
-  {% if approved_proposals %}
-      <div class="col-md-10 mx-auto py-4">
-        <div class="card bg-custom-primary-light shadow">
-          <div class="card-header text-white">
-
-            <h4>Заявки на помощь с предварительным одобрением</h4>
-            <small>  Всего: {{ approved_proposals.count }}
-            </small>
-
-          </div>
-
-          <div class="card-body">
-              <div class="table-responsive">
-                <table class="table mb-0" id="no-more-tables">
-                  <thead class="thead bg-custom-secondary-light custom-secondary-text">
-                    <tr>
-                      <th>{% trans "Title" %}</th>
-                      <th>{% trans "Date" %}</th>
-                      <th>{% trans "City" %}</th>
-                      <th>{% trans "Amount" %}</th>
-                      <th>{% trans "Contact" %}</th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white">
-                  {% for listing in approved_proposals %}
-                      <tr>
-                        <td>{{ listing.title }}</td>
-                        <td>{{ listing.created | date}}</td>
-                        <td>{{ listing.city }}</td>
-                        <td>{{ listing.amount }}</td>
-                        <td>{{ listing.user_contact }}</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-              </div>
-          </div>
-        </div>
-      </div>
- {% endif %}
-
 
   <div class="col-12 mt-5 mb-4 mx-auto text-center">
    <h3>История просмотров
-   {% if not active_products and not active_listings %}
-   и объявлений
+   {% if not published_proposals %}
+   и предложений
    {% endif %}
    </h3>
   </div>

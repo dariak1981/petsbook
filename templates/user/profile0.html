@@ -36,8 +36,6 @@
 <!-- POSTS -->
 <section id="contents">
   <div class="container pb-5">
-    <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" id="userform">
-     {% csrf_token %}
 
     <div class="row pt-4 pb-5">
       <div class="col-lg-8 col-12">
@@ -47,11 +45,11 @@
             <h4>{% trans "Edit Profile" %}</h4>
             <small>{% trans "Note that some of this information may be visible to the website visitors" %}</small>
           </div>
-
           <div class="card-body">
             <div class="card">
               <div class="card-body">
-
+                <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" id="userform">
+                 {% csrf_token %}
 
                <div class="row mt-lg-4">
                  <div class="col-lg-4 col-6 my-lg-0 my-3">
@@ -178,7 +176,7 @@
                   </div>
                 </div>
 
-
+                </form>
               </div>
             </div>
           </div>
@@ -280,67 +278,64 @@
            <h4>Логотип и профиль в блоге</h4>
            <p class="mb-0">~</p>
          </div>
-        <div class="card-body no-gutters pb-4">
+        <div class="card-body mx-auto pb-5">
          <h3 class="mb-4">~ {{ edituser.user.username }} ~ </h3>
-         <div class="col-12">
-           {% if edituser.photo %}
-             <div class="p-4">
-               <div class="card shadow" id="container-image">
-                 <div id="dummy-user">
-                   <div id="element">
-                   <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
+         {% if edituser.photo %}
+               <div class="p-4">
+                 <div class="card shadow" id="container-image">
+                   <div id="dummy">
+                     <div id="element">
+                     <img src="{{ edituser.photo.url }}" id="image-field-0" class="img-fluid">
+                   </div>
                  </div>
                </div>
              </div>
-           </div>
 
-            <div class="text-white text-center mr-4">
-              <i class="fas fa-cut mr-1"></i>
-              <input id="image-clear_id" name="image-clear" type="checkbox" />
-            </div>
-              {% else %}
-             <div class="p-4">
-              <div class="card shadow" id="container-image">
-                <div id="dummy-user">
-                  <div id="element">
-                   <img src="{% static 'img/avatar-profile.png' %}" id="image-field-0" class="img-fluid">
+              <div class="text-white text-center mr-4">
+                <i class="fas fa-cut mr-1"></i>
+                <input id="image-clear_id" name="image-clear" type="checkbox" />
+              </div>
+                {% else %}
+               <div class="p-4">
+                <div class="card shadow" id="container-image">
+                  <div id="dummy">
+                    <div id="element">
+                     <img src="{% static 'img/avatar-profile.png' %}" id="image-field-0" class="img-fluid">
+                    </div>
+                   </div>
                   </div>
                  </div>
-                </div>
-               </div>
-              {% endif %}
-              <label>
-                  <input form="userform" id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
-              </label>
-         </div>
-         <div class="col-12 mt-2">
-           {% if edituser.usertype %}
-           {% get_current_language as LANGUAGE_CODE %}
-           {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
-           {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
-           {% endif %}
+                {% endif %}
+                <label>
+                    <input form="userform" id="selectedFile" type="file" name="photo" onchange="previewImage(event)">
+                </label>
+               <br>
+               <br>
+               {% if edituser.usertype %}
+               {% get_current_language as LANGUAGE_CODE %}
+               {% if LANGUAGE_CODE == 'en' %}{{ edituser.usertype.title }}
+               {% elif LANGUAGE_CODE == 'ru' %}{{ edituser.usertype.title_ru }}{% endif %}
+               {% endif %}
 
-           {% if edituser.business %}
-            <br>{{ edituser.business }}
-           {% endif %}
+               {% if edituser.business %}
+                <br>{{ edituser.business }}
+               {% endif %}
 
-           {% if edituser.publicmail %}
-            <br> {{ edituser.publicmail }};
-           {% endif %}
+               {% if edituser.publicmail %}
+                <br> {{ edituser.publicmail }};
+               {% endif %}
 
-           {% if edituser.phone %}
-             {{ edituser.phone }}
-           {% endif %}
+               {% if edituser.phone %}
+                 {{ edituser.phone }}
+               {% endif %}
 
-           {% if edituser.links %}
-            <br> {{ edituser.links }}
-           {% endif %}
+               {% if edituser.links %}
+                <br> {{ edituser.links }}
+               {% endif %}
 
-           {% if edituser.description %}
-              <br> {{ edituser.description }}
-           {% endif %}
-         </div>
-
+               {% if edituser.description %}
+                  <br> {{ edituser.description }}
+               {% endif %}
 
         </div>
 
@@ -354,7 +349,6 @@
     </div>
 
     </div>
-    </form>
   </div>
 </section>
 

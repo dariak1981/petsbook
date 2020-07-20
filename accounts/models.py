@@ -71,6 +71,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=100, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
     is_active = models.BooleanField(default=True) # can login
+    is_sponsor = models.BooleanField(default=False) # can sponsor
     staff = models.BooleanField(default=False) # staff user non superuser
     admin = models.BooleanField(default=False) # superuser
     joined = models.DateTimeField(auto_now_add=True, blank=True, null=True)

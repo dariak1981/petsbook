@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% block title %} | {% trans "My Product Ads" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+
+
+ <div class="account-wrap">
+
+    <!-- Actions -->
+    <section id="actions" class="py-4 bg-custom-secondary-light shadow mb-5">
+      <!-- <form action="{% url 'posts' %}" method="post"> -->
+       <div class="container">
+          <div class="container-fluid px-0">
+            <div class="row">
+
+              <div class="col action-buttons">
+                <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                  <i class="fas fa-edit"></i> <span class="hidden-phone">Действия</span></a>
+                <div class="dropdown-menu shadow">
+
+                  {% if not applications %}
+                  <a href="{% url 'new-application' %}" class="dropdown-item btn btn-light" name="addnew">
+                    <i class="fas fa-plus-circle"></i> <span>Создать шаблон</span></a>
+                  {% endif %}
+
+                  {% if applications %}
+                  <a href="{% url 'edit-application' applications.id %}" class="dropdown-item btn btn-light" name="edit">
+                    <i class="fas fa-pen-square"></i> <span>Просмотр / Редактировать</span></a>
+
+                  <a href="{% url 'delete-application' applications.id %}" class="dropdown-item btn btn-light" name="delete">
+                    <i class="fas fa-trash"></i> <span>Удалить шаблон и заявки</span></a>
+                  {% endif %}
+
+                </div>
+              </div>
+
+
+                  <div class="col action-buttons">
+                      <button type="submit" form="app_form" class="btn btn-primary custom-btn btn-block shadow" name="change_stat">
+                        <i class="fas fa-share-alt"></i> <span>Отправить заявку или отозвать</span></button>
+                  </div>
+
+                <div class="col action-buttons">
+                  <a href="#" class="btn btn-primary custom-btn btn-block shadow dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-sort fa-lg"></i> <span class="hidden-phone">{% trans "Sort" %}</span></a>
+                  <div class="dropdown-menu shadow">
+                      <button type="submit" form="app_form" class="dropdown-item btn btn-light" name="bystatus">
+                      <i class="fas fa-unlock"></i> По статусу</button>
+                    <button type="submit" form="app_form" class="dropdown-item btn btn-light" name="bydate">
+                      <i class="fas fa-clock"></i> По дате</button>
+                  </div>
+                </div>
+
+
+
+            </div>
+          </div>
+
+      </div>
+    </section>
+
+    <section id="contents">
+      <div class="container">
+
+        <div class="row pt-4 pb-5">
+          <div class="col-12 mb-4 mb-5">
+            <div class="card bg-custom-primary-light shadow">
+              <div class="card-body">
+                <form action="{% url 'applications' %}" method="POST" id="app_form">
+                	{% csrf_token %}
+
+
+                   {% if proposals %}
+                    <div class="accordion" id="accordionExample">
+                      <div class="card border">
+                        {% for listing in proposals %}
+                        <div class="card-header py-4">
+                          <div class="col-md-10 col-12 text-md-left text-center mx-auto p-0">
+                            <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
+                              <h4>
+                                <strong>
+                                  {{ listing.title }}
+                                </strong>
+                              </h4>
+                            </button>
+                          </div>
+                         <div class="row">
+                           <div class="col-md-1 text-center p-2 mb-auto">
+                             <div class="custom-control custom-radio">
+                               <input type="radio" class="custom-control-input" id="customRadio{{ listing.id }}" name="instance" value="{{ listing.id }}" >
+                               <label for="customRadio{{ listing.id }}" class="custom-control-label"></label>
+                             </div>
+                           </div>
+
+                           <div class="col-md-6 text-md-left text-center" style="overflow:hidden">
+                             <p>
+                               <i class="fas fa-clock"></i> {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}, {{ listing.user.full_name }}
+                             <br>
+                             Статус заявки:
+                             {% if listing in applications.approvals.all %}
+                             <span style="color:red;">Одобрена, {{ listing.user_contact }}</span>
+                             {% else %}
+                             <span style="color:blue;">На рассмотрении</span>
+                             {% endif %}
+                             </p>
+                           </div>
+
+                           <div class="col-md-4 text-md-left text-center">
+                            <p class="mb-0">
+                              <i class="fas fa-money-bill-wave-alt"></i> Сумма помощи:
+                              {% if listing.amount == 0 %}
+                              {% trans "For free" %}
+                              {% else %}
+                              {{ listing.amount | intcomma }}
+                              {% endif %}
+                              <br> {% trans "Город" %}: {{ listing.city }}
+                            </p>
+                           </div>
+
+                            <div class="col-md-1 text-center p-2 mb-auto">
+                               <i class="fas fa-paper-plane" style="color:red;"></i>
+                            </div>
+
+                         </div>
+                        </div>
+
+                         <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+                           <div class="card-body bg-light p-3">
+                             <div class="row mt-4">
+                                <div class="col-12 px-4">
+                                 {{ listing.description | safe | linebreaks }}
+                                </div>
+                             </div>
+                           </div>
+                         </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if opened_proposals %}
+                    <div class="accordion" id="accordionExample">
+                      <div class="card border">
+                        {% for listing in opened_proposals %}
+                        <div class="card-header p-3">
+                          <div class="col-md-10 col-12 text-md-left text-center mx-auto p-0">
+                            <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
+                              <h4>
+                                <strong>
+                                  {{ listing.title }}
+                                </strong>
+                              </h4>
+                            </button>
+                          </div>
+                         <div class="row">
+                           <div class="col-md-1 text-center p-0 mb-auto">
+                             <div class="custom-control custom-radio">
+                               <input type="radio" class="custom-control-input" id="customRadio{{ listing.id }}" name="instance" value="{{ listing.id }}" >
+                               <label for="customRadio{{ listing.id }}" class="custom-control-label"></label>
+                             </div>
+                           </div>
+
+                           <div class="col-md-6" style="overflow:hidden">
+                             <p>
+                              <i class="fas fa-clock"></i> {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}, {{ listing.user.full_name }}
+                             <br>
+                             </p>
+                           </div>
+
+                           <div class="col-md-4">
+                             <p class="mb-0">
+                               <i class="fas fa-money-bill-wave-alt"></i> Сумма помощи:
+                               {% if listing.amount == 0 %}
+                               {% trans "For free" %}
+                               {% else %}
+                               {{ listing.amount | intcomma }}
+                               {% endif %}
+                               <br> {% trans "Город" %}: {{ listing.city }}
+                             </p>
+
+                            </div>
+                            <div class="col-md-1 text-center p-0 mb-auto">
+                               <i class="fas fa-info-circle" style="color:green;"></i>
+                            </div>
+                         </div>
+                        </div>
+
+                         <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+                           <div class="card-footer border-0 bg-light p-3">
+                             <div class="row mt-4">
+
+                                <div class="col-12 px-4">
+                                 {{ listing.description | safe | linebreaks }}
+                                </div>
+
+                             </div>
+                           </div>
+                         </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                {% endif %}
+
+                </form>
+
+                {% if not proposals and not opened_proposals %}
+                <div class="col-md-12">
+                  <div class="text-white text-center">
+                    <i class="fas fa-edit"></i>
+                  </div>
+                </div>
+                {% endif %}
+
+              </div>
+
+
+              <div class="ml-4">
+                {% if proposals.has_other_pages %}
+                    <ul class="pagination">
+                      {% if proposals.has_previous %}
+                        <li class="page-item">
+                          <a href="?page={{proposals.previous_page_number}}" class="page-link">&laquo;</a>
+                        </li>
+                      {% else %}
+                      <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                      </li>
+                      {% endif %}
+                      {% for i in proposals.paginator.page_range %}
+                        {% if proposals.number == i %}
+                        <li class="page-item active">
+                          <a class="page-link">{{i}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                          <a href="?page={{i}}" class="page-link">{{i}}</a>
+                        </li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if proposals.has_next %}
+                        <li class="page-item">
+                          <a href="?page={{proposals.next_page_number}}" class="page-link">&raquo;</a>
+                        </li>
+                      {% else %}
+                      <li class="page-item disabled">
+                        <a class="page-link">&raquo;</a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </section>
+
+</div>
+
+
+{% endblock %}

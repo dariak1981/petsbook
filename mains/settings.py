@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'analysis',
     'marketing',
     'products',
+    'companies',
     'support',
     'carts',
     'tags'
@@ -190,8 +191,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'infopetfaceapp@gmail.com'
 EMAIL_HOST_PASSWORD = '_8Sv5cq8tNkhd3SR'
 DEFAULT_FROM_EMAIL = 'Petsbook.club <infopetfaceapp@gmail.com>'
-BASE_URL = '127.0.0.1:8000'
-# BASE_URL = 'https://petsbook.club'
+# BASE_URL = '127.0.0.1:8000'
+BASE_URL = 'https://petsbook.club'
 
 try:
     from .local_settings import *

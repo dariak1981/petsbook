@@ -119,25 +119,36 @@
                 	{% csrf_token %}
                   {% if listings %}
                         <div class="accordion" id="accordionExample">
-                          <div class="card">
+                          <div class="card border">
                             {% for listing in listings %}
-                            <div class="card-header p-3 shadow-sm">
+                            <div class="card-header py-4">
+
+                             <div class="col-md-10 col-12 text-md-left text-center mx-auto p-0">
+                                <button class="btn btn-link text-left pl-0 pb-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
+                                  <h4>
+                                    <strong>
+                                      {{ listing.title }}
+                                    </strong>
+                                  </h4>
+                                </button>
+                             </div>
+
                              <div class="row">
-                               <div class="col-md-1 text-center my-auto">
+                               <div class="col-md-1 text-center my-3">
                                  <div class="custom-control custom-radio">
                                    <input type="radio" class="custom-control-input" id="customRadio{{ listing.id }}" name="instance" value="{{ listing.id }}" >
                                    <label for="customRadio{{ listing.id }}" class="custom-control-label"></label>
                                  </div>
                                </div>
 
-                               <div class="col-md-4" style="overflow:hidden">
-                                 <button class="btn btn-link text-left pl-0 pb-0" type="button" data-toggle="collapse" data-target="#collapse{{ listing.id }}" aria-expanded="false" aria-controls="collapse{{ listing.id }}">
-                                   <strong>
-                                     {{ listing.title }}
-                                   </strong>
-                                 </button>
+                               <div class="col-md-5 text-md-left text-center" style="overflow:hidden">
 
-                                <div class="">
+                                  <i class="fas fa-clock"></i> {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
+                                  {% if listing.adstatus_id_id == 3 %}
+                                  - {{ listing.archived.date | date:"SHORT_DATE_FORMAT" }}
+                                  {% else %}
+                                  {% endif %}
+                                  <br>
                                   {% if listing.owner %}
                                    <strong>{% trans "Owner" %}:</strong> {{ listing.owner.name }}<br>
                                   {% else %}
@@ -146,16 +157,10 @@
                                    <strong>{% trans "Fosterer" %}:</strong> {{ listing.forester.name }}
                                   {% else %}
                                   {% endif %}
-                                </div>
 
                                </div>
 
-                               <div class="col-md-6">
-                                 <i class="fas fa-clock"></i> {% trans "Date posted" %}: {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
-                                 {% if listing.adstatus_id_id == 3 %}
-                                 / {% trans "Date closed" %}: {{ listing.archived.date | date:"SHORT_DATE_FORMAT" }}
-                                 {% else %}
-                                 {% endif %}
+                               <div class="col-md-5 text-md-left text-center">
                                  <p>
                                    <i class="fas fa-paw"></i> {% trans "Category" %}:
                                    {% get_current_language as LANGUAGE_CODE %}
@@ -187,23 +192,27 @@
                                    {% elif LANGUAGE_CODE == 'ru' %}{{ listing.age_id.title_ru }}{% endif %}
 
                                  </p>
-                                </div>
-                                <div class="col-md-1 text-center my-auto">
-                                  {% if listing.adstatus_id_id == 3  %}
-                                   <i class="fas fa-lock"></i>
+                               </div>
 
-                                  {% elif listing.adstatus_id_id == 2 %}
-                                   <i class="fas fa-share-alt"></i>
+                               <div class="col-md-1 text-center my-3">
+                                {% if listing.adstatus_id_id == 3  %}
+                                 <i class="fas fa-lock" style="color:blue;"></i>
 
-                                  {% else %}
-                                   <i class="fas fa-stopwatch"></i>
-                                  {% endif %}
-                                </div>
-                             </div>
+                                {% elif listing.adstatus_id_id == 2 %}
+                                 <i class="fas fa-share-alt" style="color:red;"></i>
+
+                                {% else %}
+                                 <i class="fas fa-stopwatch" style="color:green;"></i>
+                                {% endif %}
+                               </div>
+                           </div>
+
+                            </div>
 
                              <div id="collapse{{ listing.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
-                               <div class="card-body p-3">
-                                 <div class="row mt-4">
+                               <div class="card-body bg-light p-3">
+
+                                  <div class="row mt-4">
                                    <div class="col-lg-5 text-center px-lg-5 py-2 mb-lg-0 mb-4">
                                      <div class="card shadow" id="container-image">
                                        <div id="dummy">
@@ -224,74 +233,49 @@
 
                                   </div>
 
-
-                                   <div class="row">
-                                     <div class="col-lg-5 text-center mt-4">
-                                       <strong>{% trans "Requests" %}</strong> - {{ listing.requests.all.count}}
-
-                                     </div>
-                                     <div class="col-lg-6 text-left">
-                                     </div>
+                                   <div class="col-12">
+                                     <h4 class="text-center my-3"><strong>Заявки ({{ listing.requests.all.count }})</strong></h4>
                                    </div>
-
 
                                    {% if listing.requests.exists %}
                                      {% for contact in listing.requests.all %}
                                        <div class="row my-4">
-                                         <div class="col-lg-5 text-left px-md-5 px-0">
+                                         <div class="col-lg-5 text-md-left text-center px-md-5 px-0">
                                            <p>
-                                             {{ contact.name }}
+
+                                             {% if contact.group_id == 3  %}
+                                               <i class="fas fa-flushed" style="color:red;"></i>
+
+                                             {% elif contact.group_id == 2 %}
+                                              <i class="fas fa-meh" style="color:blue;"></i>
+
+                                             {% else %}
+                                              <i class="fas fa-grin" style="color:green;"></i>
+                                             {% endif %}
+                                             <strong>{{ contact.name }} </strong>
+
                                              <br>
                                              {% trans "Address" %}: {{ contact.address }}
                                              <br>
                                              {% trans "Contacts" %}: {{ contact.phone }},
                                              {{ contact.links }}
-                                             <br>
-                                             {% trans "Group" %}: {{ contact.group }}
-                                           </p>
+                                             </p>
+
                                          </div>
-                                         <div class="col-lg-6 px-sm-3 px-0">
+                                         <div class="col-lg-6 text-md-left text-center px-sm-3 px-0">
                                            <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
                                          </div>
                                        </div>
                                      {% endfor %}
-                                    {% endif %}
+                                  {% endif %}
 
-                                   <!-- {% for contact in contacts %}
-                                     {% if contact.attached_id == listing.id %}
-                                     <div class="row my-4">
-                                       <div class="col-lg-5 text-left px-md-5 px-0">
-                                         <p>
-                                           {{ contact.name }}
-                                           <br>
-                                           {% trans "Address" %}: {{ contact.address }}
-                                           <br>
-                                           {% trans "Contacts" %}: {{ contact.phone }},
-                                           {{ contact.links }}
-                                           <br>
-                                           {% trans "Group" %}: {{ contact.group }}
-                                         </p>
-                                       </div>
-                                       <div class="col-lg-6 px-sm-3 px-0">
-                                         <p class="m-0">{{ contact.comments | safe | linebreaks }}</p>
-                                       </div>
-                                     </div>
-                                     {% endif %}
-                                   {% endfor %} -->
-
-
-
-
-
-
-
-
-                               </div>
+                              </div>
                              </div>
-                            </div>
+
                             {% endfor %}
+                            </div>
                           </div>
-                        </div>
+
                   {% else %}
                     <div class="col-md-12">
                       <div class="text-white text-center">

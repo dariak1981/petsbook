@@ -514,6 +514,15 @@ color: #fff;
 #dummy-post {
     margin-top: 45%;
 }
+
+#dummy-logo {
+    margin-top: 100%;
+}
+
+#dummy-user {
+    margin-top: 100%;
+}
+
 #element-post {
     position: absolute;
     top: 0;
@@ -976,9 +985,6 @@ label {
     background-image: none;
   }
 
-  .header-sticky .navbar {
-    font-size:0.65rem;
-  }
 
   #listing-heading {
   font-size:2.3rem;
@@ -1031,9 +1037,6 @@ label {
 
 @media (max-width: 481px) {
 
-  .header-sticky .navbar  {
-    font-size:0.45rem;
-  }
 
   #listing-heading {
   font-size:2rem;

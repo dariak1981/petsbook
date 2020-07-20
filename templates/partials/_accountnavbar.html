@@ -1,50 +1,112 @@
 {% load i18n %}
-<!-- SubMenu / Search -->
+
+
+
 <header class="bg-custom-primary shadow header-sticky" style="z-index:5;">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 my-2">
-        <nav class="navbar navbar-expand navbar-dark justify-content-center sticky-top">
-        <ul class="navbar-nav">
-          <li
-            {% if 'dashboard' in request.path %}
-              class="nav-item pr-2 active"
-            {% else %}
-              class="nav-item pr-2"
-            {% endif %}
-          >
-            <a href="{% url 'dashboard' %}" class="nav-link">Общая информация</a>
-          </li>
-          <li
-            {% if 'ads' in request.path or 'new-listing' in request.path or 'edit-listing' in request.path or 'archived' in request.path or 'fostered' in request.path or 'requested' in request.path %}
-              class="nav-item px-2 active"
-            {% else %}
-              class="nav-item px-2"
-            {% endif %}
-          >
-            <a href="{% url 'posts' %}" class="nav-link">Объявления по животным</a>
-          </li>
-          <li
-            {% if 'contacts' in request.path or 'new-contact' in request.path or 'edit-contact' in request.path %}
-              class="nav-item px-2 active"
-            {% else %}
-              class="nav-item px-2"
-            {% endif %}
-          >
-            <a href="{% url 'contacts' %}" class="nav-link">Владельцы и передержка</a>
-          </li>
-          <li
-            {% if 'my-proposals' in request.path or 'new-product' in request.path or 'edit-product' in request.path %}
-              class="nav-item px-2 active"
-            {% else %}
-              class="nav-item px-2"
-            {% endif %}
-          >
-            <a href="{% url 'product_ads' %}" class="nav-link">Предложения товаров и услуг</a>
-          </li>
-         </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
+
+        {% if request.user.is_sponsor == True %}
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-center sticky-top">
+          <div class="container-fluid px-4">
+
+            <button
+              class="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#accountNB">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse py-2" id="accountNB">
+
+          <ul class="navbar-nav text-lg-left text-center py-lg-0 py-4">
+            <li
+              {% if 'dashboard' in request.path %}
+                class="nav-item pr-2 active"
+              {% else %}
+                class="nav-item pr-2"
+              {% endif %}
+            >
+              <a href="{% url 'sponsor-dashboard' %}" class="nav-link">Общая информация</a>
+            </li>
+            <li
+              {% if 'support' in request.path %}
+                class="nav-item px-2 active"
+              {% else %}
+                class="nav-item px-2"
+              {% endif %}
+            >
+              <a href="{% url 'support-ads' %}" class="nav-link">Предложения помощи</a>
+            </li>
+          </ul>
+
+        </div>
+       </div>
+      </nav>
+
+      <!-- USERS -->
+        {% else %}
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-center sticky-top">
+          <div class="container-fluid px-4">
+
+            <button
+              class="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#accountNB">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse py-2" id="accountNB">
+
+              <ul class="navbar-nav text-lg-left text-center py-lg-0 py-4">
+                <li
+                  {% if 'dashboard' in request.path %}
+                    class="nav-item pr-2 active"
+                  {% else %}
+                    class="nav-item pr-2"
+                  {% endif %}
+                >
+                  <a href="{% url 'dashboard' %}" class="nav-link">Общая информация</a>
+                </li>
+                <li
+                  {% if 'ads' in request.path or 'new-listing' in request.path or 'edit-listing' in request.path or 'archived' in request.path or 'fostered' in request.path or 'requested' in request.path %}
+                    class="nav-item px-2 active"
+                  {% else %}
+                    class="nav-item px-2"
+                  {% endif %}
+                >
+                  <a href="{% url 'posts' %}" class="nav-link">Объявления по животным</a>
+                </li>
+                <li
+                  {% if 'contacts' in request.path or 'new-contact' in request.path or 'edit-contact' in request.path %}
+                    class="nav-item px-2 active"
+                  {% else %}
+                    class="nav-item px-2"
+                  {% endif %}
+                >
+                  <a href="{% url 'contacts' %}" class="nav-link">Владельцы и передержка</a>
+                </li>
+                <li
+                  {% if 'my-proposals' in request.path or 'new-product' in request.path or 'edit-product' in request.path %}
+                    class="nav-item px-2 active"
+                  {% else %}
+                    class="nav-item px-2"
+                  {% endif %}
+                >
+                  <a href="{% url 'product_ads' %}" class="nav-link">Предложения товаров и услуг</a>
+                </li>
+                <li
+                  {% if 'application' in request.path %}
+                    class="nav-item px-2 active"
+                  {% else %}
+                    class="nav-item px-2"
+                  {% endif %}
+                >
+                  <a href="{% url 'applications' %}" class="nav-link">Заявки на помощь</a>
+                </li>
+              </ul>
+
+            </div>
+           </div>
+          </nav>
+        {% endif %}
+
 </header>

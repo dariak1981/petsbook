@@ -80,28 +80,31 @@
       <div class="col-12 mb-5">
         <div class="card bg-custom-primary-light shadow">
           <div class="card-body">
+            <form action="{% url 'contacts' %}" method="POST" id="activecontacts">
+            {% csrf_token %}
               {% if contacts %}
                     <div class="accordion" id="accordionExample">
-                      <div class="card">
-                        <form action="{% url 'contacts' %}" method="POST" id="activecontacts">
-                        {% csrf_token %}
+                      <div class="card border">
 
                         {% for contact in contacts %}
-                        <div class="card-header p-3 shadow-sm">
-                         <div class="row">
-                           <div class="col-md-1 text-center my-auto">
+                        <div class="card-header p-3">
+
+                          <div class="col-md-10 col-12 text-md-left text-center mx-auto p-0">
+                            <button class="btn btn-link text-left pl-0" type="button" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="false" aria-controls="collapse{{ contact.id }}">
+                              <h4><i class="fas fa-id-card-alt mr-2"></i><strong> {{ contact.name }}</strong></h4>
+                            </button>
+                          </div>
+
+                          <div class="row">
+                           <div class="col-md-1 text-center my-3">
                              <div class="custom-control custom-radio"">
                                <input type="radio" class="custom-control-input" id="customRadio{{ contact.id }}" name="instance" value="{{ contact.id }}" >
                                <label for="customRadio{{ contact.id }}" class="custom-control-label"></label>
                              </div>
                            </div>
 
-                           <div class="col-md-4">
-                             <button class="btn btn-link text-left pl-0" type="button" data-toggle="collapse" data-target="#collapse{{ contact.id }}" aria-expanded="false" aria-controls="collapse{{ contact.id }}">
-                               <i class="fas fa-id-card-alt mr-2"></i><strong> {{ contact.name }}</strong>
-                             </button>
-                             <br>
-                             <i class="fas fa-clock"></i> {% trans "Date created" %}: {{ contact.created | date:"SHORT_DATE_FORMAT" }}
+                           <div class="col-md-4 text-md-left text-center">
+                             <i class="fas fa-clock"></i> {{ contact.created | date:"SHORT_DATE_FORMAT" }}
                               <br>{% trans "Animals owned" %}: {{ contact.listing_owner.all.count }}
                               <br>{% trans "Fostered" %}: {{ contact.listing_foster.all.count }}
                               {% if contact.id in listings %}
@@ -109,11 +112,9 @@
                               {% endif %}
                            </div>
 
-                           <div class="col-md-6">
-
-                             <p class="mt-2">
+                           <div class="col-md-6 text-md-left text-center">
+                             <p>
                                Тип контакта:
-
                                {% get_current_language as LANGUAGE_CODE %}
                                {% if LANGUAGE_CODE == 'en' %}{{ contact.type.title }}
                                {% elif LANGUAGE_CODE == 'ru' %}{{ contact.type.title_ru }}{% endif %}
@@ -134,28 +135,29 @@
                                {{ contact.comments | safe | linebreaks }}
                              </p>
                             </div>
-                            <div class="col-md-1 text-center my-auto">
+                            <div class="col-md-1 text-center my-3">
                               {% if contact.group_id == 3  %}
-                               <div class="group-icon">
-                                <strong>III</strong>
+                               <div class="group-icon" style="color:red;">
+                                <i class="fas fa-flushed"></i>
                                </div>
 
                               {% elif contact.group_id == 2 %}
-                              <div class="group-icon">
-                               <strong>II</strong>
+                              <div class="group-icon" style="color:blue;">
+                               <i class="fas fa-meh"></i>
                               </div>
 
                               {% else %}
-                              <div class="group-icon">
-                               <strong>I</strong>
+                              <div class="group-icon" style="color:green;">
+                               <i class="fas fa-grin"></i>
                               </div>
                               {% endif %}
                             </div>
+                          </div>
+
                          </div>
 
-
                          <div id="collapse{{ contact.id }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
-                           <div class="card-body p-3">
+                           <div class="card-body bg-light p-3 mb-3">
 
                              {% if contact.listing_owner.all %}
                              {% for listing in contact.listing_owner.all %}
@@ -177,10 +179,10 @@
                               </div>
 
                                </div>
-                               <div class="col-lg-6 px-sm-3 p-0" id="description" name="description">
+                               <div class="col-lg-6 px-sm-3 p-0 text-lg-left text-center" id="description" name="description">
                                  <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                    <br>
-                                   {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
+                                   Дата закрытия: {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
                                    - {{ listing.archived.date | date:"SHORT_DATE_FORMAT" }}
                                    <br>
                                    {% get_current_language as LANGUAGE_CODE %}
@@ -234,10 +236,10 @@
                              </div>
                           </div>
 
-                              <div class="col-lg-6 px-sm-3 p-0">
+                              <div class="col-lg-6 px-sm-3 p-0 text-lg-left text-center">
                                 <p><strong><i class="fas fa-paw"></i> {{ listing.title }}</strong>
                                   <br>
-                                  {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
+                                  Запись создана: {{ listing.created.date | date:"SHORT_DATE_FORMAT" }}
                                   - <strong>{% trans "Fostered" %}</strong>
                                   <br>
                                   {% get_current_language as LANGUAGE_CODE %}
@@ -275,13 +277,11 @@
                            </div>
                          </div>
 
-
-
-                        </div>
                         {% endfor %}
                         </form>
                       </div>
                     </div>
+
               {% else %}
                 <div class="col-md-12">
                   <div class="text-white text-center">
@@ -295,8 +295,6 @@
 
         <div class="ml-4">
           {% if contacts.has_other_pages %}
-          <!-- <p>No Listings Available</p>
-        </div>  -->
               <ul class="pagination">
                 {% if contacts.has_previous %}
                   <li class="page-item">

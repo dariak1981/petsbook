@@ -5,6 +5,12 @@ from listings.forms import *
 from .models import WelcomeText, Services, Terms
 from products.models import Product, ProductCategory
 from carts.models import Cart
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
+Profile = settings.AUTH_PROFILE_MODULE
+from accounts.models import Profile
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def home(request):
   listings = Listing.objects.order_by('-created').filter(adstatus_id = '2')[:4]
@@ -17,6 +23,7 @@ def home(request):
   products = Product.objects.order_by('-created').filter(adstatus_id = '2')[:3]
   product_categories = ProductCategory.objects.all()
   cart_obj, new_obj = Cart.objects.new_or_get(request)
+  sponsors = Profile.objects.filter(user__is_sponsor=True)
 
   context = {
     'listings': listings,
@@ -29,7 +36,8 @@ def home(request):
     'welcometext': welcometext,
     'object_list': products,
     'category_links': product_categories,
-    'cart':cart_obj
+    'cart':cart_obj,
+    'sponsors': sponsors,
   }
 
   return render(request, 'pages/home.html', context)

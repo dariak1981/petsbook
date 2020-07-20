@@ -1,0 +1,19 @@
+
+
+<div class="row mt-5 mb-3 d-flex">
+ {% for item in sponsors %}
+  <div class="col-xl-2 col-lg-3 col-sm-4 col-6 px-5 mb-4 mx-auto">
+    <div id="container-image">
+      <div id="dummy-logo">
+        <div id="element">
+          {% if item.photo %}
+           <img src="{{ item.photo.url }}" class="img-fluid">
+          {% else %}
+           {{ item.user.full_name }}
+          {% endif %}
+         </div>
+      </div>
+    </div>
+   </div>
+  {% endfor %}
+</div>

@@ -19,11 +19,6 @@
     <div class="container-fluid px-0">
       <div class="row">
 
-          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="100">
-            <button class="btn btn-primary custom-btn btn-block shadow">
-              <i class="fas fa-share-alt"></i> <span class="hidden-phone">Объявления</span><strong> {{ all_listings }}</strong></button>
-          </div>
-
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="200">
             <button class="btn btn-primary custom-btn btn-block shadow">
               <i class="fas fa-stopwatch"></i> <span class="hidden-phone">Предложений</span><strong> {{ all_products }}</strong></button>
@@ -37,11 +32,6 @@
           <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="500">
             <button class="btn btn-primary custom-btn btn-block shadow" name="restore">
               <i class="fas fa-comment"></i> <span class="hidden-phone">{% trans "Replies" %}</span><strong> {{ usermessages }}</strong></button>
-          </div>
-
-          <div class="col action-buttons" data-aos="zoom-in" data-aos-delay="600">
-            <button class="btn btn-primary custom-btn btn-block shadow" name="restore">
-              <i class="fas fa-user-friends"></i> <span class="hidden-phone">{% trans "Contacts" %}</span><strong> {{ sitecontacts }}</strong></button>
           </div>
 
       </div>
@@ -172,52 +162,11 @@
        </div>
   {% endif %}
 
-  {% if approved_proposals %}
-      <div class="col-md-10 mx-auto py-4">
-        <div class="card bg-custom-primary-light shadow">
-          <div class="card-header text-white">
-
-            <h4>Заявки на помощь с предварительным одобрением</h4>
-            <small>  Всего: {{ approved_proposals.count }}
-            </small>
-
-          </div>
-
-          <div class="card-body">
-              <div class="table-responsive">
-                <table class="table mb-0" id="no-more-tables">
-                  <thead class="thead bg-custom-secondary-light custom-secondary-text">
-                    <tr>
-                      <th>{% trans "Title" %}</th>
-                      <th>{% trans "Date" %}</th>
-                      <th>{% trans "City" %}</th>
-                      <th>{% trans "Amount" %}</th>
-                      <th>{% trans "Contact" %}</th>
-                    </tr>
-                  </thead>
-                  <tbody class="bg-white">
-                  {% for listing in approved_proposals %}
-                      <tr>
-                        <td>{{ listing.title }}</td>
-                        <td>{{ listing.created | date}}</td>
-                        <td>{{ listing.city }}</td>
-                        <td>{{ listing.amount }}</td>
-                        <td>{{ listing.user_contact }}</td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-              </div>
-          </div>
-        </div>
-      </div>
- {% endif %}
-
 
   <div class="col-12 mt-5 mb-4 mx-auto text-center">
    <h3>История просмотров
    {% if not active_products and not active_listings %}
-   и объявлений
+   и предложений
    {% endif %}
    </h3>
   </div>

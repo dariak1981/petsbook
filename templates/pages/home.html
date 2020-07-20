@@ -12,7 +12,7 @@
       <div class="overlay m-sm-2 m-4 p-4 text-white shadow">
 
         <p class="lead intro" data-aos="fade" data-aos-duration="3000">
-          
+
           {% get_current_language as LANGUAGE_CODE %}
           {% if LANGUAGE_CODE == 'en' %}{{ welcometext.content }}
           {% elif LANGUAGE_CODE == 'ru' %}{{ welcometext.content_ru }}{% endif %} &nbsp;<i class="fas fa-paw"></i>
@@ -126,16 +126,23 @@
         </div>
       {% endif %}
     </div>
-
-
-
    </div>
 </section>
+
+
+    {% if sponsors %}
+      <section class="pb-4 bg-light shadow">
+        <div class="mb-5 p-3" style="background:#054f19;">
+        </div>
+          <h2 class="titles-custom text-center my-3">Поддержка приютов</h2>
+          {% include 'pages/snippets/logo_swiper.html' %}
+      </section>
+    {% endif %}
+
 
 <section id="products-title" class="text-center">
   <div class="container">
       <h2 class="text-white py-5 m-0" style="position: relative;z-index: 1;">Предложения товаров и услуг</h2>
-      <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
   </div>
   {% include 'products/snippets/categories.html'%}

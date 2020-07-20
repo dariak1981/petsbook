@@ -27,6 +27,8 @@ from analysis.models import ObjectViewed
 from products.models import ProductCategory, Product
 from products.forms import ProductForm, ProductCategoryForm
 from . import forms
+from companies.models import Proposal, Application, Propstatus
+from companies.forms import ApplicationForm, ProposalForm
 from django.utils.translation import ugettext as _
 
 User = get_user_model()
@@ -48,33 +50,56 @@ def profile(request):
      }
 
      if request.method == "POST" and 'userprofile' in request.POST:
-         mainuser.user = request.user
-         mainuser.username = request.POST['username']
-         mainuser.full_name = request.POST['full_name']
-         edituser.usertype = UserType.objects.get(id=request.POST['usertype'])
-         edituser.publicmail = request.POST['publicmail']
-         edituser.business = request.POST['business']
-         edituser.phone = request.POST['phone']
-         edituser.links = request.POST['links']
-         edituser.description = request.POST['description']
-         if 'image-clear' in request.POST:
-             edituser.photo = None
-         else:
-             if request.FILES.get('photo'):
-                 edituser.photo = request.FILES.get('photo')
+         if request.user.is_sponsor:
+             mainuser.user = request.user
+             mainuser.username = request.POST['username']
+             mainuser.full_name = request.POST['full_name']
+             edituser.usertype = UserType.objects.get(id=request.POST['usertype'])
+             edituser.publicmail = request.POST['publicmail']
+             edituser.business = request.POST['business']
+             edituser.phone = request.POST['phone']
+             edituser.links = request.POST['links']
+             edituser.description = request.POST['description']
+             if 'image-clear' in request.POST:
+                 edituser.photo = None
              else:
-                 edituser.photo = edituser.photo
-         edituser.ad_organization = request.POST['ad_organization']
-         edituser.ad_address = request.POST['ad_address']
-         edituser.ad_website = request.POST['ad_website']
-         edituser.ad_email = request.POST['ad_email']
-         edituser.ad_youtube = request.POST['ad_youtube']
-         edituser.ad_facebook = request.POST['ad_facebook']
-         edituser.ad_vk = request.POST['ad_vk']
+                 if request.FILES.get('photo'):
+                     edituser.photo = request.FILES.get('photo')
+                 else:
+                     edituser.photo = edituser.photo
 
-         mainuser.save()
-         edituser.save()
-         return redirect('profile')
+             mainuser.save()
+             edituser.save()
+             return redirect('profile')
+         else:
+             mainuser.user = request.user
+             mainuser.username = request.POST['username']
+             mainuser.full_name = request.POST['full_name']
+             edituser.usertype = UserType.objects.get(id=request.POST['usertype'])
+             edituser.publicmail = request.POST['publicmail']
+             edituser.business = request.POST['business']
+             edituser.phone = request.POST['phone']
+             edituser.links = request.POST['links']
+             edituser.description = request.POST['description']
+             if 'image-clear' in request.POST:
+                 edituser.photo = None
+             else:
+                 if request.FILES.get('photo'):
+                     edituser.photo = request.FILES.get('photo')
+                 else:
+                     edituser.photo = edituser.photo
+             edituser.ad_organization = request.POST['ad_organization']
+             edituser.ad_address = request.POST['ad_address']
+             edituser.ad_website = request.POST['ad_website']
+             edituser.ad_email = request.POST['ad_email']
+             edituser.ad_youtube = request.POST['ad_youtube']
+             edituser.ad_facebook = request.POST['ad_facebook']
+             edituser.ad_vk = request.POST['ad_vk']
+
+             mainuser.save()
+             edituser.save()
+             return redirect('profile')
+
 
      if request.method=="POST" and 'marketing' in request.POST:
          if request.user.is_authenticated:
@@ -96,11 +121,7 @@ def dashboard(request):
   all_listings = Listing.objects.filter(user_id=request.user.id).count()
   all_products = Product.objects.filter(user_id=request.user.id).count()
   active_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
-  hidden_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '1').count()
-  archived_listings = Listing.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
   active_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
-  hidden_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '1').count()
-  archived_products = Product.objects.filter(user_id=request.user.id).filter(adstatus_id = '3').count()
   userposts = Post.objects.filter(author=request.user.id).count()
   usermessages = Message.objects.filter(author=request.user.id).count()
   sitecontacts = Contact.objects.filter(user=request.user.id).count()
@@ -109,11 +130,13 @@ def dashboard(request):
   views_product = request.user.objectviewed_set.by_model(Product, model_queryset=True)[:6]
   published_products = Product.objects.filter(user_id=request.user.id).active()[:3]
   pendingtime_product = Product.objects.filter(user_id=request.user.id).active()[:1]
-  # viewed_ids = []
-  # for x in viewed_ids:
-  #     viewed_ids.append(x.object_id)
-  # viewed_ids = [x.object_id for x in objects_viewed]
-  # views = Listing.objects.filter(pk__in=viewed_ids)
+  try:
+      q = Application.objects.all().get(user_id=request.user.id)
+      approvals_field = q.approvals.all()
+      approved_proposals = Proposal.objects.filter(pk__in=approvals_field)
+  except Application.DoesNotExist:
+      approved_proposals = None
+
 
   context = {
      'published_listings': published_listings,
@@ -121,11 +144,7 @@ def dashboard(request):
      'all_listings': all_listings,
      'all_products': all_products,
      'active_listings': active_listings,
-     'hidden_listings': hidden_listings,
-     'archived_listings': archived_listings,
      'active_products' : active_products,
-     'hidden_products' : hidden_products,
-     'archived_products' : archived_products,
      'userposts': userposts,
      'usermessages': usermessages,
      'sitecontacts': sitecontacts,
@@ -133,9 +152,34 @@ def dashboard(request):
      'pendingtime_product' : pendingtime_product,
      'views': views,
      'views_product' : views_product,
+     'approved_proposals': approved_proposals,
     }
 
   return render(request, 'user/index.html', context)
+
+@login_required
+def sponsor_dashboard(request):
+  all_proposals = Proposal.objects.filter(user_id=request.user.id).count()
+  published_proposals = Proposal.objects.order_by('-created').filter(user_id=request.user.id).filter(adstatus_id = '2')[:3]
+  active_proposals = Proposal.objects.filter(user_id=request.user.id).filter(adstatus_id = '2').count()
+  pendingtime_proposal = Proposal.objects.filter(user_id=request.user.id).active()[:1]
+  userposts = Post.objects.filter(author=request.user.id).count()
+  usermessages = Message.objects.filter(author=request.user.id).count()
+  views = request.user.objectviewed_set.by_model(Listing, model_queryset=True)[:6]
+  views_product = request.user.objectviewed_set.by_model(Product, model_queryset=True)[:6]
+
+  context = {
+     'all_proposals': all_proposals,
+     'published_proposals': published_proposals,
+     'active_proposals': active_proposals,
+     'pendingtime_proposal': pendingtime_proposal,
+     'userposts': userposts,
+     'usermessages': usermessages,
+     'views': views,
+     'views_product' : views_product,
+    }
+
+  return render(request, 'user/sponsor-dashboard.html', context)
 
 @login_required
 def posts(request, id=None):
@@ -584,12 +628,16 @@ def product_ads(request):
         listing = Product.objects.get(id=id_selected)
         listing.delete()
 
+    if 'editrecord' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Product.objects.get(id=i)
+        return redirect('edit_product', product_id=listing.id)
+
     if 'bystatus' in request.POST:
         products = products.order_by('adstatus_id')
 
     if 'bydate' in request.POST:
         products = products.order_by('-created')
-
 
     if 'publish' in request.POST and 'instance' in request.POST:
         i = request.POST.get('instance')
@@ -598,11 +646,6 @@ def product_ads(request):
         listing.created = timezone.now()
         listing.save()
         return redirect('dashboard')
-
-    if 'editrecord' in request.POST and 'instance' in request.POST:
-        i = request.POST.get('instance')
-        listing = Product.objects.get(id=i)
-        return redirect('edit_product', product_id=listing.id)
 
     if 'sendtoarchive' in request.POST and 'instance' in request.POST:
         i = request.POST.get('instance')
@@ -727,3 +770,239 @@ def edit_product(request, product_id):
     }
 
     return render(request, 'user/editproduct.html', context)
+
+@login_required
+def applications(request):
+    applications = Application.objects.filter(user_id=request.user.id).first()
+    if applications is not None:
+        try:
+            applications = Application.objects.filter(user_id=request.user.id).first()
+            proposals = Proposal.objects.filter(requests__in=[applications.id]).active().order_by('-updated')
+            opened_proposals = Proposal.objects.exclude(requests__in=[applications.id]).active().order_by('-updated')
+        except Application.DoesNotExist:
+            applications = None
+            proposals = None
+            opened_proposals = Proposal.objects.all().active().order_by('-updated')
+    else:
+        applications = None
+        proposals = None
+        opened_proposals = Proposal.objects.all().active().order_by('-updated')
+
+    paginator = Paginator(opened_proposals, 5)
+    page = request.GET.get('page')
+    paged_opened_proposals = paginator.get_page(page)
+
+
+    context = {
+        'proposals': proposals,
+        'opened_proposals': paged_opened_proposals,
+        'applications': applications,
+    }
+
+    if 'bystatus' in request.POST:
+        paged_opened_proposals = opened_proposals.order_by('adstatus_id')
+
+    if 'bydate' in request.POST:
+        paged_opened_proposals = opened_proposals.order_by('-created')
+
+    if 'change_stat' in request.POST and 'instance' in request.POST:
+        proposal_id = request.POST.get('instance')
+        if proposal_id is not None:
+            try:
+                proposal_obj = Proposal.objects.get(id=proposal_id)
+                user_application = Application.objects.get(user_id=request.user.id)
+            except Application.DoesNotExist:
+                print('You have not created any application yet')
+                return redirect('applications')
+            if user_application in proposal_obj.requests.all():
+                proposal_obj.requests.remove(user_application)
+                added = False
+                try:
+                    user_application.approvals.remove(proposal_obj)
+                except Proposal.DoesNotExist:
+                    pass
+            else:
+                proposal_obj.requests.add(user_application)
+                added = True
+        else:
+            return redirect('applications')
+        return redirect('applications')
+
+
+    return render(request, 'user/my-applications.html', context)
+
+@login_required
+def new_application(request):
+    form = ApplicationForm(request.POST)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.save()
+            return redirect('applications')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/new-application.html', context)
+
+@login_required
+def edit_application(request, application_id):
+    application_instance = get_object_or_404(Application, pk=application_id)
+    form = ApplicationForm(instance=application_instance)
+
+    if request.method == "POST":
+        form = ApplicationForm(request.POST, instance=application_instance)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.save()
+            return redirect('applications')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/edit-application.html', context)
+
+@login_required
+def delete_application(request, application_id):
+    application_instance = Application.objects.filter(pk=application_id)
+    if application_instance.exists():
+        application_instance.delete()
+        return redirect('applications')
+    else:
+        return redirect('applications')
+
+
+
+@login_required
+def support_ads(request):
+    proposals = Proposal.objects.all().filter(user_id=request.user.id).order_by('-updated')
+
+    if 'delete' in request.POST and 'instance' in request.POST:
+        id_selected = request.POST.get('instance')
+        listing = Proposal.objects.get(id=id_selected)
+        listing.delete()
+
+    if 'editrecord' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Proposal.objects.get(id=i)
+        return redirect('edit-support', proposal_id=listing.id)
+
+    if 'bystatus' in request.POST:
+        proposals = proposals.order_by('adstatus_id')
+
+    if 'bydate' in request.POST:
+        proposals = proposals.order_by('-created')
+
+    if 'publish' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Proposal.objects.get(id=i)
+        listing.adstatus_id_id = '2'
+        listing.created = timezone.now()
+        listing.save()
+        return redirect('sponsor-dashboard')
+
+    if 'sendtoarchive' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Proposal.objects.get(id=i)
+        listing.adstatus_id_id = '3'
+        listing.save()
+        return redirect('support-ads')
+
+    if 'restore' in request.POST and 'instance' in request.POST:
+        i = request.POST.get('instance')
+        listing = Proposal.objects.get(id=i)
+        listing.adstatus_id_id = '1'
+        listing.save()
+        return redirect('support-ads')
+
+    if 'export' in request.POST:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Proposals.csv"'
+        response.write(u'\ufeff'.encode('utf8'))
+
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(['Title', 'City', 'Contacts', 'Amount', 'Applicants number', 'Description'])
+
+        for listing in Proposal.objects.all().filter(user_id=request.user.id).values_list('title', 'city', 'user_contact', 'amount', 'applicants_number', 'description'):
+            writer.writerow(listing)
+
+        return response
+
+    if 'export_ru' in request.POST:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="Export.csv"'
+        response.write(u'\ufeff'.encode('utf8'))
+
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(['Заголовок', 'Город', 'Контакты', 'Сумма', 'Число заявок', 'Описание'])
+
+        for listing in Proposal.objects.all().filter(user_id=request.user.id).values_list('title', 'city', 'user_contact', 'amount', 'applicants_number', 'description'):
+            writer.writerow(listing)
+
+        return response
+
+    paginator = Paginator(proposals, 5)
+    page = request.GET.get('page')
+    paged_proposals = paginator.get_page(page)
+
+    context = {
+        'proposals': paged_proposals,
+    }
+
+    return render(request, 'user/support_ads.html', context)
+
+
+@login_required
+def new_support(request):
+    form = ProposalForm(request.POST)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.save()
+            return redirect('support-ads')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/new-proposal.html', context)
+
+
+@login_required
+def edit_support(request, proposal_id):
+    proposal_instance = get_object_or_404(Proposal, pk=proposal_id)
+    form = ProposalForm(instance=proposal_instance)
+
+    if request.method == "POST":
+        form = ProposalForm(request.POST, instance=proposal_instance)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = User.objects.get(id=request.user.id)
+            form.save()
+            return redirect('support-ads')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'user/edit-proposal.html', context)
+
+
+@login_required
+def support_status_change(request, proposal_id, application_id):
+    try:
+        selected_proposal = Proposal.objects.get(pk=proposal_id)
+        selected_application = Application.objects.get(pk=application_id)
+    except Application.DoesNotExist:
+        print('This application has been withdrawn')
+        return redirect('support-ads')
+    if selected_proposal in selected_application.approvals.all():
+        selected_application.approvals.remove(selected_proposal)
+        added = False
+    else:
+        selected_application.approvals.add(selected_proposal)
+        added = True
+    return redirect('support-ads')

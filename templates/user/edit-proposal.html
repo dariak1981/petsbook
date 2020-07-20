@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block title %} | {% trans "New Listing" %} {% endblock %}
+{% block content %}
+
+<!-- Account Navbar -->
+{% include 'partials/_accountnavbar.html' %}
+
+<div class="account-wrap">
+<!-- Posts -->
+<section id="contents">
+  <div class="container">
+    <div class="row pt-4 pb-5">
+      <div class="col-sm-10 col-12 mb-4 mx-auto">
+        <h3 class="text-center text-dark mb-3">Новое предложение</h3>
+        <div class="card bg-custom-primary-light p-4 mb-4 shadow">
+          <form method="POST">
+           {% csrf_token %}
+
+            <div class="row">
+
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+
+                        <div class="row my-lg-4">
+                          <div class="col-12 my-3">
+                            <label for="title">{% trans "Title" %}</label>
+                            {% render_field form.title class+="form-control shadow-sm" %}
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-3 col-sm-6 col-12 my-3">
+                            <label for="amount">Сумма</label>
+                            {% render_field form.amount class+="form-control shadow-sm" %}
+                          </div>
+
+                          <div class="col-md-3 col-sm-6 col-12 my-3">
+                            <label for="user_contact">Контакты
+                            </label>
+                            {% render_field form.user_contact class+="form-control shadow-sm" %}
+                          </div>
+
+                         <div class="col-md-3 col-sm-6 col-12 my-3">
+                           <label for="city">Город</label>
+                           {% render_field form.city class+="form-control shadow-sm" %}
+                         </div>
+
+                         <div class="col-md-3 col-sm-6 col-12 my-3">
+                           <label for="applicants_number">Кол-во заявок</label>
+                           {% render_field form.applicants_number class+="form-control shadow-sm" %}
+                         </div>
+                        </div>
+
+
+                          <div class="col-12 my-3 px-0">
+                              <label for="description">{% trans "Description" %}</label>
+                              {% render_field form.description rows="8" class+="form-control shadow-sm" %}
+                          </div>
+
+                          <small>Контактные данные будут доступны только в случае одобрения заявки. <br>Объявление включает имя или организацию автора, указанные в профиле.</small>
+
+                        <div class="col-md-4 mb-3 mx-auto" style="margin-top:60px;">
+                          <button class="btn btn-primary custom-btn btn-block shadow my-2" name="submit" value="Submit">{% trans "Submit form" %}</button>
+                        </div>
+
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+{% endblock %}

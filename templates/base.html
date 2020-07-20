@@ -93,6 +93,19 @@ $(function() {
     }
     });
   </script>
+  <script>
+      var swiper = new Swiper('.swiper-container-2', {
+        slidesPerView: 9,
+        spaceBetween: 0,
+        loop: true,
+        breakpoints: {
+          320: { slidesPerView: 1 },
+          480: { slidesPerView: 2 },
+          769: { slidesPerView: 2 },
+          1024: { slidesPerView: 9 },
+      }
+      });
+    </script>
 
 
   </body>
